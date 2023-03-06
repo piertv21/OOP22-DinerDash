@@ -12,3 +12,12 @@ bin/
 .project
 .settings/
 .classpath
+
+# Ignore VS Code dir
+.vscode
+
+# Ignore node_modules and related files
+node_modules
+package-lock.json
+package.json
+.fake
