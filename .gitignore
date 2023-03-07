@@ -5,6 +5,9 @@
 build/
 bin/
 
+# Ignore .class generated files
+*.class
+
 # Ignore Idea customizations
 .idea
 
@@ -20,4 +23,3 @@ bin/
 node_modules
 package-lock.json
 package.json
-.fake
