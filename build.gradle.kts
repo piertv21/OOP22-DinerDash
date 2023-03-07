@@ -45,7 +45,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("it.unibo.diner-dash.MainApplication")
+    mainClass.set("it.unibo.dinerdash.MainApplication")
 }
 
 tasks.test {
