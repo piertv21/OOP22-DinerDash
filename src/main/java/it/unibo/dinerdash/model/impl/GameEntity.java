@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.utility.api;
+package it.unibo.dinerdash.model.impl;
 
 import java.net.URL;
 
@@ -9,18 +9,23 @@ import it.unibo.dinerdash.utility.impl.Pair;
 /*
  * Basic class for game entities
  */
-public abstract class GameEntity {
+public abstract class GameEntity implements Runnable {
     
     private ImageIcon icon;
     Pair<Integer, Integer> coordinates;
 
-    public void setPosition(int x, int y) {
-        this.coordinates = new Pair<Integer,Integer>(x, y);
+    public void setPosition(Pair<Integer, Integer> coordinates) {
+        this.coordinates = coordinates;
     }
 
     public void setImage(String path) {
         URL imgURL = ClassLoader.getSystemResource(path);
         this.icon = new ImageIcon(imgURL);
     }
+
+    public GameEntity(Pair<Integer, Integer> coordinates, String path) {
+        this.setImage(path);
+        this.setPosition(coordinates);
+    }    
 
 }

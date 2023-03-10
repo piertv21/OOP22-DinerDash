@@ -1,15 +1,19 @@
 package it.unibo.dinerdash.model.impl;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.awt.Image;
 
 import it.unibo.dinerdash.utility.impl.Pair;
+
 /** 
  * Create a new element "Customer" who will move in the restaurant
  */
-public class Customer implements Runnable {
-    static private final int STARTING_Y = 500;
+public class Customer extends GameEntity {
+
+    private static final int STARTING_Y = 500;
+    
     private int x = 0, y = STARTING_Y, varX = 0, varY = 0;
     private Thread trd;
     private Timer timerAngry = new Timer();
@@ -22,7 +26,13 @@ public class Customer implements Runnable {
     private int numberOfCustom;
     private Image custumersImage; 
     private int lineNumber;                                             //number of the person in line
-    public Customer() {
+
+    /*
+     * Create a new customer with initial coordinates passed by Pair and Image selected by path
+     */
+    public Customer(Pair<Integer, Integer> coordinates, String path) {
+        super(coordinates, path);
+        //TODO Auto-generated constructor stub
     }
 
     @Override
