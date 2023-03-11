@@ -6,16 +6,18 @@ import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/*
- * Basic class for game entities
- */
-public abstract class GameEntity implements Runnable {
-    
+public abstract class GameEntity {
+
     private ImageIcon icon;
-    Pair<Integer, Integer> coordinates;
+    private Pair<Integer, Integer> position;
+
+    public GameEntity(Pair<Integer, Integer> coordinates, ImageIcon icon) {
+        this.position = coordinates;
+        this.icon = icon;
+    }
 
     public void setPosition(Pair<Integer, Integer> coordinates) {
-        this.coordinates = coordinates;
+        this.position = coordinates;
     }
 
     public void setImage(String path) {
@@ -23,9 +25,12 @@ public abstract class GameEntity implements Runnable {
         this.icon = new ImageIcon(imgURL);
     }
 
-    public GameEntity(Pair<Integer, Integer> coordinates, String path) {
-        this.setImage(path);
-        this.setPosition(coordinates);
-    }    
+    public ImageIcon getImage() {
+        return this.icon;
+    }
+
+    public Pair<Integer, Integer> getPosition() {
+        return this.position;
+    }
 
 }
