@@ -1,9 +1,11 @@
 package it.unibo.dinerdash;
 
+import it.unibo.dinerdash.view.impl.GameView;
+
 public class MainApplication {
 
     public static void main(String[] args) {
-        System.out.println("TEST");
+        GameView view = new GameView();
     }
     
 }
