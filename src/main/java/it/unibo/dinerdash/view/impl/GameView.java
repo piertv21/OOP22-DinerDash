@@ -22,14 +22,15 @@ public class GameView {
 
     private static final String FRAME_NAME = "Diner Dash";
     private static final String QUIT = "Quit";
-    private static final String RESET = "Restart";
-    private final int DEFAULT_WIDTH = 1920;
-    private final int DEFAULT_HEIGHT = 1080;
+    private static final String RESTART = "Restart";
+    private static final int DEFAULT_WIDTH = 1920;
+    private static final int DEFAULT_HEIGHT = 1080;
 
     private GameController controller;
     private final JFrame frame = new JFrame(FRAME_NAME);
 
     public GameView() {
+        this.setController(controller);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
@@ -46,5 +47,8 @@ public class GameView {
         frame.setVisible(true);
     }
 
+    public void setController(GameController controller) {
+        this.controller = controller;
+    }
 
 }
