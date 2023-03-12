@@ -15,8 +15,24 @@ public class Table extends GameEntity {
     private int peopleSeatedNumber;
     private boolean isAvailable;
 
+    private int x, y;
+
     public Table(Pair<Integer, Integer> coordinates, ImageIcon icon) {
         super(coordinates, icon);
-        //TODO Auto-generated constructor stub
+        this.x=coordinates.getX();
+        this.y=coordinates.getY();
+    }
+
+    public int getX(){                                       
+        return this.x;
+    }
+    public int getY(){                                       
+        return this.y;
+    }
+    public void setX(int x){                                       
+        this.x=x;
+    }
+    public void setY(int y){                                       
+         this.y=y;
     }
 }
