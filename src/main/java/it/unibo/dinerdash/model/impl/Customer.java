@@ -72,5 +72,16 @@ public class Customer extends GameEntity implements Runnable {
         this.state=state;
     }
 
+    public void startAngryTimer(){                                   //avvia il timer per far arrabbiare i clienti in fila
+        timerAngry.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
+    }
+
+    TimerTask angryAction= new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
+        @Override
+        public void run() { 
+            
+    
+        }
+    };
    
 }
