@@ -10,14 +10,12 @@ import java.awt.*;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class Waitress extends GameEntity implements Runnable {
-    private Image cameriera;
-    private int x=550, y=148;
-    //private Pair<Integer,Integer> destinazione; 
+
+    //private int x=550, y=148;
 
     public Waitress(Pair<Integer, Integer> coordinates, ImageIcon icon) throws IOException {
-        super(coordinates, icon);
-        
-      /*  try {
+        super(new Pair<Integer,Integer>(550, 148), icon);        
+        /*  try {
             cameriera = ImageIO.read(new File("waiter_front.png"));                                  assegno l'immagine alla cameriera
             
         } catch (IOException e) {
@@ -32,11 +30,8 @@ public class Waitress extends GameEntity implements Runnable {
         throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
     
-    public int getX(){
-        return this.x;
-    }
-    public int getY(){
-        return this.y;
+    public Pair<Integer, Integer> getPosition() {
+        return this.getPosition();
     }
     
 }
