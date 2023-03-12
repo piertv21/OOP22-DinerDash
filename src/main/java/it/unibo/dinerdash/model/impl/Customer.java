@@ -25,7 +25,7 @@ public class Customer extends GameEntity implements Runnable {
     private Pair<Integer, Integer> destination; // destinazione da settare per movimento (posizione già presente in gameentity)
     private CustomerState state = CustomerState.WALKING;
     private LinkedList<Customer> customersWaitingInLine;                  //list of customers in line waiting
-    private LinkedList<Pair<Integer,Integer>>customers_LinePosition;      // list of coordinates of the line customers
+    private LinkedList<Pair<Integer,Integer>>waitingLineCoordinates;      // list of coordinates of the line customers
     private int lineNumber;                                             //number of the person in line
     enum CustomerState {
         WAITING,
@@ -44,7 +44,6 @@ public class Customer extends GameEntity implements Runnable {
     private LinkedList<Pair<Integer, Integer>> ordersList;
     private HashMap<Integer, Pair<Integer, Integer>> tablesMap;
     private LinkedList<Table> listaTavoli;                              //lista contentenente i tavoli
-    private LinkedList<Pair<Integer, Integer>> waitingLineCoordinates;
     private int numberOfCustom;
     private Image custumersImage; 
     private int tableNumber = STARTING_TABLE;                         
@@ -79,7 +78,15 @@ public class Customer extends GameEntity implements Runnable {
     TimerTask angryAction= new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
         @Override
         public void run() { 
-            
+            if(state.equals(CustomerState.ANGRY)){
+                customersWaitingInLine.removeFirst();                                   // QUI TOLGO IL cliente arrabbiato
+                customersWaitingInLine.forEach(x->{
+                    x.setPosition(new Pair<Integer,Integer>(waitingLineCoordinates.get(x.getLineNumber()-1).getX(),waitingLineCoordinates.get(x.getLineNumber()-1).getY()));
+                    x.setLineNumber(x.getLineNumber()-1);
+                });
+            angryAction.cancel();
+            }             
+           setState(CustomerState.ANGRY);  
     
         }
     };
