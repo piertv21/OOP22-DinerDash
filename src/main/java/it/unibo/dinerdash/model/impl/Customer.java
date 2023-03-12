@@ -1,5 +1,9 @@
 package it.unibo.dinerdash.model.impl;
 
+import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -15,21 +19,24 @@ public class Customer extends GameEntity implements Runnable {
     
     // private int x = 0, y = STARTING_Y, varX = 0, varY = 0;
     // private Thread trd;
-    //private Timer timerAngry = new Timer();
+    private Timer timerAngry = new Timer();
     private int tableNumber;
     private int numClienti;                     // molteplicità clienti (1 - 4)
     private Pair<Integer, Integer> destination; // destinazione da settare per movimento (posizione già presente in gameentity)
-
+    private CustomerState state = CustomerState.WALKING;
+    private LinkedList<Customer> customersWaitingInLine;                  //list of customers in line waiting
+    private LinkedList<Pair<Integer,Integer>>customers_LinePosition;      // list of coordinates of the line customers
+    private int lineNumber;                                             //number of the person in line
     enum CustomerState {
         WAITING,
         ANGRY,
         WALKING,
         THINKING,
         ORDERING,
-        WAITING_MEAL,
-        EATING,
-        WANTING_TO_PAY,
-        LEAVE
+       // WAITING_MEAL,
+        //EATING,
+        //WANTING_TO_PAY,
+       // LEAVE
     }
     
     /*
@@ -37,11 +44,9 @@ public class Customer extends GameEntity implements Runnable {
     private LinkedList<Pair<Integer, Integer>> ordersList;
     private HashMap<Integer, Pair<Integer, Integer>> tablesMap;
     private LinkedList<Table> listaTavoli;                              //lista contentenente i tavoli
-    private LinkedList<Customer> customersWaitingInLine;                  //list of customers in line waiting
     private LinkedList<Pair<Integer, Integer>> waitingLineCoordinates;
     private int numberOfCustom;
     private Image custumersImage; 
-    private int lineNumber;                                             //number of the person in line
     private int tableNumber = STARTING_TABLE;                         
     */
     
@@ -56,21 +61,16 @@ public class Customer extends GameEntity implements Runnable {
         throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
 
-    /*
-    public int getX() {
-        return this.x;
+    public int getLineNumber() {
+        return this.lineNumber;
+    }
+    public void setLineNumber(int num) {
+         this.lineNumber = num;
     }
 
-    public int getY() {
-        return this.y;
+    public void setState(CustomerState state) {
+        this.state=state;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-    */
+   
 }
