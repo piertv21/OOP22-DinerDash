@@ -3,15 +3,14 @@ package it.unibo.dinerdash.model.impl;
 import javax.swing.ImageIcon;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
-
 
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class Waitress extends GameEntity implements Runnable {
-
-    //private int x=550, y=148;
 
     public Waitress(Pair<Integer, Integer> coordinates, ImageIcon icon) throws IOException {
         super(new Pair<Integer,Integer>(550, 148), icon);        
@@ -21,7 +20,6 @@ public class Waitress extends GameEntity implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
-       
     }
 
     @Override
@@ -30,7 +28,7 @@ public class Waitress extends GameEntity implements Runnable {
         throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
     
-    public Pair<Integer, Integer> getPosition() {
+    public Optional<Pair<Integer, Integer>> getPosition() {
         return this.getPosition();
     }
     

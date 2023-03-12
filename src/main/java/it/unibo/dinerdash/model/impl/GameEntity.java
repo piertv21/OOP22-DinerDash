@@ -1,5 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
+import java.util.Optional;
+
 import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -7,11 +9,11 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public abstract class GameEntity {
 
     private ImageIcon icon;
-    private Pair<Integer, Integer> position;
-    private Pair<Integer, Integer> destination;
+    private Optional<Pair<Integer, Integer>> position;
+    private Optional<Pair<Integer, Integer>> destination;
 
     public GameEntity(Pair<Integer, Integer> coordinates, ImageIcon icon) {
-        this.position = coordinates;
+        this.position = Optional.ofNullable(coordinates);
         this.icon = icon;
     }
 
@@ -23,20 +25,20 @@ public abstract class GameEntity {
         this.icon = icon;
     }
 
-    public Pair<Integer, Integer> getPosition() {
+    public Optional<Pair<Integer, Integer>> getPosition() {
         return this.position;
     }
 
     public void setPosition(Pair<Integer, Integer> position) {
-        this.position = position;
+        this.position = Optional.ofNullable(position);
     }
 
-    public Pair<Integer, Integer> getDestination() {
+    public Optional<Pair<Integer, Integer>> getDestination() {
         return this.destination;
     }
 
     public void setDestination(Pair<Integer, Integer> destination) {
-        this.destination = destination;
+        this.destination = Optional.ofNullable(destination);
     }   
 
 }
