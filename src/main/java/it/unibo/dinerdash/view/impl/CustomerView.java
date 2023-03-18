@@ -4,13 +4,14 @@ import java.awt.*;
 
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class CustomerView {
+public class CustomerView extends GameEntityViewable{
 
     private Pair<Integer, Integer> coordinates;
     private Image img;
     public CustomerView(Pair<Integer, Integer> coordinates,Image icon) {
-        this.coordinates=coordinates;
-        this.img=icon;
+        super(coordinates,icon);
+        //this.coordinates=coordinates;
+        //this.img=icon;
     }
     public Image getImage() {
         return this.img;

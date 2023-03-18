@@ -1,6 +1,8 @@
 package it.unibo.dinerdash.view.impl;
 
-import javax.swing.ImageIcon;
+import java.awt.Image;
+
+
 
 import it.unibo.dinerdash.model.impl.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -10,18 +12,18 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public abstract class GameEntityViewable extends GameEntity {
 
-    private ImageIcon icon;
+    private Image icon;
 
-    public GameEntityViewable(Pair<Integer, Integer> coordinates, ImageIcon icon) {
+    public GameEntityViewable(Pair<Integer, Integer> coordinates, Image icon2) {
         super(coordinates);
-        this.setIcon(icon);
+        this.setIcon(icon2);
     }
 
-    public ImageIcon getIcon() {
+    public Image getIcon() {
         return this.icon;
     }
 
-    public void setIcon(ImageIcon icon) {
+    public void setIcon(Image icon) {
         this.icon = icon;
     }
 
