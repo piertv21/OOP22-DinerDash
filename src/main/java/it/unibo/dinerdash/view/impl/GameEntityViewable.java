@@ -23,8 +23,6 @@ public abstract class GameEntityViewable extends GameEntity {
 
     public void setIcon(ImageIcon icon) {
         this.icon = icon;
-    }
-
-    
+    }   
 
 }
