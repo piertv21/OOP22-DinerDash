@@ -39,6 +39,8 @@ public class Customer extends GameEntity {
         //TODO Auto-generated constructor stub
     }
 
+    
+
     public int getLineNumber() {
         return this.lineNumber;
     }
