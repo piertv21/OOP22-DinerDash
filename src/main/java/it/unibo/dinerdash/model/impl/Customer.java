@@ -4,14 +4,12 @@ import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
-
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /** 
  * Create a new element "Customer" who will move in the restaurant
  */
-public class Customer extends GameEntity implements Runnable {
+public class Customer extends GameEntity {
 
     private static final int STARTING_X = 500; // da modificare
     private static final int STARTING_Y = 500; // da modificare
@@ -25,6 +23,7 @@ public class Customer extends GameEntity implements Runnable {
     private LinkedList<Customer> customersWaitingInLine;                  //list of customers in line waiting
     private LinkedList<Pair<Integer,Integer>>waitingLineCoordinates;      // list of coordinates of the line customers
     private int lineNumber;                                             //number of the person in line
+    
     enum CustomerState {
         WAITING,
         ANGRY,
@@ -47,14 +46,12 @@ public class Customer extends GameEntity implements Runnable {
     private int tableNumber = STARTING_TABLE;                         
     */
     
-    public Customer(Pair<Integer, Integer> coordinates, ImageIcon icon) {
-        super(coordinates, icon);
+    public Customer(Pair<Integer, Integer> coordinates) {
+        super(coordinates);
+        //TODO Auto-generated constructor stub
     }
 
-    @Override
-    public void run() {
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
-    }
+    
 
     public int getLineNumber() {
         return this.lineNumber;

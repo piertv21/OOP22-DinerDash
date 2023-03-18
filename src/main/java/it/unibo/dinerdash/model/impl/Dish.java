@@ -1,7 +1,5 @@
 package it.unibo.dinerdash.model.impl;
 
-import javax.swing.ImageIcon;
-
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -12,8 +10,8 @@ public class Dish extends GameEntity {
     private int dishNumber; // = numeroTavolo
     private boolean ready;
 
-    public Dish(Pair<Integer, Integer> coordinates, ImageIcon icon) {
-        super(coordinates, icon);
+    public Dish(Pair<Integer, Integer> coordinates) {
+        super(coordinates);
         //TODO Auto-generated constructor stub
     }
 
