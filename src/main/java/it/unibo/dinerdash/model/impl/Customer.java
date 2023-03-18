@@ -17,8 +17,6 @@ public class Customer extends GameEntity implements Runnable {
     private static final int STARTING_Y = 500; // da modificare
     private static final int TIME_BEFORE_GETANGRY = 8000;
     
-    // private int x = 0, y = STARTING_Y, varX = 0, varY = 0;
-    // private Thread trd;
     private Timer timerAngry = new Timer();
     private int tableNumber;
     private int numClienti;                     // molteplicità clienti (1 - 4)
@@ -51,12 +49,10 @@ public class Customer extends GameEntity implements Runnable {
     
     public Customer(Pair<Integer, Integer> coordinates, ImageIcon icon) {
         super(coordinates, icon);
-        //TODO Auto-generated constructor stub
     }
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'run'");
     }
 
