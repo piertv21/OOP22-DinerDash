@@ -2,8 +2,6 @@ package it.unibo.dinerdash.model.impl;
 
 import java.util.Optional;
 
-import javax.swing.ImageIcon;
-
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -15,8 +13,8 @@ public class Table extends GameEntity {
     private int peopleSeatedNumber;
     private boolean isAvailable;
 
-    public Table(Pair<Integer, Integer> coordinates, ImageIcon icon) {
-        super(new Pair<Integer,Integer>(550, 148), icon);
+    public Table(Pair<Integer, Integer> coordinates) {
+        super(new Pair<Integer,Integer>(550, 148));
         // TODO Auto-generated method stub
     }
 
