@@ -17,6 +17,21 @@ public class GameController {
     }
 
     public void start() {
-        // TO-DO
+        //TO-DO
+    }
+
+    private void init() {
+        //TO-DO
+        // inizializza le strutture
+    }
+
+    public void restart() {
+        //TO-DO
+        // clear delle strutture + init()
+    }
+
+    public void quit() {
+        //TO-DO
+        // pulizia e chiusura
     }
 }

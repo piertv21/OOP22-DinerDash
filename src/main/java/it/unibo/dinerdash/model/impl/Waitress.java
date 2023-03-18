@@ -4,6 +4,8 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 public class Waitress extends GameEntity {
 
+    private float speed;
+
     public Waitress(Pair<Integer, Integer> coordinates) {
         super(new Pair<Integer,Integer>(550, 148));        
         /*  try {
@@ -12,6 +14,10 @@ public class Waitress extends GameEntity {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+    }
+
+    public void handleMovement() {
+        //TO-DO
     }
     
 }

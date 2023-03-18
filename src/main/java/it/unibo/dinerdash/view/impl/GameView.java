@@ -37,7 +37,12 @@ public class GameView {
         JPanel panel = new JPanel(new GridLayout(DEFAULT_WIDTH/2, DEFAULT_HEIGHT/2));
         frame.getContentPane().add(panel);
 
+        JButton restartButton = new JButton(RESTART);
+        restartButton.addActionListener(e -> this.controller.restart());
+        panel.add(restartButton);
+
         JButton quitButton = new JButton(QUIT);
+        restartButton.addActionListener(e -> this.controller.quit());
         panel.add(quitButton);
 
         // TO-DO
@@ -49,6 +54,10 @@ public class GameView {
 
     public void setController(GameController controller) {
         this.controller = controller;
+    }
+
+    public void draw() {
+        //TO-DO
     }
 
 }

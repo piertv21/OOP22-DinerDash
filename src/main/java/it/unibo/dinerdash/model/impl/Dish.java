@@ -10,13 +10,26 @@ public class Dish extends GameEntity {
     private int dishNumber; // = numeroTavolo
     private boolean ready;
 
-    public Dish(Pair<Integer, Integer> coordinates) {
+    public Dish(Pair<Integer, Integer> coordinates, int dishNumber) {
         super(coordinates);
-        //TODO Auto-generated constructor stub
+        this.setDishNumber(dishNumber);
+        this.setReady(false);
+    }
+
+    public int getDishNumber() {
+        return this.dishNumber;
+    }
+
+    public void setDishNumber(int dishNumber) {
+        this.dishNumber = dishNumber;
     }
 
     public boolean isReady() {
         return this.ready;
     }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }   
     
 }

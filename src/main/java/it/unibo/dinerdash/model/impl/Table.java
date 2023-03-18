@@ -10,19 +10,44 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public class Table extends GameEntity {
 
     private int tableNumber;
-    private int peopleSeatedNumber;
-    private boolean isAvailable;
+    private int peopleSeatedNumber; // Represents correct image number
+    private boolean available;
+
+    private enum TableState {
+        THINKING,
+        ORDERING,
+        WAITING_MEAL,
+        EATING,
+        WANTING_TO_PAY
+    }
 
     public Table(Pair<Integer, Integer> coordinates) {
         super(new Pair<Integer,Integer>(550, 148));
         // TODO Auto-generated method stub
     }
 
-    public Optional<Pair<Integer, Integer>> getPosition() {
-        return this.getPosition();
+    public int getTableNumber() {
+        return this.tableNumber;
     }
 
-    public void setPosition(Pair<Integer, Integer> position) {
-        this.setPosition(position);
+    public void setTableNumber(int tableNumber) {
+        this.tableNumber = tableNumber;
     }
+
+    public int getPeopleSeatedNumber() {
+        return this.peopleSeatedNumber;
+    }
+
+    public void setPeopleSeatedNumber(int peopleSeatedNumber) {
+        this.peopleSeatedNumber = peopleSeatedNumber;
+    }
+
+    public boolean isAvailable() {
+        return this.available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }    
+    
 }
