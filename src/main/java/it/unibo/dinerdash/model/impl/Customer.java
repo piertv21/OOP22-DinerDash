@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,40 +12,27 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public class Customer extends GameEntity {
 
-    private static final int STARTING_X = 500; // da modificare
-    private static final int STARTING_Y = 500; // da modificare
+    private static final int MIN_EAT_TIME = 4000;
+    private static final int MAX_EAT_TIME = 10000;
+    private static final int STARTING_X = 500;
+    private static final int STARTING_Y = 500;
     private static final int TIME_BEFORE_GETANGRY = 8000;
-    
-    private Timer timerAngry = new Timer();
+
     private int tableNumber;
     private int numClienti;                     // molteplicità clienti (1 - 4)
-    private Pair<Integer, Integer> destination; // destinazione da settare per movimento (posizione già presente in gameentity)
-    private CustomerState state = CustomerState.WALKING;
+    private Timer timerAngry = new Timer();
+    private CustomerState state;
     private LinkedList<Customer> customersWaitingInLine;                  //list of customers in line waiting
-    private LinkedList<Pair<Integer,Integer>>waitingLineCoordinates;      // list of coordinates of the line customers
+    private LinkedList<Pair<Integer,Integer>> waitingLineCoordinates;      // list of coordinates of the line customers
     private int lineNumber;                                             //number of the person in line
     
-    enum CustomerState {
+    private enum CustomerState {
         WAITING,
         ANGRY,
         WALKING,
         THINKING,
-        ORDERING,
-       // WAITING_MEAL,
-        //EATING,
-        //WANTING_TO_PAY,
-       // LEAVE
+        ORDERING
     }
-    
-    /*
-    private static final int STARTING_TABLE = 0;
-    private LinkedList<Pair<Integer, Integer>> ordersList;
-    private HashMap<Integer, Pair<Integer, Integer>> tablesMap;
-    private LinkedList<Table> listaTavoli;                              //lista contentenente i tavoli
-    private int numberOfCustom;
-    private Image custumersImage; 
-    private int tableNumber = STARTING_TABLE;                         
-    */
     
     public Customer(Pair<Integer, Integer> coordinates) {
         super(coordinates);
@@ -61,14 +49,14 @@ public class Customer extends GameEntity {
     }
 
     public void setState(CustomerState state) {
-        this.state=state;
+        this.state = state;
     }
 
     public void startAngryTimer(){                                   //avvia il timer per far arrabbiare i clienti in fila
         timerAngry.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
     }
 
-    TimerTask angryAction= new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
+    TimerTask angryAction = new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
         @Override
         public void run() { 
             if(state.equals(CustomerState.ANGRY)){
@@ -83,5 +71,8 @@ public class Customer extends GameEntity {
     
         }
     };
-   
+
+    public void handleMovement() {
+        //TO-DO
+    }
 }

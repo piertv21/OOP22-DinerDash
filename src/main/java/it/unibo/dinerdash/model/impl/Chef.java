@@ -2,13 +2,16 @@ package it.unibo.dinerdash.model.impl;
 
 import it.unibo.dinerdash.utility.impl.Pair;
 
+/*
+ * Chef
+ */
 public class Chef extends GameEntity {
 
     private float speed;
 
     public Chef(Pair<Integer, Integer> coordinates) {
         super(coordinates);
-        //TODO Auto-generated constructor stub
+        this.setActive(false);
     }
 
     public float getSpeed() {
