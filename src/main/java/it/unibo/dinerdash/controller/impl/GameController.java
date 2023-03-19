@@ -22,16 +22,27 @@ public class GameController {
 
     private void init() {
         //TO-DO
-        // inizializza le strutture
     }
 
     public void restart() {
         //TO-DO
-        // clear delle strutture + init()
+        // clear delle strutture
+        
+        this.init();
     }
 
     public void quit() {
-        //TO-DO
-        // pulizia e chiusura
+        // Close window
+        this.view.closeWindow();
+     
+        // Remove entity images
+        // image1.flush();
+     
+        // Exit the app
+        System.exit(0);
+    }
+
+    public int getMaxPlayingTime() {
+        return this.model.getMaxPlaytimeInSeconds();
     }
 }

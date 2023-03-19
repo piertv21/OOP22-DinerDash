@@ -13,6 +13,7 @@ public class GameModel {
     private static final double CHEF_SPEED_MULTIPLIER = 1.2;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
     private static final double PROFIT_MULTIPLIER = 2.0;
+    private static final int MAX_PLAYTIME_IN_SECONDS = 60*5;
     
     private int coins;
     private int remainingTime;
@@ -53,5 +54,9 @@ public class GameModel {
         //TO-DO
         // pulizia e chiusura
     }
+
+    public int getMaxPlaytimeInSeconds() {
+        return MAX_PLAYTIME_IN_SECONDS;
+    }    
 
 }
