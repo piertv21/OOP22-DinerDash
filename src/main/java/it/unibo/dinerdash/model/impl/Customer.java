@@ -12,9 +12,10 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public class Customer extends GameEntity {
 
+    private static final int MOVEMENT_DISTANCE = 5;
     private static final int MIN_EAT_TIME = 4000;
     private static final int MAX_EAT_TIME = 10000;
-    private static final int STARTING_X = 500;
+    private static final int STARTING_X = 0;
     private static final int STARTING_Y = 500;
     private static final int TIME_BEFORE_GETANGRY = 8000;
 
@@ -36,7 +37,6 @@ public class Customer extends GameEntity {
     
     public Customer(Pair<Integer, Integer> coordinates) {
         super(coordinates);
-        //TODO Auto-generated constructor stub
     }
 
     
@@ -74,5 +74,24 @@ public class Customer extends GameEntity {
 
     public void handleMovement() {
         //TO-DO
+    }
+    public void up() {
+        
+        this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX(), this.getPosition().getY()-MOVEMENT_DISTANCE)); 
+    }
+    
+    
+    public void down() {
+        this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX(), this.getPosition().getY()+MOVEMENT_DISTANCE)); 
+    }
+    
+    
+    public void right() {
+        this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX()+MOVEMENT_DISTANCE, this.getPosition().getY()));
+    }
+    
+    
+    public void left() {
+        this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX()-MOVEMENT_DISTANCE, this.getPosition().getY()));
     }
 }
