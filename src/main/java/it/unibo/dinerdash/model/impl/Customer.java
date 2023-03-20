@@ -75,8 +75,12 @@ public class Customer extends GameEntity {
         }
     };
 
-    public void handleMovement() {
-        //TO-DO
+    public void handleMovement() {                 //manage the movement of customers
+        if(state.equals(CustomerState.WALKING)) {
+            if(getPosition().getX() < this.getDestination().get().getX())this.right(); 
+            else if(getPosition().getY() > this.getDestination().get().getY()){this.up();}
+            else if(getPosition().getY() < this.getDestination().get().getY()){this.down();}
+        }
     }
     public void up() {
         
