@@ -8,7 +8,5 @@ public class CustomerViewable extends GameEntityViewable {
 
     public CustomerViewable(Pair<Integer, Integer> coordinates, Image icon) {
         super(coordinates, icon);
-        //TODO Auto-generated constructor stub
     }
-    
 }

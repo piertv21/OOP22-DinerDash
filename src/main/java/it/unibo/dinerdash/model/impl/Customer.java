@@ -35,8 +35,11 @@ public class Customer extends GameEntity {
         ORDERING
     }
     
-    public Customer(Pair<Integer, Integer> coordinates) {
+    public Customer(Pair<Integer, Integer> coordinates,int tableNum,LinkedList<Customer> customersInLine,LinkedList<Pair<Integer,Integer>> waitingLineCoordinate) {
         super(coordinates);
+        this.tableNumber = tableNum;
+        this.customersWaitingInLine = customersInLine;
+        this.waitingLineCoordinates = waitingLineCoordinate;
     }
 
     
