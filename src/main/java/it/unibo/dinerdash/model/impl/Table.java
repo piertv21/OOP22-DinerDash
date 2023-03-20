@@ -12,6 +12,7 @@ public class Table extends GameEntity {
     private int tableNumber;
     private int peopleSeatedNumber; // Represents correct image number
     private boolean available;
+    private TableState state;
 
     private enum TableState {
         THINKING,
@@ -22,7 +23,7 @@ public class Table extends GameEntity {
     }
 
     public Table(Pair<Integer, Integer> coordinates) {
-        super(new Pair<Integer,Integer>(550, 148));
+        super(coordinates);
         // TODO Auto-generated method stub
     }
 
@@ -48,6 +49,12 @@ public class Table extends GameEntity {
 
     public void setAvailable(boolean available) {
         this.available = available;
-    }    
+    }  
+
+    public void setState(TableState TableState){                                     
+        this.state=TableState;
+    }
+    
+    
     
 }

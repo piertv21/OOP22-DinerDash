@@ -14,5 +14,9 @@ public class TableViewable extends GameEntityViewable {
         super(coordinates, icon);
         //TODO Auto-generated constructor stub
     }
+
+    public JButton getButton(){                                       
+        return this.tableState;
+    } 
     
 }
