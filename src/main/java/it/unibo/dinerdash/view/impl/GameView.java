@@ -104,7 +104,7 @@ public class GameView {
     }
 
     public void draw() {
-        //TO-DO
+        
     }
 
     public void closeWindow() {

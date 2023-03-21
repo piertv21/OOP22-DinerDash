@@ -80,6 +80,13 @@ public class Customer extends GameEntity {
             if(getPosition().getX() < this.getDestination().get().getX())this.right(); 
             else if(getPosition().getY() > this.getDestination().get().getY()){this.up();}
             else if(getPosition().getY() < this.getDestination().get().getY()){this.down();}
+            if((getPosition().getX()>=this.getDestination().get().getX())&&((getPosition().getY()<=this.getDestination().get().getY()+4)&&(getPosition().getY()>=this.getDestination().get().getY()-4)))     //creo una hitbox del tavolo
+            {                                                                                                   //il cliente raggiunge la sedia e si siede
+                                                                                     //elimino l'immagine del cliente
+                   //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.OCCUPIED);                                               //occupo il tavolo
+                   //this.listaTavoli.get(tableNumber-1).setSitted_customers(numCustom);                             //inserisco il numero di clienti al tavolo
+                    state = CustomerState.THINKING;
+            }     
         }
     }
     public void up() {
