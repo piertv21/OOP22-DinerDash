@@ -18,6 +18,7 @@ public class Customer extends GameEntity {
     private static final int STARTING_X = 0;
     private static final int STARTING_Y = 500;
     private static final int TIME_BEFORE_GETANGRY = 8000;
+    private static final int TIME_BEFORE_ORDERING = 4000;
 
     private int tableNumber;
     private int numClienti;                     // molteplicità clienti (1 - 4)
@@ -58,6 +59,9 @@ public class Customer extends GameEntity {
     public void startAngryTimer(){                                   //avvia il timer per far arrabbiare i clienti in fila
         timerAngry.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
     }
+    public void startThinkingTimer(){                                   //avvia il timer per far pensare un clinete seduto
+        timerAngry.schedule(ThinkingAction, TIME_BEFORE_ORDERING, TIME_BEFORE_ORDERING);
+    }
 
     TimerTask angryAction = new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
         @Override
@@ -74,6 +78,13 @@ public class Customer extends GameEntity {
     
         }
     };
+    TimerTask ThinkingAction = new TimerTask() {                        //azione programmata per gestire il cliente che pensa
+        @Override
+        public void run() { 
+            state = CustomerState.ORDERING;
+            ThinkingAction.cancel();
+        }
+    };
 
     public void handleMovement() {                 //manage the movement of customers
         if(state.equals(CustomerState.WALKING)) {
@@ -86,8 +97,14 @@ public class Customer extends GameEntity {
                    //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.OCCUPIED);                                               //occupo il tavolo
                    //this.listaTavoli.get(tableNumber-1).setSitted_customers(numCustom);                             //inserisco il numero di clienti al tavolo
                     state = CustomerState.THINKING;
+                    
             }     
         }
+        else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
+    {
+            this.startThinkingTimer();
+            //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.IS_ORDERING);
+    }
     }
     public void up() {
         
