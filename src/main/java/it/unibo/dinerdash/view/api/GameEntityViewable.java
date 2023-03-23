@@ -1,8 +1,6 @@
-package it.unibo.dinerdash.view.impl;
+package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
-
-
 
 import it.unibo.dinerdash.model.impl.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;

@@ -3,6 +3,7 @@ package it.unibo.dinerdash.view.impl;
 import java.awt.Image;
 
 import it.unibo.dinerdash.utility.impl.Pair;
+import it.unibo.dinerdash.view.api.GameEntityViewable;
 
 public class CustomerViewable extends GameEntityViewable {
 

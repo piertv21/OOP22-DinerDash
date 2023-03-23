@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-public class GameView {
+public class GameView extends JFrame { //TODO Aggiungi interfaccia
 
     private static final String FRAME_NAME = "Diner Dash";
     private static final String QUIT = "Quit";
