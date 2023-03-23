@@ -9,13 +9,13 @@ import javax.swing.*;
  * Starting Game Menu with 2 buttons
  * TODO: Aggiungi eventuale immagine di sfondo
  */
-public class StartView extends GenericPanel {
+public class MainMenuView extends GenericPanel {
 
     private JLabel titleLabel;
     private JButton startButton;
     private JButton exitButton;
 
-    public StartView(GameView mainFrame) {        
+    public MainMenuView(GameView mainFrame) {        
         super(mainFrame);
         setLayout(new GridBagLayout());
 
@@ -30,11 +30,13 @@ public class StartView extends GenericPanel {
 
         c.gridy = 1;
         startButton = new JButton("Start game");
+        startButton.addActionListener((e) -> mainFrame.startGame());
         startButton.setPreferredSize(new Dimension(300, 40));
         add(startButton, c);
 
         c.gridy = 2;        
-        exitButton = new JButton("Exit");
+        exitButton = new JButton("Exit");        
+        exitButton.addActionListener((e) -> mainFrame.exit());
         exitButton.setPreferredSize(new Dimension(300, 40));
         add(exitButton, c);
     }
