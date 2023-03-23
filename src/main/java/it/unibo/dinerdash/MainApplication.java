@@ -7,12 +7,9 @@ public class MainApplication {
 
     public static void main(String[] args) {
         Controller controller = new Controller();
-        View view = new View();
-
-        view.setController(controller);
+        View view = new View(controller);
+        
         controller.setView(view);
-
-        controller.start();
     }
     
 }

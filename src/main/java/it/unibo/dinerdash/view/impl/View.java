@@ -3,6 +3,7 @@ package it.unibo.dinerdash.view.impl;
 import javax.swing.JFrame;
 import it.unibo.dinerdash.controller.impl.Controller;
 import it.unibo.dinerdash.view.api.GenericPanel;
+import it.unibo.dinerdash.view.api.GUI;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.StartView;
 
@@ -10,9 +11,8 @@ import java.awt.*;
 
 /*
  * Main View.
- * TODO Crea interfaccia
  */
-public class View extends JFrame {
+public class View extends JFrame implements GUI {
 
     private static final String FRAME_NAME = "Diner Dash";
 
@@ -20,19 +20,20 @@ public class View extends JFrame {
     private GenericPanel menuView;
     private GenericPanel gameView;
 
-    public View() {
+    public View(Controller controller) {
         super(FRAME_NAME);
+        this.controller = controller;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
         setLocationByPlatform(true);
         setResizable(true);
         setVisible(true);
 
-        // TEMP -----
+        // TO DO usare this.pack(); -----
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int width = (int) screen.getWidth();
         final int height = (int) screen.getHeight();
         this.setSize(width / 2, height / 2);
-        // --- usare this.pack();
+        // ---
 
         showMainMenu();
     }
@@ -55,16 +56,13 @@ public class View extends JFrame {
         this.repaint();
     }
 
-    public void setController(Controller controller) {
-        this.controller = controller;
-    }
-
     public void closeWindow() {
         dispose();
     }
-    
-    public void exit() {
-        this.controller.quit();
+
+    @Override
+    public Controller getController() {
+        return this.controller;
     }
 
 }

@@ -10,13 +10,14 @@ import javax.swing.*;
  * TODO: Aggiungi eventuale immagine di sfondo
  */
 public class StartView extends GenericPanel {
-
+    
     private JLabel titleLabel;
     private JButton startButton;
     private JButton exitButton;
 
     public StartView(View mainFrame) {        
         super(mainFrame);
+        setController(mainFrame.getController());
         setLayout(new GridBagLayout());
 
         GridBagConstraints c = new GridBagConstraints();
@@ -30,13 +31,13 @@ public class StartView extends GenericPanel {
 
         c.gridy = 1;
         startButton = new JButton("Start game");
-        startButton.addActionListener((e) -> mainFrame.startGame());
+        startButton.addActionListener((e) -> this.getMainFrame().startGame());
         startButton.setPreferredSize(new Dimension(300, 40));
         add(startButton, c);
 
         c.gridy = 2;        
         exitButton = new JButton("Exit");        
-        exitButton.addActionListener((e) -> mainFrame.exit());
+        exitButton.addActionListener((e) -> this.getController().quit());
         exitButton.setPreferredSize(new Dimension(300, 40));
         add(exitButton, c);
     }
