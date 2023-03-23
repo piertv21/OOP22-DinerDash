@@ -52,9 +52,7 @@ public class Table extends GameEntity {
     }  
 
     public void setState(TableState TableState){                                     
-        this.state=TableState;
+        this.state = TableState;
     }
-    
-    
     
 }

@@ -1,6 +1,6 @@
 package it.unibo.dinerdash.view.api;
 
-import it.unibo.dinerdash.view.impl.GameView;
+import it.unibo.dinerdash.view.impl.View;
 
 import java.awt.*;
 import javax.swing.*;
@@ -9,13 +9,13 @@ import javax.swing.*;
  * Starting Game Menu with 2 buttons
  * TODO: Aggiungi eventuale immagine di sfondo
  */
-public class MainMenuView extends GenericPanel {
+public class StartView extends GenericPanel {
 
     private JLabel titleLabel;
     private JButton startButton;
     private JButton exitButton;
 
-    public MainMenuView(GameView mainFrame) {        
+    public StartView(View mainFrame) {        
         super(mainFrame);
         setLayout(new GridBagLayout());
 

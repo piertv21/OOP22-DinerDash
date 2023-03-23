@@ -1,10 +1,10 @@
 package it.unibo.dinerdash.view.impl;
 
 import javax.swing.JFrame;
-import it.unibo.dinerdash.controller.impl.GameController;
+import it.unibo.dinerdash.controller.impl.Controller;
 import it.unibo.dinerdash.view.api.GenericPanel;
-import it.unibo.dinerdash.view.api.MainGameView;
-import it.unibo.dinerdash.view.api.MainMenuView;
+import it.unibo.dinerdash.view.api.GameView;
+import it.unibo.dinerdash.view.api.StartView;
 
 import java.awt.*;
 
@@ -12,15 +12,15 @@ import java.awt.*;
  * Main View.
  * TODO Crea interfaccia
  */
-public class GameView extends JFrame {
+public class View extends JFrame {
 
     private static final String FRAME_NAME = "Diner Dash";
 
-    private GameController controller;
+    private Controller controller;
     private GenericPanel menuView;
     private GenericPanel gameView;
 
-    public GameView() {
+    public View() {
         super(FRAME_NAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
         setLocationByPlatform(true);
@@ -38,7 +38,7 @@ public class GameView extends JFrame {
     }
 
     public void showMainMenu() {
-        this.menuView = new MainMenuView(this);
+        this.menuView = new StartView(this);
         this.gameView = null;
         
         this.setContentPane(menuView);
@@ -48,14 +48,14 @@ public class GameView extends JFrame {
 
     public void startGame() {
         this.menuView = null;
-        this.gameView = new MainGameView(this);
+        this.gameView = new GameView(this);
         
         this.setContentPane(gameView);
         this.validate();
         this.repaint();
     }
 
-    public void setController(GameController controller) {
+    public void setController(Controller controller) {
         this.controller = controller;
     }
 

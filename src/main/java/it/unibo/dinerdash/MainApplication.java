@@ -1,13 +1,13 @@
 package it.unibo.dinerdash;
 
-import it.unibo.dinerdash.controller.impl.GameController;
-import it.unibo.dinerdash.view.impl.GameView;
+import it.unibo.dinerdash.controller.impl.Controller;
+import it.unibo.dinerdash.view.impl.View;
 
 public class MainApplication {
 
     public static void main(String[] args) {
-        GameController controller = new GameController();
-        GameView view = new GameView();
+        Controller controller = new Controller();
+        View view = new View();
 
         view.setController(controller);
         controller.setView(view);

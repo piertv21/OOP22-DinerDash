@@ -1,18 +1,18 @@
 package it.unibo.dinerdash.controller.impl;
 
-import it.unibo.dinerdash.model.impl.GameModel;
-import it.unibo.dinerdash.view.impl.GameView;
+import it.unibo.dinerdash.model.impl.Model;
+import it.unibo.dinerdash.view.impl.View;
 
-public class GameController {
+public class Controller {
 
-    private GameModel model;
-    private GameView view;
+    private Model model;
+    private View view;
     
-    public GameController() {
-        this.model = new GameModel();
+    public Controller() {
+        this.model = new Model();
     }
 
-    public void setView(GameView view) {
+    public void setView(View view) {
         this.view = view;
     }
 

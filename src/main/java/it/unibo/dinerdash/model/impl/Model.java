@@ -7,7 +7,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 /*
  * Solo metodi getter e setter sulle entità model
  */
-public class GameModel {
+public class Model {
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final double CHEF_SPEED_MULTIPLIER = 1.2;
@@ -22,7 +22,7 @@ public class GameModel {
     private LinkedList<Table> tables;      // tavoli (vengono rappresentati correttamente in base alla posizione + icona che hanno)
     private LinkedList<Dish> dishes;      // lista piatti pronti dello chef
 
-    public GameModel() {
+    public Model() {
     }
     
     public void serveDish() {

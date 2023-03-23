@@ -2,20 +2,20 @@ package it.unibo.dinerdash.view.api;
 
 import javax.swing.JPanel;
 
-import it.unibo.dinerdash.view.impl.GameView;
+import it.unibo.dinerdash.view.impl.View;
 
 /*
  * Generic View panel
  */
 public class GenericPanel extends JPanel {
 
-    private final GameView mainFrame;
+    private final View mainFrame;
 
-    public GenericPanel(GameView mainFrame) {
+    public GenericPanel(View mainFrame) {
         this.mainFrame = mainFrame;
     }
 
-    protected GameView getUserInterface() {        
+    protected View getUserInterface() {        
         return this.mainFrame;
     }
 

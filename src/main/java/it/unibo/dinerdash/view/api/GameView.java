@@ -8,12 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.dinerdash.view.impl.GameView;
+import it.unibo.dinerdash.view.impl.View;
 
 /*
  * Main Game View Panel
  */
-public class MainGameView extends GenericPanel {
+public class GameView extends GenericPanel {
     
     private static final String QUIT = "Quit";
     private static final String RESTART = "Restart";
@@ -30,7 +30,7 @@ public class MainGameView extends GenericPanel {
     private ImageIcon backgroundImage;    
     private HashMap<Integer,Image> customerImagesMap;
 
-    public MainGameView(GameView mainFrame) {
+    public GameView(View mainFrame) {
         super(mainFrame);
         /*
 
