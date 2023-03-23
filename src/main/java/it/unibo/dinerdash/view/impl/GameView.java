@@ -32,7 +32,7 @@ public class GameView {
     private JButton powerupButton2;
     private JButton powerupButton3;
     private JButton powerupButton4;
-    private HashMap<Integer,Image> customerImages;
+    private HashMap<Integer,Image> customerImagesMap;
 
     private ImageIcon backgroundImage;
 
@@ -105,10 +105,10 @@ public class GameView {
 
         //add images in customersImage Hashmap
         try {
-            this.customerImages.put(1, ImageIO.read(new File("client1.png")));
-            this.customerImages.put(2, ImageIO.read(new File("client2.png")));
-            this.customerImages.put(3, ImageIO.read(new File("client3.png")));
-            this.customerImages.put(4, ImageIO.read(new File("client4.png")));
+            this.customerImagesMap.put(1, ImageIO.read(new File("client1.png")));
+            this.customerImagesMap.put(2, ImageIO.read(new File("client2.png")));
+            this.customerImagesMap.put(3, ImageIO.read(new File("client3.png")));
+            this.customerImagesMap.put(4, ImageIO.read(new File("client4.png")));
         } catch (IOException e1) {
             
             e1.printStackTrace();
@@ -125,6 +125,10 @@ public class GameView {
 
     public void closeWindow() {
         this.frame.dispose();
-    }    
+    }   
+    
+    public Image getCustomerImage(int i) {
+        return this.customerImagesMap.get(i);
+    }
 
 }
