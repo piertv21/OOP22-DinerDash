@@ -2,9 +2,12 @@ package it.unibo.dinerdash.view.api;
 
 import it.unibo.dinerdash.view.impl.GameView;
 
-public class GameMainView extends GenericPanel {
+/*
+ * Main Game View Panel
+ */
+public class MainView extends GenericPanel {
 
-    public GameMainView(GameView mainFrame) {
+    public MainView(GameView mainFrame) {
         super(mainFrame);
         //TODO Auto-generated constructor stub
     }

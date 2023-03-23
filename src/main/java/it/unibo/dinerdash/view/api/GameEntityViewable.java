@@ -6,7 +6,7 @@ import it.unibo.dinerdash.model.impl.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
- * GameEntity on GUI
+ * GameEntity viewable for GUI representation
  */
 public abstract class GameEntityViewable extends GameEntity {
 
