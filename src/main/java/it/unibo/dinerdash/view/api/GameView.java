@@ -1,12 +1,29 @@
 package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
-import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.view.impl.View;
 
@@ -18,82 +35,84 @@ public class GameView extends GenericPanel {
     private static final String QUIT = "Quit";
     private static final String RESTART = "Restart";
     
+    private ImageIcon backgroundImage;
     private JLabel timeLabel;
-    private JPanel buttonsPanel;
+    private JLabel coinLabel;
+    private JButton exitButton;
     private JButton restartButton;
-    private JButton quitButton;
-    private JPanel powerUpsPanel;
     private JButton powerupButton1;
     private JButton powerupButton2;
     private JButton powerupButton3;
     private JButton powerupButton4;
-    private ImageIcon backgroundImage;    
+    private JPanel topPanel;
+    private JPanel bottomPanel;
+    private JPanel rightPanel;
     private HashMap<Integer,Image> customerImagesMap;
 
     public GameView(View mainFrame) {
         super(mainFrame);
-        /*
 
-        // Main Panel
-        this.mainPanel = new JPanel();
-        this.mainPanel.setLayout(new BorderLayout());
-        var border = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        //backgroundImage = new ImageIcon(this.getClass().getResource("resources/background.png"));
 
-        // Time Label
-        this.timeLabel = new JLabel("Time: 0");
-        this.timeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        this.timeLabel.setVerticalAlignment(SwingConstants.TOP);
-        this.timeLabel.setBorder(border);
+        setLayout(new BorderLayout());
+        
+        topPanel = new JPanel(new BorderLayout());
+        topPanel.setOpaque(false);
+        topPanel.setPreferredSize(new Dimension(0, 30));
 
-        // PowerUp Buttons
-        this.powerupButton1 = new JButton("1");
-        this.powerupButton2 = new JButton("2");
-        this.powerupButton3 = new JButton("3");
-        this.powerupButton4 = new JButton("4");
+        timeLabel = new JLabel("Time: 0");
+        timeLabel.setForeground(Color.BLACK);
+        timeLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
-        // PowerUp Panel
-        this.powerUpsPanel = new JPanel();
-        this.powerUpsPanel.setLayout(new BoxLayout(this.powerUpsPanel, BoxLayout.Y_AXIS));
-        this.powerUpsPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        this.powerUpsPanel.setBorder(border);
-        this.powerUpsPanel.add(Box.createVerticalGlue());
-        this.powerUpsPanel.add(this.powerupButton1);
-        this.powerUpsPanel.add(this.powerupButton2);
-        this.powerUpsPanel.add(this.powerupButton3);
-        this.powerUpsPanel.add(this.powerupButton4);
-        this.powerUpsPanel.add(Box.createVerticalGlue());        
+        coinLabel = new JLabel("Coins: 0");
+        coinLabel.setForeground(Color.BLACK);
+        coinLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 
-        // Restart button
-        this.restartButton = new JButton(RESTART);
-        this.restartButton.addActionListener(e -> this.controller.restart());
+        topPanel.add(timeLabel, BorderLayout.WEST);
+        topPanel.add(coinLabel, BorderLayout.EAST);
+        add(topPanel, BorderLayout.NORTH);
+        
+        bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+        bottomPanel.setOpaque(false);
+        bottomPanel.setPreferredSize(new Dimension(0, 30));
+        
+        // TO DO ActionListener
+        exitButton = new JButton("Exit");
+        bottomPanel.add(exitButton, BorderLayout.EAST);
+        
+        // TO DO ActionListener
+        restartButton = new JButton("Restart");
+        bottomPanel.add(restartButton);
+        add(bottomPanel, BorderLayout.SOUTH);
 
-        // Quit Button
-        this.quitButton = new JButton(QUIT);
-        this.quitButton.addActionListener(e -> this.controller.quit());
+        rightPanel = new JPanel(new GridBagLayout());
 
-        // Buttons Panel
-        var border2 = BorderFactory.createEmptyBorder(0, 5, 5, 5);
-        this.buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        this.buttonsPanel.setBorder(border2);
-        this.buttonsPanel.add(this.restartButton);
-        this.buttonsPanel.add(this.quitButton);
+        var c = new GridBagConstraints();
+        c.gridx = 1;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.LINE_END;
+        c.insets.top = 6;
+        c.insets.right = 8;
 
-        // Add Main Panel
-        this.mainPanel.add(timeLabel, BorderLayout.NORTH);
-        this.mainPanel.add(powerUpsPanel, BorderLayout.EAST);
-        this.mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        powerupButton1 = new JButton("1");
+        rightPanel.add(powerupButton1, c);
 
-        // Background Image
-        backgroundImage = new ImageIcon("resources/background.png");
-        JLabel backgroundLabel = new JLabel(backgroundImage);
-        mainPanel.add(backgroundLabel, BorderLayout.CENTER);
+        c.gridy = 1;
+        powerupButton2 = new JButton("2");
+        rightPanel.add(powerupButton2, c);
 
-        // Last settings
-        add(mainPanel);
-        pack();
+        c.gridy = 2;
+        powerupButton3 = new JButton("3");
+        rightPanel.add(powerupButton3, c);
+
+        c.gridy = 3;
+        powerupButton4 = new JButton("4");
+        rightPanel.add(powerupButton4, c);
+        
+        add(rightPanel, BorderLayout.EAST);
 
         //add images in customersImage Hashmap
-        try {
+        /*try {
             this.customerImagesMap.put(1, ImageIO.read(new File("client1.png")));
             this.customerImagesMap.put(2, ImageIO.read(new File("client2.png")));
             this.customerImagesMap.put(3, ImageIO.read(new File("client3.png")));
@@ -101,8 +120,13 @@ public class GameView extends GenericPanel {
         } catch (IOException e1) {
             
             e1.printStackTrace();
-        }
-        */
+        }*/        
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        //backgroundImage.paintIcon(this, g, 0, 0);
     }
 
     public Image getCustomerImage(int i) {

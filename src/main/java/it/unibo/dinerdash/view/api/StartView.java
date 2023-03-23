@@ -17,7 +17,6 @@ public class StartView extends GenericPanel {
 
     public StartView(View mainFrame) {        
         super(mainFrame);
-        setController(mainFrame.getController());
         setLayout(new GridBagLayout());
 
         GridBagConstraints c = new GridBagConstraints();
@@ -37,7 +36,7 @@ public class StartView extends GenericPanel {
 
         c.gridy = 2;        
         exitButton = new JButton("Exit");        
-        exitButton.addActionListener((e) -> this.getController().quit());
+        exitButton.addActionListener((e) -> this.getMainFrame().getController().quit());
         exitButton.setPreferredSize(new Dimension(300, 40));
         add(exitButton, c);
     }

@@ -12,9 +12,9 @@ public abstract class GameEntityViewable extends GameEntity {
 
     private Image icon;
 
-    public GameEntityViewable(Pair<Integer, Integer> coordinates, Image icon2) {
+    public GameEntityViewable(Pair<Integer, Integer> coordinates, Image icon) {
         super(coordinates);
-        this.setIcon(icon2);
+        this.setIcon(icon);
     }
 
     public Image getIcon() {
