@@ -6,12 +6,17 @@ import it.unibo.dinerdash.utility.impl.Pair;
  * Chef
  */
 public class Chef extends GameEntity {
-
+    
+    private static final int MIN_PREPARATION_TIME = 3000;
+    private static final int MAX_PREPARATION_TIME = 10000;
     private float speed;
 
     public Chef(Pair<Integer, Integer> coordinates) {
         super(coordinates);
         this.setActive(false);
+
+        var position = new Pair<>(100, 20);
+        this.setPosition(position);
     }
 
     public float getSpeed() {
@@ -20,6 +25,10 @@ public class Chef extends GameEntity {
 
     public void setSpeed(float speed) {
         this.speed = speed;
-    }    
+    }
+
+    public void prepareDish() {
+        //TO-DO
+    }
     
 }

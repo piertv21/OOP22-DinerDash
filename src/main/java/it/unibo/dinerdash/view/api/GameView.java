@@ -1,13 +1,10 @@
 package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -27,8 +25,10 @@ import it.unibo.dinerdash.view.impl.View;
 /*
  * Main Game View Panel
  */
-public class GameView extends GenericPanel {
-    
+public class GameView extends FramePanel {
+
+    private static final String TIME = "Time";
+    private static final String COINS = "Coins";
     private static final String QUIT = "Quit";
     private static final String RESTART = "Restart";
 
@@ -62,11 +62,13 @@ public class GameView extends GenericPanel {
         topPanel.setOpaque(false);
         topPanel.setPreferredSize(new Dimension(0, 30));
 
-        timeLabel = new JLabel("Time: 0");
+        timeLabel = new JLabel(TIME + ": 0");
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 15));
         timeLabel.setForeground(Color.BLACK);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
-        coinLabel = new JLabel("Coins: 0");
+        coinLabel = new JLabel(COINS + ": 0");
+        coinLabel.setFont(new Font("Arial", Font.BOLD, 15));
         coinLabel.setForeground(Color.BLACK);
         coinLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 

@@ -2,7 +2,7 @@ package it.unibo.dinerdash.view.impl;
 
 import javax.swing.JFrame;
 import it.unibo.dinerdash.controller.impl.Controller;
-import it.unibo.dinerdash.view.api.GenericPanel;
+import it.unibo.dinerdash.view.api.FramePanel;
 import it.unibo.dinerdash.view.api.GUI;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.StartView;
@@ -17,25 +17,24 @@ public class View extends JFrame implements GUI {
     private static final String FRAME_NAME = "Diner Dash";
 
     private Controller controller;
-    private GenericPanel menuView;
-    private GenericPanel gameView;
+    private FramePanel menuView;
+    private FramePanel gameView;
 
     public View(Controller controller) {
         super(FRAME_NAME);
         this.controller = controller;
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
-        setLocationByPlatform(true);
-        setResizable(true);
-        setVisible(true);
+        
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
+        this.setLocationByPlatform(true);
+        this.setResizable(true);        
 
-        // TO DO usare this.pack(); -----
-        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        final int width = (int) screen.getWidth();
-        final int height = (int) screen.getHeight();
+        final var screenDim = Toolkit.getDefaultToolkit().getScreenSize();
+        final int width = (int) screenDim.getWidth();
+        final int height = (int) screenDim.getHeight();
         this.setSize(width / 2, height / 2);
-        // ---
 
-        showMainMenu();
+        this.showMainMenu();
+        this.setVisible(true);
     }
 
     public void showMainMenu() {
@@ -57,7 +56,7 @@ public class View extends JFrame implements GUI {
     }
 
     public void closeWindow() {
-        dispose();
+        this.dispose();
     }
 
     @Override

@@ -7,11 +7,11 @@ import it.unibo.dinerdash.view.impl.View;
 /*
  * Generic View panel
  */
-public class GenericPanel extends JPanel {
+public class FramePanel extends JPanel {
 
     private final View mainFrame;
 
-    public GenericPanel(View mainFrame) {
+    public FramePanel(View mainFrame) {
         this.mainFrame = mainFrame;
     }
 

@@ -9,7 +9,7 @@ import javax.swing.*;
  * Starting Game Menu with 2 buttons
  * TODO: Aggiungi eventuale immagine di sfondo
  */
-public class StartView extends GenericPanel {
+public class StartView extends FramePanel {
     
     private JLabel titleLabel;
     private JButton startButton;
