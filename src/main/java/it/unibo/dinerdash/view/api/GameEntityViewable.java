@@ -8,7 +8,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 /*
  * GameEntity viewable for GUI representation
  */
-public abstract class GameEntityViewable extends GameEntity {
+public class GameEntityViewable extends GameEntity {
 
     private Image icon;
 

@@ -10,8 +10,16 @@ public interface Controller {
 
     void init();
 
+    void restart();
+
     void quit();
 
-    void restart();
-    
+    int getCoins();
+
+    int getRemainingTime();
+
+    boolean gameOver();
+
+    void addCustomerInLine();
+        
 }

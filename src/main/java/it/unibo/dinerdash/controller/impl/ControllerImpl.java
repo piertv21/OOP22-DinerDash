@@ -12,14 +12,15 @@ public class ControllerImpl implements Controller {
     public ControllerImpl() {
         this.model = new Model();
     }
-
-    public void start() {
-        //TO-DO
-    }
     
     @Override
     public void setView(View view) {
         this.view = view;
+    }
+
+    @Override
+    public void start() {
+        //TO-DO
     }
 
     @Override
@@ -28,26 +29,38 @@ public class ControllerImpl implements Controller {
         throw new UnsupportedOperationException("Unimplemented method 'init'");
     }
 
-    public void restart() {
-        //TO-DO
-        // clear delle strutture
-        
-        this.init();
+    @Override
+    public void restart() {        
+        this.model.restart();
     }
 
+    @Override
     public void quit() {
-        // Close window
         this.view.closeWindow();
-     
-        // Remove entity images
-        // image1.flush();
-     
-        // Exit the app
+
+        // TO-DO: Remove entity images, eg. image1.flush();
+
         System.exit(0);
     }
 
-    public int getMaxPlayingTime() {
-        return this.model.getMaxPlaytime();
+    @Override
+    public int getCoins() {
+        return this.model.getCoins();
+    }
+
+    @Override
+    public int getRemainingTime() {
+        return this.model.getRemainingTime();
+    }
+
+    @Override
+    public boolean gameOver() {
+        return this.model.gameOver();
+    }
+
+    @Override
+    public void addCustomerInLine() {
+        this.model.addCustomerInLine();      
     }
 
 }

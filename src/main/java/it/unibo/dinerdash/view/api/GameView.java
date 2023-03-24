@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.text.Position;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,6 +21,7 @@ import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
+import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.impl.View;
 
 /*
@@ -44,16 +46,11 @@ public class GameView extends FramePanel {
     private JPanel bottomPanel;
     private JPanel rightPanel;
     private Image backgroundImage;
-    private HashMap<Integer,Image> customerImagesMap;
+
+    private GameEntityViewable waitress;
 
     public GameView(View mainFrame) {
         super(mainFrame);
-        
-        try {
-            backgroundImage = loadIcon("background.png").getImage();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
@@ -62,12 +59,12 @@ public class GameView extends FramePanel {
         topPanel.setOpaque(false);
         topPanel.setPreferredSize(new Dimension(0, 30));
 
-        timeLabel = new JLabel(TIME + ": 0");
+        timeLabel = new JLabel(TIME + ": " + this.getMainFrame().getController().getRemainingTime());
         timeLabel.setFont(new Font("Arial", Font.BOLD, 15));
         timeLabel.setForeground(Color.BLACK);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
-        coinLabel = new JLabel(COINS + ": 0");
+        coinLabel = new JLabel(COINS + ": " + this.getMainFrame().getController().getCoins());
         coinLabel.setFont(new Font("Arial", Font.BOLD, 15));
         coinLabel.setForeground(Color.BLACK);
         coinLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
@@ -116,16 +113,24 @@ public class GameView extends FramePanel {
         
         add(rightPanel, BorderLayout.EAST);
 
-        //add images in customersImage Hashmap
-        /*try {
-            this.customerImagesMap.put(1, ImageIO.read(new File("client1.png")));
-            this.customerImagesMap.put(2, ImageIO.read(new File("client2.png")));
-            this.customerImagesMap.put(3, ImageIO.read(new File("client3.png")));
-            this.customerImagesMap.put(4, ImageIO.read(new File("client4.png")));
-        } catch (IOException e1) {
-            
-            e1.printStackTrace();
-        }*/
+        this.initViewableEntities();
+    }
+
+    private void initViewableEntities() {
+        var waitressPosition = new Pair<>(20, 20);        
+        this.waitress = new GameEntityViewable(waitressPosition, backgroundImage);
+        try {
+            backgroundImage = loadIcon("background.png").getImage();
+            this.waitress.setIcon(
+                loadIcon("waitress.png").getImage()
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addCustomerInLine() {
+        this.getMainFrame().getController().addCustomerInLine();
     }
 
     // https://stackoverflow.com/questions/49871233/using-imageicon-to-access-a-picture-cant-access-it-how-to-fix
@@ -138,9 +143,7 @@ public class GameView extends FramePanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, this);
+        g.drawImage(waitress.getIcon(), waitress.getPosition().getX(), waitress.getPosition().getY(), this);
     }
 
-    public Image getCustomerImage(int i) {
-        return this.customerImagesMap.get(i);
-    }
 }

@@ -19,8 +19,8 @@ public class Model {
     private int remainingTime;
     private int customersWhoLeft;
     private LinkedList<Customer> customers;   // clienti (vengono rappresentati correttamente in base alla posizione + state che hanno)
-    private LinkedList<Table> tables;      // tavoli (vengono rappresentati correttamente in base alla posizione + icona che hanno)
-    private LinkedList<Dish> dishes;      // lista piatti pronti dello chef
+    private LinkedList<Table> tables;         // tavoli (vengono rappresentati correttamente in base alla posizione + icona che hanno)
+    private LinkedList<Dish> dishes;          // lista piatti pronti dello chef
 
     public Model() {
         this.customers = new LinkedList<>();
@@ -55,17 +55,41 @@ public class Model {
     }
 
     public void restart() {
-        //TO-DO
-        // clear delle strutture + init()
-    }
-
-    public void quit() {
-        //TO-DO
-        // pulizia e chiusura
+        this.init();
     }
 
     public int getMaxPlaytime() {
         return MAX_PLAYTIME;
-    }    
+    }
+
+    public int getCoins() {
+        return this.coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+    public int getRemainingTime() {
+        return this.remainingTime;
+    }
+
+    public int getCustomersWhoLeft() {
+        return this.customersWhoLeft;
+    }
+
+    public void customerLeft() {
+        if(!this.gameOver()) {
+            this.customersWhoLeft++;
+        }
+    }
+
+    public void addCustomerInLine() {
+        if(this.gameOver()) {
+            // TO DO: STOP GAME
+        }
+        var position = new Pair<>(30, 10);
+        // TO DO: CREA CUSTOMER E AGGIUNGILO ALLA LISTA
+    }
 
 }

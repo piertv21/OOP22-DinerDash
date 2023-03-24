@@ -36,18 +36,17 @@ public class Customer extends GameEntity {
         ORDERING
     }
     
-    public Customer(Pair<Integer, Integer> coordinates,int tableNum,LinkedList<Customer> customersInLine,LinkedList<Pair<Integer,Integer>> waitingLineCoordinate) {
+    public Customer(Pair<Integer, Integer> coordinates, int tableNum, LinkedList<Customer> customersInLine, LinkedList<Pair<Integer, Integer>> waitingLineCoordinate) {
         super(coordinates);
         this.tableNumber = tableNum;
         this.customersWaitingInLine = customersInLine;
         this.waitingLineCoordinates = waitingLineCoordinate;
-    }
-
-    
+    }  
 
     public int getLineNumber() {
         return this.lineNumber;
     }
+
     public void setLineNumber(int num) {
          this.lineNumber = num;
     }
@@ -59,6 +58,7 @@ public class Customer extends GameEntity {
     public void startAngryTimer(){                                   //avvia il timer per far arrabbiare i clienti in fila
         timerAngry.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
     }
+
     public void startThinkingTimer(){                                   //avvia il timer per far pensare un clinete seduto
         timerAngry.schedule(ThinkingAction, TIME_BEFORE_ORDERING, TIME_BEFORE_ORDERING);
     }
@@ -66,18 +66,19 @@ public class Customer extends GameEntity {
     TimerTask angryAction = new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
         @Override
         public void run() { 
-            if(state.equals(CustomerState.ANGRY)){
+            if(state.equals(CustomerState.ANGRY)) {
                 customersWaitingInLine.removeFirst();                                   // QUI TOLGO IL cliente arrabbiato
                 customersWaitingInLine.forEach(x->{
                     x.setPosition(new Pair<Integer,Integer>(waitingLineCoordinates.get(x.getLineNumber()-1).getX(),waitingLineCoordinates.get(x.getLineNumber()-1).getY()));
                     x.setLineNumber(x.getLineNumber()-1);
                 });
-            angryAction.cancel();
+                angryAction.cancel();
             }             
            setState(CustomerState.ANGRY);  
     
         }
     };
+
     TimerTask ThinkingAction = new TimerTask() {                        //azione programmata per gestire il cliente che pensa
         @Override
         public void run() { 
@@ -101,10 +102,10 @@ public class Customer extends GameEntity {
             }     
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
-    {
-            this.startThinkingTimer();
-            //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.IS_ORDERING);
-    }
+        {
+                this.startThinkingTimer();
+                //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.IS_ORDERING);
+        }
     }
     public void up() {
         
