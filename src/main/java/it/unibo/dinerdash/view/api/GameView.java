@@ -1,7 +1,7 @@
 package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
-import java.io.File;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -12,17 +12,12 @@ import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.view.impl.View;
@@ -51,10 +46,16 @@ public class GameView extends GenericPanel {
 
     public GameView(View mainFrame) {
         super(mainFrame);
-
-        //backgroundImage = new ImageIcon(this.getClass().getResource("resources/background.png"));
+        
+        try {
+            backgroundImage = loadIcon("background.png");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         setLayout(new BorderLayout());
+        setBackground(Color.WHITE);
         
         topPanel = new JPanel(new BorderLayout());
         topPanel.setOpaque(false);
@@ -75,17 +76,18 @@ public class GameView extends GenericPanel {
         bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         bottomPanel.setOpaque(false);
         bottomPanel.setPreferredSize(new Dimension(0, 30));
-        
-        // TO DO ActionListener
-        exitButton = new JButton("Exit");
+
+        exitButton = new JButton(QUIT);
+        exitButton.addActionListener((e) -> this.getMainFrame().getController().quit());
         bottomPanel.add(exitButton, BorderLayout.EAST);
         
-        // TO DO ActionListener
-        restartButton = new JButton("Restart");
+        restartButton = new JButton(RESTART);
+        restartButton.addActionListener((e) -> this.getMainFrame().getController().restart());
         bottomPanel.add(restartButton);
         add(bottomPanel, BorderLayout.SOUTH);
 
         rightPanel = new JPanel(new GridBagLayout());
+        rightPanel.setOpaque(false);
 
         var c = new GridBagConstraints();
         c.gridx = 1;
@@ -120,13 +122,20 @@ public class GameView extends GenericPanel {
         } catch (IOException e1) {
             
             e1.printStackTrace();
-        }*/        
+        }*/
+    }
+
+    // https://stackoverflow.com/questions/49871233/using-imageicon-to-access-a-picture-cant-access-it-how-to-fix
+    private ImageIcon loadIcon(String iconName) throws IOException {
+        ClassLoader loader = this.getClass().getClassLoader();
+        BufferedImage icon = ImageIO.read(loader.getResourceAsStream(iconName));
+        return new ImageIcon(icon);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //backgroundImage.paintIcon(this, g, 0, 0);
+        backgroundImage.paintIcon(this, g, 0, 0);
     }
 
     public Image getCustomerImage(int i) {
