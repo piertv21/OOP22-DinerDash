@@ -3,6 +3,8 @@ package it.unibo.dinerdash.view.api;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -29,8 +31,7 @@ public class GameView extends GenericPanel {
     
     private static final String QUIT = "Quit";
     private static final String RESTART = "Restart";
-    
-    private ImageIcon backgroundImage;
+
     private JLabel timeLabel;
     private JLabel coinLabel;
     private JButton exitButton;
@@ -42,15 +43,15 @@ public class GameView extends GenericPanel {
     private JPanel topPanel;
     private JPanel bottomPanel;
     private JPanel rightPanel;
+    private Image backgroundImage;
     private HashMap<Integer,Image> customerImagesMap;
 
     public GameView(View mainFrame) {
         super(mainFrame);
         
         try {
-            backgroundImage = loadIcon("background.png");
+            backgroundImage = loadIcon("background.png").getImage();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -127,15 +128,14 @@ public class GameView extends GenericPanel {
 
     // https://stackoverflow.com/questions/49871233/using-imageicon-to-access-a-picture-cant-access-it-how-to-fix
     private ImageIcon loadIcon(String iconName) throws IOException {
-        ClassLoader loader = this.getClass().getClassLoader();
-        BufferedImage icon = ImageIO.read(loader.getResourceAsStream(iconName));
-        return new ImageIcon(icon);
+        final URL imgURL = ClassLoader.getSystemResource(iconName);
+        return new ImageIcon(imgURL);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        backgroundImage.paintIcon(this, g, 0, 0);
+        g.drawImage(backgroundImage, 0, 0, this);
     }
 
     public Image getCustomerImage(int i) {
