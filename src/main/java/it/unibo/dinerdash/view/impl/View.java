@@ -1,7 +1,8 @@
 package it.unibo.dinerdash.view.impl;
 
 import javax.swing.JFrame;
-import it.unibo.dinerdash.controller.impl.Controller;
+
+import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.view.api.FramePanel;
 import it.unibo.dinerdash.view.api.GUI;
 import it.unibo.dinerdash.view.api.GameView;
