@@ -117,7 +117,7 @@ public class GameView extends FramePanel {
     }
 
     private void initViewableEntities() {
-        var waitressPosition = new Pair<>(20, 20);        
+        var waitressPosition = new Pair<>(40, 120);        
         this.waitress = new GameEntityViewable(waitressPosition, backgroundImage);
         try {
             backgroundImage = loadIcon("background.png").getImage();
@@ -142,8 +142,8 @@ public class GameView extends FramePanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, this);
-        g.drawImage(waitress.getIcon(), waitress.getPosition().getX(), waitress.getPosition().getY(), this);
+        g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
+        g.drawImage(waitress.getIcon(), waitress.getPosition().getX(), waitress.getPosition().getY(), 120, 180, this);
     }
 
 }
