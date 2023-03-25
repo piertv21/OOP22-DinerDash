@@ -3,13 +3,9 @@ package it.unibo.dinerdash.view.api;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.text.Position;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

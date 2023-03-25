@@ -15,7 +15,7 @@ import java.awt.*;
  */
 public class View extends JFrame implements GUI {
 
-    private static final String FRAME_NAME = "Diner Dash";
+    public static final String FRAME_NAME = "Diner Dash";
 
     private Controller controller;
     private FramePanel menuView;
