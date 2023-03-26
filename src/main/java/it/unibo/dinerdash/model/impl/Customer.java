@@ -20,9 +20,9 @@ public class Customer extends GameEntity {
     private static final int TIME_BEFORE_GETANGRY = 8000;
     private static final int TIME_BEFORE_ORDERING = 4000;
 
-    private int tableNumber;
+    private Optional<Integer> tableNumber;
     private int numClienti;                     // molteplicità clienti (1 - 4)
-    private Timer timerAngry = new Timer();
+    private Timer timerActions = new Timer();
     private CustomerState state;
     private LinkedList<Customer> customersWaitingInLine;                  //list of customers in line waiting
     private LinkedList<Pair<Integer,Integer>> waitingLineCoordinates;      // list of coordinates of the line customers
@@ -36,7 +36,7 @@ public class Customer extends GameEntity {
         ORDERING
     }
     
-    public Customer(Pair<Integer, Integer> coordinates, int tableNum, LinkedList<Customer> customersInLine, LinkedList<Pair<Integer, Integer>> waitingLineCoordinate) {
+    public Customer(Pair<Integer, Integer> coordinates, Optional<Integer> tableNum, LinkedList<Customer> customersInLine, LinkedList<Pair<Integer, Integer>> waitingLineCoordinate) {
         super(coordinates);
         this.tableNumber = tableNum;
         this.customersWaitingInLine = customersInLine;
@@ -56,11 +56,11 @@ public class Customer extends GameEntity {
     }
 
     public void startAngryTimer(){                                   //avvia il timer per far arrabbiare i clienti in fila
-        timerAngry.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
+        timerActions.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
     }
 
     public void startThinkingTimer(){                                   //avvia il timer per far pensare un clinete seduto
-        timerAngry.schedule(ThinkingAction, TIME_BEFORE_ORDERING, TIME_BEFORE_ORDERING);
+        timerActions.schedule(ThinkingAction, TIME_BEFORE_ORDERING, TIME_BEFORE_ORDERING);
     }
 
     TimerTask angryAction = new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
