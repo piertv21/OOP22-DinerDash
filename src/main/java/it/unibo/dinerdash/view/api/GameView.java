@@ -3,6 +3,8 @@ package it.unibo.dinerdash.view.api;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.utility.impl.Pair;
+import it.unibo.dinerdash.view.impl.TableViewable;
 import it.unibo.dinerdash.view.impl.View;
 
 /*
@@ -44,6 +47,7 @@ public class GameView extends FramePanel {
     private Image backgroundImage;
 
     private GameEntityViewable waitress;
+    private LinkedList<TableViewable>tableList = new LinkedList<>();
 
     public GameView(View mainFrame) {
         super(mainFrame);
@@ -126,6 +130,14 @@ public class GameView extends FramePanel {
             );
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        for(int a=0; a<4 ; a++){
+            try {
+                tableList.add(new TableViewable( new Pair<>(100, 200),loadIcon("emptyTable.png").getImage()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } 
         }
     }
 
