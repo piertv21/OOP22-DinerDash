@@ -93,18 +93,22 @@ public class GameView extends FramePanel {
         c.insets.right = 8;
 
         powerupButton1 = new JButton("1");
+        powerupButton1.setActionCommand("boost_velocità");  //aumenta velocità cameriera
         rightPanel.add(powerupButton1, c);
 
         c.gridy = 1;
         powerupButton2 = new JButton("2");
+        powerupButton2.setActionCommand("boost_cuoco"); //aumenta velocità di preparazione dei piatti
         rightPanel.add(powerupButton2, c);
 
         c.gridy = 2;
         powerupButton3 = new JButton("3");
+        powerupButton3.setActionCommand("boost_guadagno");  //aumenta il guadagno
         rightPanel.add(powerupButton3, c);
 
         c.gridy = 3;
         powerupButton4 = new JButton("4");
+        powerupButton4.setActionCommand("boost_consumazione");  //aumenta la velocità di consumazione dei clienti
         rightPanel.add(powerupButton4, c);
         
         add(rightPanel, BorderLayout.EAST);
