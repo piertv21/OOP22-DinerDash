@@ -91,4 +91,8 @@ public class Model {
         this.customers.add(null); //NUOVO CLIENTE DA ISTANZIARE CON PAIR
     }
 
+    public LinkedList<Customer> getCustomers() {
+        return this.customers;
+    }
+
 }

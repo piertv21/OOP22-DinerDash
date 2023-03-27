@@ -1,7 +1,5 @@
 package it.unibo.dinerdash.model.impl;
 
-import java.util.Optional;
-
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*

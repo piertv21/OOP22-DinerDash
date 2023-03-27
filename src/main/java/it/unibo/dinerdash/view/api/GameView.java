@@ -121,10 +121,10 @@ public class GameView extends FramePanel {
         
         add(rightPanel, BorderLayout.EAST);
 
-        this.initViewableEntities();
+        this.init();
     }
 
-    private void initViewableEntities() {
+    private void init() {
         this.tables = new LinkedList<>();
         this.customers = new LinkedList<>();
 
@@ -160,7 +160,7 @@ public class GameView extends FramePanel {
 
         // Background
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
-        
+
         // Waitress
         g.drawImage(waitress.getIcon(), waitress.getPosition().getX(), waitress.getPosition().getY(), 120, 180, this);
 
