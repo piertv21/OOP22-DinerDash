@@ -1,6 +1,5 @@
 package it.unibo.dinerdash.controller.impl;
 
-import java.io.IOException;
 import java.util.Random;
 
 import it.unibo.dinerdash.controller.api.Controller;
@@ -11,9 +10,10 @@ public class ControllerImpl implements Controller {
 
     private Model model;
     private View view;
-    private Random rand=new Random();                   // used to create customers 
+    private Random random; // used to create customers
     
     public ControllerImpl() {
+        this.random = new Random();
         this.model = new Model();
     }
     
@@ -63,9 +63,10 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addCustomerInLine() {
-        this.model.addCustomerInLine();      
+    public void addCustomer() {
+        this.model.addCustomer();      
     }
+
     public void addCustumers(){                                                                //aggiungo un cliente che entra nel ristorante
         /*try {
             if(this.emptyTables!=0){

@@ -20,6 +20,6 @@ public interface Controller {
 
     boolean gameOver();
 
-    void addCustomerInLine();
+    void addCustomer();
         
 }

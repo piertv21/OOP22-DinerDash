@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.stream.IntStream;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,6 +26,7 @@ import it.unibo.dinerdash.view.impl.View;
 
 /*
  * Main Game View Panel
+ * //TODO Clear method
  */
 public class GameView extends FramePanel {
 
@@ -47,7 +49,9 @@ public class GameView extends FramePanel {
     private Image backgroundImage;
 
     private GameEntityViewable waitress;
-    private LinkedList<TableViewable>tableList = new LinkedList<>();
+    private GameEntityViewable chef;
+    private LinkedList<TableViewable> tables;
+    private LinkedList<GameEntityViewable> customers;
 
     public GameView(View mainFrame) {
         super(mainFrame);
@@ -97,22 +101,22 @@ public class GameView extends FramePanel {
         c.insets.right = 8;
 
         powerupButton1 = new JButton("1");
-        powerupButton1.setActionCommand("boost_velocità");  //aumenta velocità cameriera
+        //TODO .addActionListener();  //aumenta velocità cameriera
         rightPanel.add(powerupButton1, c);
 
         c.gridy = 1;
         powerupButton2 = new JButton("2");
-        powerupButton2.setActionCommand("boost_cuoco"); //aumenta velocità di preparazione dei piatti
+        //TODO .addActionListener(); aumenta velocità di preparazione dei piatti
         rightPanel.add(powerupButton2, c);
 
         c.gridy = 2;
         powerupButton3 = new JButton("3");
-        powerupButton3.setActionCommand("boost_guadagno");  //aumenta il guadagno
+        //TODO .addActionListener(); aumenta il guadagno
         rightPanel.add(powerupButton3, c);
 
         c.gridy = 3;
         powerupButton4 = new JButton("4");
-        powerupButton4.setActionCommand("boost_consumazione");  //aumenta la velocità di consumazione dei clienti
+        //TODO .addActionListener(); aumenta la velocità di consumazione dei clienti
         rightPanel.add(powerupButton4, c);
         
         add(rightPanel, BorderLayout.EAST);
@@ -121,28 +125,27 @@ public class GameView extends FramePanel {
     }
 
     private void initViewableEntities() {
-        var waitressPosition = new Pair<>(40, 120);        
-        this.waitress = new GameEntityViewable(waitressPosition, backgroundImage);
+        this.tables = new LinkedList<>();
+        this.customers = new LinkedList<>();
+
+        Image table;
+        
         try {
-            backgroundImage = loadIcon("background.png").getImage();
-            this.waitress.setIcon(
-                loadIcon("waitress.png").getImage()
-            );
+            this.backgroundImage = loadIcon("background.png").getImage();
+            this.waitress = new GameEntityViewable(new Pair<>(40, 120), loadIcon("waitress.png").getImage());
+            table = loadIcon("emptyTable.png").getImage();
+
+            IntStream.range(0, 4).forEach(a -> {
+                this.tables.add(new TableViewable(
+                    new Pair<>(100, 200), table));
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        for(int a=0; a<4 ; a++){
-            try {
-                tableList.add(new TableViewable( new Pair<>(100, 200),loadIcon("emptyTable.png").getImage()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } 
-        }
     }
 
-    private void addCustomerInLine() {
-        this.getMainFrame().getController().addCustomerInLine();
+    private void addCustomer() {
+        this.getMainFrame().getController().addCustomer();
     }
 
     // https://stackoverflow.com/questions/49871233/using-imageicon-to-access-a-picture-cant-access-it-how-to-fix
@@ -154,8 +157,17 @@ public class GameView extends FramePanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        // Background
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
+        
+        // Waitress
         g.drawImage(waitress.getIcon(), waitress.getPosition().getX(), waitress.getPosition().getY(), 120, 180, this);
+
+        // Tables
+        this.tables.forEach(e ->
+            g.drawImage(e.getIcon(), e.getPosition().getX(), e.getPosition().getY(), 120, 180, this)
+        );
     }
 
 }

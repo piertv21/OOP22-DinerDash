@@ -1,8 +1,6 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
-import java.util.Optional;
-
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -20,10 +18,8 @@ public class Model {
     private int remainingTime;
     private int customersWhoLeft;
     private LinkedList<Customer> customers;   // clienti (vengono rappresentati correttamente in base alla posizione + state che hanno)
-    private LinkedList<Customer> inLineCustomers;   // clienti in fila(vengono rappresentati correttamente in base alla posizione + state che hanno)
     private LinkedList<Table> tables;         // tavoli (vengono rappresentati correttamente in base alla posizione + icona che hanno)
     private LinkedList<Dish> dishes;          // lista piatti pronti dello chef
-    private LinkedList<Pair<Integer,Integer>> waitingLineCoordinates;      // list of coordinates of the line customers
 
     public Model() {
         this.customers = new LinkedList<>();
@@ -87,12 +83,12 @@ public class Model {
         }
     }
 
-    public void addCustomerInLine() {
+    public void addCustomer() {
         if(this.gameOver()) {
             // TO DO: STOP GAME
         }
         var position = new Pair<>(30, 10);
-        this.inLineCustomers.add(new Customer(position, null, inLineCustomers, this.waitingLineCoordinates));  //add a new customer in line
+        this.customers.add(null); //NUOVO CLIENTE DA ISTANZIARE CON PAIR
     }
 
 }
