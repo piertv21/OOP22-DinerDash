@@ -75,7 +75,6 @@ public class Customer extends GameEntity {
                 angryAction.cancel();
             }             
            setState(CustomerState.ANGRY);  
-    
         }
     };
 
