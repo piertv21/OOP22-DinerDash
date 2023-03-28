@@ -4,8 +4,6 @@ import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
-import java.util.stream.IntStream;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -121,27 +119,48 @@ public class GameView extends FramePanel {
         
         add(rightPanel, BorderLayout.EAST);
 
-        this.init();
+        this.start();
     }
 
-    private void init() {
+    //TODO Imposta size delle entità
+    private void start() {
         this.tables = new LinkedList<>();
         this.customers = new LinkedList<>();
-
-        Image table;
         
         try {
-            this.backgroundImage = loadIcon("background.png").getImage();
-            this.waitress = new GameEntityViewable(new Pair<>(40, 120), loadIcon("waitress.png").getImage());
-            table = loadIcon("emptyTable.png").getImage();
+            this.backgroundImage = loadIcon("background.jpg").getImage();
 
-            IntStream.range(0, 4).forEach(a -> {
-                this.tables.add(new TableViewable(
-                    new Pair<>(100, 200), table));
-            });
+            var waitressPosition = new Pair<>(40, 120);
+            var waitressImage = loadIcon("waitress.png").getImage();
+            this.waitress = new GameEntityViewable(waitressPosition, waitressImage);
+
+            int startX = (int)(this.getMainFrame().getWidth() * 0.3);
+            int startY = (int)(this.getMainFrame().getHeight() * 0.3);
+            int tableWidth = 250;
+            int tableHeight = 250;
+            var tableImage = loadIcon("emptyTable.png").getImage();
+            
+            // TODO Trasforma in stream
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    int x = startX + (j * tableWidth);
+                    int y = startY + (i * tableHeight);
+                    var tablePosition = new Pair<>(x, y);
+                    this.tables.add(new TableViewable(tablePosition, tableImage));
+                }
+            }
+
+            var chefPosition = new Pair<>((int)(this.getMainFrame().getWidth() * 0.55), (int)(this.getMainFrame().getWidth() * 0.02));
+            System.out.println(chefPosition);
+            var chefImage = loadIcon("chef.png").getImage();
+            this.chef = new GameEntityViewable(chefPosition, chefImage);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void restart() {
+        //TODO
     }
 
     private void addCustomer() {
@@ -168,6 +187,9 @@ public class GameView extends FramePanel {
         this.tables.forEach(e ->
             g.drawImage(e.getIcon(), e.getPosition().getX(), e.getPosition().getY(), 120, 180, this)
         );
+
+        // Chef
+        g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
     }
 
 }

@@ -32,7 +32,7 @@ public class View extends JFrame implements GUI {
         final var screenDim = Toolkit.getDefaultToolkit().getScreenSize();
         final int width = (int) screenDim.getWidth();
         final int height = (int) screenDim.getHeight();
-        this.setSize(width / 2, height / 2);
+        this.setSize((int)(width * 0.5), (int)(height * 0.75));
 
         this.showMainMenu();
         this.setVisible(true);
