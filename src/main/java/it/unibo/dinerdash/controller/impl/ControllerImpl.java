@@ -1,6 +1,8 @@
 package it.unibo.dinerdash.controller.impl;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.impl.Model;
@@ -11,6 +13,7 @@ public class ControllerImpl implements Controller {
     private Model model;
     private View view;
     private Random random; // used to create customers
+    Timer spawnTime = new Timer();                             //timer to make spawn customers
     
     public ControllerImpl() {
         this.random = new Random();
@@ -80,5 +83,12 @@ public class ControllerImpl implements Controller {
              e.printStackTrace();
          }*/
     }
+
+    TimerTask custumCreation_Trd = new TimerTask() {
+        @Override
+        public void run() { 
+           addCustumers();          // thread che ogni 6 secondi chiama il metodo per creare un cliente  
+        }
+    };
 
 }
