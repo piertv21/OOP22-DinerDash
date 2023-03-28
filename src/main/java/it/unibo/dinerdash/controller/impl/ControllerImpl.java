@@ -83,6 +83,9 @@ public class ControllerImpl implements Controller {
              e.printStackTrace();
          }*/
     }
+    public void startSpawnTimer() {
+        spawnTime.schedule(custumCreation_Trd, 2000, 6000);                                //avvio la creazione programmata  dei clienti
+    }
 
     TimerTask custumCreation_Trd = new TimerTask() {
         @Override
