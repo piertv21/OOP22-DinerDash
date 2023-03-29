@@ -70,7 +70,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addCustomer() {
-        this.model.addCustomer();      
+        this.model.addCustomer(random.nextInt(4)+1);      
     }
 
     public void startSpawnTimer() {
@@ -80,7 +80,7 @@ public class ControllerImpl implements Controller {
     TimerTask custumCreation_Trd = new TimerTask() {
         @Override
         public void run() { 
-           model.addCustomer();          // thread che ogni 6 secondi chiama il metodo per creare un cliente  
+           addCustomer();          // thread che ogni 6 secondi chiama il metodo per creare un cliente  
         }
     };
 

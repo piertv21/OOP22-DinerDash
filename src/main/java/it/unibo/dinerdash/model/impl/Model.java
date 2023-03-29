@@ -85,7 +85,7 @@ public class Model {
         }
     }
 
-    public void addCustomer() {
+    public void addCustomer(int num) {
         if(this.gameOver()) {
             // TO DO: STOP GAME
         }
