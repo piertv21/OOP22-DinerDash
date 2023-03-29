@@ -1,10 +1,12 @@
 package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -193,6 +195,22 @@ public class GameView extends FramePanel {
 
         // Chef
         g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
+    }
+
+    public List<GameEntityViewable> getTables() {
+        return Collections.unmodifiableList(this.tables);
+    }
+
+    public void setTables(LinkedList<GameEntityViewable> tables) {
+        this.tables = tables;
+    }
+
+    public List<GameEntityViewable> getCustomers() {
+        return Collections.unmodifiableList(this.customers);
+    }
+
+    public void setCustomers(LinkedList<GameEntityViewable> customers) {
+        this.customers = customers;
     }
 
 }
