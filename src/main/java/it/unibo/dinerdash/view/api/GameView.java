@@ -48,7 +48,7 @@ public class GameView extends FramePanel {
 
     private GameEntityViewable waitress;
     private GameEntityViewable chef;
-    private LinkedList<TableViewable> tables;
+    private LinkedList<GameEntityViewable> tables;
     private LinkedList<GameEntityViewable> customers;
 
     public GameView(View mainFrame) {
