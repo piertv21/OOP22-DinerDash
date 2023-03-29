@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -27,6 +28,9 @@ import it.unibo.dinerdash.view.impl.View;
  * //TODO Clear method
  */
 public class GameView extends FramePanel {
+
+    private static final String SEP = System.getProperty("file.separator");
+    private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
 
     private static final String TIME = "Time";
     private static final String COINS = "Coins";
@@ -151,7 +155,6 @@ public class GameView extends FramePanel {
             }
 
             var chefPosition = new Pair<>((int)(this.getMainFrame().getWidth() * 0.55), (int)(this.getMainFrame().getWidth() * 0.02));
-            System.out.println(chefPosition);
             var chefImage = loadIcon("chef.png").getImage();
             this.chef = new GameEntityViewable(chefPosition, chefImage);
         } catch (IOException e) {
@@ -169,7 +172,7 @@ public class GameView extends FramePanel {
 
     // https://stackoverflow.com/questions/49871233/using-imageicon-to-access-a-picture-cant-access-it-how-to-fix
     private ImageIcon loadIcon(String iconName) throws IOException {
-        final URL imgURL = ClassLoader.getSystemResource(iconName);
+        final URL imgURL = ClassLoader.getSystemResource(ROOT + iconName);
         return new ImageIcon(imgURL);
     }
 
