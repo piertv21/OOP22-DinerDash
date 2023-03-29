@@ -65,4 +65,8 @@ public class View extends JFrame implements GUI {
         return this.controller;
     }
 
+    public FramePanel getGamePanel() {
+        return this.gameView;
+    }
+
 }
