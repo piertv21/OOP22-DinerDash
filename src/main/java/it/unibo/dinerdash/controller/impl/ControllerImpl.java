@@ -1,10 +1,12 @@
 package it.unibo.dinerdash.controller.impl;
 
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import it.unibo.dinerdash.controller.api.Controller;
+import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.Model;
 import it.unibo.dinerdash.view.impl.View;
 
@@ -28,6 +30,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void start() {
         //TO-DO
+        this.startSpawnTimer();  //starts customers spawn
     }
 
     @Override
@@ -93,5 +96,9 @@ public class ControllerImpl implements Controller {
            addCustumers();          // thread che ogni 6 secondi chiama il metodo per creare un cliente  
         }
     };
+
+    public LinkedList<Customer> getSittedCustomList(){             
+        return this.model.getCustomersList();
+    }
 
 }

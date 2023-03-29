@@ -17,12 +17,12 @@ public class Model {
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
-    private LinkedList<Customer> customers;   // clienti (vengono rappresentati correttamente in base alla posizione + state che hanno)
+    private LinkedList<Customer> sittedCustomersList;   // clienti (vengono rappresentati correttamente in base alla posizione + state che hanno)
     private LinkedList<Table> tables;         // tavoli (vengono rappresentati correttamente in base alla posizione + icona che hanno)
     private LinkedList<Dish> dishes;          // lista piatti pronti dello chef
 
     public Model() {
-        this.customers = new LinkedList<>();
+        this.sittedCustomersList = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
         this.init();
@@ -48,7 +48,7 @@ public class Model {
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
 
-        this.customers.clear();
+        this.sittedCustomersList.clear();
         this.tables.clear();
         this.dishes.clear();
     }
@@ -88,11 +88,11 @@ public class Model {
             // TO DO: STOP GAME
         }
         var position = new Pair<>(30, 10);
-        this.customers.add(null); //NUOVO CLIENTE DA ISTANZIARE CON PAIR
+        this.sittedCustomersList.add(null); //NUOVO CLIENTE DA ISTANZIARE CON PAIR
     }
 
-    public LinkedList<Customer> getCustomers() {
-        return this.customers;
+    public LinkedList<Customer> getCustomersList() {
+        return this.sittedCustomersList;
     }
 
 }
