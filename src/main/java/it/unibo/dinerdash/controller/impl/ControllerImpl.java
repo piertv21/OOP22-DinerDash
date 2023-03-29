@@ -73,19 +73,6 @@ public class ControllerImpl implements Controller {
         this.model.addCustomer();      
     }
 
-    public void addCustumers(){                                                                //aggiungo un cliente che entra nel ristorante
-        /*try {
-            if(this.emptyTables!=0){
-                
-                AssegnoTavolo();
-            }else{
-                
-                AssegnoPostoFila();
-            }
-         } catch (IOException e) {     
-             e.printStackTrace();
-         }*/
-    }
     public void startSpawnTimer() {
         spawnTime.schedule(custumCreation_Trd, 2000, 6000);                                //avvio la creazione programmata  dei clienti
     }
@@ -93,7 +80,7 @@ public class ControllerImpl implements Controller {
     TimerTask custumCreation_Trd = new TimerTask() {
         @Override
         public void run() { 
-           addCustumers();          // thread che ogni 6 secondi chiama il metodo per creare un cliente  
+           model.addCustomer();          // thread che ogni 6 secondi chiama il metodo per creare un cliente  
         }
     };
 

@@ -9,11 +9,13 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public class Model {
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
+    private static final int MAX_EMPTY_TABLES = 4;
     private static final double CHEF_SPEED_MULTIPLIER = 1.2;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
     private static final double PROFIT_MULTIPLIER = 2.0;
     private static final int MAX_PLAYTIME = 60*5;
     
+    private int emptyTables;
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
@@ -47,7 +49,7 @@ public class Model {
         this.coins = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
-
+        this.emptyTables = MAX_EMPTY_TABLES;
         this.sittedCustomersList.clear();
         this.tables.clear();
         this.dishes.clear();
@@ -87,8 +89,14 @@ public class Model {
         if(this.gameOver()) {
             // TO DO: STOP GAME
         }
-        var position = new Pair<>(30, 10);
-        this.sittedCustomersList.add(null); //NUOVO CLIENTE DA ISTANZIARE CON PAIR
+        var position = new Pair<>(30, 10); 
+            if(this.emptyTables!=0){
+                this.sittedCustomersList.add(null); //NUOVO CLIENTE DA ISTANZIARE CON PAIR
+                //AssegnoTavolo();
+            }else{
+                
+               // AssegnoPostoFila();
+            } 
     }
 
     public LinkedList<Customer> getCustomersList() {
