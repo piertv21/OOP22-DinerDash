@@ -27,6 +27,10 @@ public class GameEntityViewable extends GameEntityImpl {
         this.icon = icon;
     }
 
+    public Pair<Integer, Integer> getSize() {
+        return this.size;
+    }
+
     public void setSize(Pair<Integer, Integer> size) {
         this.size = size;
     }

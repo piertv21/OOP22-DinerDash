@@ -13,8 +13,8 @@ public class TableViewable extends GameEntityViewable {
 
     public TableViewable(Pair<Integer, Integer> coordinates, Image icon) {
         super(coordinates, icon);
+        this.tableStateIndicator = new JButton();
         this.tableStateIndicator.setVisible(false);
-        //TODO Add JButton init
     }
 
     private void toggleState() {

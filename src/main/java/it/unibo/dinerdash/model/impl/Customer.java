@@ -28,7 +28,7 @@ public class Customer extends GameEntityImpl {
     private LinkedList<Customer> customersWaitingInLine;                  //list of customers in line waiting
     private LinkedList<Pair<Integer,Integer>> waitingLineCoordinates;      // list of coordinates of the line customers
     private int lineNumber;                                             //number of the person in line
-    private ModelImpl world;
+    private ModelImpl model;
     
     private enum CustomerState {
         WAITING,
@@ -43,7 +43,7 @@ public class Customer extends GameEntityImpl {
         super(coordinates);
         this.customersWaitingInLine = customersInLine;
         this.waitingLineCoordinates = waitingLineCoordinate;
-        this.world=world;
+        this.model = model;
     }  
 
     public int getLineNumber() {
@@ -130,9 +130,9 @@ public class Customer extends GameEntityImpl {
     }
 
     public void setTableNumber() {
-       world.getTablesList().forEach((k)->{                                      //prendo il numero del tavolo che mi è stato assegnato
+        model.getTablesList().forEach((k)->{                                      //prendo il numero del tavolo che mi è stato assegnato
             if(Optional.of(k.getPosition()).equals(this.getDestination())){
-               this.tableNumber=Optional.of(k.getTableNumber());
+                this.tableNumber=Optional.of(k.getTableNumber());
             }
         });
     }

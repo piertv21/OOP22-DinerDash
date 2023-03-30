@@ -1,4 +1,5 @@
 package it.unibo.dinerdash;
+
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.controller.impl.ControllerImpl;
 import it.unibo.dinerdash.view.api.View;

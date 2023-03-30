@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import it.unibo.dinerdash.model.api.GameEntityImpl;
+import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -10,7 +11,9 @@ public class Chef extends GameEntityImpl {
     
     private static final int MIN_PREPARATION_TIME = 3000;
     private static final int MAX_PREPARATION_TIME = 10000;
+
     private float speed;
+    private ModelImpl model;
 
     public Chef(Pair<Integer, Integer> coordinates) {
         super(coordinates);
