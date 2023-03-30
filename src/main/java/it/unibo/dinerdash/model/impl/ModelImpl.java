@@ -23,6 +23,8 @@ public class ModelImpl implements Model {
     private int remainingTime;
     private int customersWhoLeft;
     private LinkedList<Customer> customers;   // clienti
+    private LinkedList<Customer> customersInLine;   // clienti in fila
+    private LinkedList<Pair<Integer,Integer>>customers_LinePosition=new LinkedList<>();                           //coordinate della gente in fila
     private LinkedList<Table> tables;         // tavoli
     private LinkedList<Dish> dishes;          // piatti
 
@@ -136,6 +138,14 @@ public class ModelImpl implements Model {
 
     public LinkedList<Table> getTablesList() {
         return this.tables;
+    }
+
+    public LinkedList<Customer> getCustomersLineList() {
+        return this.customersInLine;
+    }
+
+    public LinkedList<Pair<Integer,Integer>> getCustomersLinePositionList() {
+        return this.customers_LinePosition;
     }
 
 }

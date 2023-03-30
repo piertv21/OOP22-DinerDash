@@ -25,8 +25,6 @@ public class Customer extends GameEntityImpl {
     private int numClienti;                     // molteplicità clienti (1 - 4)
     private Timer timerActions = new Timer();
     private CustomerState state;
-    private LinkedList<Customer> customersWaitingInLine;                  //list of customers in line waiting
-    private LinkedList<Pair<Integer,Integer>> waitingLineCoordinates;      // list of coordinates of the line customers
     private int lineNumber;                                             //number of the person in line
     private ModelImpl model;
     
@@ -38,11 +36,8 @@ public class Customer extends GameEntityImpl {
         ORDERING
     }
     
-    public Customer(Pair<Integer, Integer> coordinates, LinkedList<Customer> customersInLine, LinkedList<Pair<Integer, Integer>> waitingLineCoordinate,
-    ModelImpl world) {
+    public Customer(Pair<Integer, Integer> coordinates,ModelImpl world) {
         super(coordinates);
-        this.customersWaitingInLine = customersInLine;
-        this.waitingLineCoordinates = waitingLineCoordinate;
         this.model = world;
     }  
 
@@ -70,9 +65,10 @@ public class Customer extends GameEntityImpl {
         @Override
         public void run() { 
             if(state.equals(CustomerState.ANGRY)) {
-                customersWaitingInLine.removeFirst();                                   // QUI TOLGO IL cliente arrabbiato
-                customersWaitingInLine.forEach(x->{
-                    x.setPosition(new Pair<Integer,Integer>(waitingLineCoordinates.get(x.getLineNumber()-1).getX(),waitingLineCoordinates.get(x.getLineNumber()-1).getY()));
+                model.getCustomersLineList().removeFirst();                                   // QUI TOLGO IL cliente arrabbiato
+                model.getCustomersLineList().forEach(x->{
+                    x.setPosition(new Pair<Integer,Integer>(model.getCustomersLinePositionList().get(x.getLineNumber()-1).getX(),
+                    model.getCustomersLinePositionList().get(x.getLineNumber()-1).getY()));
                     x.setLineNumber(x.getLineNumber()-1);
                 });
                 angryAction.cancel();
