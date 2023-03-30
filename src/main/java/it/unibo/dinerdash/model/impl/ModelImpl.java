@@ -29,7 +29,7 @@ public class ModelImpl implements Model {
     public ModelImpl() {
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
-        this.customers=new LinkedList<>();
+        this.customers = new LinkedList<>();
         this.init();
     }
 
@@ -59,6 +59,11 @@ public class ModelImpl implements Model {
 
     @Override
     public void restart() {
+        this.init();
+    }
+
+    @Override
+    public void quit() {
         this.init();
     }
 

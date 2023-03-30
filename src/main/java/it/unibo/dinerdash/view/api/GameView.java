@@ -49,11 +49,12 @@ public class GameView extends FramePanel {
     private JPanel bottomPanel;
     private JPanel rightPanel;
     private Image backgroundImage;
-
+    
+    private LinkedList<GameEntityViewable> customers;
+    private LinkedList<GameEntityViewable> tables;
+    private LinkedList<GameEntityViewable> dishes;
     private GameEntityViewable waitress;
     private GameEntityViewable chef;
-    private LinkedList<GameEntityViewable> tables;
-    private LinkedList<GameEntityViewable> customers;
 
     public GameView(ViewImpl mainFrame) {
         super(mainFrame);
@@ -126,11 +127,14 @@ public class GameView extends FramePanel {
         this.start();
     }
 
-    //TODO Imposta size delle entità
-    private void start() {
-        this.tables = new LinkedList<>();
+    public void init() {        
         this.customers = new LinkedList<>();
-        
+        this.tables = new LinkedList<>();
+        this.dishes = new LinkedList<>();
+    }
+
+    //TODO Imposta size delle entità
+    private void loadResources() {        
         try {
             this.backgroundImage = loadIcon("background.jpg").getImage();
 
@@ -162,8 +166,9 @@ public class GameView extends FramePanel {
         }
     }
 
-    private void restart() {
-        //TODO
+    private void start() {
+        this.init();
+        this.loadResources();
     }
 
     private void addCustomer() {

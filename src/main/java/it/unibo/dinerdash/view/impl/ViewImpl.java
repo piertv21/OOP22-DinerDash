@@ -59,7 +59,7 @@ public class ViewImpl extends JFrame implements View {
     }
 
     @Override
-    public void closeWindow() {
+    public void quit() {
         this.dispose();
     }
 

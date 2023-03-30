@@ -39,14 +39,12 @@ public class ControllerImpl implements Controller {
     @Override
     public void restart() {        
         this.model.restart();
+        this.gamePanel.init();
     }
 
     @Override
     public void quit() {
-        this.view.closeWindow();
-
-        // TO-DO: Remove entity images, eg. image1.flush();
-
+        this.view.quit();
         System.exit(0);
     }
 

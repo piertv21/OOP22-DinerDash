@@ -9,15 +9,22 @@ import it.unibo.dinerdash.view.api.GameEntityViewable;
 
 public class TableViewable extends GameEntityViewable {
 
-    JButton tableState;
+    JButton tableStateIndicator;
 
     public TableViewable(Pair<Integer, Integer> coordinates, Image icon) {
         super(coordinates, icon);
-        //TODO Auto-generated constructor stub
+        this.tableStateIndicator.setVisible(false);
+        //TODO Add JButton init
     }
 
-    public JButton getButton(){                                       
-        return this.tableState;
-    } 
+    private void toggleState() {
+        var state = this.tableStateIndicator.isVisible();
+        this.tableStateIndicator.setVisible(!state);
+    }
+
+    public void setState() {
+        //TODO Caricamento immagine
+        this.toggleState();
+    }
     
 }
