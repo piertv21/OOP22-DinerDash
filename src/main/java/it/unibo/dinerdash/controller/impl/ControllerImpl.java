@@ -10,7 +10,6 @@ import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
-import it.unibo.dinerdash.view.impl.ViewImpl;
 
 public class ControllerImpl implements Controller {
 
@@ -35,12 +34,6 @@ public class ControllerImpl implements Controller {
     public void start() {
         //TO-DO
         this.startSpawnTimer();  //starts customers spawn
-    }
-
-    @Override
-    public void init() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'init'");
     }
 
     @Override
@@ -77,6 +70,11 @@ public class ControllerImpl implements Controller {
         this.model.addCustomer(random.nextInt(4)+1);  
     }
 
+    private void init() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'init'");
+    }
+
     public void startSpawnTimer() {
         spawnTime.schedule(custumCreation_Trd, 2000, 6000);                                //avvio la creazione programmata  dei clienti
     }
@@ -89,7 +87,7 @@ public class ControllerImpl implements Controller {
     };
 
     public LinkedList<Customer> getSittedCustomList(){             
-        return this.model.getCustomersList();
+        return this.model.getCustomers();
     }
 
 }

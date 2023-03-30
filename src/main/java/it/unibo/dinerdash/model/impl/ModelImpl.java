@@ -32,20 +32,49 @@ public class ModelImpl implements Model {
         this.customers=new LinkedList<>();
         this.init();
     }
+
+    @Override
+    public void start() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'start'");
+    }
     
+    @Override
     public void serveDish() {
         //TO-DO
     }
 
-    public void insertOrder(int tableNumber) {
+    @Override
+    public void addOrder(int tableNumber) {
         var position = new Pair<>(0, 0);
         this.dishes.add(new Dish(position, tableNumber));
         //TO-DO
     }
 
+    @Override
     public boolean gameOver() {
         return this.remainingTime == 0 ||
             this.customersWhoLeft == MAX_CUSTOMERS_THAT_CAN_LEAVE;
+    }
+
+    @Override
+    public void restart() {
+        this.init();
+    }
+
+    @Override
+    public void addCustomer(int num) {
+        if(this.gameOver()) {
+            // TO DO: STOP GAME
+        }
+        var position = new Pair<>(30, 10); 
+            if(this.emptyTables!=0){
+                this.customers.add(null); //TODO Aggiungi cliente vero
+                AssegnoTavolo();
+            }else{
+                
+               // AssegnoPostoFila();
+            } 
     }
 
     private void init() {
@@ -56,10 +85,6 @@ public class ModelImpl implements Model {
         this.customers.clear();
         this.tables.clear();
         this.dishes.clear();
-    }
-
-    public void restart() {
-        this.init();
     }
 
     public int getMaxPlaytime() {
@@ -88,21 +113,7 @@ public class ModelImpl implements Model {
         }
     }
 
-    public void addCustomer(int num) {
-        if(this.gameOver()) {
-            // TO DO: STOP GAME
-        }
-        var position = new Pair<>(30, 10); 
-            if(this.emptyTables!=0){
-                this.customers.add(null); //TODO Aggiungi cliente vero
-                AssegnoTavolo();
-            }else{
-                
-               // AssegnoPostoFila();
-            } 
-    }
-
-    public LinkedList<Customer> getCustomersList() {
+    public LinkedList<Customer> getCustomers() {
         return this.customers;
     }
 

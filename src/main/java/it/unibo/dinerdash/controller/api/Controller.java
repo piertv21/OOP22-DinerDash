@@ -8,8 +8,6 @@ public interface Controller {
 
     void start();
 
-    void init();
-
     void restart();
 
     void quit();

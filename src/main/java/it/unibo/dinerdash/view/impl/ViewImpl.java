@@ -38,6 +38,7 @@ public class ViewImpl extends JFrame implements View {
         this.setVisible(true);
     }
 
+    @Override
     public void showMainMenu() {
         this.menuView = new StartView(this);
         this.gameView = null;
@@ -47,6 +48,7 @@ public class ViewImpl extends JFrame implements View {
         this.repaint();
     }
 
+    @Override
     public void startGame() {
         this.menuView = null;
         this.gameView = new GameView(this);
@@ -56,6 +58,7 @@ public class ViewImpl extends JFrame implements View {
         this.repaint();
     }
 
+    @Override
     public void closeWindow() {
         this.dispose();
     }
@@ -65,6 +68,7 @@ public class ViewImpl extends JFrame implements View {
         return this.controller;
     }
 
+    @Override
     public FramePanel getGamePanel() {
         return this.gameView;
     }
