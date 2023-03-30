@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import it.unibo.dinerdash.model.api.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /** 
@@ -27,7 +28,7 @@ public class Customer extends GameEntity {
     private LinkedList<Customer> customersWaitingInLine;                  //list of customers in line waiting
     private LinkedList<Pair<Integer,Integer>> waitingLineCoordinates;      // list of coordinates of the line customers
     private int lineNumber;                                             //number of the person in line
-    private Model world;
+    private ModelImpl world;
     
     private enum CustomerState {
         WAITING,
@@ -38,7 +39,7 @@ public class Customer extends GameEntity {
     }
     
     public Customer(Pair<Integer, Integer> coordinates, LinkedList<Customer> customersInLine, LinkedList<Pair<Integer, Integer>> waitingLineCoordinate,
-    Model world) {
+    ModelImpl world) {
         super(coordinates);
         this.customersWaitingInLine = customersInLine;
         this.waitingLineCoordinates = waitingLineCoordinate;
@@ -130,9 +131,9 @@ public class Customer extends GameEntity {
 
     public void setTableNumber() {
        world.getTablesList().forEach((k)->{                                      //prendo il numero del tavolo che mi è stato assegnato
-            if(Optional.of(k.getPosition()).equals(this.destination)){
+            if(Optional.of(k.getPosition()).equals(this.getDestination())){
                this.tableNumber=Optional.of(k.getTableNumber());
             }
-           });
+        });
     }
 }

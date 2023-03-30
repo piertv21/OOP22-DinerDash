@@ -1,6 +1,6 @@
 package it.unibo.dinerdash.controller.api;
 
-import it.unibo.dinerdash.view.impl.View;
+import it.unibo.dinerdash.view.api.View;
 
 public interface Controller {
 

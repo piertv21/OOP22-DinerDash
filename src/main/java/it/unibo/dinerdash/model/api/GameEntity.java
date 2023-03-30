@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.model.impl;
+package it.unibo.dinerdash.model.api;
 
 import java.util.Optional;
 
@@ -7,7 +7,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public abstract class GameEntity {
 
     private Pair<Integer, Integer> position;
-    protected Optional<Pair<Integer, Integer>> destination;
+    private Optional<Pair<Integer, Integer>> destination;
     private boolean active;
 
     public GameEntity(Pair<Integer, Integer> coordinates) {

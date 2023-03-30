@@ -3,12 +3,13 @@ package it.unibo.dinerdash.model.impl;
 import java.util.LinkedList;
 import java.util.Optional;
 
+import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * Solo metodi getter e setter sulle entità model
  */
-public class Model {
+public class ModelImpl implements Model {
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final int MAX_EMPTY_TABLES = 4;
@@ -21,17 +22,14 @@ public class Model {
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
-    private LinkedList<Customer> sittedCustomersList;   // clienti (vengono rappresentati correttamente in base alla posizione + state che hanno)
-    private LinkedList<Customer> line_CustomersList;   // clienti in fila  (vengono rappresentati correttamente in base alla posizione + state che hanno)
-    private LinkedList<Pair<Integer,Integer>>customers_LinePosition;                           //coordinate della gente in fila
-    private LinkedList<Table> tables;         // tavoli (vengono rappresentati correttamente in base alla posizione + icona che hanno)
-    private LinkedList<Dish> dishes;          // lista piatti pronti dello chef
+    private LinkedList<Customer> customers;   // clienti
+    private LinkedList<Table> tables;         // tavoli
+    private LinkedList<Dish> dishes;          // piatti
 
-    public Model() {
-        this.sittedCustomersList = new LinkedList<>();
+    public ModelImpl() {
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
-        this.customers_LinePosition=new LinkedList<>();
+        this.customers=new LinkedList<>();
         this.init();
     }
     
@@ -55,7 +53,7 @@ public class Model {
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
         this.emptyTables = MAX_EMPTY_TABLES;
-        this.sittedCustomersList.clear();
+        this.customers.clear();
         this.tables.clear();
         this.dishes.clear();
     }
@@ -96,7 +94,7 @@ public class Model {
         }
         var position = new Pair<>(30, 10); 
             if(this.emptyTables!=0){
-                this.sittedCustomersList.add(new Customer(position, line_CustomersList, customers_LinePosition,this)); 
+                this.customers.add(null); //TODO Aggiungi cliente vero
                 AssegnoTavolo();
             }else{
                 
@@ -105,19 +103,19 @@ public class Model {
     }
 
     public LinkedList<Customer> getCustomersList() {
-        return this.sittedCustomersList;
+        return this.customers;
     }
 
     public void AssegnoTavolo() {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
-        sittedCustomersList.stream().filter(p ->p.getDestination().equals(Optional.empty()))         //prendo dalla lista di clienti tutti quelli senza un posto assegnato
-        .forEach((var x)->{                
+        customers.stream().filter(p ->p.getDestination().equals(Optional.empty()))         //prendo dalla lista di clienti tutti quelli senza un posto assegnato
+        .forEach((var x)->{
             x.setDestination(Optional.ofNullable(tables.stream()
             .filter(p ->p.isAvailable())
-             .reduce((first, second) -> first)
-             .orElse(null).getPosition())) ;  
+            .reduce((first, second) -> first)
+            .orElse(null).getPosition()));  
             this.emptyTables--;
             x.setTableNumber();
-            });
+        });
     }
 
     public LinkedList<Table> getTablesList() {

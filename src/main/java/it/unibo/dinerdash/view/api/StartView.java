@@ -1,6 +1,6 @@
 package it.unibo.dinerdash.view.api;
 
-import it.unibo.dinerdash.view.impl.View;
+import it.unibo.dinerdash.view.impl.ViewImpl;
 
 import java.awt.*;
 import javax.swing.*;
@@ -18,7 +18,7 @@ public class StartView extends FramePanel {
     private JButton startButton;
     private JButton exitButton;
 
-    public StartView(View mainFrame) {        
+    public StartView(ViewImpl mainFrame) {        
         super(mainFrame);
         setLayout(new GridBagLayout());
 
@@ -27,7 +27,7 @@ public class StartView extends FramePanel {
         c.gridy = 0;
         c.insets = new Insets(10, 0, 10, 0);
         
-        titleLabel = new JLabel(View.FRAME_NAME);
+        titleLabel = new JLabel(ViewImpl.FRAME_NAME);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 60));
         add(titleLabel, c);
 

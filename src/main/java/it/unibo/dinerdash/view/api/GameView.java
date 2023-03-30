@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.impl.TableViewable;
-import it.unibo.dinerdash.view.impl.View;
+import it.unibo.dinerdash.view.impl.ViewImpl;
 
 /*
  * Main Game View Panel
@@ -55,7 +55,7 @@ public class GameView extends FramePanel {
     private LinkedList<GameEntityViewable> tables;
     private LinkedList<GameEntityViewable> customers;
 
-    public GameView(View mainFrame) {
+    public GameView(ViewImpl mainFrame) {
         super(mainFrame);
 
         setLayout(new BorderLayout());
@@ -66,13 +66,13 @@ public class GameView extends FramePanel {
         topPanel.setPreferredSize(new Dimension(0, 30));
 
         timeLabel = new JLabel(TIME + ": " + this.getMainFrame().getController().getRemainingTime());
-        timeLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        timeLabel.setForeground(Color.BLACK);
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        timeLabel.setForeground(Color.WHITE);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
         coinLabel = new JLabel(COINS + ": " + this.getMainFrame().getController().getCoins());
-        coinLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        coinLabel.setForeground(Color.BLACK);
+        coinLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        coinLabel.setForeground(Color.WHITE);
         coinLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 
         topPanel.add(timeLabel, BorderLayout.WEST);

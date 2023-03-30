@@ -2,20 +2,20 @@ package it.unibo.dinerdash.view.api;
 
 import javax.swing.JPanel;
 
-import it.unibo.dinerdash.view.impl.View;
+import it.unibo.dinerdash.view.impl.ViewImpl;
 
 /*
  * Generic View panel
  */
 public class FramePanel extends JPanel {
 
-    private final View mainFrame;
+    private final ViewImpl mainFrame;
 
-    public FramePanel(View mainFrame) {
+    public FramePanel(ViewImpl mainFrame) {
         this.mainFrame = mainFrame;
     }
 
-    public View getMainFrame() {
+    public ViewImpl getMainFrame() {
         return this.mainFrame;
     }
 

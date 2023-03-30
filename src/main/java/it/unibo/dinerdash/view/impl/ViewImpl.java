@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.view.api.FramePanel;
-import it.unibo.dinerdash.view.api.GUI;
+import it.unibo.dinerdash.view.api.View;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.StartView;
 
@@ -13,7 +13,7 @@ import java.awt.*;
 /*
  * Main View.
  */
-public class View extends JFrame implements GUI {
+public class ViewImpl extends JFrame implements View {
 
     public static final String FRAME_NAME = "Diner Dash";
 
@@ -21,7 +21,7 @@ public class View extends JFrame implements GUI {
     private FramePanel menuView;
     private FramePanel gameView;
 
-    public View(Controller controller) {
+    public ViewImpl(Controller controller) {
         super(FRAME_NAME);
         this.controller = controller;
         
