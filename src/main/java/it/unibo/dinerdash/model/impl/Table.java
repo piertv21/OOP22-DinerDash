@@ -17,7 +17,8 @@ public class Table extends GameEntity {
         ORDERING,
         WAITING_MEAL,
         EATING,
-        WANTING_TO_PAY
+        WANTING_TO_PAY,
+        EMPTY
     }
 
     public Table(Pair<Integer, Integer> coordinates) {
@@ -51,6 +52,10 @@ public class Table extends GameEntity {
 
     public void setState(TableState TableState){                                     
         this.state = TableState;
+    }
+
+    public TableState getState(){                                     
+        return this.state;
     }
     
 }

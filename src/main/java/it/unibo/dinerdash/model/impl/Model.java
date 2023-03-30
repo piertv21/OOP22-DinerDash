@@ -1,6 +1,8 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
+import java.util.Optional;
+
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -91,7 +93,7 @@ public class Model {
         }
         var position = new Pair<>(30, 10); 
             if(this.emptyTables!=0){
-                this.sittedCustomersList.add(null); //NUOVO CLIENTE DA ISTANZIARE CON PAIR
+                this.sittedCustomersList.add(new Customer(null, null, sittedCustomersList, null)); //NUOVO CLIENTE DA ISTANZIARE CON PAIR
                 //AssegnoTavolo();
             }else{
                 
@@ -102,5 +104,16 @@ public class Model {
     public LinkedList<Customer> getCustomersList() {
         return this.sittedCustomersList;
     }
+
+    public void AssegnoTavolo(){                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
+        sittedCustomersList.stream().filter(p ->p.getDestination().equals(Optional.empty()))         //prendo dalla lista di clienti tutti quelli senza un posto assegnato
+        .forEach((var x)->{                
+            x.setDestination(Optional.ofNullable(tables.stream()
+            .filter(p ->p.isAvailable())
+             .reduce((first, second) -> first)
+             .orElse(null).getPosition())) ;                                               //assegno il posto
+            this.emptyTables--;
+            });
+}
 
 }
