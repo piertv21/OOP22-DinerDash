@@ -1,12 +1,12 @@
 package it.unibo.dinerdash.model.impl;
 
-import it.unibo.dinerdash.model.api.GameEntity;
+import it.unibo.dinerdash.model.api.GameEntityImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * Table is not a thread
  */
-public class Table extends GameEntity {
+public class Table extends GameEntityImpl {
 
     private int tableNumber;
     private int peopleSeatedNumber; // Represents correct image number

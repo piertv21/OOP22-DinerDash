@@ -171,8 +171,12 @@ public class GameView extends FramePanel {
         this.loadResources();
     }
 
-    private void addCustomer() {
+    public void addCustomer() {
         this.getMainFrame().getController().addCustomer();
+    }
+
+    public void addDish() {
+        //TODO
     }
 
     // https://stackoverflow.com/questions/49871233/using-imageicon-to-access-a-picture-cant-access-it-how-to-fix

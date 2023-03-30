@@ -5,13 +5,13 @@ import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import it.unibo.dinerdash.model.api.GameEntity;
+import it.unibo.dinerdash.model.api.GameEntityImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /** 
  * Create a new element "Customer" who will move in the restaurant
  */
-public class Customer extends GameEntity {
+public class Customer extends GameEntityImpl {
 
     private static final int MOVEMENT_DISTANCE = 5;
     private static final int MIN_EAT_TIME = 4000;

@@ -2,13 +2,13 @@ package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
 
-import it.unibo.dinerdash.model.api.GameEntity;
+import it.unibo.dinerdash.model.api.GameEntityImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * GameEntity viewable for GUI representation
  */
-public class GameEntityViewable extends GameEntity {
+public class GameEntityViewable extends GameEntityImpl {
 
     private Image icon;
     private Pair<Integer, Integer> size;

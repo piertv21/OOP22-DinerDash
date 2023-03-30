@@ -4,40 +4,18 @@ import java.util.Optional;
 
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public abstract class GameEntity {
+public interface GameEntity {
 
-    private Pair<Integer, Integer> position;
-    private Optional<Pair<Integer, Integer>> destination;
-    private boolean active;
+    Pair<Integer, Integer> getPosition();
 
-    public GameEntity(Pair<Integer, Integer> coordinates) {
-        this.setPosition(coordinates);
-        this.setDestination(Optional.empty());
-        this.setActive(true);
-    }
+    void setPosition(Pair<Integer, Integer> position);
 
-    public Pair<Integer, Integer> getPosition() {
-        return this.position;
-    }
+    Optional<Pair<Integer, Integer>> getDestination();
 
-    public void setPosition(Pair<Integer, Integer> position) {
-        this.position = position;
-    }
+    void setDestination(Optional<Pair<Integer, Integer>> destination);
 
-    public Optional<Pair<Integer, Integer>> getDestination() {
-        return this.destination;
-    }
+    boolean isActive();
 
-    public void setDestination(Optional<Pair<Integer, Integer>> destination) {
-        this.destination = destination;
-    }
+    void setActive(boolean active);
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-    
 }
