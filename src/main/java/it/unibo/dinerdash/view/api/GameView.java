@@ -200,6 +200,12 @@ public class GameView extends FramePanel {
             g.drawImage(e.getIcon(), e.getPosition().getX(), e.getPosition().getY(), 120, 180, this)
         );
 
+        // Customers
+        this.customers.forEach(c ->
+            g.drawImage(c.getIcon(), c.getPosition().getX(), c.getPosition().getY(), (int)(this.getMainFrame().getWidth() * 0.55), 
+            (int)(this.getMainFrame().getHeight() * 0.55), this)
+        );
+
         // Chef
         g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
     }
