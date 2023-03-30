@@ -96,7 +96,7 @@ public class Model {
         }
         var position = new Pair<>(30, 10); 
             if(this.emptyTables!=0){
-                this.sittedCustomersList.add(new Customer(position, null, line_CustomersList, customers_LinePosition)); 
+                this.sittedCustomersList.add(new Customer(position, line_CustomersList, customers_LinePosition,this)); 
                 AssegnoTavolo();
             }else{
                 
@@ -108,7 +108,7 @@ public class Model {
         return this.sittedCustomersList;
     }
 
-    public void AssegnoTavolo(){                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
+    public void AssegnoTavolo() {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         sittedCustomersList.stream().filter(p ->p.getDestination().equals(Optional.empty()))         //prendo dalla lista di clienti tutti quelli senza un posto assegnato
         .forEach((var x)->{                
             x.setDestination(Optional.ofNullable(tables.stream()
@@ -116,11 +116,12 @@ public class Model {
              .reduce((first, second) -> first)
              .orElse(null).getPosition())) ;  
             this.emptyTables--;
+            x.setTableNumber();
             });
-}
+    }
 
-public LinkedList<Table> getTablesList(){
-    return this.tables;
-}
+    public LinkedList<Table> getTablesList() {
+        return this.tables;
+    }
 
 }
