@@ -2,6 +2,7 @@ package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
 
+import it.unibo.dinerdash.model.api.GameEntity;
 import it.unibo.dinerdash.model.api.GameEntityImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
@@ -26,12 +27,20 @@ public class GameEntityViewable extends GameEntityImpl {
         this.icon = icon;
     }
 
-    public Pair<Integer, Integer> getSize() {
-        return size;
-    }
-
     public void setSize(Pair<Integer, Integer> size) {
         this.size = size;
+    }
+
+    // Sync Viewable Entity with Model Entity
+    public void update(GameEntity gameEntity) {
+        var newPosition = gameEntity.getPosition();
+        this.setPosition(newPosition);
+
+        var newDestination = gameEntity.getDestination();
+        this.setDestination(newDestination);
+
+        var newActiveStatus = gameEntity.isActive();
+        this.setActive(newActiveStatus);
     }
 
 }
