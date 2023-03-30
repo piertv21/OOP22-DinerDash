@@ -43,7 +43,7 @@ public class Customer extends GameEntityImpl {
         super(coordinates);
         this.customersWaitingInLine = customersInLine;
         this.waitingLineCoordinates = waitingLineCoordinate;
-        this.model = model;
+        this.model = world;
     }  
 
     public int getLineNumber() {

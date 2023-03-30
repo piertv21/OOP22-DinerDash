@@ -138,6 +138,8 @@ public class GameView extends FramePanel {
         try {
             this.backgroundImage = loadIcon("background.jpg").getImage();
 
+            var customeImage = loadIcon("client1.png").getImage();  
+            customers.add(new GameEntityViewable(new Pair<Integer,Integer>(300, 200), customeImage));
             var waitressPosition = new Pair<>(40, 120);
             var waitressImage = loadIcon("waitress.png").getImage();
             this.waitress = new GameEntityViewable(waitressPosition, waitressImage);
@@ -202,8 +204,8 @@ public class GameView extends FramePanel {
 
         // Customers
         this.customers.forEach(c ->
-            g.drawImage(c.getIcon(), c.getPosition().getX(), c.getPosition().getY(), (int)(this.getMainFrame().getWidth() * 0.55), 
-            (int)(this.getMainFrame().getHeight() * 0.55), this)
+            g.drawImage(c.getIcon(), c.getPosition().getX(), c.getPosition().getY(), (int)(this.getMainFrame().getWidth() * 0.13), 
+            (int)(this.getMainFrame().getHeight() * 0.18), this)
         );
 
         // Chef
