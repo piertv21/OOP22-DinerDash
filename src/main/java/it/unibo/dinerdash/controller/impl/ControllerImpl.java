@@ -8,12 +8,14 @@ import java.util.TimerTask;
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.Model;
+import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.impl.View;
 
 public class ControllerImpl implements Controller {
 
     private Model model;
     private View view;
+    private GameView gamePanel;
     private Random random; // used to create customers
     Timer spawnTime = new Timer();                             //timer to make spawn customers
     
@@ -25,6 +27,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void setView(View view) {
         this.view = view;
+        this.gamePanel = (GameView)this.view.getGamePanel();
     }
 
     @Override
@@ -70,7 +73,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addCustomer() {
-        this.model.addCustomer(random.nextInt(4)+1);      
+        this.model.addCustomer(random.nextInt(4)+1);  
     }
 
     public void startSpawnTimer() {
