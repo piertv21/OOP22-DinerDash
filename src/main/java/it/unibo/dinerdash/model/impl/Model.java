@@ -22,6 +22,8 @@ public class Model {
     private int remainingTime;
     private int customersWhoLeft;
     private LinkedList<Customer> sittedCustomersList;   // clienti (vengono rappresentati correttamente in base alla posizione + state che hanno)
+    private LinkedList<Customer> line_CustomersList;   // clienti in fila  (vengono rappresentati correttamente in base alla posizione + state che hanno)
+    private LinkedList<Pair<Integer,Integer>>customers_LinePosition;                           //coordinate della gente in fila
     private LinkedList<Table> tables;         // tavoli (vengono rappresentati correttamente in base alla posizione + icona che hanno)
     private LinkedList<Dish> dishes;          // lista piatti pronti dello chef
 
@@ -29,6 +31,7 @@ public class Model {
         this.sittedCustomersList = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
+        this.customers_LinePosition=new LinkedList<>();
         this.init();
     }
     
@@ -93,8 +96,8 @@ public class Model {
         }
         var position = new Pair<>(30, 10); 
             if(this.emptyTables!=0){
-                this.sittedCustomersList.add(new Customer(null, null, sittedCustomersList, null)); //NUOVO CLIENTE DA ISTANZIARE CON PAIR
-                //AssegnoTavolo();
+                this.sittedCustomersList.add(new Customer(position, null, line_CustomersList, customers_LinePosition)); 
+                AssegnoTavolo();
             }else{
                 
                // AssegnoPostoFila();
@@ -111,9 +114,13 @@ public class Model {
             x.setDestination(Optional.ofNullable(tables.stream()
             .filter(p ->p.isAvailable())
              .reduce((first, second) -> first)
-             .orElse(null).getPosition())) ;                                               //assegno il posto
+             .orElse(null).getPosition())) ;  
             this.emptyTables--;
             });
+}
+
+public LinkedList<Table> getTablesList(){
+    return this.tables;
 }
 
 }

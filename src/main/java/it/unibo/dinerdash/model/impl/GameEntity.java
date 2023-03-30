@@ -7,7 +7,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public abstract class GameEntity {
 
     private Pair<Integer, Integer> position;
-    private Optional<Pair<Integer, Integer>> destination;
+    protected Optional<Pair<Integer, Integer>> destination;
     private boolean active;
 
     public GameEntity(Pair<Integer, Integer> coordinates) {
