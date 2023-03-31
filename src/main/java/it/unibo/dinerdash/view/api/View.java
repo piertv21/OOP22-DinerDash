@@ -12,6 +12,6 @@ public interface View {
 
     Controller getController();
 
-    FramePanel getGamePanel();
+    GameView getGamePanel();
     
 }

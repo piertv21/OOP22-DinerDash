@@ -27,12 +27,12 @@ public class ControllerImpl implements Controller {
     @Override
     public void setView(View view) {
         this.view = view;
-        this.gamePanel = (GameView) this.view.getGamePanel();
     }
 
     @Override
     public void start() {
         //TO-DO
+        this.gamePanel = this.view.getGamePanel();
         this.startSpawnTimer();  //starts customers spawn
     }
 

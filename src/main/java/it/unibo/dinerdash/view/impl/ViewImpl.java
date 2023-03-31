@@ -3,7 +3,6 @@ package it.unibo.dinerdash.view.impl;
 import javax.swing.JFrame;
 
 import it.unibo.dinerdash.controller.api.Controller;
-import it.unibo.dinerdash.view.api.FramePanel;
 import it.unibo.dinerdash.view.api.View;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.StartView;
@@ -18,8 +17,8 @@ public class ViewImpl extends JFrame implements View {
     public static final String FRAME_NAME = "Diner Dash";
 
     private Controller controller;
-    private FramePanel menuView;
-    private FramePanel gameView;
+    private StartView menuView;
+    private GameView gameView;
 
     public ViewImpl(Controller controller) {
         super(FRAME_NAME);
@@ -69,7 +68,7 @@ public class ViewImpl extends JFrame implements View {
     }
 
     @Override
-    public FramePanel getGamePanel() {
+    public GameView getGamePanel() {
         return this.gameView;
     }
 
