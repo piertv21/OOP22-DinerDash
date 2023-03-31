@@ -24,9 +24,9 @@ public class ViewImpl extends JFrame implements View {
         super(FRAME_NAME);
         this.controller = controller;
         
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationByPlatform(true);
-        this.setResizable(true);        
+        this.setResizable(true);
 
         final var screenDim = Toolkit.getDefaultToolkit().getScreenSize();
         final int width = (int) screenDim.getWidth();

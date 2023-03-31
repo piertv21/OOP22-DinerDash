@@ -133,6 +133,13 @@ public class GameView extends FramePanel {
         this.dishes = new LinkedList<>();
     }
 
+    private void start() {
+        this.init();
+        this.loadResources();
+
+        this.getMainFrame().getController().start();
+    }
+
     //TODO Imposta size delle entità
     private void loadResources() {        
         try {
@@ -166,11 +173,6 @@ public class GameView extends FramePanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void start() {
-        this.init();
-        this.loadResources();
     }
 
     public void addCustomer() {

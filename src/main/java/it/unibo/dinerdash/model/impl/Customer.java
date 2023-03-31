@@ -1,6 +1,5 @@
 package it.unibo.dinerdash.model.impl;
 
-import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,8 +19,7 @@ public class Customer extends GameEntityImpl {
     private static final int STARTING_Y = 500;
     private static final int TIME_BEFORE_GETANGRY = 8000;
     private static final int TIME_BEFORE_ORDERING = 4000;
-
-    private Optional<Integer> tableNumber;
+    
     private int numClienti;                     // molteplicità clienti (1 - 4)
     private Timer timerActions = new Timer();
     private CustomerState state;
@@ -36,9 +34,9 @@ public class Customer extends GameEntityImpl {
         ORDERING
     }
     
-    public Customer(Pair<Integer, Integer> coordinates,ModelImpl world) {
+    public Customer(Pair<Integer, Integer> coordinates, ModelImpl model) {
         super(coordinates);
-        this.model = world;
+        this.model = model;
     }  
 
     public int getLineNumber() {
@@ -61,7 +59,8 @@ public class Customer extends GameEntityImpl {
         timerActions.schedule(ThinkingAction, TIME_BEFORE_ORDERING, TIME_BEFORE_ORDERING);
     }
 
-    TimerTask angryAction = new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
+    //TODO Aggiorna
+    /* TimerTask angryAction = new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
         @Override
         public void run() { 
             if(state.equals(CustomerState.ANGRY)) {
@@ -75,7 +74,7 @@ public class Customer extends GameEntityImpl {
             }             
            setState(CustomerState.ANGRY);  
         }
-    };
+    }; */
 
     TimerTask ThinkingAction = new TimerTask() {                        //azione programmata per gestire il cliente che pensa
         @Override
@@ -125,11 +124,12 @@ public class Customer extends GameEntityImpl {
         this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX()-MOVEMENT_DISTANCE, this.getPosition().getY()));
     }
 
-    public void setTableNumber() {
+    //TODO Rimuovi (non serve, cliente quando riceve un tavolo prende le coordinate dest)
+    /* public void setTableNumber() {
         model.getTablesList().forEach((k)->{                                      //prendo il numero del tavolo che mi è stato assegnato
             if(Optional.of(k.getPosition()).equals(this.getDestination())){
-                this.tableNumber=Optional.of(k.getTableNumber());
+                //this.tableNumber = Optional.of(k.getTableNumber());
             }
         });
-    }
+    } */
 }

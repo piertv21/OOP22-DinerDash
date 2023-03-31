@@ -7,10 +7,8 @@ import it.unibo.dinerdash.utility.impl.Pair;
  * Table is not a thread
  */
 public class Table extends GameEntityImpl {
-
-    private int tableNumber;
-    private int peopleSeatedNumber; // Represents correct image number
-    private boolean available;
+    
+    private int peopleSeatedNumber; // Equals to customers number
     private TableState state;
 
     private enum TableState {
@@ -27,14 +25,6 @@ public class Table extends GameEntityImpl {
         // TODO Auto-generated method stub
     }
 
-    public int getTableNumber() {
-        return this.tableNumber;
-    }
-
-    public void setTableNumber(int tableNumber) {
-        this.tableNumber = tableNumber;
-    }
-
     public int getPeopleSeatedNumber() {
         return this.peopleSeatedNumber;
     }
@@ -42,14 +32,6 @@ public class Table extends GameEntityImpl {
     public void setPeopleSeatedNumber(int peopleSeatedNumber) {
         this.peopleSeatedNumber = peopleSeatedNumber;
     }
-
-    public boolean isAvailable() {
-        return this.available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }  
 
     public void setState(TableState TableState){                                     
         this.state = TableState;

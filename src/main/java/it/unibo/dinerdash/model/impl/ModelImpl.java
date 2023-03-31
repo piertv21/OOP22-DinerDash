@@ -1,5 +1,6 @@
 package it.unibo.dinerdash.model.impl;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Optional;
 
@@ -12,24 +13,22 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public class ModelImpl implements Model {
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
-    private static final int MAX_EMPTY_TABLES = 4;
     private static final double CHEF_SPEED_MULTIPLIER = 1.2;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
     private static final double PROFIT_MULTIPLIER = 2.0;
     private static final int MAX_PLAYTIME = 60*5;
     
-    private int emptyTables;
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
     private LinkedList<Customer> customers;   // clienti
     private LinkedList<Customer> customersInLine;   // clienti in fila
-    private LinkedList<Pair<Integer,Integer>>customers_LinePosition=new LinkedList<>();                           //coordinate della gente in fila
-    private LinkedList<Table> tables;         // tavoli
+    //TODO GIA' in customersInLine private LinkedList<Pair<Integer,Integer>>customers_LinePosition = new LinkedList<>();                           //coordinate della gente in fila
+    private HashMap<Table, Optional<Customer>> tables;         // tavoli con eventuali clienti
     private LinkedList<Dish> dishes;          // piatti
 
     public ModelImpl() {
-        this.tables = new LinkedList<>();
+        this.tables = new HashMap<>();
         this.dishes = new LinkedList<>();
         this.customers = new LinkedList<>();
         this.init();
@@ -75,20 +74,19 @@ public class ModelImpl implements Model {
             // TO DO: STOP GAME
         }
         var position = new Pair<>(30, 10); 
-            if(this.emptyTables!=0){
-                this.customers.add(null); //TODO Aggiungi cliente vero
-                AssegnoTavolo();
-            }else{
-                
-               // AssegnoPostoFila();
-            } 
+        if(this.emptyTables!=0){
+            this.customers.add(null); //TODO Aggiungi cliente vero
+            AssegnoTavolo();
+        }else{
+            
+            // AssegnoPostoFila();
+        }
     }
 
     private void init() {
         this.coins = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
-        this.emptyTables = MAX_EMPTY_TABLES;
         this.customers.clear();
         this.tables.clear();
         this.dishes.clear();
@@ -124,11 +122,12 @@ public class ModelImpl implements Model {
         return this.customers;
     }
 
+    //TODO Aggiorna
     public void AssegnoTavolo() {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         customers.stream().filter(p ->p.getDestination().equals(Optional.empty()))         //prendo dalla lista di clienti tutti quelli senza un posto assegnato
         .forEach((var x)->{
             x.setDestination(Optional.ofNullable(tables.stream()
-            .filter(p ->p.isAvailable())
+            //.filter(p ->p.isAvailable())
             .reduce((first, second) -> first)
             .orElse(null).getPosition()));  
             this.emptyTables--;
@@ -136,7 +135,7 @@ public class ModelImpl implements Model {
         });
     }
 
-    public LinkedList<Table> getTablesList() {
+    public HashMap<Table, Optional<Customer>> getTables() {
         return this.tables;
     }
 
@@ -144,8 +143,10 @@ public class ModelImpl implements Model {
         return this.customersInLine;
     }
 
+    /* TODO Non serve
     public LinkedList<Pair<Integer,Integer>> getCustomersLinePositionList() {
         return this.customers_LinePosition;
     }
+    */
 
 }
