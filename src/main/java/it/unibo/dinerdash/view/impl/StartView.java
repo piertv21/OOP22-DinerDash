@@ -1,15 +1,15 @@
-package it.unibo.dinerdash.view.api;
-
-import it.unibo.dinerdash.view.impl.ViewImpl;
+package it.unibo.dinerdash.view.impl;
 
 import java.awt.*;
 import javax.swing.*;
+
+import it.unibo.dinerdash.view.api.GamePanel;
 
 /*
  * Starting Game Menu with 2 buttons
  * TODO: Aggiungi eventuale immagine di sfondo
  */
-public class StartView extends FramePanel {
+public class StartView extends GamePanel {
     
     private static final String START = "Start game";
     private static final String EXIT = "Exit";

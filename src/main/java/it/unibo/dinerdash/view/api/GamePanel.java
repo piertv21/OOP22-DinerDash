@@ -7,11 +7,11 @@ import it.unibo.dinerdash.view.impl.ViewImpl;
 /*
  * Generic View panel
  */
-public class FramePanel extends JPanel {
+public class GamePanel extends JPanel {
 
     private final ViewImpl mainFrame;
 
-    public FramePanel(ViewImpl mainFrame) {
+    public GamePanel(ViewImpl mainFrame) {
         this.mainFrame = mainFrame;
     }
 

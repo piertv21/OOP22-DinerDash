@@ -8,6 +8,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public class Table extends GameEntityImpl {
     
+    private int tableNumber;
     private int peopleSeatedNumber; // Equals to customers number
     private TableState state;
 
@@ -20,8 +21,9 @@ public class Table extends GameEntityImpl {
         EMPTY
     }
 
-    public Table(Pair<Integer, Integer> coordinates) {
+    public Table(Pair<Integer, Integer> coordinates, int tableNumber) {
         super(coordinates);
+        this.tableNumber = tableNumber;
         // TODO Auto-generated method stub
     }
 

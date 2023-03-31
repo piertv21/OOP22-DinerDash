@@ -1,7 +1,6 @@
 package it.unibo.dinerdash.model.impl;
 
 import it.unibo.dinerdash.model.api.GameEntityImpl;
-import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*

@@ -8,8 +8,8 @@ import java.util.TimerTask;
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.ModelImpl;
-import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
+import it.unibo.dinerdash.view.impl.GameView;
 
 public class ControllerImpl implements Controller {
 

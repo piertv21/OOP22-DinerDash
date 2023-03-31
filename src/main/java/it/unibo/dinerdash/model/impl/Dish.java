@@ -13,16 +13,12 @@ public class Dish extends GameEntityImpl {
 
     public Dish(Pair<Integer, Integer> coordinates, int dishNumber) {
         super(coordinates);
-        this.setDishNumber(dishNumber);
+        this.dishNumber = dishNumber;
         this.setReady(false);
     }
 
     public int getDishNumber() {
         return this.dishNumber;
-    }
-
-    public void setDishNumber(int dishNumber) {
-        this.dishNumber = dishNumber;
     }
 
     public boolean isReady() {

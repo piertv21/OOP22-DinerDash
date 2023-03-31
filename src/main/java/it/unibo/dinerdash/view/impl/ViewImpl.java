@@ -4,8 +4,6 @@ import javax.swing.JFrame;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.view.api.View;
-import it.unibo.dinerdash.view.api.GameView;
-import it.unibo.dinerdash.view.api.StartView;
 
 import java.awt.*;
 

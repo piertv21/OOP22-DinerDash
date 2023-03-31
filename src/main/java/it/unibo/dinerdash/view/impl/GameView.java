@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.view.api;
+package it.unibo.dinerdash.view.impl;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -20,14 +20,14 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.utility.impl.Pair;
-import it.unibo.dinerdash.view.impl.TableViewable;
-import it.unibo.dinerdash.view.impl.ViewImpl;
+import it.unibo.dinerdash.view.api.GamePanel;
+import it.unibo.dinerdash.view.api.GameEntityViewable;
 
 /*
  * Main Game View Panel
  * //TODO Clear method
  */
-public class GameView extends FramePanel {
+public class GameView extends GamePanel {
 
     private static final String SEP = System.getProperty("file.separator");
     private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
