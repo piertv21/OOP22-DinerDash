@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.model.api.CustomerState;
+import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.Pair;
 
@@ -21,21 +23,25 @@ public class ModelImpl implements Model {
     private static final double PROFIT_MULTIPLIER = 2.0;
     private static final int MAX_PLAYTIME = 60*5;
     private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
+    private static final int TABLES = 4;
+    private static final double STARTING_TABLE_RELATIVE_X = 0.3;
+    private static final double STARTING_TABLE_RELATIVE_Y = 0.3;
+    private static final int TABLES_PADDING = 250;
     
     private Pair<Integer,Integer> firstLinePosition;
-    private Dimension restaurantSize;
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
-    private LinkedList<Customer> customers;   // clienti
-    private HashMap<Table, Optional<Customer>> tables;         // tavoli con eventuali clienti
-    private LinkedList<Dish> dishes;          // piatti
+    private LinkedList<Customer> customers;                     // clienti
+    private HashMap<Table, Optional<Customer>> tables;          // tavoli con eventuali clienti
+    private LinkedList<Dish> dishes;                            // piatti
+    private Dimension restaurantSize;                           // size aggiornata finestra
+    private GameState gameState;                                // stato di gioco
 
     public ModelImpl() {
+        this.customers = new LinkedList<>();
         this.tables = new HashMap<>();
         this.dishes = new LinkedList<>();
-        this.customers = new LinkedList<>();
-        this.init();
     }
 
     @Override
@@ -43,10 +49,63 @@ public class ModelImpl implements Model {
         this.restaurantSize = dimension;
     }
 
+    private void init() {
+        this.coins = 0;
+        this.remainingTime = MAX_PLAYTIME;
+        this.customersWhoLeft = 0;
+        this.gameState = GameState.RUNNING;        
+        this.clear();
+
+        var startingTableX = (int)(this.restaurantSize.getWidth() * STARTING_TABLE_RELATIVE_X);
+        var startingTableY = (int)(this.restaurantSize.getHeight() * STARTING_TABLE_RELATIVE_Y);
+
+        IntStream.range(0, TABLES).forEach(i -> {
+            var j = i % (TABLES / 2);
+            var x = startingTableX + (j * TABLES_PADDING);
+            var y = startingTableY + (i * TABLES_PADDING);
+            var position = new Pair<>(x, y);
+            this.tables.put(new Table(position, i + 1), Optional.empty());
+        });
+    }
+
+    private void clear() {
+        this.customers.clear();
+        this.tables.clear();
+        this.dishes.clear();
+    }
+
     @Override
     public void start() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'start'");
+        this.init();
+
+        //TODO
+    }
+
+    @Override
+    public void pause() {
+        this.gameState = GameState.PAUSED;
+    }
+
+    @Override
+    public void stop() {
+        this.gameState = GameState.ENDED;
+    }
+
+    @Override
+    public boolean gameOver() {
+        return this.remainingTime == 0 ||
+            this.customersWhoLeft == MAX_CUSTOMERS_THAT_CAN_LEAVE;
+    }
+
+    @Override
+    public void restart() {
+        this.init();
+        this.start();
+    }
+
+    @Override
+    public void quit() {
+        this.clear();
     }
     
     @Override
@@ -62,22 +121,6 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public boolean gameOver() {
-        return this.remainingTime == 0 ||
-            this.customersWhoLeft == MAX_CUSTOMERS_THAT_CAN_LEAVE;
-    }
-
-    @Override
-    public void restart() {
-        this.init();
-    }
-
-    @Override
-    public void quit() {
-        this.init();
-    }
-
-    @Override
     public void addCustomer(int num) {
         this.initializeTablesMap(); //prova   poi si dovra togliere da qui
         if(this.gameOver()) {
@@ -87,19 +130,6 @@ public class ModelImpl implements Model {
         this.customers.add(new Customer(position, this)); 
         if(thereAreAvaibleTables()) AssegnoTavolo();
         else  assegnoPostoFila(); 
-    }
-
-    private void init() {
-        this.coins = 0;
-        this.remainingTime = MAX_PLAYTIME;
-        this.customersWhoLeft = 0;
-        this.customers.clear();
-        this.tables.clear();
-        this.dishes.clear();
-    }
-
-    public int getMaxPlaytime() {
-        return MAX_PLAYTIME;
     }
 
     public int getCoins() {
@@ -112,10 +142,6 @@ public class ModelImpl implements Model {
 
     public int getRemainingTime() {
         return this.remainingTime;
-    }
-
-    public int getCustomersWhoLeft() {
-        return this.customersWhoLeft;
     }
 
     public void customerLeft() {

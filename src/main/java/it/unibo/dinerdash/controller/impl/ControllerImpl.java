@@ -1,18 +1,32 @@
 package it.unibo.dinerdash.controller.impl;
 
 import java.awt.Dimension;
+import java.io.IOException;
+import java.lang.StackWalker.Option;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
+
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.ModelImpl;
+import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.view.api.GameEntityViewable;
 import it.unibo.dinerdash.view.api.View;
 import it.unibo.dinerdash.view.impl.GameView;
+import it.unibo.dinerdash.view.impl.TableViewable;
 
 public class ControllerImpl implements Controller {
+
+    private static final String SEP = System.getProperty("file.separator");
+    private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
 
     private ModelImpl model;
     private View view;
@@ -32,8 +46,9 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void start() {
-        //TO-DO
         this.gamePanel = this.view.getGamePanel();
+        //TO-DO
+        this.model.start();
         this.startSpawnTimer();  //starts customers spawn
     }
 
@@ -97,6 +112,39 @@ public class ControllerImpl implements Controller {
 
     public LinkedList<Customer> getSittedCustomList(){             
         return this.model.getCustomers();
+    }
+
+    // https://stackoverflow.com/questions/49871233/using-imageicon-to-access-a-picture-cant-access-it-how-to-fix
+    private ImageIcon loadIcon(String iconName) throws IOException {
+        final URL imgURL = ClassLoader.getSystemResource(ROOT + iconName);
+        return new ImageIcon(imgURL);
+    }
+
+    @Override
+    public HashMap<TableViewable, Optional<GameEntityViewable>> getTables() {
+
+        //TODO Modifica e migliora
+        var tables = this.model.getTables();
+        HashMap<TableViewable, Optional<GameEntityViewable>> out = new HashMap<>();
+
+        for(var e : tables.entrySet()) {
+            try {
+                var tableImage = loadIcon("table" + e.getKey().getPeopleSeatedNumber() + ".png").getImage();
+                var tableViewablePosition = new Pair<>(e.getKey().getPosition().getX(), e.getKey().getPosition().getY());
+                var tableViewable = new TableViewable(tableViewablePosition, tableImage);
+
+                var customerViewableImage = loadIcon("client" + e.getValue().get().getCustomerMultiplicity() + ".png").getImage();
+                var customerViewablePosition = new Pair<>(e.getValue().get().getPosition().getX(), e.getValue().get().getPosition().getY());
+                var customerViewable = new GameEntityViewable(customerViewablePosition, customerViewableImage);
+
+                out.put(tableViewable, Optional.of(customerViewable));
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
+
+        return out;
     }
 
 }

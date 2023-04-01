@@ -8,6 +8,10 @@ public interface Model {
 
     void start();
 
+    void pause();
+
+    void stop();
+
     void serveDish();
 
     void addOrder(int tableNumber);

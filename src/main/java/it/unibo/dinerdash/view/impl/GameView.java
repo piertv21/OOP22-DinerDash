@@ -3,8 +3,9 @@ package it.unibo.dinerdash.view.impl;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Optional;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -51,7 +52,7 @@ public class GameView extends GamePanel {
     private Image backgroundImage;
     
     private LinkedList<GameEntityViewable> customers;
-    private LinkedList<GameEntityViewable> tables;
+    private HashMap<TableViewable, Optional<GameEntityViewable>> tables;
     private LinkedList<GameEntityViewable> dishes;
     private GameEntityViewable waitress;
     private GameEntityViewable chef;
@@ -129,14 +130,13 @@ public class GameView extends GamePanel {
 
     public void init() {        
         this.customers = new LinkedList<>();
-        this.tables = new LinkedList<>();
+        this.tables = new HashMap<>();
         this.dishes = new LinkedList<>();
     }
 
     private void start() {
         this.init();
         this.loadResources();
-
         this.getMainFrame().getController().start();
     }
 
@@ -151,21 +151,7 @@ public class GameView extends GamePanel {
             var waitressImage = loadIcon("waitress.png").getImage();
             this.waitress = new GameEntityViewable(waitressPosition, waitressImage);
 
-            int startX = (int)(this.getMainFrame().getWidth() * 0.3);
-            int startY = (int)(this.getMainFrame().getHeight() * 0.3);
-            int tableWidth = 250;
-            int tableHeight = 250;
-            var tableImage = loadIcon("emptyTable.png").getImage();
-            
-            // TODO Trasforma in stream
-            for (int i = 0; i < 2; i++) {
-                for (int j = 0; j < 2; j++) {
-                    int x = startX + (j * tableWidth);
-                    int y = startY + (i * tableHeight);
-                    var tablePosition = new Pair<>(x, y);
-                    this.tables.add(new TableViewable(tablePosition, tableImage));
-                }
-            }
+            //TODO Add tavoli from controller->model
 
             var chefPosition = new Pair<>((int)(this.getMainFrame().getWidth() * 0.55), (int)(this.getMainFrame().getWidth() * 0.02));
             var chefImage = loadIcon("chef.png").getImage();
@@ -200,9 +186,9 @@ public class GameView extends GamePanel {
         g.drawImage(waitress.getIcon(), waitress.getPosition().getX(), waitress.getPosition().getY(), 120, 180, this);
 
         // Tables
-        this.tables.forEach(e ->
-            g.drawImage(e.getIcon(), e.getPosition().getX(), e.getPosition().getY(), 120, 180, this)
-        );
+        //this.tables.forEach(e ->
+        //    g.drawImage(e.getIcon(), e.getPosition().getX(), e.getPosition().getY(), 120, 180, this)
+        //);
 
         // Customers
         this.customers.forEach(c ->
@@ -215,22 +201,6 @@ public class GameView extends GamePanel {
        
        // g.fillRect((int)(this.getMainFrame().getWidth()*0.04), (int)(this.getMainFrame().getHeight()*0.67), 100, 100);     primo posto in fila
        // addCustomer();
-    }
-    
-    public LinkedList<GameEntityViewable> getTables() {
-        return (LinkedList<GameEntityViewable>) Collections.unmodifiableList(this.tables);
-    }
-    
-    public void setTables(LinkedList<GameEntityViewable> tables) {
-        this.tables = tables;
-    }
-    
-    public LinkedList<GameEntityViewable> getCustomers() {
-        return (LinkedList<GameEntityViewable>) Collections.unmodifiableList(this.customers);
-    }
-
-    public void setCustomers(LinkedList<GameEntityViewable> customers) {
-        this.customers = customers;
     }
 
 }

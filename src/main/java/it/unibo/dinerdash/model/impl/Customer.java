@@ -25,11 +25,16 @@ public class Customer extends GameEntityImpl {
     private Timer timerActions = new Timer();
     private CustomerState state;
     private ModelImpl model;
+    private int numClienti;
     
     public Customer(Pair<Integer, Integer> coordinates, ModelImpl model) {
         super(coordinates);
         this.model = model;
-    }  
+    }
+
+    public int getCustomerMultiplicity() {
+        return this.numClienti;
+    }
 
     public void setState(CustomerState state) {
         this.state = state;
