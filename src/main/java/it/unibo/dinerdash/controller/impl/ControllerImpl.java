@@ -1,5 +1,6 @@
 package it.unibo.dinerdash.controller.impl;
 
+import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Timer;
@@ -66,6 +67,11 @@ public class ControllerImpl implements Controller {
     @Override
     public void addCustomer() {
         this.model.addCustomer(random.nextInt(4)+1);  
+    }
+
+    @Override
+    public void getFrameSize(Dimension dimension) {
+        System.out.println(dimension);
     }
 
     private void init() {

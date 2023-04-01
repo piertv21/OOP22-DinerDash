@@ -7,6 +7,8 @@ import it.unibo.dinerdash.view.impl.ViewImpl;
 
 public class MainApplication {
 
+    private MainApplication() {}
+    
     public static void main(String[] args) {
         Controller controller = new ControllerImpl();
         View view = new ViewImpl(controller);

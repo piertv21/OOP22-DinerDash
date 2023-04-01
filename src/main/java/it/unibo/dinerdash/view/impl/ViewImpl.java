@@ -6,6 +6,8 @@ import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.view.api.View;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 /*
  * Main View.
@@ -29,7 +31,14 @@ public class ViewImpl extends JFrame implements View {
         final var screenDim = Toolkit.getDefaultToolkit().getScreenSize();
         final int width = (int) screenDim.getWidth();
         final int height = (int) screenDim.getHeight();
-        this.setSize((int)(width * 0.5), (int)(height * 0.75));
+        this.setSize(1280, 720); //TODO DEBUG 720p
+        //this.setSize((int)(width * 0.5), (int)(height * 0.75));
+
+        this.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                controller.getFrameSize(getSize());
+            }
+        });
 
         this.showMainMenu();
         this.setVisible(true);
