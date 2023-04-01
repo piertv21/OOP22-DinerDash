@@ -212,6 +212,7 @@ public class GameView extends GamePanel {
 
         // Chef
         g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
+        addCustomer();
     }
     
     public LinkedList<GameEntityViewable> getTables() {

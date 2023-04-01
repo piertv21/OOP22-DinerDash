@@ -70,13 +70,15 @@ public class ModelImpl implements Model {
 
     @Override
     public void addCustomer(int num) {
+        System.out.println("pino");
         if(this.gameOver()) {
             // TO DO: STOP GAME
         }
         var position = new Pair<>(30, 10); 
         if(thereAreAvaibleTables()){
-            //this.customers.add(null); //TODO Aggiungi cliente vero
-            AssegnoTavolo();
+            this.customers.add(new Customer(position, this)); //TODO Aggiungi cliente vero
+            System.out.println("creato");
+           // AssegnoTavolo();
         }else{
             
             // AssegnoPostoFila();
@@ -142,6 +144,11 @@ public class ModelImpl implements Model {
     }
 
     public boolean thereAreAvaibleTables() {
+        System.out.println(this.tables.values().stream().anyMatch(customers->customers.isEmpty()));
         return this.tables.values().stream().anyMatch(customers->customers.isEmpty());
+    }
+
+    private void initializeTablesMap() {
+        this.tables.put(new Table(new Pair<Integer,Integer>(null, null), MAX_CUSTOMERS_THAT_CAN_LEAVE), Optional.empty());
     }
 }

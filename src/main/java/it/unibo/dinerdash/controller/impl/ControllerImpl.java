@@ -80,7 +80,7 @@ public class ControllerImpl implements Controller {
     TimerTask custumCreation_Trd = new TimerTask() {
         @Override
         public void run() { 
-           addCustomer();          // thread che ogni 6 secondi chiama il metodo per creare un cliente  
+          // addCustomer();          // thread che ogni 6 secondi chiama il metodo per creare un cliente  
         }
     };
 
