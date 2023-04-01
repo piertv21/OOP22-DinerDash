@@ -70,15 +70,14 @@ public class ModelImpl implements Model {
 
     @Override
     public void addCustomer(int num) {
-        System.out.println("pino");
+        this.initializeTablesMap(); //prova   poi si dovra togliere da qui
         if(this.gameOver()) {
             // TO DO: STOP GAME
         }
         var position = new Pair<>(30, 10); 
         if(thereAreAvaibleTables()){
-            this.customers.add(new Customer(position, this)); //TODO Aggiungi cliente vero
-            System.out.println("creato");
-           // AssegnoTavolo();
+            this.customers.add(new Customer(position, this)); 
+            AssegnoTavolo();
         }else{
             
             // AssegnoPostoFila();
@@ -125,13 +124,16 @@ public class ModelImpl implements Model {
     }
 
     public void AssegnoTavolo() {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
+        
         customers.stream().filter(p ->p.getDestination().equals(Optional.empty()))         //prendo dalla lista di clienti tutti quelli senza un posto assegnato
         .forEach((var x)->{
-            x.setDestination(Optional.ofNullable(tables.keySet().stream()
-            .filter(p ->tables.get(p).isPresent())
-            .reduce((first, second) -> first)
-            .orElse(null).getPosition()));  
+            Optional<Customer>firstFreeTable;
+            firstFreeTable=tables.values().stream().filter(l->l.equals(Optional.empty())).findFirst().get();
+            tables.forEach((k,v)->{
+                if(v.equals(firstFreeTable)) x.setDestination(Optional.ofNullable(k.getPosition()));
+            });
         });
+        
     } 
 
 
@@ -144,11 +146,10 @@ public class ModelImpl implements Model {
     }
 
     public boolean thereAreAvaibleTables() {
-        System.out.println(this.tables.values().stream().anyMatch(customers->customers.isEmpty()));
         return this.tables.values().stream().anyMatch(customers->customers.isEmpty());
     }
 
     private void initializeTablesMap() {
-        this.tables.put(new Table(new Pair<Integer,Integer>(100, 200), MAX_CUSTOMERS_THAT_CAN_LEAVE), Optional.empty());  //provo a mettere un tavolo
+        this.tables.put(new Table(new Pair<Integer,Integer>(100, 200), 12), Optional.empty());  //provo a mettere un tavolo
     }
 }
