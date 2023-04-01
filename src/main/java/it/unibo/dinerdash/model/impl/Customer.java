@@ -22,24 +22,14 @@ public class Customer extends GameEntityImpl {
     private static final int TIME_BEFORE_GETANGRY = 16000;
     private static final int TIME_BEFORE_ORDERING = 4000;
     
-    private int numClienti;                     // molteplicità clienti (1 - 4)
     private Timer timerActions = new Timer();
     private CustomerState state;
-    private int lineNumber;                                             //number of the person in line
     private ModelImpl model;
     
     public Customer(Pair<Integer, Integer> coordinates, ModelImpl model) {
         super(coordinates);
         this.model = model;
     }  
-
-    public int getLineNumber() {
-        return this.lineNumber;
-    }
-
-    public void setLineNumber(int num) {
-         this.lineNumber = num;
-    }
 
     public void setState(CustomerState state) {
         this.state = state;
