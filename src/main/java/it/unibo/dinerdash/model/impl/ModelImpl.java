@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.Model;
-import it.unibo.dinerdash.utility.impl.Pair;
+import it.unibo.dinerdash.utility.Pair;
 
 /*
  * Solo metodi getter e setter sulle entità model

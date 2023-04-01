@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.utility.impl;
+package it.unibo.dinerdash.utility;
 
 public class Pair<X,Y> {
 	

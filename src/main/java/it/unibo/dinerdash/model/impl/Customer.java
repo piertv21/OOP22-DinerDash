@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameEntityImpl;
-import it.unibo.dinerdash.utility.impl.Pair;
+import it.unibo.dinerdash.utility.Pair;
 
 /** 
  * Create a new element "Customer" who will move in the restaurant

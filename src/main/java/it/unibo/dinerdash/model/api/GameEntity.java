@@ -2,7 +2,7 @@ package it.unibo.dinerdash.model.api;
 
 import java.util.Optional;
 
-import it.unibo.dinerdash.utility.impl.Pair;
+import it.unibo.dinerdash.utility.Pair;
 
 public interface GameEntity {
 

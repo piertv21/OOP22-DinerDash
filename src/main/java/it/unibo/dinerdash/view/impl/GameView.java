@@ -19,8 +19,8 @@ import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
-import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GamePanel;
+import it.unibo.dinerdash.utility.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 
 /*
