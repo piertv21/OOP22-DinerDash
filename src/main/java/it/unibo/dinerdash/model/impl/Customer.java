@@ -52,7 +52,7 @@ public class Customer extends GameEntityImpl {
     }
 
     public void startAngryTimer(){                                   //avvia il timer per far arrabbiare i clienti in fila
-        timerActions.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
+        //timerActions.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
     }
 
     public void startThinkingTimer(){                                   //avvia il timer per far pensare un clinete seduto
@@ -124,12 +124,5 @@ public class Customer extends GameEntityImpl {
         this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX()-MOVEMENT_DISTANCE, this.getPosition().getY()));
     }
 
-    //TODO Rimuovi (non serve, cliente quando riceve un tavolo prende le coordinate dest)
-    /* public void setTableNumber() {
-        model.getTablesList().forEach((k)->{                                      //prendo il numero del tavolo che mi è stato assegnato
-            if(Optional.of(k.getPosition()).equals(this.getDestination())){
-                //this.tableNumber = Optional.of(k.getTableNumber());
-            }
-        });
-    } */
+    
 }

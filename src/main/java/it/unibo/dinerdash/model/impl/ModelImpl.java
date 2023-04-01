@@ -74,8 +74,8 @@ public class ModelImpl implements Model {
             // TO DO: STOP GAME
         }
         var position = new Pair<>(30, 10); 
-        if(this.emptyTables!=0){
-            this.customers.add(null); //TODO Aggiungi cliente vero
+        if(thereAreAvaibleTables()){
+            //this.customers.add(null); //TODO Aggiungi cliente vero
             AssegnoTavolo();
         }else{
             
@@ -122,18 +122,16 @@ public class ModelImpl implements Model {
         return this.customers;
     }
 
-    //TODO Aggiorna
     public void AssegnoTavolo() {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         customers.stream().filter(p ->p.getDestination().equals(Optional.empty()))         //prendo dalla lista di clienti tutti quelli senza un posto assegnato
         .forEach((var x)->{
-            x.setDestination(Optional.ofNullable(tables.stream()
-            //.filter(p ->p.isAvailable())
+            x.setDestination(Optional.ofNullable(tables.keySet().stream()
+            .filter(p ->tables.get(p).isPresent())
             .reduce((first, second) -> first)
             .orElse(null).getPosition()));  
-            this.emptyTables--;
-            x.setTableNumber();
         });
-    }
+    } 
+
 
     public HashMap<Table, Optional<Customer>> getTables() {
         return this.tables;
@@ -143,10 +141,7 @@ public class ModelImpl implements Model {
         return this.customersInLine;
     }
 
-    /* TODO Non serve
-    public LinkedList<Pair<Integer,Integer>> getCustomersLinePositionList() {
-        return this.customers_LinePosition;
+    public boolean thereAreAvaibleTables() {
+        return this.tables.values().stream().anyMatch(customers->customers.isEmpty());
     }
-    */
-
 }
