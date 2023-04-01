@@ -2,9 +2,11 @@ package it.unibo.dinerdash.model.impl;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.GameEntity.CustomerStati;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -127,14 +129,21 @@ public class ModelImpl implements Model {
         
         customers.stream().filter(p ->p.getDestination().equals(Optional.empty()))         //prendo dalla lista di clienti tutti quelli senza un posto assegnato
         .forEach((var x)->{
-            Optional<Customer>firstFreeTable;
-            firstFreeTable=tables.values().stream().filter(l->l.equals(Optional.empty())).findFirst().get();
-            tables.forEach((k,v)->{
-                if(v.equals(firstFreeTable)) x.setDestination(Optional.ofNullable(k.getPosition()));
-            });
+            x.setDestination(Optional.ofNullable(
+                tables.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().equals(Optional.empty()))   
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElse(null).getPosition()
+            ));
         });
-        
+      //  System.out.println(customers.getFirst().getDestination().get());      testa se funziona
     } 
+
+    public void assegnoPostoFila() {
+       long posto= customers.stream().filter(p->p.getState().equals(CustomerStati.LINE)).count();
+    }
 
 
     public HashMap<Table, Optional<Customer>> getTables() {

@@ -22,17 +22,17 @@ public class Customer extends GameEntityImpl {
     
     private int numClienti;                     // molteplicità clienti (1 - 4)
     private Timer timerActions = new Timer();
-    private CustomerState state;
+    private CustomerStati state;
     private int lineNumber;                                             //number of the person in line
     private ModelImpl model;
     
-    private enum CustomerState {
+    /*private enum CustomerState {
         WAITING,
         ANGRY,
         WALKING,
         THINKING,
         ORDERING
-    }
+    }*/
     
     public Customer(Pair<Integer, Integer> coordinates, ModelImpl model) {
         super(coordinates);
@@ -47,8 +47,12 @@ public class Customer extends GameEntityImpl {
          this.lineNumber = num;
     }
 
-    public void setState(CustomerState state) {
+    public void setState(CustomerStati state) {
         this.state = state;
+    }
+
+    public CustomerStati getState() {
+        return this.state ;
     }
 
     public void startAngryTimer(){                                   //avvia il timer per far arrabbiare i clienti in fila
@@ -79,13 +83,13 @@ public class Customer extends GameEntityImpl {
     TimerTask ThinkingAction = new TimerTask() {                        //azione programmata per gestire il cliente che pensa
         @Override
         public void run() { 
-            state = CustomerState.ORDERING;
+            state = CustomerStati.ORDERING;
             ThinkingAction.cancel();
         }
     };
 
     public void handleMovement() {                 //manage the movement of customers
-        if(state.equals(CustomerState.WALKING)) {
+        if(state.equals(CustomerStati.WALKING)) {
             if(getPosition().getX() < this.getDestination().get().getX())this.right(); 
             else if(getPosition().getY() > this.getDestination().get().getY()){this.up();}
             else if(getPosition().getY() < this.getDestination().get().getY()){this.down();}
@@ -94,11 +98,11 @@ public class Customer extends GameEntityImpl {
                                                                                      //elimino l'immagine del cliente
                    //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.OCCUPIED);                                               //occupo il tavolo
                    //this.listaTavoli.get(tableNumber-1).setSitted_customers(numCustom);                             //inserisco il numero di clienti al tavolo
-                    state = CustomerState.THINKING;
+                    state = CustomerStati.THINKING;
                     
             }     
         }
-        else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
+        else if(state.equals(CustomerStati.THINKING))                                          //il cliente pensa a cosa ordinare
         {
                 this.startThinkingTimer();
                 //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.IS_ORDERING);
