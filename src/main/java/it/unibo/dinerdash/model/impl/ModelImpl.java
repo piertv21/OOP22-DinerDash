@@ -149,6 +149,6 @@ public class ModelImpl implements Model {
     }
 
     private void initializeTablesMap() {
-        this.tables.put(new Table(new Pair<Integer,Integer>(100, 200), MAX_CUSTOMERS_THAT_CAN_LEAVE), Optional.empty());
+        this.tables.put(new Table(new Pair<Integer,Integer>(100, 200), MAX_CUSTOMERS_THAT_CAN_LEAVE), Optional.empty());  //provo a mettere un tavolo
     }
 }
