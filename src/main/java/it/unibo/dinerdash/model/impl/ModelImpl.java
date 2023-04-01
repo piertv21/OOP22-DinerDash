@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
 
+import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.Model;
-import it.unibo.dinerdash.model.api.GameEntity.CustomerStati;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -19,13 +19,13 @@ public class ModelImpl implements Model {
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
     private static final double PROFIT_MULTIPLIER = 2.0;
     private static final int MAX_PLAYTIME = 60*5;
+    private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
     
+    private Pair<Integer,Integer> firstLinePosition;
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
     private LinkedList<Customer> customers;   // clienti
-    private LinkedList<Customer> customersInLine;   // clienti in fila
-    //TODO GIA' in customersInLine private LinkedList<Pair<Integer,Integer>>customers_LinePosition = new LinkedList<>();                           //coordinate della gente in fila
     private HashMap<Table, Optional<Customer>> tables;         // tavoli con eventuali clienti
     private LinkedList<Dish> dishes;          // piatti
 
@@ -77,13 +77,9 @@ public class ModelImpl implements Model {
             // TO DO: STOP GAME
         }
         var position = new Pair<>(30, 10); 
-        if(thereAreAvaibleTables()){
-            this.customers.add(new Customer(position, this)); 
-            AssegnoTavolo();
-        }else{
-            
-            // AssegnoPostoFila();
-        }
+        this.customers.add(new Customer(position, this)); 
+        if(thereAreAvaibleTables()) AssegnoTavolo();
+        else  assegnoPostoFila(); 
     }
 
     private void init() {
@@ -126,7 +122,6 @@ public class ModelImpl implements Model {
     }
 
     public void AssegnoTavolo() {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
-        
         customers.stream().filter(p ->p.getDestination().equals(Optional.empty()))         //prendo dalla lista di clienti tutti quelli senza un posto assegnato
         .forEach((var x)->{
             x.setDestination(Optional.ofNullable(
@@ -142,16 +137,16 @@ public class ModelImpl implements Model {
     } 
 
     public void assegnoPostoFila() {
-       long posto= customers.stream().filter(p->p.getState().equals(CustomerStati.LINE)).count();
+       int posto= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
+       if(posto!=0) {
+        customers.getLast().setPosition(new Pair<Integer,Integer>(firstLinePosition.getX(),firstLinePosition.getY()-(posto*SPACE_BETWEEN_LINE_PEOPLE) ));
+        }
+       else customers.getLast().setPosition(this.firstLinePosition);   //prima posizione in fila
     }
 
 
     public HashMap<Table, Optional<Customer>> getTables() {
         return this.tables;
-    }
-
-    public LinkedList<Customer> getCustomersLineList() {
-        return this.customersInLine;
     }
 
     public boolean thereAreAvaibleTables() {

@@ -17,14 +17,5 @@ public interface GameEntity {
     boolean isActive();
 
     void setActive(boolean active);
-
-     enum CustomerStati {
-        WAITING,
-        ANGRY,
-        WALKING,
-        THINKING,
-        ORDERING,
-        LINE
-    }
     
 }
