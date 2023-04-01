@@ -23,6 +23,7 @@ public class ModelImpl implements Model {
     private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
     
     private Pair<Integer,Integer> firstLinePosition;
+    private Dimension restaurantSize;
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
@@ -35,6 +36,11 @@ public class ModelImpl implements Model {
         this.dishes = new LinkedList<>();
         this.customers = new LinkedList<>();
         this.init();
+    }
+
+    @Override
+    public void setRestaurantSize(Dimension dimension) {
+        this.restaurantSize = dimension;
     }
 
     @Override
@@ -162,9 +168,4 @@ public class ModelImpl implements Model {
         this.tables.put(new Table(new Pair<Integer,Integer>(100, 200), 12), Optional.empty());  //provo a mettere un tavolo
     }
 
-    @Override
-    public void setRestaurantSize(Dimension dimension) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setRestaurantSize'");
-    }
 }

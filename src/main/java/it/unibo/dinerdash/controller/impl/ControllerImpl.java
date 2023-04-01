@@ -70,8 +70,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void getFrameSize(Dimension dimension) {
-        System.out.println(dimension);
+    public void setFrameSize(Dimension dimension) {
+        this.model.setRestaurantSize(dimension);
     }
 
     @Override

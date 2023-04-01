@@ -22,7 +22,7 @@ public interface Controller {
 
     void addCustomer();
 
-    void getFrameSize(Dimension dimension);
+    void setFrameSize(Dimension dimension);
 
     void resizeEntities();
         
