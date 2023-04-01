@@ -23,7 +23,6 @@ public class ModelImpl implements Model {
     private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
     
     private Pair<Integer,Integer> firstLinePosition;
-    private Dimension restaurantSize;
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
@@ -36,20 +35,6 @@ public class ModelImpl implements Model {
         this.dishes = new LinkedList<>();
         this.customers = new LinkedList<>();
         this.init();
-    }
-
-    private void init() {
-        this.coins = 0;
-        this.remainingTime = MAX_PLAYTIME;
-        this.customersWhoLeft = 0;
-        this.customers.clear();
-        this.tables.clear();
-        this.dishes.clear();
-    }
-
-    @Override
-    public void setRestaurantSize(Dimension dimension) {
-        this.restaurantSize = dimension;
     }
 
     @Override
@@ -98,6 +83,15 @@ public class ModelImpl implements Model {
         else  assegnoPostoFila(); 
     }
 
+    private void init() {
+        this.coins = 0;
+        this.remainingTime = MAX_PLAYTIME;
+        this.customersWhoLeft = 0;
+        this.customers.clear();
+        this.tables.clear();
+        this.dishes.clear();
+    }
+
     public int getMaxPlaytime() {
         return MAX_PLAYTIME;
     }
@@ -129,18 +123,22 @@ public class ModelImpl implements Model {
     }
 
     public void AssegnoTavolo() {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
-        customers.stream().filter(p ->p.getDestination().equals(Optional.empty()))         //prendo dalla lista di clienti tutti quelli senza un posto assegnato
-        .forEach((var x)->{
-            x.setDestination(Optional.ofNullable(
-                tables.entrySet()
-                .stream()
-                .filter(entry -> entry.getValue().equals(Optional.empty()))   
-                .map(Map.Entry::getKey)
-                .findFirst()
-                .orElse(null).getPosition()
-            ));
-        });
-      //  System.out.println(customers.getFirst().getDestination().get());      testa se funziona
+        customers.getLast().setDestination(Optional.ofNullable(
+            tables.entrySet()
+            .stream()
+            .filter(entry -> entry.getValue().equals(Optional.empty()))   
+            .map(Map.Entry::getKey)
+            .findFirst()
+            .orElse(null).getPosition()
+        ));
+        Table tbl=                                      
+        tables.entrySet()                                    //aggiorno la hashmap inseriendo il cliente
+        .stream()
+        .filter(entry -> entry.getKey().getPosition().equals(customers.getLast().getDestination().get()))   
+        .map(Map.Entry::getKey)
+        .findFirst()
+        .orElse(null);
+        tables.replace(tbl,Optional.of(customers.getLast()));
     } 
 
     public void assegnoPostoFila() {
@@ -164,4 +162,9 @@ public class ModelImpl implements Model {
         this.tables.put(new Table(new Pair<Integer,Integer>(100, 200), 12), Optional.empty());  //provo a mettere un tavolo
     }
 
+    @Override
+    public void setRestaurantSize(Dimension dimension) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setRestaurantSize'");
+    }
 }
