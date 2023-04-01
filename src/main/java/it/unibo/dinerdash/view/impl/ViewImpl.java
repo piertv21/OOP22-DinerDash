@@ -37,6 +37,7 @@ public class ViewImpl extends JFrame implements View {
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
                 controller.getFrameSize(getSize());
+                controller.resizeEntities();
             }
         });
 

@@ -74,6 +74,11 @@ public class ControllerImpl implements Controller {
         System.out.println(dimension);
     }
 
+    @Override
+    public void resizeEntities() {
+        //TODO
+    }
+
     private void init() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'init'");
