@@ -161,8 +161,8 @@ public class GameView extends GamePanel {
         }
     }
 
-    public void addCustomer() {
-        this.getMainFrame().getController().addCustomer();
+    public void addCustomer(int num) {
+        //this.getMainFrame().getController().addCustomer();
     }
 
     public void addDish() {

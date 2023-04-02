@@ -81,7 +81,8 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addCustomer() {
-        this.model.addCustomer(random.nextInt(4)+1);  
+        this.model.addCustomer();
+        this.gamePanel.addCustomer(random.nextInt(4)+1);  
     }
 
     @Override
@@ -150,11 +151,11 @@ public class ControllerImpl implements Controller {
     private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p=0;
         for(var cus: model.getCustomers()) {
-            if(!cus.isActive() && this.gamePanel.getViewableCustomersList().get(p).isActive()) {       //se il cliente arriva al tavolo 
-                this.gamePanel.getViewableCustomersList().get(p).setActive(false);           //faccio sparire la sua immagine
-            } 
-            this.gamePanel.getViewableCustomersList().get(p).setPosition(cus.getPosition());
-            p++;
+                   //se il cliente arriva al tavolo 
+                //this.gamePanel.getViewableCustomersList().get(p).setActive(false);           //faccio sparire la sua immagine
+                this.gamePanel.getViewableCustomersList().get(p).update(cus);
+                p++;
+                // BISOGNA CHIAMARE UN METODO NELLA VIEW CHE CAMBIA L'IMMAGINE DEL TAVOLO ,facendo riferimento alla destinazione
         }
     }
 

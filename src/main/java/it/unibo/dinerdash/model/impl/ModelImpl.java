@@ -123,7 +123,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void addCustomer(int num) {
+    public void addCustomer() {
         this.initializeTablesMap(); //prova   poi si dovra togliere da qui
         if(this.gameOver()) {
             // TO DO: STOP GAME

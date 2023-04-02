@@ -22,6 +22,6 @@ public interface Model {
 
     void quit();
 
-    void addCustomer(int num);
+    void addCustomer();
 
 }
