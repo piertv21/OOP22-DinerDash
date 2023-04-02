@@ -33,11 +33,9 @@ public class ControllerImpl implements Controller {
     private ModelImpl model;
     private View view;
     private GameView gamePanel;
-    private Random random; // used to create customers
     Timer spawnTime = new Timer();                             //timer to make spawn customers
     
     public ControllerImpl() {
-        this.random = new Random();
         this.model = new ModelImpl();
     }
     
@@ -85,7 +83,7 @@ public class ControllerImpl implements Controller {
     public void addCustomer() {
         this.model.addCustomer();
         this.gamePanel.getViewableCustomersList().add(new GameEntityViewable(null, null));
-        this.gamePanel.addCustomerViewable(random.nextInt(4)+1);  
+        this.gamePanel.addCustomerViewable(model.getRandomNumber());  
     }
 
     @Override

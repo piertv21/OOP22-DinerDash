@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.model.api.CustomerState;
@@ -31,6 +32,7 @@ public class ModelImpl implements Model {
     private static final int STARTING_Y = 500;
     
     private Pair<Integer,Integer> firstLinePosition;
+    private Random random; // used to create customers
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
@@ -44,6 +46,7 @@ public class ModelImpl implements Model {
         this.customers = new LinkedList<>();
         this.tables = new HashMap<>();
         this.dishes = new LinkedList<>();
+        this.random=new Random();
     }
 
     @Override
@@ -196,6 +199,9 @@ public class ModelImpl implements Model {
 
     private void initializeTablesMap() {
         this.tables.put(new Table(new Pair<Integer,Integer>(100, 200), 12), Optional.empty());  //provo a mettere un tavolo
+    }
+    public int getRandomNumber(){
+        return this.random.nextInt(4)+1;
     }
 
 }

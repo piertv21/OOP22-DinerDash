@@ -15,8 +15,6 @@ import it.unibo.dinerdash.utility.Pair;
 public class Customer extends GameEntityMovableImpl {
 
     private static final int MOVEMENT_DISTANCE = 5;
-    private static final int MIN_EAT_TIME = 4000;
-    private static final int MAX_EAT_TIME = 10000;
     private static final int TIME_BEFORE_GETANGRY = 16000;
     private static final int TIME_BEFORE_ORDERING = 4000;
     private static final int SPEED = 1;
@@ -86,13 +84,13 @@ public class Customer extends GameEntityMovableImpl {
             (getPosition().getY()>=this.getDestination().get().getY()-4)))     //creo una hitbox del tavolo
             {                                                                           
                     state = CustomerState.THINKING;
+                    this.setPosition(this.getDestination().get());
                     this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire       
             }     
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         {
                 this.startThinkingTimer();
-                //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.IS_ORDERING);
         }
     }
 
