@@ -18,7 +18,7 @@ public class Waitress extends GameEntityImpl {
     }
 
     public void handleMovement() {
-        //TO-DO
+        //TODO
     }
     
 }

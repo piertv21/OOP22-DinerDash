@@ -117,14 +117,14 @@ public class ModelImpl implements Model {
     
     @Override
     public void serveDish() {
-        //TO-DO
+        //TODO
     }
 
     @Override
     public void addOrder(int tableNumber) {
         var position = new Pair<>(0, 0);
         this.dishes.add(new Dish(position, tableNumber));
-        //TO-DO
+        //TODO
     }
 
     @Override

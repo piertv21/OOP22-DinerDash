@@ -2,13 +2,10 @@ package it.unibo.dinerdash.controller.impl;
 
 import java.awt.Dimension;
 import java.io.IOException;
-import java.lang.StackWalker.Option;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Optional;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,7 +15,6 @@ import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.ModelImpl;
-import it.unibo.dinerdash.model.impl.Table;
 import it.unibo.dinerdash.utility.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 import it.unibo.dinerdash.view.api.View;
@@ -47,7 +43,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void start() {
         this.gamePanel = this.view.getGamePanel();
-        //TO-DO
+        //TODO
         this.model.start();
         this.startSpawnTimer();  //starts customers spawn
     }
