@@ -176,11 +176,13 @@ public class ModelImpl implements Model {
     } 
 
     public void assegnoPostoFila() {
-       int posto= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
-       if(posto!=0) {
-        customers.getLast().setPosition(new Pair<Integer,Integer>(firstLinePosition.getX(),firstLinePosition.getY()-(posto*SPACE_BETWEEN_LINE_PEOPLE) ));
+       int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
+       if(inLineCustm!=0) {
+        customers.getLast().setPosition(new Pair<Integer,Integer>(firstLinePosition.getX(),firstLinePosition.getY()-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE) ));
         }
-       else customers.getLast().setPosition(this.firstLinePosition);   //prima posizione in fila
+       else customers.getLast().setPosition(this.firstLinePosition);
+        customers.getLast().setState(CustomerState.LINE);
+        
     }
 
 

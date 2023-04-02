@@ -15,8 +15,10 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.controller.api.Controller;
+import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.ModelImpl;
+import it.unibo.dinerdash.model.impl.Table;
 import it.unibo.dinerdash.utility.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 import it.unibo.dinerdash.view.api.View;
@@ -152,12 +154,22 @@ public class ControllerImpl implements Controller {
     private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p=0;
         for(var cus: model.getCustomers()) {
-                   //se il cliente arriva al tavolo 
-                //this.gamePanel.getViewableCustomersList().get(p).setActive(false);           //faccio sparire la sua immagine
                 this.gamePanel.getViewableCustomersList().get(p).update(cus);
+                if(cus.getState().equals(CustomerState.THINKING)) {
+                    //int tableNmb= this.getHashMapkey(model.getTables(), cus).getTableNumber();
+                    //this.gamePanel.getTablesList().get(tableNmb-1).setImg(cus.getCustomerMultiplicity());
+                }
                 p++;
                 // BISOGNA CHIAMARE UN METODO NELLA VIEW CHE CAMBIA L'IMMAGINE DEL TAVOLO ,facendo riferimento alla destinazione
         }
     }
 
+    /*private Table getHashMapkey(HashMap<Table, Optional<Customer>> map,Customer c) {
+        for(var entr :map.entrySet()){
+            if(entr.getValue().get().equals(c)){
+                return entr.getKey();
+            }
+        }
+        return null;
+    }*/
 }

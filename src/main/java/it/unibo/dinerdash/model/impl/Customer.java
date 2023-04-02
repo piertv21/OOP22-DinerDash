@@ -51,7 +51,9 @@ public class Customer extends GameEntityMovableImpl {
         @Override
         public void run() { 
                 model.getCustomers().remove(model.getCustomers().stream()
-                .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get());
+                .filter(p->p.getState().equals(CustomerState.LINE))
+                .findFirst()
+                .get());
                            // forse saranno da invertire
                 model.getCustomers().stream()
                 .filter(p->p.getState().equals(CustomerState.LINE)).forEach((p)->{
@@ -79,14 +81,12 @@ public class Customer extends GameEntityMovableImpl {
             if(getPosition().getX() < this.getDestination().get().getX()) this.moveRight(); 
             else if(getPosition().getY() > this.getDestination().get().getY()) this.moveUp();
             else if(getPosition().getY() < this.getDestination().get().getY()) this.moveDown();
-            if((getPosition().getX()>=this.getDestination().get().getX())&&((getPosition().getY()<=this.getDestination().get().getY()+4)&&(getPosition().getY()>=this.getDestination().get().getY()-4)))     //creo una hitbox del tavolo
-            {                                                                                                   //il cliente raggiunge la sedia e si siede
-                                                                                     //elimino l'immagine del cliente
-                   //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.OCCUPIED);                                               //occupo il tavolo
-                   //this.listaTavoli.get(tableNumber-1).setSitted_customers(numCustom);                             //inserisco il numero di clienti al tavolo
+            if((getPosition().getX()>=this.getDestination().get().getX())&&
+            ((getPosition().getY()<=this.getDestination().get().getY()+4)&&
+            (getPosition().getY()>=this.getDestination().get().getY()-4)))     //creo una hitbox del tavolo
+            {                                                                           
                     state = CustomerState.THINKING;
-                    this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire
-                    
+                    this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire       
             }     
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
@@ -94,28 +94,6 @@ public class Customer extends GameEntityMovableImpl {
                 this.startThinkingTimer();
                 //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.IS_ORDERING);
         }
-    }
-    public void up() {
-        this.moveUp();
-        this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX(), this.getPosition().getY()-MOVEMENT_DISTANCE)); 
-    }
-    
-    
-    public void down() {
-        this.moveDown();
-        this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX(), this.getPosition().getY()+MOVEMENT_DISTANCE)); 
-    }
-    
-    
-    public void right() {
-        this.moveRight();
-        this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX()+MOVEMENT_DISTANCE, this.getPosition().getY()));
-    }
-    
-    
-    public void left() {
-        this.moveLeft();
-        this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX()-MOVEMENT_DISTANCE, this.getPosition().getY()));
     }
 
     
