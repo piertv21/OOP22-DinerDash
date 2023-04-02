@@ -63,6 +63,8 @@ public class ModelImpl implements Model {
 
         var startingTableX = (int)(this.restaurantSize.getWidth() * STARTING_TABLE_RELATIVE_X);
         var startingTableY = (int)(this.restaurantSize.getHeight() * STARTING_TABLE_RELATIVE_Y);
+        this.firstLinePosition=new Pair<Integer,Integer>((int)(this.restaurantSize.getWidth()*0.04), 
+                                                        (int)(this.restaurantSize.getHeight()*0.67));
 
         IntStream.range(0, TABLES).forEach(i -> {
             var j = i % (TABLES / 2);
