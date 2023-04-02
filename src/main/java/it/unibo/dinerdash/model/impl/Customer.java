@@ -47,10 +47,6 @@ public class Customer extends GameEntityMovableImpl {
         timerActions.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
     }
 
-    public void startThinkingTimer() {                                   //avvia il timer per far pensare un clinete seduto
-        timerActions.schedule(ThinkingAction, TIME_BEFORE_ORDERING, TIME_BEFORE_ORDERING);
-    }
-
      TimerTask angryAction = new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
         @Override
         public void run() { 
@@ -65,6 +61,11 @@ public class Customer extends GameEntityMovableImpl {
         }
     }; 
 
+    public void startThinkingTimer() {                                   //avvia il timer per far pensare un clinete seduto
+        timerActions.schedule(ThinkingAction, TIME_BEFORE_ORDERING, TIME_BEFORE_ORDERING);
+    }
+
+    
     TimerTask ThinkingAction = new TimerTask() {                        //azione programmata per gestire il cliente che pensa
         @Override
         public void run() { 
@@ -84,6 +85,7 @@ public class Customer extends GameEntityMovableImpl {
                    //this.listaTavoli.get(tableNumber-1).setState(stateCharacter.OCCUPIED);                                               //occupo il tavolo
                    //this.listaTavoli.get(tableNumber-1).setSitted_customers(numCustom);                             //inserisco il numero di clienti al tavolo
                     state = CustomerState.THINKING;
+                    this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire
                     
             }     
         }
