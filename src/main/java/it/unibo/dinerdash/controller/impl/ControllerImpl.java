@@ -147,4 +147,12 @@ public class ControllerImpl implements Controller {
         return out;
     }
 
+    private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
+        int p=0;
+        for(var cus: model.getCustomers()) {
+            this.gamePanel.getViewableCustomersList().get(p).setPosition(cus.getPosition());
+            p++;
+        }
+    }
+
 }

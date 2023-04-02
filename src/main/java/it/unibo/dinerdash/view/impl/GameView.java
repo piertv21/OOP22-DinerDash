@@ -203,4 +203,8 @@ public class GameView extends GamePanel {
        // addCustomer();
     }
 
+    public LinkedList<GameEntityViewable> getViewableCustomersList() {
+        return this.customers;
+    }
+
 }
