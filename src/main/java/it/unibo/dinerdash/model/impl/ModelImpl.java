@@ -27,6 +27,8 @@ public class ModelImpl implements Model {
     private static final double STARTING_TABLE_RELATIVE_X = 0.3;
     private static final double STARTING_TABLE_RELATIVE_Y = 0.3;
     private static final int TABLES_PADDING = 250;
+    private static final int STARTING_X = 0;
+    private static final int STARTING_Y = 500;
     
     private Pair<Integer,Integer> firstLinePosition;
     private int coins;
@@ -126,7 +128,7 @@ public class ModelImpl implements Model {
         if(this.gameOver()) {
             // TO DO: STOP GAME
         }
-        var position = new Pair<>(30, 10); 
+        var position = new Pair<>( STARTING_X,  STARTING_Y); 
         this.customers.add(new Customer(position, this)); 
         if(thereAreAvaibleTables()) AssegnoTavolo();
         else  assegnoPostoFila(); 

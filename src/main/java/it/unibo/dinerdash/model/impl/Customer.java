@@ -6,21 +6,20 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import it.unibo.dinerdash.model.api.CustomerState;
-import it.unibo.dinerdash.model.api.GameEntityImpl;
+import it.unibo.dinerdash.model.api.GameEntityMovableImpl;
 import it.unibo.dinerdash.utility.Pair;
 
 /** 
  * Create a new element "Customer" who will move in the restaurant
  */
-public class Customer extends GameEntityImpl {
+public class Customer extends GameEntityMovableImpl {
 
     private static final int MOVEMENT_DISTANCE = 5;
     private static final int MIN_EAT_TIME = 4000;
     private static final int MAX_EAT_TIME = 10000;
-    private static final int STARTING_X = 0;
-    private static final int STARTING_Y = 500;
     private static final int TIME_BEFORE_GETANGRY = 16000;
     private static final int TIME_BEFORE_ORDERING = 4000;
+    private static final int SPEED = 1;
     
     private Timer timerActions = new Timer();
     private CustomerState state;
@@ -28,7 +27,7 @@ public class Customer extends GameEntityImpl {
     private int numClienti;
     
     public Customer(Pair<Integer, Integer> coordinates, ModelImpl model) {
-        super(coordinates);
+        super(coordinates,SPEED);
         this.model = model;
     }
 
