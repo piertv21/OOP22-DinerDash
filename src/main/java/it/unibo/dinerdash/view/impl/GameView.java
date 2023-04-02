@@ -161,8 +161,12 @@ public class GameView extends GamePanel {
         }
     }
 
-    public void addCustomer(int num) {
-        //this.getMainFrame().getController().addCustomer();
+    public void addCustomerViewable(int num) {
+        try {
+            this.customers.getLast().setIcon(loadIcon("client"+num+".png").getImage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addDish() {

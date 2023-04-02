@@ -82,7 +82,8 @@ public class ControllerImpl implements Controller {
     @Override
     public void addCustomer() {
         this.model.addCustomer();
-        this.gamePanel.addCustomer(random.nextInt(4)+1);  
+        this.gamePanel.getViewableCustomersList().add(new GameEntityViewable(null, null));
+        this.gamePanel.addCustomerViewable(random.nextInt(4)+1);  
     }
 
     @Override
