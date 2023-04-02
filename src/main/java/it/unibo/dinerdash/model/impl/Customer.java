@@ -65,7 +65,7 @@ public class Customer extends GameEntityMovableImpl {
         timerActions.schedule(ThinkingAction, TIME_BEFORE_ORDERING, TIME_BEFORE_ORDERING);
     }
 
-    
+
     TimerTask ThinkingAction = new TimerTask() {                        //azione programmata per gestire il cliente che pensa
         @Override
         public void run() { 
@@ -76,9 +76,9 @@ public class Customer extends GameEntityMovableImpl {
 
     public void handleMovement() {                 //manage the movement of customers
         if(state.equals(CustomerState.WALKING)) {
-            if(getPosition().getX() < this.getDestination().get().getX())this.right(); 
-            else if(getPosition().getY() > this.getDestination().get().getY()){this.up();}
-            else if(getPosition().getY() < this.getDestination().get().getY()){this.down();}
+            if(getPosition().getX() < this.getDestination().get().getX()) this.moveRight(); 
+            else if(getPosition().getY() > this.getDestination().get().getY()) this.moveUp();
+            else if(getPosition().getY() < this.getDestination().get().getY()) this.moveDown();
             if((getPosition().getX()>=this.getDestination().get().getX())&&((getPosition().getY()<=this.getDestination().get().getY()+4)&&(getPosition().getY()>=this.getDestination().get().getY()-4)))     //creo una hitbox del tavolo
             {                                                                                                   //il cliente raggiunge la sedia e si siede
                                                                                      //elimino l'immagine del cliente
@@ -96,22 +96,25 @@ public class Customer extends GameEntityMovableImpl {
         }
     }
     public void up() {
-        
+        this.moveUp();
         this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX(), this.getPosition().getY()-MOVEMENT_DISTANCE)); 
     }
     
     
     public void down() {
+        this.moveDown();
         this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX(), this.getPosition().getY()+MOVEMENT_DISTANCE)); 
     }
     
     
     public void right() {
+        this.moveRight();
         this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX()+MOVEMENT_DISTANCE, this.getPosition().getY()));
     }
     
     
     public void left() {
+        this.moveLeft();
         this.setPosition(new Pair<Integer,Integer>(this.getPosition().getX()-MOVEMENT_DISTANCE, this.getPosition().getY()));
     }
 

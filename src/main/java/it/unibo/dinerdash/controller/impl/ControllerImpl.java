@@ -99,7 +99,7 @@ public class ControllerImpl implements Controller {
         throw new UnsupportedOperationException("Unimplemented method 'init'");
     }
 
-    public void startSpawnTimer() {
+    private void startSpawnTimer() {
         spawnTime.schedule(custumCreation_Trd, 2000, 6000);                                //avvio la creazione programmata  dei clienti
     }
 
