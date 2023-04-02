@@ -19,25 +19,29 @@ public class GameEntityMovableImpl extends GameEntityImpl implements GameEntityM
 
     @Override
     public void moveUp() {
-        var newPosition = new Pair<>(Direction.UP.getX() * this.speed, Direction.UP.getY() * this.speed);
+        var oldPosition = this.getPosition();
+        var newPosition = new Pair<>(oldPosition.getX() + Direction.UP.getX() * this.speed, oldPosition.getY() + Direction.UP.getY() * this.speed);
         this.setPosition(newPosition);
     }
 
     @Override
     public void moveDown() {
-        var newPosition = new Pair<>(Direction.DOWN.getX() * this.speed, Direction.DOWN.getY() * this.speed);
+        var oldPosition = this.getPosition();
+        var newPosition = new Pair<>(oldPosition.getX() + Direction.DOWN.getX() * this.speed, oldPosition.getY() + Direction.DOWN.getY() * this.speed);
         this.setPosition(newPosition);
     }
 
     @Override
     public void moveRight() {
-        var newPosition = new Pair<>(Direction.RIGHT.getX() * this.speed, Direction.RIGHT.getY() * this.speed);
+        var oldPosition = this.getPosition();
+        var newPosition = new Pair<>(oldPosition.getX() + Direction.RIGHT.getX() * this.speed, oldPosition.getY() + Direction.RIGHT.getY() * this.speed);
         this.setPosition(newPosition);
     }
 
     @Override
     public void moveLeft() {
-        var newPosition = new Pair<>(Direction.LEFT.getX() * this.speed, Direction.LEFT.getY() * this.speed);
+        var oldPosition = this.getPosition();
+        var newPosition = new Pair<>(oldPosition.getX() + Direction.LEFT.getX() * this.speed, oldPosition.getY() + Direction.LEFT.getY() * this.speed);
         this.setPosition(newPosition);
     }
     
