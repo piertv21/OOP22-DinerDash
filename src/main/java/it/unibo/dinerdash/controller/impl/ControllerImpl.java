@@ -33,6 +33,7 @@ public class ControllerImpl implements Controller {
     
     public ControllerImpl() {
         this.model = new ModelImpl();
+        System.out.println("creo model");
     }
     
     @Override
@@ -89,7 +90,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void resizeEntities() {
-        //TODO
+        //TODO        QUI CHIAMO I METODI DELLA CLASSE RESIZE
     }
 
     private void init() {

@@ -8,16 +8,16 @@ import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.utility.Pair;
 
 public class ResizeLogic {
-    int altezzaCl;
-    int larghezzaCl;
-	double percentualeAltezza;
-    double percentualeLargezza;
-    double AlSchermo=1002;
-    double LargSchermo=1888;
+   private int altezzaCl;
+   private int larghezzaCl;
+   private double screenHeight;
+   private double screenWidg;
     private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
-    private boolean flag=true;
-    public ResizeLogic() {
-
+    private boolean flag;
+    public ResizeLogic(double height,double width) {
+        this.flag=true;
+        this.screenHeight=height;
+        this.screenWidg=width;
     }
 
     public void updateCustomDest(LinkedList<Table> tables){     //aggiorno la destinazione nel caso il cliente stesse andando al tavolo , andrebbe aggiornata anche x e y
@@ -40,11 +40,12 @@ public class ResizeLogic {
                 novaLista.get(pos).setPosition(new Pair<Integer,Integer>(firstPosition.getX(),firstPosition.getY()-(pos*SPACE_BETWEEN_LINE_PEOPLE) ));
             }
         });
+        this.flag=true;
     }
 
     public Pair<Integer,Integer> updateFirstPos(Pair<Integer,Integer> firstPosition,int altezzaNuova,int larghezzaNuova){     //aggiorno la prima posizione in fila
-       double percentualeVarY=((AlSchermo-altezzaNuova)/AlSchermo)*100;              //percentuale cambiamento da valore a ad b
-       double percentualeVarX=((LargSchermo-larghezzaNuova)/LargSchermo)*100;       
+       double percentualeVarY=((screenHeight-altezzaNuova)/screenHeight)*100;              //percentuale cambiamento da valore a ad b
+       double percentualeVarX=((screenWidg-larghezzaNuova)/screenWidg)*100;       
        altezzaCl=(int)((firstPosition.getY()/100)*percentualeVarY);                         //valore  da sottrarre all altezza
        larghezzaCl=(int)((firstPosition.getX()/100)*percentualeVarX);    //valore percentuale da sottrarre all largezza
        return new Pair<>(firstPosition.getX()-larghezzaCl, firstPosition.getY()-altezzaCl);

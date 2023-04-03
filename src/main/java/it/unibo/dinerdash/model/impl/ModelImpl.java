@@ -40,8 +40,9 @@ public class ModelImpl implements Model {
    // private HashMap<Table, Optional<Customer>> tables;          TODO DA TOGLIERE!!
     private LinkedList<Table> tablesList;                       // tavoli con eventuali clienti
     private LinkedList<Dish> dishes;                            // piatti
-    private Dimension restaurantSize;                           // size aggiornata finestra
+    public Dimension restaurantSize;                           // size aggiornata finestra
     private GameState gameState;                                // stato di gioco
+    private ResizeLogic resizeLog;
 
     public ModelImpl() {
         this.customers = new LinkedList<>();
@@ -59,7 +60,8 @@ public class ModelImpl implements Model {
         this.coins = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
-        this.gameState = GameState.RUNNING;        
+        this.gameState = GameState.RUNNING;       
+        this.resizeLog=new ResizeLogic(this.restaurantSize.getHeight(),this.restaurantSize.getWidth());   // creo il resizeLogic passando le dimensioni schermo
         this.clear();
 
         var startingTableX = (int)(this.restaurantSize.getWidth() * STARTING_TABLE_RELATIVE_X);
@@ -183,7 +185,8 @@ public class ModelImpl implements Model {
         customers.getLast().setPosition(new Pair<Integer,Integer>(firstLinePosition.getX(),firstLinePosition.getY()-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE) ));
         }
        else customers.getLast().setPosition(this.firstLinePosition);
-        customers.getLast().setState(CustomerState.LINE);
+
+       customers.getLast().setState(CustomerState.LINE);
         
     }
 
