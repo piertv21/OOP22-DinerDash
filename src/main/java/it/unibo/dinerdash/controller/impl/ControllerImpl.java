@@ -83,8 +83,13 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void setFrameSize(Dimension dimension) {
-        this.model.setRestaurantSize(dimension);
+    public int getRestaurantWidth() {
+        return this.model.getWidth();
+    }
+
+    @Override
+    public int getRestaurantHeight() {
+        return this.model.getHeight();
     }
 
     @Override

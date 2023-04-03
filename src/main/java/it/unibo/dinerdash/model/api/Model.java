@@ -1,10 +1,10 @@
 package it.unibo.dinerdash.model.api;
 
-import java.awt.Dimension;
-
 public interface Model {
 
-    void setRestaurantSize(Dimension dimension);
+    int getWidth();
+
+    int getHeight();
 
     void start();
 
