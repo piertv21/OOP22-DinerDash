@@ -130,7 +130,7 @@ public class GameView extends GamePanel {
 
     public void init() {        
         this.customers = new LinkedList<>();
-        this.tables = new HashMap<>();
+        this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
     }
 

@@ -12,20 +12,17 @@ import it.unibo.dinerdash.utility.Pair;
 public class Table extends GameEntityImpl {
     
     private int tableNumber;
-    private Optional<Customer> custom;  // Contiene numero persone altrimenti 0
+    private Optional<Customer> customer;
     private TableState state;
+    private int SeatedPeople;
 
 
 
     public Table(Pair<Integer, Integer> coordinates, int tableNumber) {
         super(coordinates);
         this.tableNumber = tableNumber;
-        // TODO Auto-generated method stub
-    }
-
-    public int getPeopleSeatedNumber() {
-        // TODO
-        return 0;
+        this.SeatedPeople =0;
+       
     }
 
     public void setState(TableState TableState){                                     
@@ -41,15 +38,25 @@ public class Table extends GameEntityImpl {
     }
 
     public void setCustom(Customer cs) {
-        this.custom = Optional.of(cs);
+        this.customer = Optional.of(cs);
     }
 
-    public Customer getCustom(){
-        return this.custom.get();
+    public Customer getCustomer(){
+        return this.customer.get();
     }
 
     public int getTableNumber(){
         return this.tableNumber;
     }
+
+    public int setSeatedPeople(int sppl){
+         return this.SeatedPeople = sppl;
+    }
+
+    public int getPeopleSeatedNumber() {
+       return this.SeatedPeople;
+    }
+
+    
     
 }
