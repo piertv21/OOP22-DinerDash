@@ -37,14 +37,15 @@ public class ModelImpl implements Model {
     private int remainingTime;
     private int customersWhoLeft;
     private LinkedList<Customer> customers;                     // clienti
-    private HashMap<Table, Optional<Customer>> tables;          // tavoli con eventuali clienti
+   // private HashMap<Table, Optional<Customer>> tables;           DA TOGLIERE!!
+    private LinkedList<Table> tablesList;                       // tavoli con eventuali clienti
     private LinkedList<Dish> dishes;                            // piatti
     private Dimension restaurantSize;                           // size aggiornata finestra
     private GameState gameState;                                // stato di gioco
 
     public ModelImpl() {
         this.customers = new LinkedList<>();
-        this.tables = new HashMap<>();
+       // this.tables = new HashMap<>();                TOGLIERE
         this.dishes = new LinkedList<>();
         this.random=new Random();
     }
@@ -71,13 +72,13 @@ public class ModelImpl implements Model {
             var x = startingTableX + (j * TABLES_PADDING);
             var y = startingTableY + (i * TABLES_PADDING);
             var position = new Pair<>(x, y);
-            this.tables.put(new Table(position, i + 1), Optional.empty());
+           // this.tables.put(new Table(position, i + 1), Optional.empty());    DA MODIFICARE!!!
         });
     }
 
     private void clear() {
         this.customers.clear();
-        this.tables.clear();
+        //this.tables.clear();         //MODIFICA CON LISTA NUOVA
         this.dishes.clear();
     }
 
@@ -129,7 +130,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void addCustomer() {
-        this.initializeTablesMap(); //prova   poi si dovra togliere da qui
+       // this.initializeTablesMap(); //          TOGLIERE
         if(this.gameOver()) {
             // TO DO: STOP GAME
         }
@@ -163,21 +164,17 @@ public class ModelImpl implements Model {
 
     public void AssegnoTavolo() {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         customers.getLast().setDestination(Optional.ofNullable(
-            tables.entrySet()
-            .stream()
-            .filter(entry -> entry.getValue().equals(Optional.empty()))   
-            .map(Map.Entry::getKey)
+            this.tablesList.stream()
+            .filter(tav->tav.isFree())
             .findFirst()
-            .orElse(null).getPosition()
-        ));
-        Table tbl=                                      
-        tables.entrySet()                                    //aggiorno la hashmap inseriendo il cliente
-        .stream()
-        .filter(entry -> entry.getKey().getPosition().equals(customers.getLast().getDestination().get()))   
-        .map(Map.Entry::getKey)
+            .get()
+            .getPosition()
+        ));                                
+        tablesList.stream()
+        .filter(entry -> entry.getPosition().equals(customers.getLast().getDestination().get()))   
         .findFirst()
-        .orElse(null);
-        tables.replace(tbl,Optional.of(customers.getLast()));
+        .orElse(null)
+        .setCustom(customers.getLast()); 
     } 
 
     public void assegnoPostoFila() {
@@ -190,18 +187,19 @@ public class ModelImpl implements Model {
         
     }
 
-
-    public HashMap<Table, Optional<Customer>> getTables() {
+            /* 
+    public HashMap<Table, Optional<Customer>> getTables() {                   DA MODIFICARE
         return this.tables;
-    }
+    }*/
 
     public boolean thereAreAvaibleTables() {
-        return this.tables.values().stream().anyMatch(customers->customers.isEmpty());
+        //return this.tables.values().stream().anyMatch(customers->customers.isEmpty());
+        return this.tablesList.stream().anyMatch(tbl->tbl.isFree());
     }
-
+      /*                                         TOGLIERE
     private void initializeTablesMap() {
         this.tables.put(new Table(new Pair<Integer,Integer>(100, 200), 12), Optional.empty());  //provo a mettere un tavolo
-    }
+    }*/
     public int getRandomNumber(){
         return this.random.nextInt(4)+1;
     }

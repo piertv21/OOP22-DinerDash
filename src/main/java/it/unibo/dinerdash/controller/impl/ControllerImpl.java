@@ -117,12 +117,12 @@ public class ControllerImpl implements Controller {
         final URL imgURL = ClassLoader.getSystemResource(ROOT + iconName);
         return new ImageIcon(imgURL);
     }
-
+        
     @Override
     public HashMap<TableViewable, Optional<GameEntityViewable>> getTables() {
-
+     /* 
         //TODO Modifica e migliora
-        var tables = this.model.getTables();
+        var tables = this.model.getTables();                                                        TOGLIERE
         HashMap<TableViewable, Optional<GameEntityViewable>> out = new HashMap<>();
 
         for(var e : tables.entrySet()) {
@@ -142,7 +142,7 @@ public class ControllerImpl implements Controller {
             }
         }
 
-        return out;
+        return out;*/   return null;                
     }
 
     private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI

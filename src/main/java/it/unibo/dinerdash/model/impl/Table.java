@@ -1,5 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
+import java.util.Optional;
+
 import it.unibo.dinerdash.model.api.GameEntityImpl;
 import it.unibo.dinerdash.utility.Pair;
 
@@ -10,6 +12,7 @@ public class Table extends GameEntityImpl {
     
     private int tableNumber;
     private int peopleSeatedNumber; // Equals to customers number
+    private Optional<Customer> custom;
     private TableState state;
 
     private enum TableState {
@@ -41,6 +44,15 @@ public class Table extends GameEntityImpl {
 
     public TableState getState(){                                     
         return this.state;
+    }
+
+    public boolean isFree() {
+        if(peopleSeatedNumber!=0)return false;
+        else return true;
+        
+    }
+    public void setCustom(Customer cs) {
+        this.custom = Optional.of(cs);
     }
     
 }
