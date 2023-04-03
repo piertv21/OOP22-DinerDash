@@ -20,7 +20,7 @@ public class ResizeLogic {
 
     }
 
-    public void updateCustomDest(LinkedList<Table> tables){     //aggiorno la destinazione nel caso il cliente stesse andando al tavolo
+    public void updateCustomDest(LinkedList<Table> tables){     //aggiorno la destinazione nel caso il cliente stesse andando al tavolo , andrebbe aggiornata anche x e y
         tables.forEach(t->{
             //if(!t.getCustom().equals(Optional.empty())){
                // t.getCustom().setDestination(Optional.of(t.getPosition()));  
@@ -42,4 +42,11 @@ public class ResizeLogic {
         });
     }
 
+    public Pair<Integer,Integer> updateFirstPos(Pair<Integer,Integer> firstPosition,int altezzaNuova,int larghezzaNuova){     //aggiorno la prima posizione in fila
+       double percentualeVarY=((AlSchermo-altezzaNuova)/AlSchermo)*100;              //percentuale cambiamento da valore a ad b
+       double percentualeVarX=((LargSchermo-larghezzaNuova)/LargSchermo)*100;       
+       altezzaCl=(int)((firstPosition.getY()/100)*percentualeVarY);                         //valore  da sottrarre all altezza
+       larghezzaCl=(int)((firstPosition.getX()/100)*percentualeVarX);    //valore percentuale da sottrarre all largezza
+       return new Pair<>(firstPosition.getX()-larghezzaCl, firstPosition.getY()-altezzaCl);
+    }
 }
