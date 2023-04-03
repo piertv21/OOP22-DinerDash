@@ -52,7 +52,7 @@ public class GameView extends GamePanel {
     private Image backgroundImage;
     
     private LinkedList<GameEntityViewable> customers;
-    private HashMap<TableViewable, Optional<GameEntityViewable>> tables;        // DA CAMBIARE IN LINKEDLIST
+    private LinkedList<GameEntityViewable> tables;        // DA CAMBIARE IN LINKEDLIST
     private LinkedList<GameEntityViewable> dishes;
     private GameEntityViewable waitress;
     private GameEntityViewable chef;
@@ -210,8 +210,7 @@ public class GameView extends GamePanel {
         return this.customers;
     }
 
-    /*public LinkedList<GameEntityViewable> getViewableTablesList() {                   TODO  SERVE
+    public LinkedList<GameEntityViewable> getViewableTable() {                
         return this.tables;
-    }*/
-
+    }
 }
