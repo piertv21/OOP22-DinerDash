@@ -154,16 +154,10 @@ public class ControllerImpl implements Controller {
                     //this.gamePanel.getTablesList().get(tableNmb-1).setImg(cus.getCustomerMultiplicity());
                 }
                 p++;
-                // BISOGNA CHIAMARE UN METODO NELLA VIEW CHE CAMBIA L'IMMAGINE DEL TAVOLO ,facendo riferimento alla destinazione
+                // BISOGNA CHIAMARE UN METODO NELLA VIEW CHE CAMBIA L'IMMAGINE DEL TAVOLO ,
+                // AGGIUNGI METODO CHE AGGIORNA POSIZIONI TAVOLI ,E CONTROLLO SE IL CLIENTE è IN THINKING ,POI SE IL NUMERO DI CLIENTI SEDUTI ED LA MOLTEPLIC DEL CLIENTE
+                // ALLEGATO SONO UGUALI,  SE NON LO SONO CAMBIA L'IMMAGINE DEL TAVOLO
         }
     }
 
-    /*private Table getHashMapkey(HashMap<Table, Optional<Customer>> map,Customer c) {
-        for(var entr :map.entrySet()){
-            if(entr.getValue().get().equals(c)){
-                return entr.getKey();
-            }
-        }
-        return null;
-    }*/
 }
