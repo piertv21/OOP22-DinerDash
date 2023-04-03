@@ -193,19 +193,14 @@ public class ModelImpl implements Model {
        else customers.getLast().setPosition(this.firstLinePosition);    
     }
 
-            /* 
-    public HashMap<Table, Optional<Customer>> getTables() {                TODO   DA MODIFICARE
+    public LinkedList<Table> getTable(){
         return this.tables;
-    }*/
+    }
 
     public boolean thereAreAvaibleTables() {
-        //return this.tables.values().stream().anyMatch(customers->customers.isEmpty());    TODO togliere
-       return this.tables.stream().anyMatch(tbl->tbl.isFree());  
+       return this.tables.stream().anyMatch(tab->tab.isFree());  
     }
-      /*                                       TODO  TOGLIERE
-    private void initializeTablesMap() {
-        this.tables.put(new Table(new Pair<Integer,Integer>(100, 200), 12), Optional.empty());  //provo a mettere un tavolo
-    }*/
+    
     public int getRandomNumber(){
         return this.random.nextInt(4)+1;
     }
