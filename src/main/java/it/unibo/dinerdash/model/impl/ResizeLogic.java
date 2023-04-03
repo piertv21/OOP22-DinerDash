@@ -8,8 +8,8 @@ import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.utility.Pair;
 
 public class ResizeLogic {
-   private int altezzaCl;
-   private int larghezzaCl;
+   private double altezzaCl;
+   private double larghezzaCl;
    private double screenHeight;
    private double screenWidg;
     private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
@@ -44,10 +44,17 @@ public class ResizeLogic {
     }
 
     public Pair<Integer,Integer> updateFirstPos(Pair<Integer,Integer> firstPosition,int altezzaNuova,int larghezzaNuova){     //aggiorno la prima posizione in fila
+        double y=firstPosition.getY();
+        double x=firstPosition.getX();
        double percentualeVarY=((screenHeight-altezzaNuova)/screenHeight)*100;              //percentuale cambiamento da valore a ad b
        double percentualeVarX=((screenWidg-larghezzaNuova)/screenWidg)*100;       
-       altezzaCl=(int)((firstPosition.getY()/100)*percentualeVarY);                         //valore  da sottrarre all altezza
-       larghezzaCl=(int)((firstPosition.getX()/100)*percentualeVarX);    //valore percentuale da sottrarre all largezza
-       return new Pair<>(firstPosition.getX()-larghezzaCl, firstPosition.getY()-altezzaCl);
+      // System.out.println(percentualeVarX);
+       //System.out.println("firstX: "+ x);
+       altezzaCl=((y/100)*percentualeVarY);                         //valore  da sottrarre all altezza
+       larghezzaCl=((x/100)*percentualeVarX);    //valore percentuale da sottrarre all largezza
+       //System.out.println("larghezzaCl: "+larghezzaCl);
+       screenHeight=altezzaNuova;
+       screenWidg=larghezzaNuova;
+       return new Pair<>((int)(x-larghezzaCl), (int)(y-altezzaCl));
     }
 }

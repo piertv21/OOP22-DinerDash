@@ -33,7 +33,6 @@ public class ControllerImpl implements Controller {
     
     public ControllerImpl() {
         this.model = new ModelImpl();
-        System.out.println("creo model");
     }
     
     @Override
@@ -91,6 +90,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void resizeEntities() {
         //TODO        QUI CHIAMO I METODI DELLA CLASSE RESIZE
+       // model.firstLinePosition= model.resizeLog.updateFirstPos(model.firstLinePosition,(int)this.model.restaurantSize.getHeight(), (int)this.model.restaurantSize.getWidth());
     }
 
     private void init() {

@@ -31,7 +31,7 @@ public class ModelImpl implements Model {
     private static final int STARTING_X = 0;
     private static final int STARTING_Y = 500;
     
-    private Pair<Integer,Integer> firstLinePosition;
+    public Pair<Integer,Integer> firstLinePosition;
     private Random random; // used to create customers
     private int coins;
     private int remainingTime;
@@ -40,7 +40,7 @@ public class ModelImpl implements Model {
    // private HashMap<Table, Optional<Customer>> tables;          TODO DA TOGLIERE!!
     private LinkedList<Table> tablesList;                       // tavoli con eventuali clienti
     private LinkedList<Dish> dishes;                            // piatti
-    public Dimension restaurantSize;                           // size aggiornata finestra
+    private Dimension restaurantSize;                           // size aggiornata finestra
     private GameState gameState;                                // stato di gioco
     private ResizeLogic resizeLog;
 
@@ -139,7 +139,10 @@ public class ModelImpl implements Model {
         var position = new Pair<>( STARTING_X,  STARTING_Y); 
         this.customers.add(new Customer(position, this)); 
         if(thereAreAvaibleTables()) AssegnoTavolo();
-        else  assegnoPostoFila(); 
+        else  {
+            customers.getLast().setState(CustomerState.LINE);
+            assegnoPostoFila(); 
+        }
     }
 
     public int getCoins() {
@@ -181,13 +184,10 @@ public class ModelImpl implements Model {
 
     public void assegnoPostoFila() {
        int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
-       if(inLineCustm!=0) {
+       if(inLineCustm!=1) {
         customers.getLast().setPosition(new Pair<Integer,Integer>(firstLinePosition.getX(),firstLinePosition.getY()-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE) ));
         }
-       else customers.getLast().setPosition(this.firstLinePosition);
-
-       customers.getLast().setState(CustomerState.LINE);
-        
+       else customers.getLast().setPosition(this.firstLinePosition);    
     }
 
             /* 
@@ -197,7 +197,7 @@ public class ModelImpl implements Model {
 
     public boolean thereAreAvaibleTables() {
         //return this.tables.values().stream().anyMatch(customers->customers.isEmpty());    TODO togliere
-        return this.tablesList.stream().anyMatch(tbl->tbl.isFree());
+       return this.tablesList.stream().anyMatch(tbl->tbl.isFree());  
     }
       /*                                       TODO  TOGLIERE
     private void initializeTablesMap() {
@@ -206,5 +206,6 @@ public class ModelImpl implements Model {
     public int getRandomNumber(){
         return this.random.nextInt(4)+1;
     }
+
 
 }
