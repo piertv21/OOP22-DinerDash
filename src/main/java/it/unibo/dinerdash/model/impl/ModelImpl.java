@@ -1,9 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.awt.Dimension;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -37,8 +35,7 @@ public class ModelImpl implements Model {
     private int remainingTime;
     private int customersWhoLeft;
     private LinkedList<Customer> customers;                     // clienti
-   // private HashMap<Table, Optional<Customer>> tables;          TODO DA TOGLIERE!!
-    private LinkedList<Table> tablesList;                       // tavoli con eventuali clienti
+    private LinkedList<Table> tables;                           // tavoli con eventuali clienti
     private LinkedList<Dish> dishes;                            // piatti
     private Dimension restaurantSize;                           // size aggiornata finestra
     private GameState gameState;                                // stato di gioco
@@ -46,9 +43,9 @@ public class ModelImpl implements Model {
 
     public ModelImpl() {
         this.customers = new LinkedList<>();
-       // this.tables = new HashMap<>();              TODO  TOGLIERE
+        this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
-        this.random=new Random();
+        this.random = new Random();
     }
 
     @Override
@@ -80,7 +77,7 @@ public class ModelImpl implements Model {
 
     private void clear() {
         this.customers.clear();
-        //this.tables.clear();         //TODO MODIFICA CON LISTA NUOVA
+        this.tables.clear();
         this.dishes.clear();
     }
 
@@ -132,14 +129,14 @@ public class ModelImpl implements Model {
 
     @Override
     public void addCustomer() {
-       // this.initializeTablesMap(); //         TODO TOGLIERE
         if(this.gameOver()) {
-            // TO DO: STOP GAME
+            this.stop();
         }
-        var position = new Pair<>( STARTING_X,  STARTING_Y); 
+        var position = new Pair<>(STARTING_X,  STARTING_Y); 
         this.customers.add(new Customer(position, this)); 
-        if(thereAreAvaibleTables()) AssegnoTavolo();
-        else  {
+        if(thereAreAvaibleTables()) {
+            AssegnoTavolo();
+        } else {
             customers.getLast().setState(CustomerState.LINE);
             assegnoPostoFila(); 
         }
@@ -169,13 +166,13 @@ public class ModelImpl implements Model {
 
     public void AssegnoTavolo() {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         customers.getLast().setDestination(Optional.ofNullable(
-            this.tablesList.stream()
+            this.tables.stream()
             .filter(tav->tav.isFree())
             .findFirst()
             .get()
             .getPosition()
         ));                                
-        tablesList.stream()
+        tables.stream()
         .filter(entry -> entry.getPosition().equals(customers.getLast().getDestination().get()))   
         .findFirst()
         .orElse(null)
@@ -197,7 +194,7 @@ public class ModelImpl implements Model {
 
     public boolean thereAreAvaibleTables() {
         //return this.tables.values().stream().anyMatch(customers->customers.isEmpty());    TODO togliere
-       return this.tablesList.stream().anyMatch(tbl->tbl.isFree());  
+       return this.tables.stream().anyMatch(tbl->tbl.isFree());  
     }
       /*                                       TODO  TOGLIERE
     private void initializeTablesMap() {

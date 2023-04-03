@@ -8,17 +8,12 @@ public class Waitress extends GameEntityImpl {
     private float speed;
 
     public Waitress(Pair<Integer, Integer> coordinates) {
-        super(new Pair<Integer,Integer>(550, 148));        
-        /*  try {
-            cameriera = ImageIO.read(new File("waiter_front.png"));                                  assegno l'immagine alla cameriera
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        super(new Pair<Integer,Integer>(550, 148));
+        // TODO
     }
 
     public void handleMovement() {
-        //TODO
+        // TODO
     }
     
 }

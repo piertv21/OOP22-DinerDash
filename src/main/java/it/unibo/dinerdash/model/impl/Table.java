@@ -11,8 +11,7 @@ import it.unibo.dinerdash.utility.Pair;
 public class Table extends GameEntityImpl {
     
     private int tableNumber;
-    private int peopleSeatedNumber; // Equals to customers number
-    private Optional<Customer> custom;
+    private Optional<Customer> custom;  // Contiene numero persone altrimenti 0
     private TableState state;
 
     private enum TableState {
@@ -31,11 +30,8 @@ public class Table extends GameEntityImpl {
     }
 
     public int getPeopleSeatedNumber() {
-        return this.peopleSeatedNumber;
-    }
-
-    public void setPeopleSeatedNumber(int peopleSeatedNumber) {
-        this.peopleSeatedNumber = peopleSeatedNumber;
+        // TODO
+        return 0;
     }
 
     public void setState(TableState TableState){                                     
@@ -47,10 +43,9 @@ public class Table extends GameEntityImpl {
     }
 
     public boolean isFree() {
-        if(peopleSeatedNumber!=0)return false;
-        else return true;
-        
+        return this.getPeopleSeatedNumber() == 0;        
     }
+
     public void setCustom(Customer cs) {
         this.custom = Optional.of(cs);
     }
