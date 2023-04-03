@@ -20,9 +20,14 @@ public class ViewImpl extends JFrame implements View {
     private StartView menuView;
     private GameView gameView;
 
+    private double widthRatio;
+    private double heightRatio;
+
     public ViewImpl(Controller controller) {
         super(FRAME_NAME);
         this.controller = controller;
+        this.widthRatio = 0;
+        this.heightRatio = 0;
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationByPlatform(true);
@@ -36,8 +41,7 @@ public class ViewImpl extends JFrame implements View {
 
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-                controller.setFrameSize(getSize());
-                controller.resizeEntities();
+                //TODO Aggiornare rapporto
             }
         });
 

@@ -1,6 +1,5 @@
 package it.unibo.dinerdash.controller.api;
 
-import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -26,10 +25,12 @@ public interface Controller {
 
     void addCustomer();
 
-    void setFrameSize(Dimension dimension);
-
     void resizeEntities();
 
     HashMap<TableViewable, Optional<GameEntityViewable>> getTables();
+
+    int getRestaurantWidth();
+
+    int getRestaurantHeight();
         
 }

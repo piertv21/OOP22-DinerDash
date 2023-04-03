@@ -1,11 +1,8 @@
 package it.unibo.dinerdash.model.impl;
 
-import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.IntStream;
-
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.api.Model;
@@ -15,6 +12,9 @@ import it.unibo.dinerdash.utility.Pair;
  * Solo metodi getter e setter sulle entità model
  */
 public class ModelImpl implements Model {
+
+    private static final int RESTAURANT_WIDTH = 1280;
+    private static final int RESTAURANT_HEIGHT = 720;
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final double CHEF_SPEED_MULTIPLIER = 1.2;
@@ -37,7 +37,6 @@ public class ModelImpl implements Model {
     private LinkedList<Customer> customers;                     // clienti
     private LinkedList<Table> tables;                           // tavoli con eventuali clienti
     private LinkedList<Dish> dishes;                            // piatti
-    private Dimension restaurantSize;                           // size aggiornata finestra
     private GameState gameState;                                // stato di gioco
     private ResizeLogic resizeLog;
 
@@ -48,19 +47,15 @@ public class ModelImpl implements Model {
         this.random = new Random();
     }
 
-    @Override
-    public void setRestaurantSize(Dimension dimension) {
-        this.restaurantSize = dimension;
-    }
-
     private void init() {
         this.coins = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
         this.gameState = GameState.RUNNING;       
-        this.resizeLog=new ResizeLogic(this.restaurantSize.getHeight(),this.restaurantSize.getWidth());   // creo il resizeLogic passando le dimensioni schermo
+        //this.resizeLog=new ResizeLogic(this.restaurantSize.getHeight(),this.restaurantSize.getWidth());   // creo il resizeLogic passando le dimensioni schermo
         this.clear();
 
+        /*
         var startingTableX = (int)(this.restaurantSize.getWidth() * STARTING_TABLE_RELATIVE_X);
         var startingTableY = (int)(this.restaurantSize.getHeight() * STARTING_TABLE_RELATIVE_Y);
         this.firstLinePosition=new Pair<Integer,Integer>((int)(this.restaurantSize.getWidth()*0.04), 
@@ -73,12 +68,23 @@ public class ModelImpl implements Model {
             var position = new Pair<>(x, y);
            // this.tables.put(new Table(position, i + 1), Optional.empty());  TODO  DA MODIFICARE!!!
         });
+        */
     }
 
     private void clear() {
         this.customers.clear();
         this.tables.clear();
         this.dishes.clear();
+    }
+
+    @Override
+    public int getWidth() {
+        return this.RESTAURANT_WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return this.RESTAURANT_HEIGHT;
     }
 
     @Override
@@ -203,6 +209,5 @@ public class ModelImpl implements Model {
     public int getRandomNumber(){
         return this.random.nextInt(4)+1;
     }
-
 
 }
