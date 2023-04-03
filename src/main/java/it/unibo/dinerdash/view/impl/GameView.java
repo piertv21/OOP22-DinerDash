@@ -161,7 +161,7 @@ public class GameView extends GamePanel {
         }
     }
 
-    public void addCustomerViewable(int num) {
+    public void addCustomerViewable(int num) {              //aggiungo l'immagine ai clienti appena creati
         try {
             this.customers.getLast().setIcon(loadIcon("client"+num+".png").getImage());
         } catch (IOException e) {
@@ -211,7 +211,7 @@ public class GameView extends GamePanel {
         return this.customers;
     }
 
-    /*public LinkedList<GameEntityViewable> getViewableTablesList() {
+    /*public LinkedList<GameEntityViewable> getViewableTablesList() {                   TODO  SERVE
         return this.tables;
     }*/
 

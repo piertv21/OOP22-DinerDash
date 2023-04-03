@@ -37,7 +37,7 @@ public class ModelImpl implements Model {
     private int remainingTime;
     private int customersWhoLeft;
     private LinkedList<Customer> customers;                     // clienti
-   // private HashMap<Table, Optional<Customer>> tables;           DA TOGLIERE!!
+   // private HashMap<Table, Optional<Customer>> tables;          TODO DA TOGLIERE!!
     private LinkedList<Table> tablesList;                       // tavoli con eventuali clienti
     private LinkedList<Dish> dishes;                            // piatti
     private Dimension restaurantSize;                           // size aggiornata finestra
@@ -45,7 +45,7 @@ public class ModelImpl implements Model {
 
     public ModelImpl() {
         this.customers = new LinkedList<>();
-       // this.tables = new HashMap<>();                TOGLIERE
+       // this.tables = new HashMap<>();              TODO  TOGLIERE
         this.dishes = new LinkedList<>();
         this.random=new Random();
     }
@@ -72,13 +72,13 @@ public class ModelImpl implements Model {
             var x = startingTableX + (j * TABLES_PADDING);
             var y = startingTableY + (i * TABLES_PADDING);
             var position = new Pair<>(x, y);
-           // this.tables.put(new Table(position, i + 1), Optional.empty());    DA MODIFICARE!!!
+           // this.tables.put(new Table(position, i + 1), Optional.empty());  TODO  DA MODIFICARE!!!
         });
     }
 
     private void clear() {
         this.customers.clear();
-        //this.tables.clear();         //MODIFICA CON LISTA NUOVA
+        //this.tables.clear();         //TODO MODIFICA CON LISTA NUOVA
         this.dishes.clear();
     }
 
@@ -130,7 +130,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void addCustomer() {
-       // this.initializeTablesMap(); //          TOGLIERE
+       // this.initializeTablesMap(); //         TODO TOGLIERE
         if(this.gameOver()) {
             // TO DO: STOP GAME
         }
@@ -188,15 +188,15 @@ public class ModelImpl implements Model {
     }
 
             /* 
-    public HashMap<Table, Optional<Customer>> getTables() {                   DA MODIFICARE
+    public HashMap<Table, Optional<Customer>> getTables() {                TODO   DA MODIFICARE
         return this.tables;
     }*/
 
     public boolean thereAreAvaibleTables() {
-        //return this.tables.values().stream().anyMatch(customers->customers.isEmpty());
+        //return this.tables.values().stream().anyMatch(customers->customers.isEmpty());    TODO togliere
         return this.tablesList.stream().anyMatch(tbl->tbl.isFree());
     }
-      /*                                         TOGLIERE
+      /*                                       TODO  TOGLIERE
     private void initializeTablesMap() {
         this.tables.put(new Table(new Pair<Integer,Integer>(100, 200), 12), Optional.empty());  //provo a mettere un tavolo
     }*/
