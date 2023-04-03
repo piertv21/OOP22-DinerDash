@@ -3,6 +3,7 @@ package it.unibo.dinerdash.model.impl;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.GameEntityImpl;
+import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.utility.Pair;
 
 /*
@@ -14,14 +15,7 @@ public class Table extends GameEntityImpl {
     private Optional<Customer> custom;  // Contiene numero persone altrimenti 0
     private TableState state;
 
-    private enum TableState {
-        THINKING,
-        ORDERING,
-        WAITING_MEAL,
-        EATING,
-        WANTING_TO_PAY,
-        EMPTY
-    }
+
 
     public Table(Pair<Integer, Integer> coordinates, int tableNumber) {
         super(coordinates);
@@ -48,6 +42,14 @@ public class Table extends GameEntityImpl {
 
     public void setCustom(Customer cs) {
         this.custom = Optional.of(cs);
+    }
+
+    public Customer getCustom(){
+        return this.custom.get();
+    }
+
+    public int getTableNumber(){
+        return this.tableNumber;
     }
     
 }
