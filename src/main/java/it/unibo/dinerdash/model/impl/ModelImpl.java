@@ -36,14 +36,14 @@ public class ModelImpl implements Model {
     private int customersWhoLeft;
     private LinkedList<Customer> customers;                     // clienti
     private LinkedList<Table> tables;                           // tavoli con eventuali clienti
-    private LinkedList<Dish> dishes;                            // piatti
+    //TODO Aggiungi bancone
     private GameState gameState;                                // stato di gioco
     private ResizeLogic resizeLog;
 
     public ModelImpl() {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
-        this.dishes = new LinkedList<>();
+        //TODO Inizializza bancone
         this.random = new Random();
     }
 
@@ -74,7 +74,7 @@ public class ModelImpl implements Model {
     private void clear() {
         this.customers.clear();
         this.tables.clear();
-        this.dishes.clear();
+        //TODO Pulisci bancone
     }
 
     @Override
@@ -129,8 +129,7 @@ public class ModelImpl implements Model {
     @Override
     public void addOrder(int tableNumber) {
         var position = new Pair<>(0, 0);
-        this.dishes.add(new Dish(position, tableNumber));
-        //TODO
+        //TODO aggiungi al bancone
     }
 
     @Override
