@@ -29,7 +29,7 @@ public class ModelImpl implements Model {
     private static final int STARTING_X = 0;
     private static final int STARTING_Y = 500;
     
-    public Pair<Integer,Integer> firstLinePosition;
+    private Pair<Integer,Integer> firstLinePosition;
     private Random random; // used to create customers
     private int coins;
     private int remainingTime;
