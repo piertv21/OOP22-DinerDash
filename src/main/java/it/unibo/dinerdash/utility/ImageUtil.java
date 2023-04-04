@@ -7,16 +7,22 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 
 /*
- * Simple multipurpose Image Cacher
+ * Simple Image reader with built-in cacher
  */
-public class ImageCacher {
+public class ImageUtil {
 
     private Map<String, ImageIcon> cachedImages;
-    private String root;
+    private static String root;
 
-    public ImageCacher(String root) {
+    public ImageUtil(String root) {
         this.cachedImages = new HashMap<>();
         this.setRoot(root);
+    }
+
+    public static ImageIcon loadImage(String name) {
+        final URL imgURL = ClassLoader.getSystemResource(root + name);
+        final ImageIcon icon = new ImageIcon(imgURL);
+        return icon;
     }
 
     public void addImage(String name, String fileName) {        
@@ -33,12 +39,6 @@ public class ImageCacher {
 
     public void setRoot(String root) {
         this.root = root;
-    }
-    
-    private ImageIcon loadImage(String path) {
-        final URL imgURL = ClassLoader.getSystemResource(this.root + path);
-        final ImageIcon icon = new ImageIcon(imgURL);
-        return icon;
     }
 
 }

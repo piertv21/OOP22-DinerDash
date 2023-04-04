@@ -1,8 +1,6 @@
 package it.unibo.dinerdash.view.impl;
 
 import java.awt.Image;
-import java.io.IOException;
-import java.net.URL;
 import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,9 +14,8 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-
 import it.unibo.dinerdash.view.api.GamePanel;
+import it.unibo.dinerdash.utility.ImageUtil;
 import it.unibo.dinerdash.utility.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 
@@ -48,6 +45,7 @@ public class GameView extends GamePanel {
     private JPanel bottomPanel;
     private JPanel rightPanel;
     private Image backgroundImage;
+    private ImageUtil imageCacher;
     
     private LinkedList<GameEntityViewable> customers;
     private LinkedList<GameEntityViewable> tables;
@@ -130,6 +128,8 @@ public class GameView extends GamePanel {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
+        
+        this.imageCacher = new ImageUtil(ROOT);
     }
 
     private void start() {
@@ -138,48 +138,37 @@ public class GameView extends GamePanel {
         this.getMainFrame().getController().start();
     }
 
-    //TODO Imposta size delle entità
-    private void loadResources() {        
-        try {
-            this.backgroundImage = loadIcon("background.jpg").getImage();
+    
+    private void loadResources() {
+        this.backgroundImage = ImageUtil.loadImage("background.jpg").getImage();
 
-            //var customeImage = loadIcon("client1.png").getImage();  
-            //customers.add(new GameEntityViewable(new Pair<Integer,Integer>(300, 200), customeImage));
-            var waitressPosition = new Pair<>(40, 120);
-            var waitressImage = loadIcon("waitress.png").getImage();
-            this.waitress = new GameEntityViewable(waitressPosition, waitressImage);
+        //var customeImage = loadIcon("client1.png").getImage();  
+        //customers.add(new GameEntityViewable(new Pair<Integer,Integer>(300, 200), customeImage));
+        var waitressPosition = new Pair<>(40, 120);
+        var waitressImage = ImageUtil.loadImage("waitress.png").getImage();
+        this.waitress = new GameEntityViewable(waitressPosition, waitressImage);
 
-            //TODO Add tavoli from controller->model
+        //TODO Add tavoli from controller->model
 
-            var chefPosition = new Pair<>((int)(this.getMainFrame().getWidth() * 0.55), (int)(this.getMainFrame().getWidth() * 0.02));
-            var chefImage = loadIcon("chef.png").getImage();
-            this.chef = new GameEntityViewable(chefPosition, chefImage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        var chefPosition = new Pair<>((int)(this.getMainFrame().getWidth() * 0.55), (int)(this.getMainFrame().getWidth() * 0.02));
+        var chefImage = ImageUtil.loadImage("chef.png").getImage();
+        this.chef = new GameEntityViewable(chefPosition, chefImage);
     }
-
+    
+    //TODO Meglio passare Gameentityviewable a cui settare immagine
     public void addCustomerViewable(int num) {              //aggiungo l'immagine ai clienti appena creati
-        try {
-            this.customers.getLast().setIcon(loadIcon("client"+num+".png").getImage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.customers.getLast().setIcon(ImageUtil.loadImage("client" + num + ".png").getImage());
     }
 
     public void addDish() {
         //TODO
     }
 
-    // https://stackoverflow.com/questions/49871233/using-imageicon-to-access-a-picture-cant-access-it-how-to-fix
-    private ImageIcon loadIcon(String iconName) throws IOException {
-        final URL imgURL = ClassLoader.getSystemResource(ROOT + iconName);
-        return new ImageIcon(imgURL);
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        //TODO Imposta size delle entità qui sotto
 
         // Background
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
