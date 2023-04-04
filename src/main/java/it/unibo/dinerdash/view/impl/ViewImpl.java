@@ -33,15 +33,20 @@ public class ViewImpl extends JFrame implements View {
         this.setLocationByPlatform(true);
         this.setResizable(true);
 
-        final var screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-        final int width = (int) screenDim.getWidth();
-        final int height = (int) screenDim.getHeight();
+        //final var screenDim = Toolkit.getDefaultToolkit().getScreenSize();
+       // final int width = (int) screenDim.getWidth();                          TODO ELIMINARE PENSO
+        //final int height = (int) screenDim.getHeight();
         this.setSize(1280, 720); //TODO DEBUG 720p
         //this.setSize((int)(width * 0.5), (int)(height * 0.75));
 
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-                //TODO Aggiornare rapporto
+                var screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+                widthRatio=screenSize.getWidth();
+                controller.getRestaurantWidth();
+                heightRatio=screenSize.getHeight();
+                controller.getRestaurantHeight();
+                
             }
         });
 
