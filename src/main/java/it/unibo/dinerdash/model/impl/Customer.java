@@ -12,7 +12,7 @@ import it.unibo.dinerdash.utility.Pair;
 /** 
  * Create a new element "Customer" who will move in the restaurant
  */
-public class Customer extends GameEntityMovableImpl {
+public class Customer extends GameEntityMovableImpl implements Runnable {
 
     private static final int MOVEMENT_DISTANCE = 5;
     private static final int TIME_BEFORE_GETANGRY = 16000;
@@ -23,6 +23,7 @@ public class Customer extends GameEntityMovableImpl {
     private CustomerState state;
     private ModelImpl model;
     private int numClienti;
+    private  Thread trd;
     
     public Customer(Pair<Integer, Integer> coordinates, ModelImpl model) {
         super(coordinates,SPEED);
@@ -91,6 +92,20 @@ public class Customer extends GameEntityMovableImpl {
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         {
                 this.startThinkingTimer();
+        }
+    }
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'run'");
+    }
+
+    public void start(){
+        if(trd==null)
+        {
+        trd=new Thread (this, "1");
+        trd.start();
         }
     }
 
