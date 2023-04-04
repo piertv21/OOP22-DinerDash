@@ -143,7 +143,7 @@ public class ModelImpl implements Model {
             AssegnoTavolo( this.customers.getLast());
         } else {
             customers.getLast().setState(CustomerState.LINE);
-            assegnoPostoFila(); 
+            assegnoPostoFila(this.customers.getLast()); 
         }
     }
 
@@ -184,12 +184,13 @@ public class ModelImpl implements Model {
         .setCustom(cus); 
     } 
 
-    public void assegnoPostoFila() {
+    public void assegnoPostoFila(Customer cus) {
        int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
        if(inLineCustm!=1) {
-        customers.getLast().setPosition(new Pair<Integer,Integer>(firstLinePosition.getX(),firstLinePosition.getY()-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE) ));
+        cus.setPosition(new Pair<Integer,Integer>(firstLinePosition.getX(),firstLinePosition.getY()-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE) ));
         }
-       else customers.getLast().setPosition(this.firstLinePosition);    
+       else cus.setPosition(this.firstLinePosition);    
+       cus.start();
     }
 
     public LinkedList<Table> getTable(){

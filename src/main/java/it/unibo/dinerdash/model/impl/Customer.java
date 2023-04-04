@@ -114,6 +114,8 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
                 if(this.checkFreeTables()){
                     // vado a sedermi al tavolo
                     this.state=CustomerState.WALKING;
+                    this.model.AssegnoTavolo(this);
+                    angryCounter=0;
                 }
                 if(angryCounter==TIME_BEFORE_GETANGRY){         //il cliente si arrabbia e se ne va
                     this.state=CustomerState.ANGRY;
@@ -140,6 +142,7 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
         .filter(p->p.getState().equals(CustomerState.ANGRY))
         .findFirst()
         .get());
+        model.customerLeft();
                    // forse saranno da invertire
         model.getCustomers().stream()
         .filter(p->p.getState().equals(CustomerState.LINE)).forEach((p)->{
