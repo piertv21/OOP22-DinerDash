@@ -140,7 +140,7 @@ public class ModelImpl implements Model {
         var position = new Pair<>(STARTING_X,  STARTING_Y); 
         this.customers.add(new Customer(position, this)); 
         if(thereAreAvaibleTables()) {
-            AssegnoTavolo();
+            AssegnoTavolo( this.customers.getLast());
         } else {
             customers.getLast().setState(CustomerState.LINE);
             assegnoPostoFila(); 
@@ -169,8 +169,8 @@ public class ModelImpl implements Model {
         return this.customers;
     }
 
-    public void AssegnoTavolo() {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
-        customers.getLast().setDestination(Optional.ofNullable(
+    public void AssegnoTavolo(Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
+        cus.setDestination(Optional.ofNullable(
             this.tables.stream()
             .filter(tav->tav.isFree())
             .findFirst()
@@ -178,10 +178,10 @@ public class ModelImpl implements Model {
             .getPosition()
         ));                                
         tables.stream()
-        .filter(entry -> entry.getPosition().equals(customers.getLast().getDestination().get()))   
+        .filter(entry -> entry.getPosition().equals(cus.getDestination().get()))   
         .findFirst()
         .orElse(null)
-        .setCustom(customers.getLast()); 
+        .setCustom(cus); 
     } 
 
     public void assegnoPostoFila() {
