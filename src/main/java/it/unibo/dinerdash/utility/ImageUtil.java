@@ -25,7 +25,7 @@ public class ImageUtil {
         return icon;
     }
 
-    public void addImage(String name, String fileName) {        
+    public void cacheImage(String name, String fileName) {        
         this.cachedImages.put(name, loadImage(fileName));
     }
 

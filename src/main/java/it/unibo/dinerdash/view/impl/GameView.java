@@ -2,6 +2,8 @@ package it.unibo.dinerdash.view.impl;
 
 import java.awt.Image;
 import java.util.LinkedList;
+import java.util.stream.IntStream;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -127,8 +129,7 @@ public class GameView extends GamePanel {
     public void init() {        
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
-        this.dishes = new LinkedList<>();
-        
+        this.dishes = new LinkedList<>();        
         this.imageCacher = new ImageUtil(ROOT);
     }
 
@@ -140,22 +141,25 @@ public class GameView extends GamePanel {
 
     
     private void loadResources() {
+        // Load background
         this.backgroundImage = ImageUtil.loadImage("background.jpg").getImage();
 
-        //var customeImage = loadIcon("client1.png").getImage();  
-        //customers.add(new GameEntityViewable(new Pair<Integer,Integer>(300, 200), customeImage));
-        var waitressPosition = new Pair<>(40, 120);
-        var waitressImage = ImageUtil.loadImage("waitress.png").getImage();
-        this.waitress = new GameEntityViewable(waitressPosition, waitressImage);
+        // Cache chef
+        this.imageCacher.cacheImage("chef", "chef.png");
 
-        //TODO Add tavoli from controller->model
+        // Cache waitress
+        this.imageCacher.cacheImage("waitress", "waitress.png");
 
-        var chefPosition = new Pair<>((int)(this.getMainFrame().getWidth() * 0.55), (int)(this.getMainFrame().getWidth() * 0.02));
-        var chefImage = ImageUtil.loadImage("chef.png").getImage();
-        this.chef = new GameEntityViewable(chefPosition, chefImage);
+        // Cache customers
+        IntStream.range(1, 5)
+            .forEach(i -> this.imageCacher.cacheImage("client" + i, "client" + i + ".png"));
+
+        // Cache tables
+        IntStream.range(0, 5)
+            .forEach(i -> this.imageCacher.cacheImage("table" + i, "table" + i + ".png"));
     }
     
-    //TODO Meglio passare Gameentityviewable a cui settare immagine
+    //TODO da rivedere dopo model
     public void addCustomerViewable(int num) {              //aggiungo l'immagine ai clienti appena creati
         this.customers.getLast().setIcon(ImageUtil.loadImage("client" + num + ".png").getImage());
     }
