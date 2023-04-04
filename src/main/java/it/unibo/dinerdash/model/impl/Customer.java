@@ -24,6 +24,7 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
     private ModelImpl model;
     private int numClienti;
     private  Thread trd;
+    private int angryCounter=0;
     
     public Customer(Pair<Integer, Integer> coordinates, ModelImpl model) {
         super(coordinates,SPEED);
@@ -41,11 +42,11 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
     public CustomerState getState() {
         return this.state ;
     }
-
+/*
     public void startAngryTimer() {                                   //avvia il timer per far arrabbiare i clienti in fila
         timerActions.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
     }
-
+ 
      TimerTask angryAction = new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
         @Override
         public void run() { 
@@ -60,8 +61,8 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
                 });
                 angryAction.cancel();          
         }
-    }; 
-
+    }; */
+/* 
     public void startThinkingTimer() {                                   //avvia il timer per far pensare un clinete seduto
         timerActions.schedule(ThinkingAction, TIME_BEFORE_ORDERING, TIME_BEFORE_ORDERING);
     }
@@ -74,7 +75,7 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
             ThinkingAction.cancel();
         }
     };
-
+*/
     public void handleMovement() {                 //manage the movement of customers
         if(state.equals(CustomerState.WALKING)) {
             if(getPosition().getX() < this.getDestination().get().getX()) this.moveRight(); 
@@ -91,14 +92,38 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         {
-                this.startThinkingTimer();
+               // this.startThinkingTimer();
+               this.start();
         }
     }
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'run'");
+       if(state.equals(CustomerState.THINKING)){
+        try {
+            trd.sleep(TIME_BEFORE_ORDERING);
+            state = CustomerState.ORDERING;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } 
+       }else if(state.equals(CustomerState.LINE)){
+        while(state.equals(CustomerState.LINE)){
+            try {
+                trd.sleep(1000);
+                angryCounter++;
+                if(this.checkFreeTables()){
+                    // vado a sedermi al tavolo
+                    this.state=CustomerState.WALKING;
+                }
+                if(angryCounter==TIME_BEFORE_GETANGRY){         //il cliente si arrabbia e se ne va
+                    this.state=CustomerState.ANGRY;
+                    this.leaveRestaurant();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } 
+        }
+       }
     }
 
     public void start(){
@@ -109,5 +134,26 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
         }
     }
 
+    public void leaveRestaurant(){
+        model.getCustomers().remove(model.getCustomers().stream()
+        .filter(p->p.getState().equals(CustomerState.ANGRY))
+        .findFirst()
+        .get());
+                   // forse saranno da invertire
+        model.getCustomers().stream()
+        .filter(p->p.getState().equals(CustomerState.LINE)).forEach((p)->{
+            p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY()+25));
+        });        
+    }
+
+    public boolean checkFreeTables(){
+        if(model.getCustomers().stream()          // se questo cliente è il primo della fila
+        .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(this)){
+           return model.thereAreAvaibleTables();
+        }
+        return false;
+        
+    }
+    }
     
-}
+
