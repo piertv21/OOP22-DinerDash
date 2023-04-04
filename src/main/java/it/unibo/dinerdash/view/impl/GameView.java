@@ -51,7 +51,7 @@ public class GameView extends GamePanel {
     
     private LinkedList<GameEntityViewable> customers;
     private LinkedList<GameEntityViewable> tables;
-    private LinkedList<GameEntityViewable> dishes;
+    private LinkedList<GameEntityViewable> dishes;    
     private GameEntityViewable waitress;
     private GameEntityViewable chef;
 
@@ -126,21 +126,22 @@ public class GameView extends GamePanel {
         this.start();
     }
 
-    public void init() {        
-        this.customers = new LinkedList<>();
-        this.tables = new LinkedList<>();
-        this.dishes = new LinkedList<>();        
-        this.imageCacher = new ImageUtil(ROOT);
-    }
-
     private void start() {
         this.init();
         this.loadResources();
+        this.assignStartingImages();
         this.getMainFrame().getController().start();
     }
 
+    public void init() {        
+        this.customers = new LinkedList<>();
+        this.tables = new LinkedList<>();
+        this.dishes = new LinkedList<>();
+    }
     
     private void loadResources() {
+        this.imageCacher = new ImageUtil(ROOT);
+
         // Load background
         this.backgroundImage = ImageUtil.loadImage("background.jpg").getImage();
 
@@ -157,6 +158,12 @@ public class GameView extends GamePanel {
         // Cache tables
         IntStream.range(0, 5)
             .forEach(i -> this.imageCacher.cacheImage("table" + i, "table" + i + ".png"));
+    }
+
+    private void assignStartingImages() {
+        //TODO è una prova, manca la posizione della waitress dal controller->model!
+        var waitressPosition = new Pair<>(40, 120);
+        this.waitress = new GameEntityViewable(waitressPosition, this.imageCacher.getCachedImage("waitress").getImage());
     }
     
     //TODO da rivedere dopo model
@@ -192,9 +199,9 @@ public class GameView extends GamePanel {
         );
 
         // Chef
-        g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
+        // g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
        
-       // g.fillRect((int)(this.getMainFrame().getWidth()*0.04), (int)(this.getMainFrame().getHeight()*0.67), 100, 100);     primo posto in fila
+        // g.fillRect((int)(this.getMainFrame().getWidth()*0.04), (int)(this.getMainFrame().getHeight()*0.67), 100, 100);     primo posto in fila
     }
 
     public LinkedList<GameEntityViewable> getViewableCustomersList() {

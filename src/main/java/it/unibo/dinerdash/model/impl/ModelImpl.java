@@ -4,8 +4,6 @@ import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Random;
 
-import org.w3c.dom.css.Counter;
-
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.api.Model;
@@ -33,6 +31,8 @@ public class ModelImpl implements Model {
     private static final int STARTING_Y = 500;
     public static final double COUNTERTOP_REL_X = 0.5;
     public static final double COUNTERTOP_REL_Y = 0.2;
+    public static final double CHEF_REL_X = 0.55;
+    public static final double CHEF_REL_Y = 0.02;
     
     private Pair<Integer,Integer> firstLinePosition;
     private Random random; // used to create customers
@@ -210,6 +210,10 @@ public class ModelImpl implements Model {
     
     public int getRandomNumber(){
         return this.random.nextInt(4)+1;
+    }
+    
+    public Countertop getCounterTop() {
+        return counterTop;
     }
 
 }
