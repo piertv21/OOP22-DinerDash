@@ -3,9 +3,7 @@ package it.unibo.dinerdash.view.impl;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Optional;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -52,7 +50,7 @@ public class GameView extends GamePanel {
     private Image backgroundImage;
     
     private LinkedList<GameEntityViewable> customers;
-    private LinkedList<GameEntityViewable> tables;        // DA CAMBIARE IN LINKEDLIST
+    private LinkedList<GameEntityViewable> tables;
     private LinkedList<GameEntityViewable> dishes;
     private GameEntityViewable waitress;
     private GameEntityViewable chef;
@@ -145,7 +143,7 @@ public class GameView extends GamePanel {
         try {
             this.backgroundImage = loadIcon("background.jpg").getImage();
 
-           // var customeImage = loadIcon("client1.png").getImage();  
+            //var customeImage = loadIcon("client1.png").getImage();  
             //customers.add(new GameEntityViewable(new Pair<Integer,Integer>(300, 200), customeImage));
             var waitressPosition = new Pair<>(40, 120);
             var waitressImage = loadIcon("waitress.png").getImage();

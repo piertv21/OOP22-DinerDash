@@ -1,7 +1,6 @@
 package it.unibo.dinerdash.view.api;
 
 import javax.swing.JPanel;
-
 import it.unibo.dinerdash.view.impl.ViewImpl;
 
 /*

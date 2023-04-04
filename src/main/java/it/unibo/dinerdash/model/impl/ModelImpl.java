@@ -3,6 +3,9 @@ package it.unibo.dinerdash.model.impl;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Random;
+
+import org.w3c.dom.css.Counter;
+
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.api.Model;
@@ -28,6 +31,8 @@ public class ModelImpl implements Model {
     private static final int TABLES_PADDING = 250;
     private static final int STARTING_X = 0;
     private static final int STARTING_Y = 500;
+    public static final double COUNTERTOP_REL_X = 0.5;
+    public static final double COUNTERTOP_REL_Y = 0.2;
     
     private Pair<Integer,Integer> firstLinePosition;
     private Random random; // used to create customers
@@ -36,14 +41,17 @@ public class ModelImpl implements Model {
     private int customersWhoLeft;
     private LinkedList<Customer> customers;                     // clienti
     private LinkedList<Table> tables;                           // tavoli con eventuali clienti
-    //TODO Aggiungi bancone
+    private Countertop counterTop;                       // bancone con lista piatti
     private GameState gameState;                                // stato di gioco
     private ResizeLogic resizeLog;
 
     public ModelImpl() {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
-        //TODO Inizializza bancone
+
+        var counterTopRelPosition = new Pair<>((int) (COUNTERTOP_REL_X * RESTAURANT_WIDTH), (int) (COUNTERTOP_REL_Y * RESTAURANT_HEIGHT));
+        this.counterTop = new Countertop(counterTopRelPosition);
+
         this.random = new Random();
     }
 
@@ -51,8 +59,8 @@ public class ModelImpl implements Model {
         this.coins = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
-        this.gameState = GameState.RUNNING;       
-        //this.resizeLog=new ResizeLogic(this.restaurantSize.getHeight(),this.restaurantSize.getWidth());   // creo il resizeLogic passando le dimensioni schermo
+        this.gameState = GameState.RUNNING;
+
         this.clear();
 
         /*
@@ -74,7 +82,7 @@ public class ModelImpl implements Model {
     private void clear() {
         this.customers.clear();
         this.tables.clear();
-        //TODO Pulisci bancone
+        this.counterTop.clear();
     }
 
     @Override
@@ -127,9 +135,8 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void addOrder(int tableNumber) {
-        var position = new Pair<>(0, 0);
-        //TODO aggiungi al bancone
+    public void addOrder(Dish dish) {
+        this.counterTop.addDish(dish);
     }
 
     @Override

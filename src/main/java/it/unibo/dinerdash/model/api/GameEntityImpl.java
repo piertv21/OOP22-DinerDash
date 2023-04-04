@@ -8,6 +8,7 @@ public abstract class GameEntityImpl implements GameEntity {
 
     private Pair<Integer, Integer> position;
     private Optional<Pair<Integer, Integer>> destination;
+    private Pair<Integer, Integer> size;
     private boolean active;
 
     public GameEntityImpl(Pair<Integer, Integer> coordinates) {
@@ -45,5 +46,13 @@ public abstract class GameEntityImpl implements GameEntity {
     public void setActive(boolean active) {
         this.active = active;
     }
-    
+
+    public Pair<Integer, Integer> getSize() {
+        return this.size;
+    }
+
+    public void setSize(Pair<Integer, Integer> size) {
+        this.size = size;
+    }
+
 }

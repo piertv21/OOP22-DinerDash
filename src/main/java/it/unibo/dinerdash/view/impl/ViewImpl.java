@@ -26,6 +26,9 @@ public class ViewImpl extends JFrame implements View {
     public ViewImpl(Controller controller) {
         super(FRAME_NAME);
         this.controller = controller;
+        this.menuView = null;
+        this.gameView = null;
+        
         this.widthRatio = 0;
         this.heightRatio = 0;
         
@@ -41,9 +44,9 @@ public class ViewImpl extends JFrame implements View {
 
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-                var screenSize=Toolkit.getDefaultToolkit().getScreenSize();
-                widthRatio=screenSize.getWidth()/controller.getRestaurantWidth();
-                heightRatio=screenSize.getHeight()/controller.getRestaurantHeight();     
+                var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                widthRatio = screenSize.getWidth() / controller.getRestaurantWidth();
+                heightRatio = screenSize.getHeight() / controller.getRestaurantHeight();     
             }
         });
 

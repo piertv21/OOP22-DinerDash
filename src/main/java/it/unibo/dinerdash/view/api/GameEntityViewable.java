@@ -12,8 +12,7 @@ import it.unibo.dinerdash.utility.Pair;
 public class GameEntityViewable extends GameEntityImpl {
 
     private Image icon;
-    private Pair<Integer, Integer> size;
-
+    
     public GameEntityViewable(Pair<Integer, Integer> coordinates, Image icon) {
         super(coordinates);
         this.setIcon(icon);
@@ -25,14 +24,6 @@ public class GameEntityViewable extends GameEntityImpl {
 
     public void setIcon(Image icon) {
         this.icon = icon;
-    }
-
-    public Pair<Integer, Integer> getSize() {
-        return this.size;
-    }
-
-    public void setSize(Pair<Integer, Integer> size) {
-        this.size = size;
     }
 
     // Sync Viewable Entity with Model Entity

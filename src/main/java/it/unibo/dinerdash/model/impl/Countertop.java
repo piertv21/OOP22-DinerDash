@@ -6,24 +6,27 @@ import it.unibo.dinerdash.utility.Pair;
 
 public class Countertop extends GameEntityImpl {
 
+    private static final int MAX_COUNTERTOP_DISHES = 4;
+
     private LinkedList<Dish> dishes;    // piatti
 
     public Countertop(Pair<Integer, Integer> coordinates) {
         super(coordinates);
-        //TODO Inizializza
+        this.dishes = new LinkedList<>();
     }
 
     public void addDish(Dish dish) {
-        //TODO
+        if(this.dishes.size() < MAX_COUNTERTOP_DISHES) {
+            this.dishes.add(dish);
+        }
+        //TODO Check se serve altro
     }
 
     /*public <Optional<Dish>> takeDish() {
         //TODO
-
     }*/
 
     public void clear() {
-        //TODO
+        this.dishes.clear();
     }
-    
 }
