@@ -19,7 +19,7 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
     private static final int TIME_BEFORE_ORDERING = 4000;
     private static final int SPEED = 1;
     
-    private Timer timerActions = new Timer();
+    //private Timer timerActions = new Timer();
     private CustomerState state;
     private ModelImpl model;
     private int numClienti;
@@ -135,7 +135,8 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
     }
 
     public void leaveRestaurant(){
-        model.getCustomers().remove(model.getCustomers().stream()
+        synchronized(model.getCustomers()){
+        model.getCustomers().remove(model.getCustomers().stream()      // forse funziona fare .remove(this)
         .filter(p->p.getState().equals(CustomerState.ANGRY))
         .findFirst()
         .get());
@@ -143,16 +144,18 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
         model.getCustomers().stream()
         .filter(p->p.getState().equals(CustomerState.LINE)).forEach((p)->{
             p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY()+25));
-        });        
+        });   
+    }     
     }
 
     public boolean checkFreeTables(){
+        synchronized(model.getCustomers()){
         if(model.getCustomers().stream()          // se questo cliente è il primo della fila
         .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(this)){
            return model.thereAreAvaibleTables();
         }
         return false;
-        
+    } 
     }
     }
     
