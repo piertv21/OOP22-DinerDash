@@ -19,7 +19,6 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
     private static final int TIME_BEFORE_ORDERING = 4000;
     private static final int SPEED = 1;
     
-    //private Timer timerActions = new Timer();
     private CustomerState state;
     private ModelImpl model;
     private int numClienti;
@@ -42,40 +41,7 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
     public CustomerState getState() {
         return this.state ;
     }
-/*
-    public void startAngryTimer() {                                   //avvia il timer per far arrabbiare i clienti in fila
-        timerActions.schedule(angryAction, TIME_BEFORE_GETANGRY, TIME_BEFORE_GETANGRY);
-    }
- 
-     TimerTask angryAction = new TimerTask() {                        //azione programmata per gestire il cliente arrabbiato
-        @Override
-        public void run() { 
-                model.getCustomers().remove(model.getCustomers().stream()
-                .filter(p->p.getState().equals(CustomerState.LINE))
-                .findFirst()
-                .get());
-                           // forse saranno da invertire
-                model.getCustomers().stream()
-                .filter(p->p.getState().equals(CustomerState.LINE)).forEach((p)->{
-                    p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY()+25));
-                });
-                angryAction.cancel();          
-        }
-    }; */
-/* 
-    public void startThinkingTimer() {                                   //avvia il timer per far pensare un clinete seduto
-        timerActions.schedule(ThinkingAction, TIME_BEFORE_ORDERING, TIME_BEFORE_ORDERING);
-    }
 
-
-    TimerTask ThinkingAction = new TimerTask() {                        //azione programmata per gestire il cliente che pensa
-        @Override
-        public void run() { 
-            state = CustomerState.ORDERING;
-            ThinkingAction.cancel();
-        }
-    };
-*/
     public void handleMovement() {                 //manage the movement of customers
         if(state.equals(CustomerState.WALKING)) {
             if(getPosition().getX() < this.getDestination().get().getX()) this.moveRight(); 
@@ -92,7 +58,6 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         {
-               // this.startThinkingTimer();
                this.start();
         }
     }
@@ -136,7 +101,7 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
         }
     }
 
-    public void leaveRestaurant(){
+    private void leaveRestaurant(){
         synchronized(model.getCustomers()){
         model.getCustomers().remove(model.getCustomers().stream()      // forse funziona fare .remove(this)
         .filter(p->p.getState().equals(CustomerState.ANGRY))
@@ -151,7 +116,7 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
     }     
     }
 
-    public boolean checkFreeTables(){
+    private boolean checkFreeTables(){
         synchronized(model.getCustomers()){
         if(model.getCustomers().stream()          // se questo cliente è il primo della fila
         .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(this)){
