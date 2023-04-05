@@ -76,7 +76,7 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
             try {
                 trd.sleep(1000);
                 angryCounter++;
-                if(this.checkFreeTables()){
+                if(model.checkFreeTables(this)){
                     // vado a sedermi al tavolo
                     this.state=CustomerState.WALKING;
                     this.model.AssegnoTavolo(this);
@@ -84,7 +84,7 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
                 }
                 if(angryCounter==TIME_BEFORE_GETANGRY){         //il cliente si arrabbia e se ne va
                     this.state=CustomerState.ANGRY;
-                    this.leaveRestaurant();
+                    model.leaveRestaurant(this);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -101,30 +101,7 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
         }
     }
 
-    private void leaveRestaurant(){
-        synchronized(model.getCustomers()){
-        model.getCustomers().remove(model.getCustomers().stream()      // forse funziona fare .remove(this)
-        .filter(p->p.getState().equals(CustomerState.ANGRY))
-        .findFirst()
-        .get());
-        model.customerLeft();
-                   // forse saranno da invertire
-        model.getCustomers().stream()
-        .filter(p->p.getState().equals(CustomerState.LINE)).forEach((p)->{
-            p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY()+25));
-        });   
-    }     
-    }
-
-    private boolean checkFreeTables(){
-        synchronized(model.getCustomers()){
-        if(model.getCustomers().stream()          // se questo cliente è il primo della fila
-        .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(this)){
-           return model.thereAreAvaibleTables();
-        }
-        return false;
-    } 
-    }
+    
     }
     
 

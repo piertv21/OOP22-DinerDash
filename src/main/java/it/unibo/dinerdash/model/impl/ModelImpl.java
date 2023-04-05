@@ -216,4 +216,26 @@ public class ModelImpl implements Model {
         return counterTop;
     }
 
+    public void leaveRestaurant(Customer cus){
+        synchronized(this.customers){
+        this.customers.remove(cus);
+        this.customerLeft();
+                   // forse saranno da invertire
+        this.customers.stream()
+        .filter(p->p.getState().equals(CustomerState.LINE)).forEach((p)->{
+            p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY()+25));
+        });   
+    }     
+    }
+
+    public boolean checkFreeTables(Customer cus){
+        synchronized(this.customers){
+        if(this.customers.stream()          // se questo cliente è il primo della fila
+        .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)){
+           return this.thereAreAvaibleTables();
+        }
+        return false;
+    } 
+    }
+
 }
