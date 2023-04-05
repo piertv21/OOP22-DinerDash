@@ -60,6 +60,7 @@ public class ModelImpl implements Model {
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
         this.gameState = GameState.RUNNING;
+        this.firstLinePosition = new Pair<Integer,Integer>((int)(RESTAURANT_WIDTH*0.04),(int) (RESTAURANT_HEIGHT*0.67));  //da modificare poi i numeri
 
         this.clear();
 

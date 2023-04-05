@@ -1,10 +1,5 @@
 package it.unibo.dinerdash.model.impl;
 
-import java.util.LinkedList;
-import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameEntityMovableImpl;
 import it.unibo.dinerdash.utility.Pair;
