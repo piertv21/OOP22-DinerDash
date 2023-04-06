@@ -1,15 +1,28 @@
 package it.unibo.dinerdash.model.api;
 
+import java.util.Optional;
+
 import it.unibo.dinerdash.utility.Direction;
 import it.unibo.dinerdash.utility.Pair;
 
 public class GameEntityMovableImpl extends GameEntityImpl implements GameEntityMovable {
 
+    private Optional<Pair<Integer, Integer>> destination;
     private int speed;
 
     public GameEntityMovableImpl(Pair<Integer, Integer> coordinates, int speed) {
         super(coordinates);
         this.setMovementSpeed(speed);
+    }
+    
+    @Override
+    public Optional<Pair<Integer, Integer>> getDestination() {
+        return this.destination;
+    }
+
+    @Override
+    public void setDestination(Optional<Pair<Integer, Integer>> destination) {
+        this.destination = destination;
     }
 
     @Override

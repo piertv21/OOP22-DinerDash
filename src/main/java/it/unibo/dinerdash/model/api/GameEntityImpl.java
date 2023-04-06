@@ -1,19 +1,15 @@
 package it.unibo.dinerdash.model.api;
 
-import java.util.Optional;
-
 import it.unibo.dinerdash.utility.Pair;
 
 public abstract class GameEntityImpl implements GameEntity {
 
     private Pair<Integer, Integer> position;
-    private Optional<Pair<Integer, Integer>> destination;
     private Pair<Integer, Integer> size;
     private boolean active;
 
     public GameEntityImpl(Pair<Integer, Integer> coordinates) {
         this.setPosition(coordinates);
-        this.setDestination(Optional.empty());
         this.setActive(true);
     }
     
@@ -28,13 +24,13 @@ public abstract class GameEntityImpl implements GameEntity {
     }
 
     @Override
-    public Optional<Pair<Integer, Integer>> getDestination() {
-        return this.destination;
+    public Pair<Integer, Integer> getSize() {
+        return this.size;
     }
 
     @Override
-    public void setDestination(Optional<Pair<Integer, Integer>> destination) {
-        this.destination = destination;
+    public void setSize(Pair<Integer, Integer> size) {
+        this.size = size;
     }
 
     @Override
@@ -45,14 +41,6 @@ public abstract class GameEntityImpl implements GameEntity {
     @Override
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public Pair<Integer, Integer> getSize() {
-        return this.size;
-    }
-
-    public void setSize(Pair<Integer, Integer> size) {
-        this.size = size;
     }
 
 }

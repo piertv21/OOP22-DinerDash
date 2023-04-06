@@ -1,7 +1,5 @@
 package it.unibo.dinerdash.model.api;
 
-import java.util.Optional;
-
 import it.unibo.dinerdash.utility.Pair;
 
 public interface GameEntity {
@@ -10,9 +8,9 @@ public interface GameEntity {
 
     void setPosition(Pair<Integer, Integer> position);
 
-    Optional<Pair<Integer, Integer>> getDestination();
+    Pair<Integer, Integer> getSize();
 
-    void setDestination(Optional<Pair<Integer, Integer>> destination);
+    void setSize(Pair<Integer, Integer> size);
 
     boolean isActive();
 
