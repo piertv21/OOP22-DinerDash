@@ -50,7 +50,7 @@ public class ModelImpl implements Model {
         this.tables = new LinkedList<>();
 
         var counterTopRelPosition = new Pair<>((int) (COUNTERTOP_REL_X * RESTAURANT_WIDTH), (int) (COUNTERTOP_REL_Y * RESTAURANT_HEIGHT));
-        this.counterTop = new Countertop(counterTopRelPosition);
+        this.counterTop = new Countertop(counterTopRelPosition, new Pair<>(0, 0)); //TODO Imposta Size
 
         this.random = new Random();
     }
@@ -146,7 +146,7 @@ public class ModelImpl implements Model {
             this.stop();
         }
         var position = new Pair<>(STARTING_X,  STARTING_Y); 
-        this.customers.add(new Customer(position, this)); 
+        this.customers.add(new Customer(position, new Pair<>(0, 0), this)); // TODO Imposta size
         if(thereAreAvaibleTables()) {
             AssegnoTavolo( this.customers.getLast());
         } else {

@@ -12,6 +12,7 @@ import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.ModelImpl;
+import it.unibo.dinerdash.utility.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 import it.unibo.dinerdash.view.api.View;
 import it.unibo.dinerdash.view.impl.GameView;
@@ -73,7 +74,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void addCustomer() {
         this.model.addCustomer();
-        this.gamePanel.getViewableCustomersList().add(new GameEntityViewable(null, null));
+        this.gamePanel.getViewableCustomersList().add(new GameEntityViewable(null, new Pair<>(0, 0), null));
         this.gamePanel.addCustomerViewable(model.getRandomNumber());  
     }
 

@@ -10,8 +10,9 @@ public class GameEntityMovableImpl extends GameEntityImpl implements GameEntityM
     private Optional<Pair<Integer, Integer>> destination;
     private int speed;
 
-    public GameEntityMovableImpl(Pair<Integer, Integer> coordinates, int speed) {
-        super(coordinates);
+    public GameEntityMovableImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int speed) {
+        super(coordinates, size);
+        this.destination = Optional.empty();
         this.setMovementSpeed(speed);
     }
     

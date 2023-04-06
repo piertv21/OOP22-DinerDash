@@ -13,8 +13,8 @@ public class GameEntityViewable extends GameEntityImpl {
 
     private Image icon;
     
-    public GameEntityViewable(Pair<Integer, Integer> coordinates, Image icon) {
-        super(coordinates);
+    public GameEntityViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Image icon) {
+        super(coordinates, size);
         this.setIcon(icon);
     }
 
@@ -30,9 +30,6 @@ public class GameEntityViewable extends GameEntityImpl {
     public void update(GameEntity gameEntity) {
         var newPosition = gameEntity.getPosition();
         this.setPosition(newPosition);
-
-        var newDestination = gameEntity.getDestination();
-        this.setDestination(newDestination);
 
         var newActiveStatus = gameEntity.isActive();
         this.setActive(newActiveStatus);

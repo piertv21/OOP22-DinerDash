@@ -163,7 +163,7 @@ public class GameView extends GamePanel {
     private void assignStartingImages() {
         //TODO è una prova, manca la posizione della waitress dal controller->model!
         var waitressPosition = new Pair<>(40, 120);
-        this.waitress = new GameEntityViewable(waitressPosition, this.imageCacher.getCachedImage("waitress").getImage());
+        this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(0, 0), this.imageCacher.getCachedImage("waitress").getImage());
     }
     
     //TODO da rivedere dopo model

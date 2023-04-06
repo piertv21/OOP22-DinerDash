@@ -20,8 +20,8 @@ public class Customer extends GameEntityMovableImpl implements Runnable {
     private  Thread trd;
     private int angryCounter=0;
     
-    public Customer(Pair<Integer, Integer> coordinates, ModelImpl model) {
-        super(coordinates,SPEED);
+    public Customer(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, ModelImpl model) {
+        super(coordinates, size, SPEED);
         this.model = model;
     }
 

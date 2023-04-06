@@ -11,8 +11,8 @@ public class Dish extends GameEntityImpl {
     private int dishNumber; // = numeroTavolo
     private boolean ready;
 
-    public Dish(Pair<Integer, Integer> coordinates, int dishNumber) {
-        super(coordinates);
+    public Dish(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int dishNumber) {
+        super(coordinates, size);
         this.dishNumber = dishNumber;
         this.setReady(false);
     }

@@ -8,8 +8,9 @@ public abstract class GameEntityImpl implements GameEntity {
     private Pair<Integer, Integer> size;
     private boolean active;
 
-    public GameEntityImpl(Pair<Integer, Integer> coordinates) {
+    public GameEntityImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
         this.setPosition(coordinates);
+        this.setSize(size);
         this.setActive(true);
     }
     

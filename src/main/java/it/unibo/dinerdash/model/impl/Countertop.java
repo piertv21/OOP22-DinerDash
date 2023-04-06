@@ -10,8 +10,8 @@ public class Countertop extends GameEntityImpl {
 
     private LinkedList<Dish> dishes;    // piatti
 
-    public Countertop(Pair<Integer, Integer> coordinates) {
-        super(coordinates);
+    public Countertop(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
+        super(coordinates, size);
         this.dishes = new LinkedList<>();
     }
 
@@ -28,5 +28,10 @@ public class Countertop extends GameEntityImpl {
 
     public void clear() {
         this.dishes.clear();
+    }
+
+    public boolean thereAreAvailableDishes() {
+        //TODO
+        return false;
     }
 }
