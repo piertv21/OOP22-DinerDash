@@ -89,6 +89,10 @@ public class ViewImpl extends JFrame implements View {
         return this.gameView;
     }
 
+    public void render() {
+        this.repaint();
+    }
+
     public double getWidthRatio(){
         return this.widthRatio;
     }

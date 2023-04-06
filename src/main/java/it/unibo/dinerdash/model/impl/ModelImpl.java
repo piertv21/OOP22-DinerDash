@@ -22,13 +22,16 @@ public class ModelImpl implements Model {
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
     private static final double PROFIT_MULTIPLIER = 2.0;
     private static final int MAX_PLAYTIME = 60*5;
+
     private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
     private static final int TABLES = 4;
-    private static final double STARTING_TABLE_RELATIVE_X = 0.3;
-    private static final double STARTING_TABLE_RELATIVE_Y = 0.3;
+    private static final double STARTING_TABLE_REL_X = 0.3;
+    private static final double STARTING_TABLE_REL_Y = 0.3;
     private static final int TABLES_PADDING = 250;
+
     private static final int STARTING_X = 0;
     private static final int STARTING_Y = 500;
+    
     public static final double COUNTERTOP_REL_X = 0.5;
     public static final double COUNTERTOP_REL_Y = 0.2;
     public static final double CHEF_REL_X = 0.55;
@@ -88,12 +91,12 @@ public class ModelImpl implements Model {
 
     @Override
     public int getWidth() {
-        return this.RESTAURANT_WIDTH;
+        return RESTAURANT_WIDTH;
     }
 
     @Override
     public int getHeight() {
-        return this.RESTAURANT_HEIGHT;
+        return RESTAURANT_HEIGHT;
     }
 
     @Override
@@ -152,6 +155,24 @@ public class ModelImpl implements Model {
         } else {
             customers.getLast().setState(CustomerState.LINE);
             assegnoPostoFila(this.customers.getLast()); 
+        }
+    }
+
+    public void update(long elapsedUpdateTime) {
+        if(!this.gameOver()) {
+            // Eventuale Aggiornamento posizione personaggi (cameriera, clienti)
+            /* esempio
+             * 
+             *  waiter.update(elapsedUpdateTime);
+                chef.update(elapsedUpdateTime);
+                for (Customer customer : customers) {
+                    customer.update(elapsedUpdateTime);
+                }
+             * 
+             */
+            // verificare lo stato dei tavoli (se sono liberi, occupati, se il cibo è pronto, ecc.)
+        } else {
+            this.stop();
         }
     }
 
@@ -237,6 +258,10 @@ public class ModelImpl implements Model {
         }
         return false;
     } 
+    }
+
+    public GameState getGameState() {
+        return this.gameState;
     }
 
 }
