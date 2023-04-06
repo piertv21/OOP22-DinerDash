@@ -153,11 +153,11 @@ public class GameView extends GamePanel {
 
         // Cache customers
         IntStream.range(1, 5)
-            .forEach(i -> this.imageCacher.cacheImage("client" + i, "client" + i + ".png"));
+            .forEach(i -> this.imageCacher.cacheImage("customer" + i, "customers" + SEP + "customer" + i + ".png"));
 
         // Cache tables
         IntStream.range(0, 5)
-            .forEach(i -> this.imageCacher.cacheImage("table" + i, "table" + i + ".png"));
+            .forEach(i -> this.imageCacher.cacheImage("table" + i, "tables" + SEP + "table" + i + ".png"));
     }
 
     private void assignStartingImages() {
