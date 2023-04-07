@@ -21,7 +21,7 @@ public class ModelImpl implements Model {
     private static final double CHEF_SPEED_MULTIPLIER = 1.2;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
     private static final double PROFIT_MULTIPLIER = 2.0;
-    private static final long MAX_PLAYTIME = 300000000000L;
+    private static final int MAX_PLAYTIME = 5 * 60;
 
     private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
     private static final int TABLES = 4;
@@ -37,16 +37,20 @@ public class ModelImpl implements Model {
     public static final double CHEF_REL_X = 0.55;
     public static final double CHEF_REL_Y = 0.02;
     
-    private Pair<Integer,Integer> firstLinePosition;
+    private Pair<Integer,Integer> firstLinePosition;    //TODO Cambia in const
     private Random random; // used to create customers
     private int coins;
-    private long remainingTime;
+    private int remainingTime;
     private int customersWhoLeft;
+    private GameState gameState;                                // stato di gioco
+
     private LinkedList<Customer> customers;                     // clienti
     private LinkedList<Table> tables;                           // tavoli con eventuali clienti
     private Countertop counterTop;                       // bancone con lista piatti
-    private GameState gameState;                                // stato di gioco
-    private ResizeLogic resizeLog;
+    private Chef chef;
+    private Waitress waitress;
+    
+    private ResizeLogic resizeLog;  //TODO Rimuovi
 
     public ModelImpl() {
         this.customers = new LinkedList<>();
@@ -160,19 +164,15 @@ public class ModelImpl implements Model {
 
     public void update(long elapsedUpdateTime) {
         if(!this.gameOver()) {
-            // Eventuale Aggiornamento posizione personaggi (cameriera, clienti)
-            /* esempio
-             * 
-             *  waiter.update(elapsedUpdateTime);
-                chef.update(elapsedUpdateTime);
-                for (Customer customer : customers) {
+            //this.remainingTime -= elapsedUpdateTime;
+            
+            //this.chef.update(elapsedUpdateTime);
+            /*
+                waitress.update(elapsedUpdateTime); //aggiornamento posizione + altro
+                for (Customer customer : customers) { //aggiornamento posizione + altro
                     customer.update(elapsedUpdateTime);
                 }
-             * 
-             */
-            // verificare lo stato dei tavoli (se sono liberi, occupati, se il cibo è pronto, ecc.)
-            System.out.println("tempo: " + elapsedUpdateTime);
-            this.remainingTime -= elapsedUpdateTime;
+            */
         } else {
             this.stop();
         }
@@ -186,7 +186,11 @@ public class ModelImpl implements Model {
         this.coins = coins;
     }
 
-    public long getRemainingTime() {
+    public void decrementRemainingTime() {
+        this.remainingTime--;
+    }
+
+    public int getRemainingTime() {
         return this.remainingTime;
     }
 

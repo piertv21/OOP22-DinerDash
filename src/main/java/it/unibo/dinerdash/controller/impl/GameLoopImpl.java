@@ -1,6 +1,9 @@
 package it.unibo.dinerdash.controller.impl;
 
+import java.util.concurrent.TimeUnit;
+
 import it.unibo.dinerdash.controller.api.GameLoop;
+import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.view.impl.GameView;
 
@@ -16,6 +19,8 @@ public class GameLoopImpl implements GameLoop, Runnable {
     private long lastTime;
     private double delta;
 
+    private Thread thread;
+
     public GameLoopImpl(ModelImpl model, GameView view) {
         this.model = model;
         this.view = view;
@@ -26,12 +31,17 @@ public class GameLoopImpl implements GameLoop, Runnable {
         lastTime = System.nanoTime();
 
         // Avvia il thread del gameloop
-        Thread thread = new Thread(this);
+        this.thread = new Thread(this);
         thread.start();
     }
 
     public void stop() {
         running = false;
+        try {
+            this.thread.join(); // Attende che il thread del game loop si completi
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -47,7 +57,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
 
             // Aggiorna il modello e la vista solo se è trascorso il tempo necessario
             // per raggiungere il target di frame rate (60 volte al secondo)
-            if (delta >= 1.0) {
+            if (delta >= 1.0 && this.model.getGameState() == GameState.RUNNING) {
 
                 // Aggiorna il modello
                 synchronized (model) {
@@ -74,9 +84,14 @@ public class GameLoopImpl implements GameLoop, Runnable {
 
             // Pausa il thread solo se necessario per risparmiare risorse della CPU
             if (delta < 1.0) {
-                long sleepTime = (long) ((1.0 - delta) * TARGET_FRAME_TIME / 1000000);
+                long sleepTime = (long) ((1.0 - delta) * TARGET_FRAME_TIME);
                 try {
-                    Thread.sleep(sleepTime);
+                    // Converti il sleepTime in millisecondi se la precisione richiesta è inferiore ai nanosecondi
+                    if (sleepTime < TimeUnit.MILLISECONDS.toNanos(1)) {
+                        Thread.sleep(1);
+                    } else {
+                        Thread.sleep(TimeUnit.NANOSECONDS.toMillis(sleepTime));
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

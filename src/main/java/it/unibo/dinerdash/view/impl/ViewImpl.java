@@ -15,6 +15,8 @@ import java.awt.event.ComponentEvent;
 public class ViewImpl extends JFrame implements View {
 
     public static final String FRAME_NAME = "Diner Dash";
+    public static final int MIN_WIDTH = 800;
+    public static final int MIN_HEIGHT = 600;
 
     private Controller controller;
     private StartView menuView;
@@ -35,12 +37,9 @@ public class ViewImpl extends JFrame implements View {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationByPlatform(true);
         this.setResizable(true);
-
-        //final var screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-       // final int width = (int) screenDim.getWidth();                          TODO ELIMINARE PENSO
-        //final int height = (int) screenDim.getHeight();
+        
         this.setSize(1280, 720); //TODO DEBUG 720p
-        //this.setSize((int)(width * 0.5), (int)(height * 0.75));
+        this.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
 
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {

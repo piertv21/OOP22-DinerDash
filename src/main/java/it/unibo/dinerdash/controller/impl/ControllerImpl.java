@@ -1,17 +1,14 @@
 package it.unibo.dinerdash.controller.impl;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.ModelImpl;
+import it.unibo.dinerdash.utility.GameTimer;
 import it.unibo.dinerdash.utility.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 import it.unibo.dinerdash.view.api.View;
@@ -19,14 +16,12 @@ import it.unibo.dinerdash.view.impl.GameView;
 
 public class ControllerImpl implements Controller {
 
-    private static final String SEP = System.getProperty("file.separator");
-    private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
-
     private ModelImpl model;
     private View view;
     private GameView gameView;
     private GameLoopImpl gameLoop;
-    Timer spawnTime = new Timer();                             //timer to make spawn customers
+    private GameTimer gameTimer;
+    Timer spawnTime = new Timer();                             //TODO Rimuovi e metti in model.update() timer to make spawn customers
     
     public ControllerImpl() {
         this.model = new ModelImpl();
@@ -45,8 +40,11 @@ public class ControllerImpl implements Controller {
 
         this.gameLoop = new GameLoopImpl(model, this.gameView);
         this.gameLoop.start();
-        //this.model.start();
-        // this.startSpawnTimer();  //starts customers spawn
+
+        this.gameTimer = new GameTimer(this.model);
+        gameTimer.start();
+
+        // this.startSpawnTimer();  //TODO Rimuovi starts customers spawn
     }
 
     @Override
@@ -68,7 +66,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public int getRemainingTime() {
-        return (int) (this.model.getRemainingTime() / 1000000000);
+        return this.model.getRemainingTime();
     }
 
     @Override
@@ -110,20 +108,13 @@ public class ControllerImpl implements Controller {
     TimerTask custumCreation_Trd = new TimerTask() {
         @Override
         public void run() { 
-          // addCustomer();          // thread che ogni 6 secondi chiama il metodo per creare un cliente  
+          // addCustomer();          //TODO Rimuovi thread che ogni 6 secondi chiama il metodo per creare un cliente  
         }
     };
 
     public LinkedList<Customer> getSittedCustomList(){             
         return this.model.getCustomers();
-    }
-
-    // https://stackoverflow.com/questions/49871233/using-imageicon-to-access-a-picture-cant-access-it-how-to-fix
-    private ImageIcon loadIcon(String iconName) throws IOException {
-        final URL imgURL = ClassLoader.getSystemResource(ROOT + iconName);
-        return new ImageIcon(imgURL);
-    }
-        
+    }        
 
     private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p=0;
