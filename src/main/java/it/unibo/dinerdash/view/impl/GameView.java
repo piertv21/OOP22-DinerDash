@@ -1,14 +1,19 @@
 package it.unibo.dinerdash.view.impl;
 
 import java.awt.Image;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 import java.util.stream.IntStream;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -16,6 +21,9 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.utility.ImageUtil;
 import it.unibo.dinerdash.utility.Pair;
@@ -37,8 +45,7 @@ public class GameView extends GamePanel {
 
     private JLabel timeLabel;
     private JLabel coinLabel;
-    private JButton exitButton;
-    private JButton restartButton;
+    private JButton pauseButton;
     private JButton powerupButton1;
     private JButton powerupButton2;
     private JButton powerupButton3;
@@ -84,13 +91,13 @@ public class GameView extends GamePanel {
         bottomPanel.setOpaque(false);
         bottomPanel.setPreferredSize(new Dimension(0, 30));
 
-        exitButton = new JButton(QUIT);
-        exitButton.addActionListener((e) -> this.getMainFrame().getController().quit());
-        bottomPanel.add(exitButton, BorderLayout.EAST);
-        
-        restartButton = new JButton(RESTART);
-        restartButton.addActionListener((e) -> this.getMainFrame().getController().restart());
-        bottomPanel.add(restartButton);
+        pauseButton = new JButton("Pause");
+        pauseButton.addActionListener((e) -> {
+            //TODO Stoppa gioco
+            this.showPauseDialog();
+        });
+        bottomPanel.add(pauseButton, BorderLayout.EAST);
+
         add(bottomPanel, BorderLayout.SOUTH);
 
         rightPanel = new JPanel(new GridBagLayout());
@@ -125,6 +132,27 @@ public class GameView extends GamePanel {
         add(rightPanel, BorderLayout.EAST);
 
         this.start();
+    }
+
+    private void showPauseDialog() {
+        JLabel messageLabel = new JLabel("GAME PAUSED");
+        messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);    
+    
+        JPanel dialogPanel = new JPanel();
+        dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
+        dialogPanel.add(messageLabel);
+    
+        String[] options = {"Resume", "Restart", "Exit"};
+        int result = JOptionPane.showOptionDialog(this, dialogPanel, "Pause", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+    
+        switch (result) {
+            case 1 -> this.getMainFrame().getController().restart();
+            case 2 -> this.getMainFrame().getController().quit();
+            default -> {
+                //TODO Add logica continua
+                JOptionPane.getRootFrame().dispose();
+            }
+        }
     }
 
     private void start() {
