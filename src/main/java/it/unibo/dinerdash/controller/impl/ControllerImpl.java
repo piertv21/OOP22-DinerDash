@@ -101,6 +101,13 @@ public class ControllerImpl implements Controller {
         //TODO
     }
 
+    public String convertToMinutesAndSeconds(int seconds) {
+        int minutes = seconds / 60;
+        int remainingSeconds = seconds % 60;
+        String formattedTime = String.format("%d:%02d", minutes, remainingSeconds);
+        return formattedTime;
+    }
+
     private void startSpawnTimer() {
         spawnTime.schedule(custumCreation_Trd, 2000, 6000);                                //avvio la creazione programmata  dei clienti
     }
@@ -114,7 +121,7 @@ public class ControllerImpl implements Controller {
 
     public LinkedList<Customer> getSittedCustomList(){             
         return this.model.getCustomers();
-    }        
+    }
 
     private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p=0;

@@ -10,7 +10,7 @@ import it.unibo.dinerdash.view.impl.GameView;
 public class GameLoopImpl implements GameLoop, Runnable {
 
     private static final int TARGET_FPS = 60;
-    private static final long TARGET_FRAME_TIME = 1000000000 / TARGET_FPS;
+    private static final long TARGET_FRAME_TIME = TimeUnit.SECONDS.toNanos(1) / TARGET_FPS;
 
     private ModelImpl model;
     private GameView view;
@@ -75,11 +75,11 @@ public class GameLoopImpl implements GameLoop, Runnable {
                 fps++;
             }
 
-            //TODO - DEBUG Mostra gli fps nella console ogni secondo
-            if (System.currentTimeMillis() - timer >= 1000) {
+            // TODO - DEBUG Mostra gli fps nella console ogni secondo
+            if (System.currentTimeMillis() - timer >= TimeUnit.SECONDS.toMillis(1)) {
                 System.out.println("FPS: " + fps);
                 fps = 0;
-                timer += 1000;
+                timer += TimeUnit.SECONDS.toMillis(1);
             }
 
             // Pausa il thread solo se necessario per risparmiare risorse della CPU

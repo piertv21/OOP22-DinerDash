@@ -65,7 +65,8 @@ public class GameView extends GamePanel {
         topPanel.setOpaque(false);
         topPanel.setPreferredSize(new Dimension(0, 30));
 
-        timeLabel = new JLabel(TIME + ": " + this.getMainFrame().getController().getRemainingTime());
+        var controller = this.getMainFrame().getController();
+        timeLabel = new JLabel(TIME + ": " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
         timeLabel.setFont(new Font("Arial", Font.BOLD, 20));
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -205,7 +206,8 @@ public class GameView extends GamePanel {
     }
 
     public void render() {
-        this.timeLabel.setText(TIME + ": " + this.getMainFrame().getController().getRemainingTime());
+        var controller = this.getMainFrame().getController();
+        this.timeLabel.setText(TIME + ": " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
         this.repaint();
     }
 

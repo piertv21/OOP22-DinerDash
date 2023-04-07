@@ -8,15 +8,17 @@ import java.util.concurrent.TimeUnit;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 
 public class GameTimer {
-    private static final int INITIAL_DELAY = 1; // Ritardo iniziale per l'esecuzione del task in secondi
-    private static final int PERIOD = 1; // Periodo di esecuzione del task in secondi
 
-    private Optional<ScheduledExecutorService> executorService = Optional.empty(); // Optional per l'executor service
-    private Runnable updateTask; // Task per l'aggiornamento del tempo rimanente
-    private ModelImpl model; // Riferimento al modello
+    private static final int INITIAL_DELAY = 1; // Ritardo iniziale per l'esecuzione del task in secondi
+    private static final int PERIOD = 1;        // Periodo di esecuzione del task in secondi
+
+    private Optional<ScheduledExecutorService> executorService;
+    private Runnable updateTask;
+    private ModelImpl model;
 
     public GameTimer(ModelImpl model) {
         this.model = model;
+        this.executorService = Optional.empty();
     }
 
     public void startTimer() {

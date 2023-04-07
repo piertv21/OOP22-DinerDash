@@ -3,6 +3,7 @@ package it.unibo.dinerdash.view.impl;
 import javax.swing.JFrame;
 
 import it.unibo.dinerdash.controller.api.Controller;
+import it.unibo.dinerdash.controller.impl.ControllerImpl;
 import it.unibo.dinerdash.view.api.View;
 
 import java.awt.*;
@@ -18,14 +19,14 @@ public class ViewImpl extends JFrame implements View {
     public static final int MIN_WIDTH = 800;
     public static final int MIN_HEIGHT = 600;
 
-    private Controller controller;
+    private ControllerImpl controller;
     private StartView menuView;
     private GameView gameView;
 
     private double widthRatio;
     private double heightRatio;
 
-    public ViewImpl(Controller controller) {
+    public ViewImpl(ControllerImpl controller) {
         super(FRAME_NAME);
         this.controller = controller;
         this.menuView = null;
@@ -79,7 +80,7 @@ public class ViewImpl extends JFrame implements View {
     }
 
     @Override
-    public Controller getController() {
+    public ControllerImpl getController() {
         return this.controller;
     }
 
