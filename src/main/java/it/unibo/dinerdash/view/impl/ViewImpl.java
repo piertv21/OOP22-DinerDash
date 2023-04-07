@@ -84,15 +84,6 @@ public class ViewImpl extends JFrame implements View {
         return this.controller;
     }
 
-    @Override
-    public GameView getGamePanel() {
-        return this.gameView;
-    }
-
-    public void render() {
-        this.repaint();
-    }
-
     public double getWidthRatio(){
         return this.widthRatio;
     }

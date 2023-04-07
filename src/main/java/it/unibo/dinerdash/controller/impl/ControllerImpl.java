@@ -24,7 +24,8 @@ public class ControllerImpl implements Controller {
 
     private ModelImpl model;
     private View view;
-    private GameView gamePanel;
+    private GameView gameView;
+    private GameLoopImpl gameLoop;
     Timer spawnTime = new Timer();                             //timer to make spawn customers
     
     public ControllerImpl() {
@@ -37,17 +38,21 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void start() {
-        this.gamePanel = this.view.getGamePanel();
-        //TODO
+    public void start(GameView gameView) {
+        this.gameView = gameView;
+        this.init();
         this.model.start();
-        this.startSpawnTimer();  //starts customers spawn
+
+        this.gameLoop = new GameLoopImpl(model, this.gameView);
+        this.gameLoop.start();
+        //this.model.start();
+        // this.startSpawnTimer();  //starts customers spawn
     }
 
     @Override
     public void restart() {        
         this.model.restart();
-        this.gamePanel.init();
+        this.gameView.init();
     }
 
     @Override
@@ -63,7 +68,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public int getRemainingTime() {
-        return this.model.getRemainingTime();
+        return (int) (this.model.getRemainingTime() / 1000000000);
     }
 
     @Override
@@ -74,8 +79,8 @@ public class ControllerImpl implements Controller {
     @Override
     public void addCustomer() {
         this.model.addCustomer();
-        this.gamePanel.getViewableCustomersList().add(new GameEntityViewable(null, new Pair<>(0, 0), null));
-        this.gamePanel.addCustomerViewable(model.getRandomNumber());  
+        this.gameView.getViewableCustomersList().add(new GameEntityViewable(null, new Pair<>(0, 0), null));
+        this.gameView.addCustomerViewable(model.getRandomNumber());  
     }
 
     @Override
@@ -95,8 +100,7 @@ public class ControllerImpl implements Controller {
     }
 
     private void init() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'init'");
+        //TODO
     }
 
     private void startSpawnTimer() {
@@ -124,7 +128,7 @@ public class ControllerImpl implements Controller {
     private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p=0;
         for(var cus: model.getCustomers()) {
-                this.gamePanel.getViewableCustomersList().get(p).update(cus);
+                this.gameView.getViewableCustomersList().get(p).update(cus);
                 if(cus.getState().equals(CustomerState.THINKING)) {
                     //int tableNmb= this.getHashMapkey(model.getTables(), cus).getTableNumber();
                     //this.gamePanel.getTablesList().get(tableNmb-1).setImg(cus.getCustomerMultiplicity());

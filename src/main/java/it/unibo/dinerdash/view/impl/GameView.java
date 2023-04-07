@@ -130,7 +130,7 @@ public class GameView extends GamePanel {
         this.init();
         this.loadResources();
         this.assignStartingImages();
-        this.getMainFrame().getController().start();
+        this.getMainFrame().getController().start(this);
     }
 
     public void init() {        
@@ -202,6 +202,11 @@ public class GameView extends GamePanel {
         // g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
        
         // g.fillRect((int)(this.getMainFrame().getWidth()*0.04), (int)(this.getMainFrame().getHeight()*0.67), 100, 100);     primo posto in fila
+    }
+
+    public void render() {
+        this.timeLabel.setText(TIME + ": " + this.getMainFrame().getController().getRemainingTime());
+        this.repaint();
     }
 
     public LinkedList<GameEntityViewable> getViewableCustomersList() {

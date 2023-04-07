@@ -1,73 +1,86 @@
 package it.unibo.dinerdash.controller.impl;
 
 import it.unibo.dinerdash.controller.api.GameLoop;
-import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
-import it.unibo.dinerdash.view.impl.ViewImpl;
+import it.unibo.dinerdash.view.impl.GameView;
 
 public class GameLoopImpl implements GameLoop, Runnable {
-    
-    private boolean running;
-    private long desiredFPS = 60;
-    private long desiredDeltaLoop = (1000 * 1000 * 1000) / desiredFPS;
+
+    private static final int TARGET_FPS = 60;
+    private static final long TARGET_FRAME_TIME = 1000000000 / TARGET_FPS;
 
     private ModelImpl model;
-    private ViewImpl view;
-    private ControllerImpl controller;    
+    private GameView view;
 
-    public GameLoopImpl(ModelImpl model, ViewImpl view, ControllerImpl controller) {
+    private boolean running;
+    private long lastTime;
+    private double delta;
+
+    public GameLoopImpl(ModelImpl model, GameView view) {
         this.model = model;
         this.view = view;
-        this.controller = controller;
     }
 
-    @Override
     public void start() {
         running = true;
-        new Thread(this).start();
+        lastTime = System.nanoTime();
+
+        // Avvia il thread del gameloop
+        Thread thread = new Thread(this);
+        thread.start();
     }
 
-    @Override
     public void stop() {
         running = false;
     }
 
     @Override
     public void run() {
-        long beginLoopTime;
-        long endLoopTime;
-        long currentUpdateTime = System.nanoTime();
-        long lastUpdateTime;
-        long deltaLoop;
+        int fps = 0;
+        long timer = System.currentTimeMillis();
 
         while (running) {
-            beginLoopTime = System.nanoTime();
+            long now = System.nanoTime();
+            long elapsedTime = now - lastTime;
+            lastTime = now;
+            delta += elapsedTime / (double) TARGET_FRAME_TIME;
 
-            // Calcola il tempo trascorso dall'ultimo aggiornamento del gioco
-            lastUpdateTime = currentUpdateTime;
-            currentUpdateTime = System.nanoTime();
-            long elapsedUpdateTime = currentUpdateTime - lastUpdateTime;
+            // Aggiorna il modello e la vista solo se è trascorso il tempo necessario
+            // per raggiungere il target di frame rate (60 volte al secondo)
+            if (delta >= 1.0) {
 
-            if (model.getGameState() == GameState.RUNNING) {
-                // Aggiorna il modello di gioco solo se lo stato di gioco è RUNNING
-                model.update(elapsedUpdateTime);
+                // Aggiorna il modello
+                synchronized (model) {
+                    // Model usa elapsed time (tempo dall'ultimo ciclo) per calcolare dinamicamente la velocità
+                    // e fare in modo che si adatti alla velocità di esecuzione del programma senza aumentare/diminuire a caso
+                    model.update(elapsedTime);
+                }
+
+                // Ridisegna la vista
+                synchronized (view) {
+                    view.render();
+                }
+
+                delta--;
+                fps++;
             }
 
-            // Effettua il rendering della vista
-            // view.render(); DA FARE ON DEMAND (Observer)
+            //TODO - DEBUG Mostra gli fps nella console ogni secondo
+            if (System.currentTimeMillis() - timer >= 1000) {
+                System.out.println("FPS: " + fps);
+                fps = 0;
+                timer += 1000;
+            }
 
-            endLoopTime = System.nanoTime();
-            deltaLoop = endLoopTime - beginLoopTime;
-
-            // Attendere il tempo necessario per raggiungere il frame rate desiderato
-            if (deltaLoop < desiredDeltaLoop) {
+            // Pausa il thread solo se necessario per risparmiare risorse della CPU
+            if (delta < 1.0) {
+                long sleepTime = (long) ((1.0 - delta) * TARGET_FRAME_TIME / 1000000);
                 try {
-                    Thread.sleep((desiredDeltaLoop - deltaLoop) / (1000 * 1000));
+                    Thread.sleep(sleepTime);
                 } catch (InterruptedException e) {
-                    // Gestione dell'eccezione
+                    e.printStackTrace();
                 }
             }
         }
     }
-
 }

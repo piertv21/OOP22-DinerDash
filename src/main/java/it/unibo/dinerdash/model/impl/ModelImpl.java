@@ -21,7 +21,7 @@ public class ModelImpl implements Model {
     private static final double CHEF_SPEED_MULTIPLIER = 1.2;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
     private static final double PROFIT_MULTIPLIER = 2.0;
-    private static final int MAX_PLAYTIME = 60*5;
+    private static final long MAX_PLAYTIME = 300000000000L;
 
     private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
     private static final int TABLES = 4;
@@ -40,7 +40,7 @@ public class ModelImpl implements Model {
     private Pair<Integer,Integer> firstLinePosition;
     private Random random; // used to create customers
     private int coins;
-    private int remainingTime;
+    private long remainingTime;
     private int customersWhoLeft;
     private LinkedList<Customer> customers;                     // clienti
     private LinkedList<Table> tables;                           // tavoli con eventuali clienti
@@ -171,6 +171,8 @@ public class ModelImpl implements Model {
              * 
              */
             // verificare lo stato dei tavoli (se sono liberi, occupati, se il cibo è pronto, ecc.)
+            System.out.println("tempo: " + elapsedUpdateTime);
+            this.remainingTime -= elapsedUpdateTime;
         } else {
             this.stop();
         }
@@ -184,7 +186,7 @@ public class ModelImpl implements Model {
         this.coins = coins;
     }
 
-    public int getRemainingTime() {
+    public long getRemainingTime() {
         return this.remainingTime;
     }
 
