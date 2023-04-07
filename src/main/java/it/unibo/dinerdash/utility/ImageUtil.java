@@ -12,14 +12,14 @@ import javax.swing.ImageIcon;
 public class ImageUtil {
 
     private Map<String, ImageIcon> cachedImages;
-    private static String root;
+    private String root;
 
     public ImageUtil(String root) {
         this.cachedImages = new HashMap<>();
         this.setRoot(root);
     }
 
-    public static ImageIcon loadImage(String name) {
+    public ImageIcon loadImage(String name) {
         final URL imgURL = ClassLoader.getSystemResource(root + name);
         final ImageIcon icon = new ImageIcon(imgURL);
         return icon;

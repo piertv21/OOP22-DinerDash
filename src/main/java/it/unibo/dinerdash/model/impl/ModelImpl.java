@@ -18,7 +18,6 @@ public class ModelImpl implements Model {
     private static final int RESTAURANT_HEIGHT = 720;
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
-    private static final double CHEF_SPEED_MULTIPLIER = 1.2;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
     private static final double PROFIT_MULTIPLIER = 2.0;
     private static final int MAX_PLAYTIME = 5 * 60;

@@ -9,7 +9,6 @@ import it.unibo.dinerdash.utility.Pair;
 public class Dish extends GameEntityImpl {
 
     private int dishNumber; // = numeroTavolo
-    private boolean ready;
 
     public Dish(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int dishNumber) {
         super(coordinates, size);
@@ -22,11 +21,11 @@ public class Dish extends GameEntityImpl {
     }
 
     public boolean isReady() {
-        return this.ready;
+        return this.isActive();
     }
 
     public void setReady(boolean ready) {
-        this.ready = ready;
+        this.setActive(true);
     }   
     
 }

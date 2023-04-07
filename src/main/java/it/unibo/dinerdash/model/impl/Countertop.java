@@ -1,6 +1,8 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
+import java.util.Optional;
+
 import it.unibo.dinerdash.model.api.GameEntityImpl;
 import it.unibo.dinerdash.utility.Pair;
 
@@ -34,4 +36,14 @@ public class Countertop extends GameEntityImpl {
         //TODO
         return false;
     }
+
+    public Dish getDishInOrder() {
+        //TODO
+        return null;
+    }
+
+    public void setDishReady(Dish dish) {
+        //TODO
+    }
+
 }

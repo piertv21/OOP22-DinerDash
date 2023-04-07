@@ -51,7 +51,7 @@ public class GameView extends GamePanel {
     
     private LinkedList<GameEntityViewable> customers;
     private LinkedList<GameEntityViewable> tables;
-    private LinkedList<GameEntityViewable> dishes;    
+    private LinkedList<GameEntityViewable> dishes;
     private GameEntityViewable waitress;
     private GameEntityViewable chef;
 
@@ -138,13 +138,12 @@ public class GameView extends GamePanel {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
+        this.imageCacher = new ImageUtil(ROOT);
     }
     
     private void loadResources() {
-        this.imageCacher = new ImageUtil(ROOT);
-
         // Load background
-        this.backgroundImage = ImageUtil.loadImage("background.jpg").getImage();
+        this.backgroundImage = this.imageCacher.loadImage("background.jpg").getImage();
 
         // Cache chef
         this.imageCacher.cacheImage("chef", "chef.png");
@@ -169,7 +168,7 @@ public class GameView extends GamePanel {
     
     //TODO da rivedere dopo model
     public void addCustomerViewable(int num) {              //aggiungo l'immagine ai clienti appena creati
-        this.customers.getLast().setIcon(ImageUtil.loadImage("client" + num + ".png").getImage());
+        this.customers.getLast().setIcon(this.imageCacher.loadImage("client" + num + ".png").getImage());
     }
 
     public void addDish() {
