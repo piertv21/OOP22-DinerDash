@@ -42,7 +42,7 @@ public class ControllerImpl implements Controller {
         this.gameLoop.start();
 
         this.gameTimer = new GameTimer(this.model);
-        gameTimer.start();
+        gameTimer.startTimer();
 
         // this.startSpawnTimer();  //TODO Rimuovi starts customers spawn
     }

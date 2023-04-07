@@ -1,54 +1,52 @@
 package it.unibo.dinerdash.utility;
 
+import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.model.impl.ModelImpl;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
 public class GameTimer {
+    private static final int INITIAL_DELAY = 1; // Ritardo iniziale per l'esecuzione del task in secondi
+    private static final int PERIOD = 1; // Periodo di esecuzione del task in secondi
 
-    private static final int INITIAL_DELAY = 0;
-    private static final int PERIOD = 1; // periodo in secondi
-    
-    private ScheduledExecutorService executor;
-    private ModelImpl model;
-    private volatile boolean isPaused; // utilizzo di volatile per garantire la visibilità tra thread
+    private Optional<ScheduledExecutorService> executorService = Optional.empty(); // Optional per l'executor service
+    private Runnable updateTask; // Task per l'aggiornamento del tempo rimanente
+    private ModelImpl model; // Riferimento al modello
 
     public GameTimer(ModelImpl model) {
-        executor = Executors.newSingleThreadScheduledExecutor();
         this.model = model;
     }
 
-    // Metodo per sospendere l'aggiornamento del tempo
-    public void pause() {
-        isPaused = true;
+    public void startTimer() {
+        if (executorService.isEmpty() || executorService.get().isShutdown()) {
+            executorService = Optional.of(Executors.newSingleThreadScheduledExecutor());
+            updateTask = () -> {
+                model.decrementRemainingTime(); // Chiama il metodo del modello per decrementare il tempo rimanente
+            };
+            executorService.get().scheduleAtFixedRate(updateTask, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS); // Esegue il task ogni secondo
+        }
     }
 
-    // Metodo per riprendere l'aggiornamento del tempo
-    public void resume() {
-        isPaused = false;
+    public void stopTimer() {
+        executorService.ifPresent(ScheduledExecutorService::shutdownNow); // Ferma il task se presente
+        executorService = Optional.empty();
     }
 
-    // Metodo per fermare l'aggiornamento del tempo
-    public void stop() {
-        executor.shutdown();
+    public void pauseTimer() {
+        executorService.ifPresent(ScheduledExecutorService::shutdownNow); // Ferma il task se presente
     }
 
-    // Metodo per avviare l'aggiornamento del tempo
-    public void start() {
-        executor.scheduleAtFixedRate(() -> {
-            if (!isPaused) {
-                model.decrementRemainingTime();
-            }
-        }, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
+    public void resumeTimer() {
+        if (executorService.isEmpty() || executorService.get().isShutdown()) {
+            executorService = Optional.of(Executors.newSingleThreadScheduledExecutor());
+            executorService.get().scheduleAtFixedRate(updateTask, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS); // Esegue il task ogni secondo
+        }
     }
 
-    // Metodo per riavviare l'aggiornamento del tempo
-    public void restart() {
-        stop(); // ferma il timer
-        start(); // avvia il timer
+    public void restartTimer() {
+        stopTimer(); // Ferma il timer
+        startTimer(); // Avvia il timer da capo
     }
-
 }
