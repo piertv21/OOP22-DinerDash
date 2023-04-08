@@ -27,17 +27,11 @@ import it.unibo.dinerdash.view.api.GameEntityViewable;
 
 /*
  * Main Game View Panel
- * //TODO Clear method
  */
 public class GameView extends GamePanel {
 
     private static final String SEP = System.getProperty("file.separator");
     private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
-
-    private static final String TIME = "Time";
-    private static final String COINS = "Coins";
-    private static final String QUIT = "Quit";
-    private static final String RESTART = "Restart";
 
     private JLabel timeLabel;
     private JLabel coinLabel;
@@ -69,12 +63,12 @@ public class GameView extends GamePanel {
         topPanel.setPreferredSize(new Dimension(0, 30));
 
         var controller = this.getMainFrame().getController();
-        timeLabel = new JLabel(TIME + ": " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
+        timeLabel = new JLabel("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
         timeLabel.setFont(new Font("Arial", Font.BOLD, 20));
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
-        coinLabel = new JLabel(COINS + ": " + this.getMainFrame().getController().getCoins());
+        coinLabel = new JLabel("Coins: " + this.getMainFrame().getController().getCoins());
         coinLabel.setFont(new Font("Arial", Font.BOLD, 20));
         coinLabel.setForeground(Color.WHITE);
         coinLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
@@ -191,6 +185,12 @@ public class GameView extends GamePanel {
         var waitressPosition = new Pair<>(40, 120);
         this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(0, 0), this.imageCacher.getCachedImage("waitress").getImage());
     }
+
+    private void clear() {
+        this.customers.clear();
+        this.tables.clear();
+        this.dishes.clear();
+    }
     
     //TODO da rivedere dopo model
     public void addCustomerViewable(int num) {              //aggiungo l'immagine ai clienti appena creati
@@ -232,7 +232,7 @@ public class GameView extends GamePanel {
 
     public void render() {
         var controller = this.getMainFrame().getController();
-        this.timeLabel.setText(TIME + ": " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
+        this.timeLabel.setText("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
         this.repaint();
     }
 
