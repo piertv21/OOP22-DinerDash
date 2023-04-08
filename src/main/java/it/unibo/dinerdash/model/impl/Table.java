@@ -18,9 +18,9 @@ public class Table extends GameEntityImpl {
 
 
 
-    public Table(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int tableNumber) {
+    public Table(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
         super(coordinates, size);
-        this.tableNumber = tableNumber;
+        this.tableNumber = i;
         this.SeatedPeople =0;
        
     }

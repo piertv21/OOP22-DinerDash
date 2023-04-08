@@ -3,6 +3,7 @@ package it.unibo.dinerdash.model.impl;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
@@ -70,20 +71,21 @@ public class ModelImpl implements Model {
 
         this.clear();
 
-        /*
-        var startingTableX = (int)(this.restaurantSize.getWidth() * STARTING_TABLE_RELATIVE_X);
-        var startingTableY = (int)(this.restaurantSize.getHeight() * STARTING_TABLE_RELATIVE_Y);
-        this.firstLinePosition=new Pair<Integer,Integer>((int)(this.restaurantSize.getWidth()*0.04), 
-                                                        (int)(this.restaurantSize.getHeight()*0.67));
+        
+        var startingTableX = (int)(this.firstLinePosition.getX() * STARTING_TABLE_REL_X);
+        var startingTableY = (int)(this.firstLinePosition.getY() * STARTING_TABLE_REL_Y);
+        this.firstLinePosition=new Pair<Integer,Integer>((int)(this.firstLinePosition.getX()*0.04), 
+                                                        (int)(this.firstLinePosition.getY()*0.67));
 
         IntStream.range(0, TABLES).forEach(i -> {
             var j = i % (TABLES / 2);
             var x = startingTableX + (j * TABLES_PADDING);
             var y = startingTableY + (i * TABLES_PADDING);
             var position = new Pair<>(x, y);
-           // this.tables.put(new Table(position, i + 1), Optional.empty());  TODO  DA MODIFICARE!!!
+            this.tables.add(new Table(position,new Pair<>(0, 0), i + 1));  
+            this.customers.add(new Customer(position, new Pair<>(0, 0), this));
         });
-        */
+        
     }
 
     private void clear() {
