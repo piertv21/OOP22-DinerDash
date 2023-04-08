@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import it.unibo.dinerdash.model.api.CustomerState;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 public class ResizeLogic {
    private double altezzaCl;

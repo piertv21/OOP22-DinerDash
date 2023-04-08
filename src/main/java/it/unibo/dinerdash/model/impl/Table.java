@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.GameEntityImpl;
 import it.unibo.dinerdash.model.api.TableState;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * Table is not a thread

@@ -3,7 +3,7 @@ package it.unibo.dinerdash.model.impl;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.GameEntityImpl;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * Chef

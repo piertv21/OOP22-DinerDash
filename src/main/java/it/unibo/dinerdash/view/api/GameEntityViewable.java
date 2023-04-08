@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import it.unibo.dinerdash.model.api.GameEntity;
 import it.unibo.dinerdash.model.api.GameEntityImpl;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * GameEntity viewable for GUI representation

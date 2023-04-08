@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.GameEntityImpl;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 public class Countertop extends GameEntityImpl {
 

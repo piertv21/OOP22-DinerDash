@@ -1,6 +1,6 @@
 package it.unibo.dinerdash.model.api;
 
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 public abstract class GameEntityImpl implements GameEntity {
 

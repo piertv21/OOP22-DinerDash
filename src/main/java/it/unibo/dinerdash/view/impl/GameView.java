@@ -1,13 +1,10 @@
 package it.unibo.dinerdash.view.impl;
 
 import java.awt.Image;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 import java.util.stream.IntStream;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,12 +18,11 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 
 import it.unibo.dinerdash.view.api.GamePanel;
-import it.unibo.dinerdash.utility.ImageUtil;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
+import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 
 /*
@@ -54,7 +50,7 @@ public class GameView extends GamePanel {
     private JPanel bottomPanel;
     private JPanel rightPanel;
     private Image backgroundImage;
-    private ImageUtil imageCacher;
+    private ImageReaderWithCache imageCacher;
     
     private LinkedList<GameEntityViewable> customers;
     private LinkedList<GameEntityViewable> tables;
@@ -166,29 +162,31 @@ public class GameView extends GamePanel {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
-        this.imageCacher = new ImageUtil(ROOT);
+        this.imageCacher = new ImageReaderWithCache(ROOT);
     }
     
     private void loadResources() {
         // Load background
-        this.backgroundImage = this.imageCacher.loadImage("background.jpg").getImage();
+        this.imageCacher.readImage("background.jpg");
 
         // Cache chef
-        this.imageCacher.cacheImage("chef", "chef.png");
+        this.imageCacher.readImage("chef.png");
 
         // Cache waitress
-        this.imageCacher.cacheImage("waitress", "waitress.png");
+        this.imageCacher.readImage("waitress.png");
 
         // Cache customers
         IntStream.range(1, 5)
-            .forEach(i -> this.imageCacher.cacheImage("customer" + i, "customers" + SEP + "customer" + i + ".png"));
+            .forEach(i -> this.imageCacher.readImage("customers" + SEP + "customer" + i + ".png"));
 
         // Cache tables
         IntStream.range(0, 5)
-            .forEach(i -> this.imageCacher.cacheImage("table" + i, "tables" + SEP + "table" + i + ".png"));
+            .forEach(i -> this.imageCacher.readImage("tables" + SEP + "table" + i + ".png"));
     }
 
     private void assignStartingImages() {
+        this.backgroundImage = this.imageCacher.getCachedImage("background").getImage();
+
         //TODO è una prova, manca la posizione della waitress dal controller->model!
         var waitressPosition = new Pair<>(40, 120);
         this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(0, 0), this.imageCacher.getCachedImage("waitress").getImage());
@@ -196,7 +194,7 @@ public class GameView extends GamePanel {
     
     //TODO da rivedere dopo model
     public void addCustomerViewable(int num) {              //aggiungo l'immagine ai clienti appena creati
-        this.customers.getLast().setIcon(this.imageCacher.loadImage("client" + num + ".png").getImage());
+        this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num + ".png").getImage());
     }
 
     public void addDish() {

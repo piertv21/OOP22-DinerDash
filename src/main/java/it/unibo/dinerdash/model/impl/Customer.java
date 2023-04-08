@@ -2,7 +2,7 @@ package it.unibo.dinerdash.model.impl;
 
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameEntityMovableImpl;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 /** 
  * Create a new element "Customer" who will move in the restaurant

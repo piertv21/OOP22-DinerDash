@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.utility;
+package it.unibo.dinerdash.utility.impl;
 
 public enum Direction {
     UP(0, -1),

@@ -7,7 +7,7 @@ import java.util.Random;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.api.Model;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * Solo metodi getter e setter sulle entità model

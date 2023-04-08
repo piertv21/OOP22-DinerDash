@@ -1,7 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import it.unibo.dinerdash.model.api.GameEntityMovableImpl;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 public class Waitress extends GameEntityMovableImpl {
 

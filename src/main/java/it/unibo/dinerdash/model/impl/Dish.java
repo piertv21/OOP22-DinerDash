@@ -1,7 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import it.unibo.dinerdash.model.api.GameEntityImpl;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * Dish used by chef for orders handling

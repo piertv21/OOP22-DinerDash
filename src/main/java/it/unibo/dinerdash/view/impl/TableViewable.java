@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.JButton;
 
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 
 public class TableViewable extends GameEntityViewable {

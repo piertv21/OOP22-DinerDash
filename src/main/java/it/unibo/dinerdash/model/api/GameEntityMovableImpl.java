@@ -2,8 +2,8 @@ package it.unibo.dinerdash.model.api;
 
 import java.util.Optional;
 
-import it.unibo.dinerdash.utility.Direction;
-import it.unibo.dinerdash.utility.Pair;
+import it.unibo.dinerdash.utility.impl.Direction;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 public class GameEntityMovableImpl extends GameEntityImpl implements GameEntityMovable {
 
