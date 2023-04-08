@@ -83,7 +83,6 @@ public class ModelImpl implements Model {
             var y = startingTableY + (i * TABLES_PADDING);
             var position = new Pair<>(x, y);
             this.tables.add(new Table(position,new Pair<>(0, 0), i + 1));  
-            this.customers.add(new Customer(position, new Pair<>(0, 0), this));
         });
         
     }
