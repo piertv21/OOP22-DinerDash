@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.CustomerState;
+import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.utility.impl.GameTimer;
@@ -51,6 +52,19 @@ public class ControllerImpl implements Controller {
     public void restart() {        
         this.model.restart();
         this.gameView.init();
+        this.gameTimer.restartTimer();
+    }
+
+    @Override
+    public void pause() {
+        this.model.setGameState(GameState.PAUSED);
+        this.gameTimer.pauseTimer();
+    }
+
+    @Override
+    public void resume() {
+        this.model.setGameState(GameState.RUNNING);
+        this.gameTimer.resumeTimer();
     }
 
     @Override

@@ -11,6 +11,10 @@ public interface Controller {
 
     void restart();
 
+    void pause();
+
+    void resume();
+
     void quit();
 
     int getCoins();

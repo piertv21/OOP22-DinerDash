@@ -270,4 +270,8 @@ public class ModelImpl implements Model {
         return this.gameState;
     }
 
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
 }

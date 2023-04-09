@@ -83,7 +83,7 @@ public class GameView extends GamePanel {
 
         pauseButton = new JButton("Pause");
         pauseButton.addActionListener((e) -> {
-            //TODO Stoppa gioco
+            this.getMainFrame().getController().pause();
             this.showPauseDialog();
         });
         bottomPanel.add(pauseButton, BorderLayout.EAST);
@@ -139,7 +139,7 @@ public class GameView extends GamePanel {
             case 1 -> this.getMainFrame().getController().restart();
             case 2 -> this.getMainFrame().getController().quit();
             default -> {
-                //TODO Add logica continua
+                this.getMainFrame().getController().resume();
                 JOptionPane.getRootFrame().dispose();
             }
         }
