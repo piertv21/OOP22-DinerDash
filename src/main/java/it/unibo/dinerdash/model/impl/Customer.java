@@ -60,7 +60,7 @@ public class Customer extends GameEntityMovableImpl  {
                
         }
         else if(state.equals(CustomerState.LINE)){
-            if(!Optional.ofNullable(this.startAngryTime).isEmpty()){
+            if(!((this.startAngryTime).isEmpty())){
                 if(model.checkFreeTables(this)){
                     // vado a sedermi al tavolo
                     this.state=CustomerState.WALKING;
