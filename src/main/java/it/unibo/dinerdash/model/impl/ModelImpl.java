@@ -18,6 +18,9 @@ public class ModelImpl implements Model {
     private static final int RESTAURANT_WIDTH = 1280;
     private static final int RESTAURANT_HEIGHT = 720;
 
+    private static double FIRST_LINE_POS_REL_X = 0.04*RESTAURANT_WIDTH;
+    private static double FIRST_LINE_POS_REL_Y = 0.67*RESTAURANT_HEIGHT;
+
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
     private static final double PROFIT_MULTIPLIER = 2.0;
@@ -37,8 +40,7 @@ public class ModelImpl implements Model {
     public static final double CHEF_REL_X = 0.55;
     public static final double CHEF_REL_Y = 0.02;
     
-    private int firstLinePositionX;
-    private int firstLinePositionY;
+   
     private Random random; // used to create customers
     private int coins;
     private int remainingTime;
@@ -51,7 +53,6 @@ public class ModelImpl implements Model {
     private Chef chef;
     private Waitress waitress;
     
-    private ResizeLogic resizeLog;  //TODO Rimuovi
 
     public ModelImpl() {
         this.customers = new LinkedList<>();
@@ -68,14 +69,10 @@ public class ModelImpl implements Model {
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
         this.gameState = GameState.RUNNING;
-           //da modificare poi i numeri
-        this.firstLinePositionX=(int)(RESTAURANT_WIDTH*0.04);
-        this.firstLinePositionY=(int) (RESTAURANT_HEIGHT*0.67);
-
         this.clear();
    
-        var startingTableX = (int)(this.firstLinePositionX * STARTING_TABLE_REL_X);
-        var startingTableY = (int)(this.firstLinePositionY * STARTING_TABLE_REL_Y);
+        var startingTableX = (int)(FIRST_LINE_POS_REL_X * STARTING_TABLE_REL_X);
+        var startingTableY = (int)(FIRST_LINE_POS_REL_Y * STARTING_TABLE_REL_Y);
 
         IntStream.range(0, TABLES).forEach(i -> {
             var j = i % (TABLES / 2);
@@ -222,9 +219,9 @@ public class ModelImpl implements Model {
     public void assegnoPostoFila(Customer cus) {
        int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
        if(inLineCustm!=1) {
-        cus.setPosition(new Pair<Integer,Integer>(firstLinePositionX,(firstLinePositionY)-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE) ));
+        cus.setPosition(new Pair<Integer,Integer>((int)FIRST_LINE_POS_REL_X,(int)((FIRST_LINE_POS_REL_Y)-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE)) ));
         }
-       else cus.setPosition(new Pair<Integer,Integer>(firstLinePositionX,firstLinePositionY));    
+       else cus.setPosition(new Pair<Integer,Integer>((int)FIRST_LINE_POS_REL_X,(int)FIRST_LINE_POS_REL_Y));    
     }
 
     public LinkedList<Table> getTable(){
