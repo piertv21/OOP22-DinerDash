@@ -38,6 +38,8 @@ public class ModelImpl implements Model {
     public static final double CHEF_REL_Y = 0.02;
     
     private Pair<Integer,Integer> firstLinePosition;    //TODO Cambia in const
+    private int firstLinePositionX;
+    private int firstLinePositionY;
     private Random random; // used to create customers
     private int coins;
     private int remainingTime;
@@ -67,15 +69,14 @@ public class ModelImpl implements Model {
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
         this.gameState = GameState.RUNNING;
-        this.firstLinePosition = new Pair<Integer,Integer>((int)(RESTAURANT_WIDTH*0.04),(int) (RESTAURANT_HEIGHT*0.67));  //da modificare poi i numeri
+           //da modificare poi i numeri
+        this.firstLinePositionX=(int)(RESTAURANT_WIDTH*0.04);
+        this.firstLinePositionY=(int) (RESTAURANT_HEIGHT*0.67);
 
         this.clear();
-
-        
+   
         var startingTableX = (int)(this.firstLinePosition.getX() * STARTING_TABLE_REL_X);
         var startingTableY = (int)(this.firstLinePosition.getY() * STARTING_TABLE_REL_Y);
-        this.firstLinePosition=new Pair<Integer,Integer>((int)(this.firstLinePosition.getX()*0.04), 
-                                                        (int)(this.firstLinePosition.getY()*0.67));
 
         IntStream.range(0, TABLES).forEach(i -> {
             var j = i % (TABLES / 2);
