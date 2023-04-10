@@ -37,7 +37,6 @@ public class ModelImpl implements Model {
     public static final double CHEF_REL_X = 0.55;
     public static final double CHEF_REL_Y = 0.02;
     
-    private Pair<Integer,Integer> firstLinePosition;    //TODO Cambia in const
     private int firstLinePositionX;
     private int firstLinePositionY;
     private Random random; // used to create customers
@@ -75,8 +74,8 @@ public class ModelImpl implements Model {
 
         this.clear();
    
-        var startingTableX = (int)(this.firstLinePosition.getX() * STARTING_TABLE_REL_X);
-        var startingTableY = (int)(this.firstLinePosition.getY() * STARTING_TABLE_REL_Y);
+        var startingTableX = (int)(this.firstLinePositionX * STARTING_TABLE_REL_X);
+        var startingTableY = (int)(this.firstLinePositionY * STARTING_TABLE_REL_Y);
 
         IntStream.range(0, TABLES).forEach(i -> {
             var j = i % (TABLES / 2);
@@ -223,9 +222,9 @@ public class ModelImpl implements Model {
     public void assegnoPostoFila(Customer cus) {
        int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
        if(inLineCustm!=1) {
-        cus.setPosition(new Pair<Integer,Integer>(firstLinePosition.getX(),firstLinePosition.getY()-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE) ));
+        cus.setPosition(new Pair<Integer,Integer>(firstLinePositionX,(firstLinePositionY)-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE) ));
         }
-       else cus.setPosition(this.firstLinePosition);    
+       else cus.setPosition(new Pair<Integer,Integer>(firstLinePositionX,firstLinePositionY));    
     }
 
     public LinkedList<Table> getTable(){
