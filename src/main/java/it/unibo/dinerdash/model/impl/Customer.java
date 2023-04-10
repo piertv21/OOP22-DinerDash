@@ -1,5 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
+import java.util.Optional;
+
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameEntityMovableImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -10,15 +12,15 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public class Customer extends GameEntityMovableImpl  {
 
     private static final int MOVEMENT_DISTANCE = 5;
-    private static final long TIME_BEFORE_GETANGRY = 16;
-    private static final long TIME_BEFORE_ORDERING = 4;
+    private static final long TIME_BEFORE_GETANGRY = 16000000000L;
+    private static final long TIME_BEFORE_ORDERING = 4000000000L;
     private static final int SPEED = 1;
     private CustomerState state;
     private ModelImpl model;
     private int numClienti;
     private int angryCounter=0;
     private long startThinkTime;
-    private long startAngryTime=0;
+    private Optional<Long> startAngryTime = Optional.empty();
     
     public Customer(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, ModelImpl model) {
         super(coordinates, size, SPEED);
@@ -58,18 +60,18 @@ public class Customer extends GameEntityMovableImpl  {
                
         }
         else if(state.equals(CustomerState.LINE)){
-            if(this.startAngryTime!=0){
+            if(!Optional.ofNullable(this.startAngryTime).isEmpty()){
                 if(model.checkFreeTables(this)){
                     // vado a sedermi al tavolo
                     this.state=CustomerState.WALKING;
                     this.model.AssegnoTavolo(this);
                     
                 }
-                if(System.nanoTime()>= this.startAngryTime+TIME_BEFORE_GETANGRY){         //il cliente si arrabbia e se ne va
+                if(System.nanoTime()>= this.startAngryTime.get()+TIME_BEFORE_GETANGRY){         //il cliente si arrabbia e se ne va
                     this.state=CustomerState.ANGRY;
                     model.leaveRestaurant(this);
                 }
-            }else{this.startAngryTime=System.nanoTime();}
+            }else{this.startAngryTime=Optional.of( System.nanoTime());}
         }
     }
 
