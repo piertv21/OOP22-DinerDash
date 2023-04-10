@@ -37,7 +37,7 @@ public class Customer extends GameEntityMovableImpl  {
         return this.state ;
     }
 
-    public void handleMovement() {                 //manage the movement of customers
+    public void update(long elapsedUpdateTime) {                 //manage the movement of customers      USO elapsedUpdateTime ANZICHE System.nanoTime()
         if(state.equals(CustomerState.WALKING)) {
             if(getPosition().getX() < this.getDestination().get().getX()) this.moveRight(); 
             else if(getPosition().getY() > this.getDestination().get().getY()) this.moveUp();

@@ -225,7 +225,6 @@ public class ModelImpl implements Model {
         cus.setPosition(new Pair<Integer,Integer>(firstLinePosition.getX(),firstLinePosition.getY()-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE) ));
         }
        else cus.setPosition(this.firstLinePosition);    
-       cus.start();
     }
 
     public LinkedList<Table> getTable(){
