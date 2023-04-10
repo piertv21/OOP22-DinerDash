@@ -8,6 +8,8 @@ import java.util.stream.IntStream;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.TableState;
+import it.unibo.dinerdash.model.api.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -269,5 +271,16 @@ public class ModelImpl implements Model {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
+
+    public void setWaitressTableDestination(Pair<Integer,Integer> dest){    //assegno la destinazione del tavo alla cameriera
+        if(!(this.waitress.getState().equals(WaitressState.CALLING))) {
+            this.waitress.setDestination(Optional.of(dest));
+            this.waitress.setState(WaitressState.CALLING);
+        }
+    }
+    public void setTableEating(int tabl) {     
+        this.tables.get(tabl).setState(TableState.EATING);
+    }
+
 
 }

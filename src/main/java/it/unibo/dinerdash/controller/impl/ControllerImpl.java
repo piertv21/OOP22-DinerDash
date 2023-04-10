@@ -136,4 +136,8 @@ public class ControllerImpl implements Controller {
         }
     }
 
+    public void setWaitresDestination(Pair<Integer,Integer> dest){
+        this.model.setWaitressTableDestination(dest);
+    }
+
 }

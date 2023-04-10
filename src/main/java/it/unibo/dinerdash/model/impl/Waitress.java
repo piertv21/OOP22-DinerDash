@@ -1,5 +1,8 @@
 package it.unibo.dinerdash.model.impl;
 
+import java.util.LinkedList;
+import java.util.Optional;
+
 import it.unibo.dinerdash.model.api.GameEntityMovableImpl;
 import it.unibo.dinerdash.model.api.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -11,45 +14,48 @@ public class Waitress extends GameEntityMovableImpl {
     private WaitressState state;
     private ModelImpl model;
 
+    private LinkedList<Dish> orderList;
 
+    private int serveTable;
     public Waitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
         super(new Pair<Integer,Integer>(550, 148), size, SPEED);
+
+        this.orderList=new LinkedList<>();
         
     }
 
     public void handleMovement() {
-        if(state.equals(WaitressState.CALLING)) {
-            /*if(getPosition().getX() < this.getDestination().get().getX()) this.moveRight(); 
-            else if(getPosition().getY() > this.getDestination().get().getY()) this.moveUp();
-            else if(getPosition().getY() < this.getDestination().get().getY()) this.moveDown();
-            if((getPosition().getX()>=this.getDestination().get().getX())&&
-            ((getPosition().getY()<=this.getDestination().get().getY()+4)&&
-            (getPosition().getY()>=this.getDestination().get().getY()-4)))     //creo una hitbox del tavolo
-            {                                                                           
-                    state = CustomerState.THINKING;
-                    this.setPosition(this.getDestination().get());
-                    this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire       
-            }     
-            */
+        if((state.equals(WaitressState.CALLING))||(state.equals(WaitressState.TAKING_DISH))||(state.equals(WaitressState.SERVING))) {
             if(getPosition().getX() <  this.getDestination().get().getX()) this.moveRight();
             else if(getPosition().getX() > this.getDestination().get().getX()+3) this.moveLeft();
             else if(getPosition().getY() > this.getDestination().get().getY()+3) this.moveUp();
             else if(getPosition().getY() < this.getDestination().get().getY()) this.moveDown();
 
-            if((getPosition().getX()>=this.getDestination().get().getX()-100)&& ((getPosition().getX())<=this.getDestination().get().getX()+100)&& ((getPosition().getY()<=this.getDestination().get().getY()+100)&& ((getPosition().getY()>= this.getDestination().get().getY()-100)))) {
-                state = WaitressState.ORDERING;
-                this.setPosition(this.getDestination().get());
-                this.setActive(false);                           
+            if((getPosition().getX()>=this.getDestination().get().getX()-100)&& 
+            ((getPosition().getX())<=this.getDestination().get().getX()+100)&& 
+            ((getPosition().getY()<=this.getDestination().get().getY()+100)&& 
+            ((getPosition().getY()>= this.getDestination().get().getY()-100)))) {
+                if(state.equals(WaitressState.CALLING)){
+                    this.setPosition(this.getDestination().get()); 
+                    // TODO SEND ORDER
+                    state = WaitressState.WAITING;
+
+                }else if(state.equals(WaitressState.TAKING_DISH)) {  //cameriere è arrivata al bancone a prendere il piatto
+                    state = WaitressState.SERVING;
+                    serveTable=orderList.removeFirst().getDishNumber();
+                   // this.setDestination(Optional.of(model.getTable().get(serveTable).getPosition()));
+                }
+                else if(state.equals(WaitressState.SERVING)) {
+                    // TODO CHANGE TO TABBLE STATE IN EATING IF IT'S THE RIGHT TABLE
+                    this.model.setTableEating(serveTable);
+                }
+                       
             }
 
-        }else if(state.equals(WaitressState.ORDERING))                                          //il cliente pensa a cosa ordinare
-        {
-               //SEND ORDER
         }
        
     }
 
-    
     public void setState(WaitressState state) {
         this.state = state;
     }
@@ -58,4 +64,9 @@ public class Waitress extends GameEntityMovableImpl {
         return this.state ;
     }
     
+    public void goGetDish(Dish dishReady) {
+        this.setDestination(Optional.of(dishReady.getPosition()));
+        orderList.add(dishReady);
+        this.state=WaitressState.TAKING_DISH;
+    }
 }
