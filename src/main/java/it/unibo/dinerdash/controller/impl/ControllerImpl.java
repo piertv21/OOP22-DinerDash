@@ -1,9 +1,6 @@
 package it.unibo.dinerdash.controller.impl;
 
 import java.util.LinkedList;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
@@ -22,7 +19,6 @@ public class ControllerImpl implements Controller {
     private GameView gameView;
     private GameLoopImpl gameLoop;
     private GameTimer gameTimer;
-    Timer spawnTime = new Timer();                             //TODO Rimuovi e metti in model.update() timer to make spawn customers
     
     public ControllerImpl() {
         this.model = new ModelImpl();
@@ -45,7 +41,6 @@ public class ControllerImpl implements Controller {
         this.gameTimer = new GameTimer(this.model);
         gameTimer.startTimer();
 
-        // this.startSpawnTimer();  //TODO Rimuovi starts customers spawn
     }
 
     @Override
@@ -121,17 +116,6 @@ public class ControllerImpl implements Controller {
         String formattedTime = String.format("%d:%02d", minutes, remainingSeconds);
         return formattedTime;
     }
-
-    private void startSpawnTimer() {
-        spawnTime.schedule(custumCreation_Trd, 2000, 6000);                                //avvio la creazione programmata  dei clienti
-    }
-
-    TimerTask custumCreation_Trd = new TimerTask() {
-        @Override
-        public void run() { 
-          // addCustomer();          //TODO Rimuovi thread che ogni 6 secondi chiama il metodo per creare un cliente  
-        }
-    };
 
     public LinkedList<Customer> getSittedCustomList(){             
         return this.model.getCustomers();
