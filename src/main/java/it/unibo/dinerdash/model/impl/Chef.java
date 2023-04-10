@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.model.api.GameEntityImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -15,15 +16,15 @@ public class Chef extends GameEntityImpl {
     private static final int CHEF_TIME_SAVING = 2;
 
     private Optional<Dish> currentDish;
-    private int timeDishReady;
-    private ModelImpl model;
+    private Optional<Long> timeDishReady;
     private int enabledPowerUps;
+    private ModelImpl model;
 
     public Chef(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, ModelImpl model) {
         super(coordinates, size);
         this.setActive(false);
         this.currentDish = Optional.empty();
-        this.timeDishReady = 0;
+        this.timeDishReady = Optional.empty();
         this.enabledPowerUps = 0;
         this.model = model;
     }
@@ -32,7 +33,7 @@ public class Chef extends GameEntityImpl {
         // Verifica se c'è un piatto su cui lavorare
         if (this.currentDish.isPresent()) {
             // Verifica se il piatto corrente è pronto
-            if (this.model.getRemainingTime() <= this.timeDishReady) {
+            if (System.nanoTime() >= this.timeDishReady.get()) {
                 this.completeCurrentDish();
             }
         } else {
@@ -61,10 +62,10 @@ public class Chef extends GameEntityImpl {
         this.currentDish = Optional.of(dish);
 
         // Calcola tempo piatto pronto
-        var remainingTime = this.model.getRemainingTime();
-        int preparationTime = (int) (Math.random() * (MAX_PREPARATION_TIME - MIN_PREPARATION_TIME + 1)) + MIN_PREPARATION_TIME;
+        var currentTime = System.nanoTime();
+        int preparationTimeInSeconds = (int) (Math.random() * (MAX_PREPARATION_TIME - MIN_PREPARATION_TIME + 1)) + MIN_PREPARATION_TIME;
         int bonusTime = this.enabledPowerUps * CHEF_TIME_SAVING;
-        this.timeDishReady = (remainingTime - preparationTime) + bonusTime;
+        this.timeDishReady = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(preparationTimeInSeconds - bonusTime));
     }
 
     public void completeCurrentDish() {
@@ -72,7 +73,7 @@ public class Chef extends GameEntityImpl {
         counterTop.setDishReady(this.currentDish.get());
 
         this.currentDish = Optional.empty();
-        this.timeDishReady = 0;
+        this.timeDishReady = Optional.empty();
     }
 
     public void reducePreparationTime() {

@@ -162,9 +162,7 @@ public class ModelImpl implements Model {
     }
 
     public void update(long elapsedUpdateTime) {
-        if(!this.gameOver()) {
-            //this.remainingTime -= elapsedUpdateTime;
-            
+        if(!this.gameOver()) {            
             //this.chef.update(elapsedUpdateTime);
             /*
                 waitress.update(elapsedUpdateTime); //aggiornamento posizione + altro
