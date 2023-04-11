@@ -1,6 +1,9 @@
 package it.unibo.dinerdash.view.impl;
 
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.LinkedList;
 import java.util.stream.IntStream;
 
@@ -11,6 +14,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -56,6 +60,7 @@ public class GameView extends GamePanel {
         super(mainFrame);
 
         setLayout(new BorderLayout());
+        setFocusable(true);
         setBackground(Color.WHITE);
         
         topPanel = new JPanel(new BorderLayout());
@@ -121,8 +126,60 @@ public class GameView extends GamePanel {
         
         add(rightPanel, BorderLayout.EAST);
 
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                int mouseX = e.getX();
+                int mouseY = e.getY();
+
+                //TODO Qui vanno check mouse sopra uno dei tavoli + uno dei piatti
+
+                //ESEMPIO
+                if (inside(mouseX, mouseY, waitress)) {
+                    // Il mouse è sopra la cameriera
+                    setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                } else {
+                    // Il mouse non è sopra la cameriera
+                    setCursor(Cursor.getDefaultCursor());
+                }
+            }
+        });
+        
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int mouseX = e.getX();
+                int mouseY = e.getY();
+
+                //TODO Qui vanno gli eventi mouse sopra uno dei tavoli + uno dei piatti
+
+                //ESEMPIO
+                if (inside(mouseX, mouseY, waitress)) {
+                    // Il mouse è stato cliccato sulla cameriera
+                    System.out.println("Coordinate del mouse: (" + mouseX + ", " + mouseY + ")");
+                }
+            }
+        });
+
         this.start();
     }
+
+    private boolean inside(int mouseX, int mouseY, GameEntityViewable viewableEntity) {
+        var widthRatio = this.getMainFrame().getWidthRatio();
+        var heightRatio = this.getMainFrame().getHeightRatio();
+
+        // Coordinate x e y dell'entità
+        int viewableEntityWindowX = (int) (viewableEntity.getPosition().getX() * widthRatio);
+        int viewableEntityWindowY = (int) (viewableEntity.getPosition().getY() * heightRatio);
+        
+        // Dimensioni dell'entità
+        int entityWindowWidth = (int) (viewableEntity.getSize().getX() * widthRatio);
+        int entityWindowHeight = (int) (viewableEntity.getSize().getY() * heightRatio);
+        
+        // Verifica se le coordinate del mouse sono all'interno dell'entità
+        return (mouseX >= viewableEntityWindowX && mouseX <= viewableEntityWindowX + entityWindowWidth &&
+                mouseY >= viewableEntityWindowY && mouseY <= viewableEntityWindowY + entityWindowHeight);
+    }    
 
     private void showPauseDialog() {
         JLabel messageLabel = new JLabel("GAME PAUSED");
@@ -183,7 +240,7 @@ public class GameView extends GamePanel {
 
         //TODO è una prova, manca la posizione della waitress dal controller->model!
         var waitressPosition = new Pair<>(40, 120);
-        this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(0, 0), this.imageCacher.getCachedImage("waitress").getImage());
+        this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(120, 180), this.imageCacher.getCachedImage("waitress").getImage());
     }
 
     private void clear() {
@@ -211,7 +268,7 @@ public class GameView extends GamePanel {
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
 
         // Waitress
-        g.drawImage(waitress.getIcon(), waitress.getPosition().getX(), waitress.getPosition().getY(), 120, 180, this);
+        g.drawImage(waitress.getIcon(), waitress.getPosition().getX(), waitress.getPosition().getY(), waitress.getSize().getX(), waitress.getSize().getY(), this);
 
         // Tables
         //this.tables.forEach(e ->
