@@ -3,13 +3,13 @@ package it.unibo.dinerdash.model.impl;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.CustomerState;
-import it.unibo.dinerdash.model.api.GameEntityMovableImpl;
+import it.unibo.dinerdash.model.api.AbstractGameEntityMovable;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /** 
  * Create a new element "Customer" who will move in the restaurant
  */
-public class Customer extends GameEntityMovableImpl  {
+public class Customer extends AbstractGameEntityMovable  {
 
     private static final int MOVEMENT_DISTANCE = 5;
     private static final long TIME_BEFORE_GETANGRY = 16000000000L;

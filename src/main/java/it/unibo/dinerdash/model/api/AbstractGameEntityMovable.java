@@ -5,12 +5,12 @@ import java.util.Optional;
 import it.unibo.dinerdash.utility.impl.Direction;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class GameEntityMovableImpl extends GameEntityImpl implements GameEntityMovable {
+public class AbstractGameEntityMovable extends AbstractGameEntity implements GameEntityMovable {
 
     private Optional<Pair<Integer, Integer>> destination;
     private int speed;
 
-    public GameEntityMovableImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int speed) {
+    public AbstractGameEntityMovable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int speed) {
         super(coordinates, size);
         this.destination = Optional.empty();
         this.setMovementSpeed(speed);

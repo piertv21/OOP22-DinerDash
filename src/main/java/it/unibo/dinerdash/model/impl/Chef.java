@@ -3,13 +3,13 @@ package it.unibo.dinerdash.model.impl;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import it.unibo.dinerdash.model.api.GameEntityImpl;
+import it.unibo.dinerdash.model.api.AbstractGameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * Chef
  */
-public class Chef extends GameEntityImpl {
+public class Chef extends AbstractGameEntity {
     
     private static final int MIN_PREPARATION_TIME = 5;
     private static final int MAX_PREPARATION_TIME = 12;

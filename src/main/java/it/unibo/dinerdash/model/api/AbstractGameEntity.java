@@ -2,13 +2,13 @@ package it.unibo.dinerdash.model.api;
 
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public abstract class GameEntityImpl implements GameEntity {
+public abstract class AbstractGameEntity implements GameEntity {
 
     private Pair<Integer, Integer> position;
     private Pair<Integer, Integer> size;
     private boolean active;
 
-    public GameEntityImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
+    public AbstractGameEntity(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
         this.setPosition(coordinates);
         this.setSize(size);
     }

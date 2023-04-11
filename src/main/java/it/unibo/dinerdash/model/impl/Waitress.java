@@ -3,11 +3,11 @@ package it.unibo.dinerdash.model.impl;
 import java.util.LinkedList;
 import java.util.Optional;
 
-import it.unibo.dinerdash.model.api.GameEntityMovableImpl;
+import it.unibo.dinerdash.model.api.AbstractGameEntityMovable;
 import it.unibo.dinerdash.model.api.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class Waitress extends GameEntityMovableImpl {
+public class Waitress extends AbstractGameEntityMovable {
 
     private static int SPEED = 1;
     

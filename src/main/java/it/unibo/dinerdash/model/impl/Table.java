@@ -2,14 +2,14 @@ package it.unibo.dinerdash.model.impl;
 
 import java.util.Optional;
 
-import it.unibo.dinerdash.model.api.GameEntityImpl;
+import it.unibo.dinerdash.model.api.AbstractGameEntity;
 import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * Table is not a thread
  */
-public class Table extends GameEntityImpl {
+public class Table extends AbstractGameEntity {
     
     private int tableNumber;
     private Optional<Customer> customer;

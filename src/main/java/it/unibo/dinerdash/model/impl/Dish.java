@@ -1,12 +1,12 @@
 package it.unibo.dinerdash.model.impl;
 
-import it.unibo.dinerdash.model.api.GameEntityImpl;
+import it.unibo.dinerdash.model.api.AbstractGameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * Dish used by chef for orders handling
  */
-public class Dish extends GameEntityImpl {
+public class Dish extends AbstractGameEntity {
 
     private int dishNumber; // = numeroTavolo
 

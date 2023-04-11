@@ -1,12 +1,10 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
-import java.util.Optional;
-
-import it.unibo.dinerdash.model.api.GameEntityImpl;
+import it.unibo.dinerdash.model.api.AbstractGameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class Countertop extends GameEntityImpl {
+public class Countertop extends AbstractGameEntity {
 
     private static final int MAX_COUNTERTOP_DISHES = 4;
 
