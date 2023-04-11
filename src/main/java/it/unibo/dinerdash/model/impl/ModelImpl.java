@@ -61,7 +61,7 @@ public class ModelImpl implements Model {
     public ModelImpl() {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();        
-        this.counterTop = new Countertop();
+        this.counterTop = new Countertop(this);
     }
 
     private void init() {
