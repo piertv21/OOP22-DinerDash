@@ -18,7 +18,6 @@ public class Customer extends AbstractGameEntityMovable  {
     private CustomerState state;
     private ModelImpl model;
     private int numClienti;
-    private int angryCounter=0;
     private long startThinkTime;
     private Optional<Long> startAngryTime = Optional.empty();
     
