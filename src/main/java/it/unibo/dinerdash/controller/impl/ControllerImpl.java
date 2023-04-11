@@ -87,7 +87,7 @@ public class ControllerImpl implements Controller {
     public void addCustomer() {
         this.model.addCustomer();
         this.gameView.getViewableCustomersList().add(new GameEntityViewable(null, new Pair<>(0, 0), null));
-        this.gameView.addCustomerViewable(model.getRandomNumber());  
+        // this.gameView.addCustomerViewable(model.getRandomNumber());  TODO Prendi numero da molteplicità model
     }
 
     @Override

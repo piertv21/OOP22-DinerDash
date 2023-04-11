@@ -46,8 +46,8 @@ public class Waitress extends AbstractGameEntityMovable {
                    // this.setDestination(Optional.of(model.getTable().get(serveTable).getPosition()));
                 }
                 else if(state.equals(WaitressState.SERVING)) {
-                    // TODO CHANGE TO TABBLE STATE IN EATING IF IT'S THE RIGHT TABLE
                     this.model.setTableEating(serveTable);
+                    state=WaitressState.WAITING;
                 }
                        
             }
@@ -55,6 +55,8 @@ public class Waitress extends AbstractGameEntityMovable {
         }
        
     }
+
+
 
     public void setState(WaitressState state) {
         this.state = state;
@@ -66,7 +68,14 @@ public class Waitress extends AbstractGameEntityMovable {
     
     public void goGetDish(Dish dishReady) {
         this.setDestination(Optional.of(dishReady.getPosition()));
-        orderList.add(dishReady);
+        orderList.add(dishReady); //Aggiungi solo quando arriva al tavolo
         this.state=WaitressState.TAKING_DISH;
     }
+
+    /*
+        prendiOrdineDaTavolo(int tableNumber);
+        prendiOrdineDalBancone(Dish dish);
+        serviOrdine(int tableNumber);
+        collectSoldi(int tableNumber); //collect soldi + libera tavolo + elimina clienti etc
+    */
 }
