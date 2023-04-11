@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.AbstractGameEntityMovable;
@@ -57,8 +58,7 @@ public class Customer extends AbstractGameEntityMovable  {
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         {
-            if(System.nanoTime()>=this.startThinkTime+TIME_BEFORE_ORDERING ) state = CustomerState.ORDERING;
-               
+            if(System.nanoTime()>=TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING)+this.startThinkTime) state = CustomerState.ORDERING;     
         }
         else if(state.equals(CustomerState.LINE)){
             if(!((this.startAngryTime).isEmpty())){
@@ -66,9 +66,9 @@ public class Customer extends AbstractGameEntityMovable  {
                     // vado a sedermi al tavolo
                     this.state=CustomerState.WALKING;
                     this.model.AssegnoTavolo(this);
-                    
+        
                 }
-                if(System.nanoTime()>= this.startAngryTime.get()+TIME_BEFORE_GETANGRY){         //il cliente si arrabbia e se ne va
+                if(System.nanoTime()>= TimeUnit.SECONDS.toNanos(TIME_BEFORE_GETANGRY)+this.startAngryTime.get()){         //il cliente si arrabbia e se ne va
                     this.state=CustomerState.ANGRY;
                     model.leaveRestaurant(this);
                 }
