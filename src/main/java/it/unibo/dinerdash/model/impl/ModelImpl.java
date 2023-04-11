@@ -36,10 +36,10 @@ public class ModelImpl implements Model {
     private static final int STARTING_X = 0;
     private static final int STARTING_Y = 500;
     
-    public static final double COUNTERTOP_REL_X = 0.5;
-    public static final double COUNTERTOP_REL_Y = 0.2;
-    public static final double CHEF_REL_X = 0.55;
-    public static final double CHEF_REL_Y = 0.02;
+    private static final double CHEF_REL_X = 0.55;
+    private static final double CHEF_REL_Y = 0.02;
+    private static final double CHEF_REL_WIDTH = 0.05;
+    private static final double CHEF_REL_HEIGHT = 0.02;
 
     private static final double DISH_REL_WIDTH = 0.05;
     private static final double DISH_REL_HEIGHT = 0.02;
@@ -60,19 +60,17 @@ public class ModelImpl implements Model {
 
     public ModelImpl() {
         this.customers = new LinkedList<>();
-        this.tables = new LinkedList<>();
-
-        var counterTopRelPosition = new Pair<>((int) (COUNTERTOP_REL_X * RESTAURANT_WIDTH), (int) (COUNTERTOP_REL_Y * RESTAURANT_HEIGHT));
-        this.counterTop = new Countertop(counterTopRelPosition, new Pair<>(0, 0)); //TODO Imposta Size
+        this.tables = new LinkedList<>();        
+        this.counterTop = new Countertop();
     }
 
     private void init() {
         this.coins = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
-        this.gameState = GameState.RUNNING;
         this.clear();
-   
+
+        // Tavoli
         var startingTableX = (int)(FIRST_LINE_POS_REL_X * STARTING_TABLE_REL_X);
         var startingTableY = (int)(FIRST_LINE_POS_REL_Y * STARTING_TABLE_REL_Y);
 
@@ -83,8 +81,13 @@ public class ModelImpl implements Model {
             var position = new Pair<>(x, y);
             this.tables.add(new Table(position,new Pair<>(0, 0), i + 1));  
         });
+
+        // Chef
+        var chefPosition = new Pair<>((int)(CHEF_REL_X * RESTAURANT_WIDTH), (int)(CHEF_REL_Y * RESTAURANT_HEIGHT));
+        var chefSize = new Pair<>((int)(CHEF_REL_WIDTH * RESTAURANT_WIDTH), (int)(CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
+        this.chef = new Chef(chefPosition, chefSize, this);
         
-        this.lastCustomerTimeCreation =System.nanoTime(); 
+        this.lastCustomerTimeCreation = System.nanoTime(); 
     }
 
     private void clear() {
@@ -106,8 +109,8 @@ public class ModelImpl implements Model {
     @Override
     public void start() {
         this.init();
-
-        //TODO
+        this.gameState = GameState.RUNNING;
+        //TODO Check se serve altro
     }
 
     @Override
@@ -128,13 +131,13 @@ public class ModelImpl implements Model {
 
     @Override
     public void restart() {
-        this.init();
         this.start();
     }
 
     @Override
     public void quit() {
         this.clear();
+        //TODO Check se serve altro
     }
     
     @Override
@@ -169,7 +172,7 @@ public class ModelImpl implements Model {
                 this.addCustomer();
                 this.lastCustomerTimeCreation =System.nanoTime(); 
             }        
-            //this.chef.update(elapsedUpdateTime);
+            this.chef.update();
             /*
                 waitress.update(elapsedUpdateTime); //aggiornamento posizione + altro
                 for (Customer customer : customers) { //aggiornamento posizione + altro
