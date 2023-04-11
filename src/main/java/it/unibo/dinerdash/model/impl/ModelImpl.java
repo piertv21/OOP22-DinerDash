@@ -285,5 +285,13 @@ public class ModelImpl implements Model {
         this.tables.get(tabl).setState(TableState.EATING);
     }
 
+    public void sendOrder(int tableNumber) {                       //mando l'ordine al bancone
+        this.counterTop.addDish(new Dish(null, null, tableNumber));
+    }
+    
+    public Table getTablefromPositon(Pair<Integer,Integer> pos){           // ottengo il tavolo data la posizione
+       return this.tables.stream().filter(t->t.getPosition().equals(pos)).findFirst().get();
+    }
+
 
 }

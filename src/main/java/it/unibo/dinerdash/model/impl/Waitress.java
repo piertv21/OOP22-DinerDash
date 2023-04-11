@@ -46,8 +46,8 @@ public class Waitress extends AbstractGameEntityMovable {
                    // this.setDestination(Optional.of(model.getTable().get(serveTable).getPosition()));
                 }
                 else if(state.equals(WaitressState.SERVING)) {
-                    // TODO CHANGE TO TABBLE STATE IN EATING IF IT'S THE RIGHT TABLE
                     this.model.setTableEating(serveTable);
+                    state=WaitressState.WAITING;
                 }
                        
             }
@@ -55,6 +55,8 @@ public class Waitress extends AbstractGameEntityMovable {
         }
        
     }
+
+
 
     public void setState(WaitressState state) {
         this.state = state;
