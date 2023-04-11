@@ -156,7 +156,8 @@ public class ModelImpl implements Model {
             this.stop();
         }
         var position = new Pair<>(STARTING_X,  STARTING_Y); 
-        this.customers.add(new Customer(position, new Pair<>(0, 0), this)); // TODO Imposta State Iniziale in costruttore, molteplicità e size
+        int customersMolteplicity=(int) (Math.random()* (4)) + 1;
+        this.customers.add(new Customer(position, new Pair<>(0, 0), this,customersMolteplicity)); // TODO Imposta State Iniziale in costruttore, molteplicità e size
         if(thereAreAvaibleTables()) {
             AssegnoTavolo( this.customers.getLast());
         } else {

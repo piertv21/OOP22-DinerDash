@@ -21,14 +21,15 @@ public class Customer extends AbstractGameEntityMovable  {
     private long startThinkTime;
     private Optional<Long> startAngryTime = Optional.empty();
     
-    public Customer(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, ModelImpl model) {
+    public Customer(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, ModelImpl model,int numCust) {
         super(coordinates, size, SPEED);
         this.model = model;
         this.state=CustomerState.WALKING;
+        this.numClienti=numCust;
     }
 
     public int getCustomerCount() {
-        return this.startThinkTime;
+        return this.numClienti;
     }
 
     public void setState(CustomerState state) {
