@@ -37,16 +37,21 @@ public class Waitress extends AbstractGameEntityMovable {
             ((getPosition().getY()>= this.getDestination().get().getY()-100)))) {
                 if(state.equals(WaitressState.CALLING)){
                     this.setPosition(this.getDestination().get()); 
-                    // TODO SEND ORDER
                     state = WaitressState.WAITING;
+                    model.sendOrder(model.getTablefromPositon(getPosition()).getTableNumber());
 
                 }else if(state.equals(WaitressState.TAKING_DISH)) {  //cameriere è arrivata al bancone a prendere il piatto
                     state = WaitressState.SERVING;
                     serveTable=orderList.removeFirst().getDishNumber();
-                   // this.setDestination(Optional.of(model.getTable().get(serveTable).getPosition()));
                 }
                 else if(state.equals(WaitressState.SERVING)) {
+                    //TODO check se il tavolo è giusto
                     this.model.setTableEating(serveTable);
+                    state=WaitressState.WAITING;
+                }
+                else if(state.equals(WaitressState.TAKING_MONEY)) {
+                  int coin = this.model.getCoins();
+                  this.model.setCoins(coin+30);
                     state=WaitressState.WAITING;
                 }
                        
@@ -55,8 +60,6 @@ public class Waitress extends AbstractGameEntityMovable {
         }
        
     }
-
-
 
     public void setState(WaitressState state) {
         this.state = state;
@@ -70,6 +73,18 @@ public class Waitress extends AbstractGameEntityMovable {
         this.setDestination(Optional.of(dishReady.getPosition()));
         orderList.add(dishReady); //Aggiungi solo quando arriva al tavolo
         this.state=WaitressState.TAKING_DISH;
+    }
+    public void takeTableOrder(Pair<Integer,Integer> position) {
+        this.setDestination(Optional.of(position));
+        this.state=WaitressState.CALLING;
+    }
+    public void serveOrder(Pair<Integer,Integer> position) {
+        this.setDestination(Optional.of(position));
+        state = WaitressState.SERVING;
+    }
+    public void colletMoney(Pair<Integer,Integer> position) {
+        this.setDestination(Optional.of(position));
+        state = WaitressState.TAKING_MONEY;
     }
 
     /*

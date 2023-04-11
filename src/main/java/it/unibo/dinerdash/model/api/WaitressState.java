@@ -6,6 +6,7 @@ public enum WaitressState {
     WALKING,
     ORDERING,
     TAKING_DISH,
-    SERVING
+    SERVING,
+    TAKING_MONEY
 }
 
