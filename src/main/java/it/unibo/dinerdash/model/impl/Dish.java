@@ -25,7 +25,7 @@ public class Dish extends AbstractGameEntity {
     }
 
     public void setReady(boolean ready) {
-        this.setActive(true);
+        this.setActive(ready);
     }   
     
 }

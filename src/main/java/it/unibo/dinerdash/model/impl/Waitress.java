@@ -66,7 +66,14 @@ public class Waitress extends AbstractGameEntityMovable {
     
     public void goGetDish(Dish dishReady) {
         this.setDestination(Optional.of(dishReady.getPosition()));
-        orderList.add(dishReady);
+        orderList.add(dishReady); //Aggiungi solo quando arriva al tavolo
         this.state=WaitressState.TAKING_DISH;
     }
+
+    /*
+        prendiOrdineDaTavolo(int tableNumber);
+        prendiOrdineDalBancone(Dish dish);
+        serviOrdine(int tableNumber);
+        collectSoldi(int tableNumber); //collect soldi + libera tavolo + elimina clienti etc
+    */
 }

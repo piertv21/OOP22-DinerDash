@@ -2,7 +2,6 @@ package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
 import java.util.Optional;
-import java.util.Random;
 import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.model.api.CustomerState;
@@ -20,8 +19,8 @@ public class ModelImpl implements Model {
     private static final int RESTAURANT_WIDTH = 1280;
     private static final int RESTAURANT_HEIGHT = 720;
 
-    private static double FIRST_LINE_POS_REL_X = 0.04*RESTAURANT_WIDTH;
-    private static double FIRST_LINE_POS_REL_Y = 0.67*RESTAURANT_HEIGHT;
+    private static double FIRST_LINE_POS_REL_X = 0.04 * RESTAURANT_WIDTH;
+    private static double FIRST_LINE_POS_REL_Y = 0.67 * RESTAURANT_HEIGHT;
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
@@ -41,11 +40,13 @@ public class ModelImpl implements Model {
     public static final double COUNTERTOP_REL_Y = 0.2;
     public static final double CHEF_REL_X = 0.55;
     public static final double CHEF_REL_Y = 0.02;
-    
-   
-    private Random random; // used to create customers
+
+    private static final double DISH_REL_WIDTH = 0.05;
+    private static final double DISH_REL_HEIGHT = 0.02;
+
     private long lastCustomerTimeCreation;
     private static final long CUSTOMERS_CREATION_TIME = 6000000000L;
+
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
@@ -55,8 +56,7 @@ public class ModelImpl implements Model {
     private LinkedList<Table> tables;                           // tavoli con eventuali clienti
     private Countertop counterTop;                       // bancone con lista piatti
     private Chef chef;
-    private Waitress waitress;
-    
+    private Waitress waitress;    
 
     public ModelImpl() {
         this.customers = new LinkedList<>();
@@ -64,8 +64,6 @@ public class ModelImpl implements Model {
 
         var counterTopRelPosition = new Pair<>((int) (COUNTERTOP_REL_X * RESTAURANT_WIDTH), (int) (COUNTERTOP_REL_Y * RESTAURANT_HEIGHT));
         this.counterTop = new Countertop(counterTopRelPosition, new Pair<>(0, 0)); //TODO Imposta Size
-
-        this.random = new Random();
     }
 
     private void init() {
@@ -155,7 +153,7 @@ public class ModelImpl implements Model {
             this.stop();
         }
         var position = new Pair<>(STARTING_X,  STARTING_Y); 
-        this.customers.add(new Customer(position, new Pair<>(0, 0), this)); // TODO Imposta size
+        this.customers.add(new Customer(position, new Pair<>(0, 0), this)); // TODO Imposta State Iniziale in costruttore, molteplicità e size
         if(thereAreAvaibleTables()) {
             AssegnoTavolo( this.customers.getLast());
         } else {
@@ -238,10 +236,6 @@ public class ModelImpl implements Model {
 
     public boolean thereAreAvaibleTables() {
        return this.tables.stream().anyMatch(tab->tab.isFree());  
-    }
-    
-    public int getRandomNumber(){
-        return this.random.nextInt(4)+1;
     }
     
     public Countertop getCounterTop() {
