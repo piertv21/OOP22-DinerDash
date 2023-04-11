@@ -56,7 +56,7 @@ public class Customer extends AbstractGameEntityMovable  {
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         {
-            if(System.nanoTime()==this.startThinkTime+TIME_BEFORE_ORDERING ) state = CustomerState.ORDERING;
+            if(System.nanoTime()>=this.startThinkTime+TIME_BEFORE_ORDERING ) state = CustomerState.ORDERING;
                
         }
         else if(state.equals(CustomerState.LINE)){

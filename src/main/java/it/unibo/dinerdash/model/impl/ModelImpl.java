@@ -44,6 +44,8 @@ public class ModelImpl implements Model {
     
    
     private Random random; // used to create customers
+    private long lastCustomerTimeCreation;
+    private static final long CUSTOMERS_CREATION_TIME = 6000000000L;
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
@@ -84,6 +86,7 @@ public class ModelImpl implements Model {
             this.tables.add(new Table(position,new Pair<>(0, 0), i + 1));  
         });
         
+        this.lastCustomerTimeCreation =System.nanoTime(); 
     }
 
     private void clear() {
@@ -162,7 +165,12 @@ public class ModelImpl implements Model {
     }
 
     public void update(long elapsedUpdateTime) {
-        if(!this.gameOver()) {            
+        if(!this.gameOver()) {  
+            if(System.nanoTime()>=this.lastCustomerTimeCreation+CUSTOMERS_CREATION_TIME){
+                System.out.println("creo customer");
+                this.addCustomer();
+                this.lastCustomerTimeCreation =System.nanoTime(); 
+            }        
             //this.chef.update(elapsedUpdateTime);
             /*
                 waitress.update(elapsedUpdateTime); //aggiornamento posizione + altro
