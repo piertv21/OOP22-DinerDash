@@ -4,14 +4,13 @@ import java.util.LinkedList;
 import it.unibo.dinerdash.model.api.AbstractGameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class Countertop extends AbstractGameEntity {
+public class Countertop{
 
     private static final int MAX_COUNTERTOP_DISHES = 4;
 
     private LinkedList<Dish> dishes;
 
-    public Countertop(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
-        super(coordinates, size);
+    public Countertop() {
         this.dishes = new LinkedList<>();
     }
 
