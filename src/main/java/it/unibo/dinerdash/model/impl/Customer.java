@@ -63,8 +63,8 @@ public class Customer extends AbstractGameEntityMovable  {
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         {
             int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
-            //this.model.setTableCustomers(numClienti, sittedTable);         decommenta
-             // this.model.setTableState(TableState.THINKING, sittedTable);   decoomenta 
+            this.model.setTableCustomers(numClienti, sittedTable);         
+             this.model.setTableState(TableState.THINKING, sittedTable);   
             if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
                 state = CustomerState.ORDERING;
             } 
