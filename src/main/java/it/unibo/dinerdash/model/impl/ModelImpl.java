@@ -229,12 +229,14 @@ public class ModelImpl implements Model {
             .findFirst()
             .get()
             .getPosition()
-        ));                                
-        tables.stream()
+        )); 
+        var tab = tables.stream()
         .filter(entry -> entry.getPosition().equals(cus.getDestination().get()))   
         .findFirst()
-        .orElse(null)
-        .setCustom(cus); 
+        .orElse(null);
+        //.setCustom(cus);
+        tab.setCustom(cus);
+       // tab.setOccupy();
     } 
 
     public void assegnoPostoFila(Customer cus) {

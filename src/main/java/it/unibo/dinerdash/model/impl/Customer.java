@@ -13,7 +13,6 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public class Customer extends AbstractGameEntityMovable  {
 
-    private static final int MOVEMENT_DISTANCE = 5;
     private static final int TIME_BEFORE_GETANGRY = 16;
     private static final int TIME_BEFORE_ORDERING = 4;
     private static final int SPEED = 1;
@@ -22,14 +21,13 @@ public class Customer extends AbstractGameEntityMovable  {
     private int numClienti;
     private long startThinkTime;
     private Optional<Long> startAngryTime;
-    private Pair<Integer, Integer> size;
     
     public Customer(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, ModelImpl model,int numCust) {
         super(coordinates, size, SPEED);
         this.model = model;
         this.state = CustomerState.WALKING;
         this.numClienti = numCust;
-        this.size = size;
+        //this.size = size;
         this.startAngryTime = Optional.empty();
     }
 
