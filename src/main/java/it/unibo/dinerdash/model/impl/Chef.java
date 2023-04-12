@@ -47,7 +47,7 @@ public class Chef extends AbstractGameEntity {
                 }
 
                 // Seleziona un nuovo piatto da preparare
-                currentDish = Optional.of(counterTop.getDishInOrder());
+                currentDish = counterTop.getDishInOrder();
 
                 this.startPreparingDish(currentDish.get());
             } else {

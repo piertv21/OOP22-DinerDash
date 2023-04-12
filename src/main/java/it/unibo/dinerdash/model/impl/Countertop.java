@@ -2,6 +2,7 @@ package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -12,6 +13,8 @@ public class Countertop {
     private static final double START_DISH_REL_X = 0.5;
     private static final double START_DISH_REL_Y = 0.2;
     private static final int DISHES_X_PADDING = 150;
+    private static final int DISH_REL_WIDTH = 70;
+    private static final int DISH_REL_HEIGHT = 50;
     private static final int MAX_COUNTERTOP_DISHES = 4;
 
     private LinkedList<Dish> dishes;
@@ -22,15 +25,15 @@ public class Countertop {
         this.dishes = new LinkedList<>();
     }
 
-    public void addDish(Dish dish) {
+    public void addOrder(int tableNumber) {
         if(this.dishes.size() < MAX_COUNTERTOP_DISHES) {
 
             var coordX = this.getFirstFreeX();
             var coordY = (int)(START_DISH_REL_Y * this.model.getHeight());
             var dishPosition = new Pair<>(coordX, coordY);
-            dish.setPosition(dishPosition);
+            var dishSize = new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT);
+            var dish = new Dish(dishPosition, dishSize, tableNumber);
 
-            //lo aggiunge
             this.dishes.add(dish);
         }
     }
@@ -52,27 +55,39 @@ public class Countertop {
                 .orElse(startPoint);
     }
     
-
-    /*public <Optional<Dish>> takeDish() {
+    /*public <Optional<Dish>> takeDish(int x, int y) {
         //TODO da un piatto alla cameriera
+        this.dishes.stream()
+                 .filter(d -> d.isActive() && d.getPosition().getX() == x && d.getPosition().getY() == y)
+                 .findFirst()
+                 .map(d -> {
+                     dishes.remove(d);
+                     return d;
+                 });
     }*/
 
     public void clear() {
         this.dishes.clear();
     }
 
+    //dice se ci son piatti ancora con active = false
     public boolean thereAreAvailableDishes() {
-        //TODO dice se ci son piatti ancora con active = false
-        return false;
+        return this.dishes.stream().anyMatch(e -> !e.isActive());
     }
 
-    public Dish getDishInOrder() {
-        //TODO restituisce il primo piatto non active allo chef senza rimuoverlo
-        return null;
+    // prossimo dish da preparare (active = false)
+    public Optional<Dish> getDishInOrder() {
+        return this.dishes.stream()
+            .filter(dish -> !dish.isActive())
+            .findFirst();
     }
 
+    // Dato un dish lo imposta a ready, chiamata dallo Chef
     public void setDishReady(Dish dish) {
-        //TODO Dato un dish lo imposta a ready, chiamata dallo Chef
+        this.dishes.stream()
+            .filter(d -> d.equals(dish))
+            .findFirst()
+            .ifPresent(d -> d.setActive(true));
     }
 
 }

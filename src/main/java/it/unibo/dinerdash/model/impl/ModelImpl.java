@@ -141,15 +141,15 @@ public class ModelImpl implements Model {
         this.clear();
         //TODO Check se serve altro
     }
-    
+
     @Override
-    public void serveDish() {
-        //TODO
+    public void sendOrder(int tableNumber) {                       //mando l'ordine al bancone
+        this.counterTop.addOrder(tableNumber);
     }
 
     @Override
-    public void addOrder(Dish dish) {
-        this.counterTop.addDish(dish);
+    public void serveDish() {
+        //TODO
     }
 
     @Override
@@ -286,10 +286,6 @@ public class ModelImpl implements Model {
     }
     public void setTableEating(int tabl) {     
         this.tables.get(tabl).setState(TableState.EATING);
-    }
-
-    public void sendOrder(int tableNumber) {                       //mando l'ordine al bancone
-        this.counterTop.addDish(new Dish(null, null, tableNumber));
     }
     
     public Table getTablefromPositon(Pair<Integer,Integer> pos){           // ottengo il tavolo data la posizione

@@ -13,19 +13,11 @@ public class Dish extends AbstractGameEntity {
     public Dish(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int dishNumber) {
         super(coordinates, size);
         this.dishNumber = dishNumber;
-        this.setReady(false);
+        this.setActive(false);
     }
 
     public int getDishNumber() {
         return this.dishNumber;
-    }
-
-    public boolean isReady() {
-        return this.isActive();
-    }
-
-    public void setReady(boolean ready) {
-        this.setActive(ready);
-    }   
+    } 
     
 }

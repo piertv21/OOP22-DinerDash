@@ -16,7 +16,7 @@ public interface Model {
 
     void serveDish();
 
-    void addOrder(Dish dish);
+    void sendOrder(int tableNumber);
 
     boolean gameOver();
 
