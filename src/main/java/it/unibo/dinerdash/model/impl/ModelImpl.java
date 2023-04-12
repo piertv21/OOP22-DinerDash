@@ -289,6 +289,12 @@ public class ModelImpl implements Model {
        return this.tables.stream().filter(t->t.getPosition().equals(pos)).findFirst().get();
     }
 
+    public void setTableState(TableState state,int numberTable) {    // pongo il tavolo in modalito ordering a gli assegno il numero di clienti
+        this.tables.get(numberTable-1).setState(state);
+    }
+    public void setTableCustomers(int customersMolteplicity,int numberTable) {
+        this.tables.get(numberTable-1).setSeatedPeople(customersMolteplicity);
+    }
     
 
 

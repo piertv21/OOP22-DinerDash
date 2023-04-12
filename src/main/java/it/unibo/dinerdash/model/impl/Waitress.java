@@ -25,7 +25,7 @@ public class Waitress extends AbstractGameEntityMovable {
         
     }
 
-    public void handleMovement() {
+    public void handleMovement(Dish dishReady) {
         if((state.equals(WaitressState.CALLING))||(state.equals(WaitressState.TAKING_DISH))||(state.equals(WaitressState.SERVING))) {
             if(getPosition().getX() <  this.getDestination().get().getX()) this.moveRight();
             else if(getPosition().getX() > this.getDestination().get().getX()+3) this.moveLeft();
@@ -43,6 +43,7 @@ public class Waitress extends AbstractGameEntityMovable {
 
                 }else if(state.equals(WaitressState.TAKING_DISH)) {  //cameriere è arrivata al bancone a prendere il piatto
                     state = WaitressState.SERVING;
+                    orderList.add(dishReady); //Aggiungi solo quando arriva al tavolo
                     //serveTable=orderList.removeFirst().getDishNumber();
                 }
                 else if(state.equals(WaitressState.SERVING)) {
@@ -72,7 +73,6 @@ public class Waitress extends AbstractGameEntityMovable {
     
     public void goGetDish(Dish dishReady) {
         this.setDestination(Optional.of(dishReady.getPosition()));
-        orderList.add(dishReady); //Aggiungi solo quando arriva al tavolo
         this.state=WaitressState.TAKING_DISH;
     }
     public void takeTableOrder(Pair<Integer,Integer> position) {
