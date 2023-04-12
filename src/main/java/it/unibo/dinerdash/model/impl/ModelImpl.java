@@ -73,16 +73,25 @@ public class ModelImpl implements Model {
         this.clear();
 
         // Tavoli
-        var startingTableX = (int)(FIRST_LINE_POS_REL_X * STARTING_TABLE_REL_X);
-        var startingTableY = (int)(FIRST_LINE_POS_REL_Y * STARTING_TABLE_REL_Y);
+        var x = RESTAURANT_WIDTH - (RESTAURANT_WIDTH/7);
+        var y = RESTAURANT_HEIGHT - 3*(RESTAURANT_HEIGHT/4);
+        var position = new Pair<>(x, y);
+        this.tables.add(new Table(position,new Pair<>(0, 0), 1)); 
 
-        IntStream.range(0, TABLES).forEach(i -> {
-            var j = i % (TABLES / 2);
-            var x = startingTableX + (j * TABLES_PADDING);
-            var y = startingTableY + (i * TABLES_PADDING);
-            var position = new Pair<>(x, y);
-            this.tables.add(new Table(position,new Pair<>(0, 0), i + 1));  
-        });
+        x = RESTAURANT_WIDTH - (RESTAURANT_WIDTH/7);
+        y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/4);
+        position = new Pair<>(x, y);
+        this.tables.add(new Table(position,new Pair<>(0, 0), 2)); 
+
+        x = RESTAURANT_WIDTH - 3*(RESTAURANT_WIDTH/7);
+        y = RESTAURANT_HEIGHT - 3*(RESTAURANT_HEIGHT/4);
+        position = new Pair<>(x, y);
+        this.tables.add(new Table(position,new Pair<>(0, 0), 3));
+
+        x = RESTAURANT_WIDTH - 3*(RESTAURANT_WIDTH/7);
+        y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/4);
+        position = new Pair<>(x, y);
+        this.tables.add(new Table(position,new Pair<>(0, 0), 4));
 
         // Chef
         var chefPosition = new Pair<>((int)(CHEF_REL_X * RESTAURANT_WIDTH), (int)(CHEF_REL_Y * RESTAURANT_HEIGHT));
