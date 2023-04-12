@@ -182,6 +182,7 @@ public class ModelImpl implements Model {
         if(!this.gameOver()) {  
             if(System.nanoTime()>=this.lastCustomerTimeCreation+CUSTOMERS_CREATION_TIME){
                 System.out.println("creo customer");
+                this.tables.forEach(t->System.out.println(t.getPosition()));
                 this.addCustomer();
                 this.lastCustomerTimeCreation =System.nanoTime(); 
             }        
