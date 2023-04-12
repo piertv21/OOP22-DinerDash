@@ -17,7 +17,6 @@ public class Table extends AbstractGameEntity {
     private int SeatedPeople;
 
 
-
     public Table(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
         super(coordinates, size);
         this.tableNumber = i;
