@@ -53,7 +53,7 @@ public class Customer extends AbstractGameEntityMovable  {
             ((getPosition().getY() <= this.getDestination().get().getY() + 4) &&
             (getPosition().getY() >= this.getDestination().get().getY() - 4)))     //creo una hitbox del tavolo
             {                          
-                this.startThinkTime = elapsedUpdateTime;                                                 
+                this.startThinkTime = System.nanoTime();                                                 
                     state = CustomerState.THINKING;
                     this.setPosition(this.getDestination().get());
                     this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire       
@@ -61,7 +61,11 @@ public class Customer extends AbstractGameEntityMovable  {
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         {
-            if(elapsedUpdateTime >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) state = CustomerState.ORDERING;     
+            if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
+                state = CustomerState.ORDERING;
+                int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
+               // this.model.setTableOrdering(sittedTable,numClienti);    decoomenta 
+            } 
         }
         else if(state.equals(CustomerState.LINE)) {
             if(this.startAngryTime.isPresent()) {
@@ -70,11 +74,11 @@ public class Customer extends AbstractGameEntityMovable  {
                     this.state=CustomerState.WALKING;
                     this.model.AssegnoTavolo(this);
                 }
-                else if(elapsedUpdateTime >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_GETANGRY) + this.startAngryTime.get()) {         //il cliente si arrabbia e se ne va
+                else if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_GETANGRY) + this.startAngryTime.get()) {         //il cliente si arrabbia e se ne va
                     this.state=CustomerState.ANGRY;
                     model.leaveRestaurant(this);
                 }
-            }else { this.startAngryTime = Optional.of(elapsedUpdateTime); }
+            }else { this.startAngryTime = Optional.of(System.nanoTime()); }
         }
     }
 

@@ -285,12 +285,13 @@ public class ModelImpl implements Model {
         }
     }
     public void setTableEating(int tabl) {     
-        this.tables.get(tabl).setState(TableState.EATING);
+        this.tables.get(tabl-1).setState(TableState.EATING);
     }
     
     public Table getTablefromPositon(Pair<Integer,Integer> pos){           // ottengo il tavolo data la posizione
        return this.tables.stream().filter(t->t.getPosition().equals(pos)).findFirst().get();
     }
 
+   
 
 }
