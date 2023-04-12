@@ -35,6 +35,8 @@ public class ModelImpl implements Model {
 
     private static final int STARTING_X = 0;
     private static final int STARTING_Y = 500;
+    private static final int HEIGHT_SIZE_CUST = 200;
+    private static final int WIDTH_SIZE_CUST = 150;
     
     private static final double CHEF_REL_X = 0.55;
     private static final double CHEF_REL_Y = 0.02;
@@ -157,7 +159,7 @@ public class ModelImpl implements Model {
         }
         var position = new Pair<>(STARTING_X,  STARTING_Y); 
         int customersMolteplicity=(int) (Math.random()* (4)) + 1;
-        this.customers.add(new Customer(position, new Pair<>(0, 0), this,customersMolteplicity)); // TODO Imposta State Iniziale in costruttore, molteplicità e size
+        this.customers.add(new Customer(position, new Pair<>(WIDTH_SIZE_CUST, HEIGHT_SIZE_CUST), this,customersMolteplicity)); 
         if(thereAreAvaibleTables()) {
             AssegnoTavolo( this.customers.getLast());
         } else {
