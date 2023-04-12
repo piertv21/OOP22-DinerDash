@@ -55,16 +55,16 @@ public class Countertop {
                 .orElse(startPoint);
     }
     
-    /*public <Optional<Dish>> takeDish(int x, int y) {
-        //TODO da un piatto alla cameriera
-        this.dishes.stream()
-                 .filter(d -> d.isActive() && d.getPosition().getX() == x && d.getPosition().getY() == y)
-                 .findFirst()
-                 .map(d -> {
-                     dishes.remove(d);
-                     return d;
-                 });
-    }*/
+    public Optional<Dish> takeDish(int x, int y) {
+        Optional<Dish> dishToRemove = this.dishes.stream()
+                .filter(dish -> dish.getPosition().getX() == x && dish.getPosition().getY() == y)
+                .findFirst()
+                .map(dish -> {
+                    dishes.remove(dish);
+                    return dish;
+                });
+        return dishToRemove;
+    }
 
     public void clear() {
         this.dishes.clear();
