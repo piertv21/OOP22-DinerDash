@@ -125,15 +125,12 @@ public class ControllerImpl implements Controller {
         int p=0;
         for(var cus: model.getCustomers()) {
                 this.gameView.getViewableCustomersList().get(p).update(cus);
-                if(cus.getState().equals(CustomerState.THINKING)) {
-                    //int tableNmb= this.getHashMapkey(model.getTables(), cus).getTableNumber();
-                    //this.gamePanel.getTablesList().get(tableNmb-1).setImg(cus.getCustomerMultiplicity());
-                }
                 p++;
                 // BISOGNA CHIAMARE UN METODO NELLA VIEW CHE CAMBIA L'IMMAGINE DEL TAVOLO ,
                 // AGGIUNGI METODO CHE AGGIORNA POSIZIONI TAVOLI ,E CONTROLLO SE IL CLIENTE è IN THINKING ,POI SE IL NUMERO DI CLIENTI SEDUTI ED LA MOLTEPLIC DEL CLIENTE
                 // ALLEGATO SONO UGUALI,  SE NON LO SONO CAMBIA L'IMMAGINE DEL TAVOLO
         }
+        
     }
 
     public void setWaitresDestination(Pair<Integer,Integer> dest){

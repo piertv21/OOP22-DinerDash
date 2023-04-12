@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.model.api.CustomerState;
+import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.model.api.AbstractGameEntityMovable;
 import it.unibo.dinerdash.utility.impl.Pair;
 
@@ -61,10 +62,11 @@ public class Customer extends AbstractGameEntityMovable  {
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         {
+            int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
+            //this.model.setTableCustomers(numClienti, sittedTable);         decommenta
+             // this.model.setTableState(TableState.THINKING, sittedTable);   decoomenta 
             if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
                 state = CustomerState.ORDERING;
-                int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
-               // this.model.setTableOrdering(sittedTable,numClienti);    decoomenta 
             } 
         }
         else if(state.equals(CustomerState.LINE)) {

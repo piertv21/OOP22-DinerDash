@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.AbstractGameEntityMovable;
+import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.model.api.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
@@ -42,11 +43,11 @@ public class Waitress extends AbstractGameEntityMovable {
 
                 }else if(state.equals(WaitressState.TAKING_DISH)) {  //cameriere è arrivata al bancone a prendere il piatto
                     state = WaitressState.SERVING;
-                    serveTable=orderList.removeFirst().getDishNumber();
+                    //serveTable=orderList.removeFirst().getDishNumber();
                 }
                 else if(state.equals(WaitressState.SERVING)) {
                     //TODO check se il tavolo è giusto
-                    this.model.setTableEating(serveTable);
+                    //this.model.setTableState(TableState.EATING, serveTable);   decommenta
                     state=WaitressState.WAITING;
                 }
                 else if(state.equals(WaitressState.TAKING_MONEY)) {
@@ -87,10 +88,4 @@ public class Waitress extends AbstractGameEntityMovable {
         state = WaitressState.TAKING_MONEY;
     }
 
-    /*
-        prendiOrdineDaTavolo(int tableNumber);
-        prendiOrdineDalBancone(Dish dish);
-        serviOrdine(int tableNumber);
-        collectSoldi(int tableNumber); //collect soldi + libera tavolo + elimina clienti etc
-    */
 }
