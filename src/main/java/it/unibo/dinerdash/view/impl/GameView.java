@@ -192,14 +192,14 @@ public class GameView extends GamePanel {
         String[] options = {"Resume", "Restart", "Exit"};
         int result = JOptionPane.showOptionDialog(this, dialogPanel, "Pause", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
     
-       /*switch (result) {
+       switch (result) {
             case 1 -> this.getMainFrame().getController().restart();
             case 2 -> this.getMainFrame().getController().quit();
             default -> {
                 this.getMainFrame().getController().resume();
                 JOptionPane.getRootFrame().dispose();
             }
-        }*/
+        }
     }
 
     private void start() {
