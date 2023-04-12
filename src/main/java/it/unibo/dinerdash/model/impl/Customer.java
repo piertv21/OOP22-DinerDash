@@ -20,15 +20,16 @@ public class Customer extends AbstractGameEntityMovable  {
     private ModelImpl model;
     private int numClienti;
     private long startThinkTime;
-    private Optional<Long> startAngryTime = Optional.empty();
+    private Optional<Long> startAngryTime;
     private Pair<Integer, Integer> size;
     
     public Customer(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, ModelImpl model,int numCust) {
         super(coordinates, size, SPEED);
         this.model = model;
-        this.state=CustomerState.WALKING;
-        this.numClienti=numCust;
-        this.size=size;
+        this.state = CustomerState.WALKING;
+        this.numClienti = numCust;
+        this.size = size;
+        this.startAngryTime = Optional.empty();
     }
 
     public int getCustomerCount() {
@@ -63,7 +64,7 @@ public class Customer extends AbstractGameEntityMovable  {
             if(System.nanoTime()>=TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING)+this.startThinkTime) state = CustomerState.ORDERING;     
         }
         else if(state.equals(CustomerState.LINE)){
-            if(!((this.startAngryTime).isEmpty())){
+            if(this.startAngryTime.isPresent()){
                 if(model.checkFreeTables(this)){
                     // vado a sedermi al tavolo
                     this.state=CustomerState.WALKING;
