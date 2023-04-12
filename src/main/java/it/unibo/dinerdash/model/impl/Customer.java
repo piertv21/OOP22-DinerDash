@@ -44,16 +44,16 @@ public class Customer extends AbstractGameEntityMovable  {
         return this.state ;
     }
 
-    public void update(long elapsedUpdateTime) {                 //manage the movement of customers      USO elapsedUpdateTime ANZICHE System.nanoTime()
+    public void update(long elapsedUpdateTime) {                 //manage the movement of customers     
         if(state.equals(CustomerState.WALKING)) {
             if(getPosition().getX() < this.getDestination().get().getX()) this.moveRight(); 
             else if(getPosition().getY() > this.getDestination().get().getY()) this.moveUp();
             else if(getPosition().getY() < this.getDestination().get().getY()) this.moveDown();
-            if((getPosition().getX()>=this.getDestination().get().getX())&&
-            ((getPosition().getY()<=this.getDestination().get().getY()+4)&&
-            (getPosition().getY()>=this.getDestination().get().getY()-4)))     //creo una hitbox del tavolo
+            if((getPosition().getX() >= this.getDestination().get().getX()) &&
+            ((getPosition().getY() <= this.getDestination().get().getY() + 4) &&
+            (getPosition().getY() >= this.getDestination().get().getY() - 4)))     //creo una hitbox del tavolo
             {                          
-                this.startThinkTime=System.nanoTime();                                                 
+                this.startThinkTime = elapsedUpdateTime;                                                 
                     state = CustomerState.THINKING;
                     this.setPosition(this.getDestination().get());
                     this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire       
@@ -61,21 +61,20 @@ public class Customer extends AbstractGameEntityMovable  {
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         {
-            if(System.nanoTime()>=TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING)+this.startThinkTime) state = CustomerState.ORDERING;     
+            if(elapsedUpdateTime >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) state = CustomerState.ORDERING;     
         }
-        else if(state.equals(CustomerState.LINE)){
-            if(this.startAngryTime.isPresent()){
-                if(model.checkFreeTables(this)){
+        else if(state.equals(CustomerState.LINE)) {
+            if(this.startAngryTime.isPresent()) {
+                if(model.checkFreeTables(this)) {
                     // vado a sedermi al tavolo
                     this.state=CustomerState.WALKING;
                     this.model.AssegnoTavolo(this);
-        
                 }
-                if(System.nanoTime()>= TimeUnit.SECONDS.toNanos(TIME_BEFORE_GETANGRY)+this.startAngryTime.get()){         //il cliente si arrabbia e se ne va
+                else if(elapsedUpdateTime >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_GETANGRY) + this.startAngryTime.get()) {         //il cliente si arrabbia e se ne va
                     this.state=CustomerState.ANGRY;
                     model.leaveRestaurant(this);
                 }
-            }else{this.startAngryTime=Optional.of( System.nanoTime());}
+            }else { this.startAngryTime = Optional.of(elapsedUpdateTime); }
         }
     }
 
