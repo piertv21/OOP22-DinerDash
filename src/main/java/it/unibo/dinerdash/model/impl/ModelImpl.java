@@ -174,10 +174,8 @@ public class ModelImpl implements Model {
         int customersMolteplicity=(int) (Math.random()* (4)) + 1;
         this.customers.add(new Customer(position, new Pair<>(WIDTH_SIZE_CUST, HEIGHT_SIZE_CUST), this,customersMolteplicity)); 
         if(thereAreAvaibleTables()) {
-            System.out.println("assegno tavolo");
             AssegnoTavolo( this.customers.getLast());
         } else {
-            System.out.println("posto in fiala");
             customers.getLast().setState(CustomerState.LINE);
             assegnoPostoFila(this.customers.getLast()); 
         }
@@ -247,7 +245,6 @@ public class ModelImpl implements Model {
         .findFirst()
         .orElse(null);
         tab.setCustom(Optional.of(cus));
-       // tab.setOccupy();
     } 
 
     public void assegnoPostoFila(Customer cus) {
