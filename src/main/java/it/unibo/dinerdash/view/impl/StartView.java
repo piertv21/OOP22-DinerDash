@@ -22,26 +22,26 @@ public class StartView extends GamePanel {
         super(mainFrame);
         setLayout(new GridBagLayout());
 
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 0;
-        c.gridy = 0;
-        c.insets = new Insets(10, 0, 10, 0);
+        var gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new Insets(10, 0, 10, 0);
         
         titleLabel = new JLabel(ViewImpl.FRAME_NAME);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 60));
-        add(titleLabel, c);
+        add(titleLabel, gridBagConstraints);
 
-        c.gridy = 1;
+        gridBagConstraints.gridy = 1;
         startButton = new JButton(START);
         startButton.addActionListener((e) -> this.getMainFrame().startGame());
         startButton.setPreferredSize(new Dimension(300, 40));
-        add(startButton, c);
+        add(startButton, gridBagConstraints);
 
-        c.gridy = 2;        
+        gridBagConstraints.gridy = 2;
         exitButton = new JButton(EXIT);        
         exitButton.addActionListener((e) -> this.getMainFrame().getController().quit());
         exitButton.setPreferredSize(new Dimension(300, 40));
-        add(exitButton, c);
+        add(exitButton, gridBagConstraints);
     }
 
 }

@@ -38,6 +38,6 @@ public interface Controller {
 
     void timeIsChanged();
 
-    void setWaitresDestination(Pair<Integer,Integer> destination);
+    void setWaitressDestination(Pair<Integer,Integer> destination);
         
 }

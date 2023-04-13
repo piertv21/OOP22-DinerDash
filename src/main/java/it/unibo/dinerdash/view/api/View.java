@@ -8,6 +8,8 @@ public interface View {
 
     void startGame();
 
+    void playAgain();
+
     void quit();
 
     Controller getController();

@@ -25,7 +25,7 @@ public class TableViewable extends GameEntityViewable {
         tableStateIndicator.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
               //chiamo un metodo nel controller che va nel model e assegna la destinazione alla cameriera
-              contr.setWaitresDestination(getPosition());
+              contr.setWaitressDestination(getPosition());
             } 
           } );
         tableStateIndicator.setBounds(getPosition().getX()+10,getPosition().getY()-40, 50, 50);

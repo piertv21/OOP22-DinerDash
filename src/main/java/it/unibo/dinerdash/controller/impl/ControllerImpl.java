@@ -154,7 +154,7 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void setWaitresDestination(Pair<Integer,Integer> dest) {
+    public void setWaitressDestination(Pair<Integer,Integer> dest) {
         this.model.setWaitressTableDestination(dest);
     }
 
