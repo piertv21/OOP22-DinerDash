@@ -23,6 +23,7 @@ public class Table extends AbstractGameEntity {
         this.tableNumber = i;
         this.SeatedPeople =0;
         this.isFree = true;
+        this.customer=Optional.empty();
        
     }
 
@@ -58,12 +59,5 @@ public class Table extends AbstractGameEntity {
        return this.SeatedPeople;
     }
 
-    public void setOccupy(){
-         this.isFree = false;
-    }
-
-
-
-    
     
 }

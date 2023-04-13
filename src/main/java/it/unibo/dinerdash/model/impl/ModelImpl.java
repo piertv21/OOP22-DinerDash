@@ -171,8 +171,10 @@ public class ModelImpl implements Model {
         int customersMolteplicity=(int) (Math.random()* (4)) + 1;
         this.customers.add(new Customer(position, new Pair<>(WIDTH_SIZE_CUST, HEIGHT_SIZE_CUST), this,customersMolteplicity)); 
         if(thereAreAvaibleTables()) {
+            System.out.println("assegno tavolo");
             AssegnoTavolo( this.customers.getLast());
         } else {
+            System.out.println("posto in fiala");
             customers.getLast().setState(CustomerState.LINE);
             assegnoPostoFila(this.customers.getLast()); 
         }
@@ -231,7 +233,7 @@ public class ModelImpl implements Model {
     public void AssegnoTavolo(Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         cus.setDestination(Optional.ofNullable(
             this.tables.stream()
-            .filter(tav->tav.isFree())
+            .filter(tav->tav.getCustomer().isEmpty())
             .findFirst()
             .get()
             .getPosition()
@@ -241,7 +243,7 @@ public class ModelImpl implements Model {
         .findFirst()
         .orElse(null);
         tab.setCustom(Optional.of(cus));
-        tab.setOccupy();
+       // tab.setOccupy();
     } 
 
     public void assegnoPostoFila(Customer cus) {
@@ -257,7 +259,7 @@ public class ModelImpl implements Model {
     }
 
     public boolean thereAreAvaibleTables() {
-       return this.tables.stream().anyMatch(tab->tab.isFree());  
+       return this.tables.stream().anyMatch(tab->tab.getCustomer().isEmpty());  
     }
     
     public Countertop getCounterTop() {
