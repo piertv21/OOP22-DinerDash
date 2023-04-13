@@ -15,14 +15,11 @@ public class Table extends AbstractGameEntity {
     private Optional<Customer> customer;
     private TableState state;
     private int SeatedPeople;
-    private boolean isFree;
-
 
     public Table(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
         super(coordinates, size);
         this.tableNumber = i;
         this.SeatedPeople =0;
-        this.isFree = true;
         this.customer=Optional.empty();
        
     }
@@ -33,10 +30,6 @@ public class Table extends AbstractGameEntity {
 
     public TableState getState(){                                     
         return this.state;
-    }
-
-    public boolean isFree() {
-        return this.isFree;     
     }
 
     public void setCustom(Optional<Customer> cs) {
