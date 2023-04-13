@@ -170,10 +170,8 @@ public class ModelImpl implements Model {
         int customersMolteplicity=(int) (Math.random()* (4)) + 1;
         this.customers.add(new Customer(position, new Pair<>(WIDTH_SIZE_CUST, HEIGHT_SIZE_CUST), this,customersMolteplicity)); 
         if(thereAreAvaibleTables()) {
-            System.out.println("assegno tavolo");
             AssegnoTavolo( this.customers.getLast());
         } else {
-            System.out.println("posto in fiala");
             customers.getLast().setState(CustomerState.LINE);
             assegnoPostoFila(this.customers.getLast()); 
         }
@@ -248,7 +246,6 @@ public class ModelImpl implements Model {
         .findFirst()
         .orElse(null);
         tab.setCustom(Optional.of(cus));
-       // tab.setOccupy();
     } 
 
     public void assegnoPostoFila(Customer cus) {
@@ -317,6 +314,9 @@ public class ModelImpl implements Model {
         this.tables.get(numberTable-1).setState(state);
         if(state.equals(TableState.EMPTY)){
             this.tables.get(numberTable-1).setSeatedPeople(0);
+            int indiceCustomerInList = this.customers.indexOf(tables.get(numberTable-1).getCustomer().get());  // da usare per cancellare elem in lista view
+            this.customers.remove(this.tables.get(numberTable-1).getCustomer().get());
+            this.tables.get(numberTable-1).setCustom(Optional.empty());
             this.tables.get(numberTable-1).setCustom(Optional.empty());
         }
     }
