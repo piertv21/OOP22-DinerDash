@@ -11,5 +11,13 @@ public interface View {
     void quit();
 
     Controller getController();
+
+    double getWidthRatio();
+
+    double getHeightRatio();
+
+    int getWidth();
+
+    int getHeight();
     
 }

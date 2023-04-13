@@ -25,6 +25,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 
 import it.unibo.dinerdash.view.api.GamePanel;
+import it.unibo.dinerdash.view.api.View;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
@@ -56,7 +57,7 @@ public class GameView extends GamePanel {
     private GameEntityViewable waitress;
     private GameEntityViewable chef;
 
-    public GameView(ViewImpl mainFrame) {
+    public GameView(View mainFrame) {
         super(mainFrame);
 
         setLayout(new BorderLayout());

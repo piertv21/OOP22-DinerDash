@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.api.Model;
@@ -48,20 +49,22 @@ public class ModelImpl implements Model {
     private static final double DISH_REL_HEIGHT = 0.02;
 
     private long lastCustomerTimeCreation;
-    private static final long CUSTOMERS_CREATION_TIME = 6000000000L;
+    private static final long CUSTOMERS_CREATION_TIME = 6000000000L; //TODO Converti in secondi
 
     private int coins;
     private int remainingTime;
     private int customersWhoLeft;
-    private GameState gameState;                                // stato di gioco
+    private GameState gameState;
+    private Controller controller;
 
-    private LinkedList<Customer> customers;                     // clienti
-    private LinkedList<Table> tables;                           // tavoli con eventuali clienti
-    private Countertop counterTop;                       // bancone con lista piatti
+    private LinkedList<Customer> customers;
+    private LinkedList<Table> tables;
+    private Countertop counterTop;
     private Chef chef;
-    private Waitress waitress;    
+    private Waitress waitress;
 
-    public ModelImpl() {
+    public ModelImpl(Controller controller) {
+        this.controller = controller;
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();        
         this.counterTop = new Countertop(this);
@@ -216,6 +219,7 @@ public class ModelImpl implements Model {
 
     public void decrementRemainingTime() {
         this.remainingTime--;
+        this.controller.timeIsChanged();
     }
 
     public int getRemainingTime() {

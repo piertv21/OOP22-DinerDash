@@ -23,6 +23,8 @@ public interface Controller {
 
     int getRemainingTime();
 
+    String convertToMinutesAndSeconds(int seconds);
+
     boolean gameOver();
 
     void addCustomer();
@@ -32,5 +34,7 @@ public interface Controller {
     int getRestaurantWidth();
 
     int getRestaurantHeight();
+
+    void timeIsChanged();
         
 }

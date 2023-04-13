@@ -21,7 +21,7 @@ public class ControllerImpl implements Controller {
     private GameTimer gameTimer;
     
     public ControllerImpl() {
-        this.model = new ModelImpl();
+        this.model = new ModelImpl(this);
     }
     
     @Override
@@ -35,7 +35,7 @@ public class ControllerImpl implements Controller {
         this.init();
         this.model.start();
 
-        this.gameLoop = new GameLoopImpl(model, this.gameView, this);
+        this.gameLoop = new GameLoopImpl(model, this);
         this.gameLoop.start();
 
         this.gameTimer = new GameTimer(this.model);
@@ -72,8 +72,8 @@ public class ControllerImpl implements Controller {
     public void syncChanges() {
         //TODO Sincronizza stato liste view con quelle model
 
-        // Stampare solo se ci son cambiamenti
-        this.gameView.render();
+        // Chiamare solo se ci son cambiamenti
+        // this.updateView();
     }
 
     @Override
@@ -106,6 +106,15 @@ public class ControllerImpl implements Controller {
     @Override
     public int getRestaurantHeight() {
         return this.model.getHeight();
+    }
+
+    @Override
+    public void timeIsChanged() {
+        this.updateView();
+    }
+
+    private void updateView() {
+        this.gameView.render();
     }
 
     @Override
