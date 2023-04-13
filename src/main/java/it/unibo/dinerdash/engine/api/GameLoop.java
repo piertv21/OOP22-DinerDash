@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.controller.api;
+package it.unibo.dinerdash.engine.api;
 
 public interface GameLoop {
 

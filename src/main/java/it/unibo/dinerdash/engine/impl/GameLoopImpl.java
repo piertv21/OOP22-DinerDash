@@ -1,8 +1,8 @@
-package it.unibo.dinerdash.controller.impl;
+package it.unibo.dinerdash.engine.impl;
 
 import java.util.concurrent.TimeUnit;
 
-import it.unibo.dinerdash.controller.api.GameLoop;
+import it.unibo.dinerdash.engine.api.GameLoop;
 import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.view.impl.GameView;
