@@ -256,7 +256,6 @@ public class ModelImpl implements Model {
 
     public boolean thereAreAvaibleTables() {
        return this.tables.stream().anyMatch(tab->tab.isFree());  
-      // return this.tables.stream().anyMatch(tab->tab.getCustomer().equals(Optional.empty().get()));
     }
     
     public Countertop getCounterTop() {
