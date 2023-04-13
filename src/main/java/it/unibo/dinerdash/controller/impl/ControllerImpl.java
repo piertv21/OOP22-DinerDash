@@ -42,7 +42,6 @@ public class ControllerImpl implements Controller {
 
         this.gameTimer = new GameTimer(this.model);
         gameTimer.startTimer();
-
     }
 
     @Override
@@ -50,6 +49,7 @@ public class ControllerImpl implements Controller {
         this.model.restart();
         this.gameView.init();
         this.gameTimer.restartTimer();
+        this.updateView();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ControllerImpl implements Controller {
         //TODO Sincronizza stato liste view con quelle model
 
         // Chiamare solo se ci son cambiamenti
-        // this.updateView();
+        this.updateView();
     }
 
     @Override
@@ -153,7 +153,8 @@ public class ControllerImpl implements Controller {
         
     }
 
-    public void setWaitresDestination(Pair<Integer,Integer> dest){
+    @Override
+    public void setWaitresDestination(Pair<Integer,Integer> dest) {
         this.model.setWaitressTableDestination(dest);
     }
 

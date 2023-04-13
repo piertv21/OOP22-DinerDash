@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import it.unibo.dinerdash.controller.impl.ControllerImpl;
+import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 
@@ -14,9 +14,9 @@ public class TableViewable extends GameEntityViewable {
 
     JButton tableStateIndicator;
     boolean showState;  // Mostra bottone
-    ControllerImpl contr;
+    Controller contr;
 
-    public TableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Image icon,ControllerImpl controller) {
+    public TableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Image icon, Controller controller) {
         super(coordinates, size, icon);
         this.tableStateIndicator = new JButton();
         this.showState = false;

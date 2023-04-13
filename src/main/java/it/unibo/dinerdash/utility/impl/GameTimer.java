@@ -6,7 +6,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.model.api.Model;
-import it.unibo.dinerdash.model.impl.ModelImpl;
 
 public class GameTimer {
 

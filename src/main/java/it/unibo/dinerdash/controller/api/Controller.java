@@ -1,5 +1,6 @@
 package it.unibo.dinerdash.controller.api;
 
+import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.View;
 import it.unibo.dinerdash.view.impl.GameView;
 
@@ -36,5 +37,7 @@ public interface Controller {
     int getRestaurantHeight();
 
     void timeIsChanged();
+
+    void setWaitresDestination(Pair<Integer,Integer> destination);
         
 }
