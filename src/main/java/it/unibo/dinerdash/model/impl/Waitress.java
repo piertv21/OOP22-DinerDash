@@ -55,7 +55,9 @@ public class Waitress extends AbstractGameEntityMovable {
                 else if(state.equals(WaitressState.TAKING_MONEY)) {
                   int coin = this.model.getCoins();
                   this.model.setCoins(coin+30);
-                    state=WaitressState.WAITING;
+                  state=WaitressState.WAITING;
+                  int tableNum = model.getTablefromPositon(getDestination().get()).getTableNumber();
+                  this.model.setTableState(TableState.EMPTY, tableNum);
                 }
                        
             }

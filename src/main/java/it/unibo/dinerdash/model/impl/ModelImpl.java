@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+import javax.swing.text.html.Option;
+
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
@@ -172,8 +174,10 @@ public class ModelImpl implements Model {
         int customersMolteplicity=(int) (Math.random()* (4)) + 1;
         this.customers.add(new Customer(position, new Pair<>(WIDTH_SIZE_CUST, HEIGHT_SIZE_CUST), this,customersMolteplicity)); 
         if(thereAreAvaibleTables()) {
+            System.out.println("assegno tavolo");
             AssegnoTavolo( this.customers.getLast());
         } else {
+            System.out.println("posto in fiala");
             customers.getLast().setState(CustomerState.LINE);
             assegnoPostoFila(this.customers.getLast()); 
         }
@@ -233,7 +237,7 @@ public class ModelImpl implements Model {
     public void AssegnoTavolo(Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         cus.setDestination(Optional.ofNullable(
             this.tables.stream()
-            .filter(tav->tav.isFree())
+            .filter(tav->tav.getCustomer().isEmpty())
             .findFirst()
             .get()
             .getPosition()
@@ -242,8 +246,8 @@ public class ModelImpl implements Model {
         .filter(entry -> entry.getPosition().equals(cus.getDestination().get()))   
         .findFirst()
         .orElse(null);
-        tab.setCustom(cus);
-        tab.setOccupy();
+        tab.setCustom(Optional.of(cus));
+       // tab.setOccupy();
     } 
 
     public void assegnoPostoFila(Customer cus) {
@@ -259,8 +263,7 @@ public class ModelImpl implements Model {
     }
 
     public boolean thereAreAvaibleTables() {
-       return this.tables.stream().anyMatch(tab->tab.isFree());  
-      // return this.tables.stream().anyMatch(tab->tab.getCustomer().equals(Optional.empty().get()));
+       return this.tables.stream().anyMatch(tab->tab.getCustomer().isEmpty());  
     }
     
     public Countertop getCounterTop() {
@@ -307,6 +310,10 @@ public class ModelImpl implements Model {
 
     public void setTableState(TableState state,int numberTable) {    // pongo il tavolo in modalito ordering a gli assegno il numero di clienti
         this.tables.get(numberTable-1).setState(state);
+        if(state.equals(TableState.EMPTY)){
+            this.tables.get(numberTable-1).setSeatedPeople(0);
+            this.tables.get(numberTable-1).setCustom(Optional.empty());
+        }
     }
     public void setTableCustomers(int customersMolteplicity,int numberTable) {
         this.tables.get(numberTable-1).setSeatedPeople(customersMolteplicity);

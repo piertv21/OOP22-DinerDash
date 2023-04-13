@@ -71,8 +71,8 @@ public class Customer extends AbstractGameEntityMovable  {
             if(this.startAngryTime.isPresent()) {
                 if(model.checkFreeTables(this)) {
                     // vado a sedermi al tavolo
-                    this.state=CustomerState.WALKING;
                     this.model.AssegnoTavolo(this);
+                    this.state=CustomerState.WALKING;
                 }
                 else if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_GETANGRY) + this.startAngryTime.get()) {         //il cliente si arrabbia e se ne va
                     this.state=CustomerState.ANGRY;
