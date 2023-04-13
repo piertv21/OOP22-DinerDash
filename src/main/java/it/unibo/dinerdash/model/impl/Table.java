@@ -38,12 +38,12 @@ public class Table extends AbstractGameEntity {
         return this.isFree;     
     }
 
-    public void setCustom(Customer cs) {
-        this.customer = Optional.of(cs);
+    public void setCustom(Optional<Customer> cs) {
+        this.customer = cs;
     }
 
-    public Customer getCustomer(){
-        return this.customer.get();
+    public Optional<Customer> getCustomer(){
+        return this.customer;
     }
 
     public int getTableNumber(){

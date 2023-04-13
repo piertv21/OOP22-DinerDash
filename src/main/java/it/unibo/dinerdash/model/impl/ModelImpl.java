@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+import javax.swing.text.html.Option;
+
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.api.Model;
@@ -238,7 +240,7 @@ public class ModelImpl implements Model {
         .filter(entry -> entry.getPosition().equals(cus.getDestination().get()))   
         .findFirst()
         .orElse(null);
-        tab.setCustom(cus);
+        tab.setCustom(Optional.of(cus));
         tab.setOccupy();
     } 
 
@@ -302,6 +304,10 @@ public class ModelImpl implements Model {
 
     public void setTableState(TableState state,int numberTable) {    // pongo il tavolo in modalito ordering a gli assegno il numero di clienti
         this.tables.get(numberTable-1).setState(state);
+        if(state.equals(TableState.EMPTY)){
+            this.tables.get(numberTable-1).setSeatedPeople(0);
+            this.tables.get(numberTable-1).setCustom(Optional.empty());
+        }
     }
     public void setTableCustomers(int customersMolteplicity,int numberTable) {
         this.tables.get(numberTable-1).setSeatedPeople(customersMolteplicity);
