@@ -80,6 +80,8 @@ public class ModelImpl implements Model {
       var position = new Pair<>(x, y);
       this.tables.add(new Table(position,new Pair<>(0, 0), 1)); 
 
+      //TODO Cambia in ciclo che date le coordinate del primo
+      //li disegna tutti 2 sopra e 2 sotto
       x = RESTAURANT_WIDTH - (RESTAURANT_WIDTH/6);
       y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/4);
       position = new Pair<>(x, y);
@@ -159,11 +161,6 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void serveDish() {
-        //TODO
-    }
-
-    @Override
     public void addCustomer() {
         if(this.gameOver()) {
             this.stop();
@@ -176,6 +173,13 @@ public class ModelImpl implements Model {
         } else {
             customers.getLast().setState(CustomerState.LINE);
             assegnoPostoFila(this.customers.getLast()); 
+        }
+    }
+
+    @Override
+    public void customerLeft() {
+        if(!this.gameOver()) {
+            this.customersWhoLeft++;
         }
     }
 
@@ -216,12 +220,6 @@ public class ModelImpl implements Model {
 
     public int getRemainingTime() {
         return this.remainingTime;
-    }
-
-    public void customerLeft() {
-        if(!this.gameOver()) {
-            this.customersWhoLeft++;
-        }
     }
 
     public LinkedList<Customer> getCustomers() {

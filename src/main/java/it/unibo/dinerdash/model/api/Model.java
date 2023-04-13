@@ -1,7 +1,5 @@
 package it.unibo.dinerdash.model.api;
 
-import it.unibo.dinerdash.model.impl.Dish;
-
 public interface Model {
 
     int getWidth();
@@ -14,8 +12,6 @@ public interface Model {
 
     void stop();
 
-    void serveDish();
-
     void sendOrder(int tableNumber);
 
     boolean gameOver();
@@ -25,5 +21,7 @@ public interface Model {
     void quit();
 
     void addCustomer();
+
+    void customerLeft();
 
 }
