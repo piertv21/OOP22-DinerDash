@@ -312,6 +312,9 @@ public class ModelImpl implements Model {
         this.tables.get(numberTable-1).setState(state);
         if(state.equals(TableState.EMPTY)){
             this.tables.get(numberTable-1).setSeatedPeople(0);
+            int indiceCustomerInList = this.customers.indexOf(tables.get(numberTable-1).getCustomer().get());  // da usare per cancellare elem in lista view
+            this.customers.remove(this.tables.get(numberTable-1).getCustomer().get());
+            this.tables.get(numberTable-1).setCustom(Optional.empty());
             this.tables.get(numberTable-1).setCustom(Optional.empty());
         }
     }
