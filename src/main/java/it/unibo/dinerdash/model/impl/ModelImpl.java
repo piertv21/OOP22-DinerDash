@@ -75,28 +75,20 @@ public class ModelImpl implements Model {
         this.clear();
 
         // Tavoli
-      // Tavoli
-      var x = RESTAURANT_WIDTH - (RESTAURANT_WIDTH/6);
-      var y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/2);
-      var position = new Pair<>(x, y);
-      this.tables.add(new Table(position,new Pair<>(0, 0), 1)); 
-
-      //TODO Cambia in ciclo che date le coordinate del primo
-      //li disegna tutti 2 sopra e 2 sotto
-      x = RESTAURANT_WIDTH - (RESTAURANT_WIDTH/6);
-      y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/4);
-      position = new Pair<>(x, y);
-      this.tables.add(new Table(position,new Pair<>(0, 0), 2)); 
-
-      x = RESTAURANT_WIDTH - 3*(RESTAURANT_WIDTH/6);
-      y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/2);
-      position = new Pair<>(x, y);
-      this.tables.add(new Table(position,new Pair<>(0, 0), 3));
-
-      x = RESTAURANT_WIDTH - 3*(RESTAURANT_WIDTH/6);
-      y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/4);
-      position = new Pair<>(x, y);
-      this.tables.add(new Table(position,new Pair<>(0, 0), 4));
+        var x=0;
+        var y=0;
+        for (int i = 1, j=1; i <= 4; i++) {
+            if(i<3){
+            x = RESTAURANT_WIDTH - (RESTAURANT_WIDTH/6);
+            y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/(i*2));
+            }else{
+            x = RESTAURANT_WIDTH - 3*(RESTAURANT_WIDTH/6);
+            y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/(j*2));
+            j++;
+            }
+            var position = new Pair<>(x, y);
+            this.tables.add(new Table(position,new Pair<>(0, 0), i));
+        }
 
         // Chef
         var chefPosition = new Pair<>((int)(CHEF_REL_X * RESTAURANT_WIDTH), (int)(CHEF_REL_Y * RESTAURANT_HEIGHT));
@@ -188,6 +180,7 @@ public class ModelImpl implements Model {
     public void update(long elapsedUpdateTime) {
         if(!this.gameOver()) {  
             if((System.nanoTime()>=this.lastCustomerTimeCreation+CUSTOMERS_CREATION_TIME)&&(this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)){
+                //this.tables.forEach(t->System.out.println(t.getPosition()));
                 this.addCustomer();
                 this.lastCustomerTimeCreation =System.nanoTime(); 
             }        
