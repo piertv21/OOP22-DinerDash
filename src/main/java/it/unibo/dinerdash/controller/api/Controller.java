@@ -17,6 +17,8 @@ public interface Controller {
 
     void quit();
 
+    void syncChanges();
+
     int getCoins();
 
     int getRemainingTime();

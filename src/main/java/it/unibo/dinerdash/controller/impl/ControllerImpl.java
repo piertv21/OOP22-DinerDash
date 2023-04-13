@@ -35,7 +35,7 @@ public class ControllerImpl implements Controller {
         this.init();
         this.model.start();
 
-        this.gameLoop = new GameLoopImpl(model, this.gameView);
+        this.gameLoop = new GameLoopImpl(model, this.gameView, this);
         this.gameLoop.start();
 
         this.gameTimer = new GameTimer(this.model);
@@ -66,6 +66,14 @@ public class ControllerImpl implements Controller {
     public void quit() {
         this.view.quit();
         System.exit(0);
+    }
+
+    @Override
+    public void syncChanges() {
+        //TODO Sincronizza stato liste view con quelle model
+
+        // Stampare solo se ci son cambiamenti
+        this.gameView.render();
     }
 
     @Override

@@ -2,6 +2,7 @@ package it.unibo.dinerdash.engine.impl;
 
 import java.util.concurrent.TimeUnit;
 
+import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
 import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
@@ -14,6 +15,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
 
     private ModelImpl model;
     private GameView view;
+    private Controller controller;
 
     private boolean running;
     private long lastTime;
@@ -21,9 +23,10 @@ public class GameLoopImpl implements GameLoop, Runnable {
 
     private Thread thread;
 
-    public GameLoopImpl(ModelImpl model, GameView view) {
+    public GameLoopImpl(ModelImpl model, GameView view, Controller controller) {
         this.model = model;
         this.view = view;
+        this.controller = controller;
     }
 
     public void start() {
@@ -66,10 +69,10 @@ public class GameLoopImpl implements GameLoop, Runnable {
                     model.update(elapsedTime);
                 }
 
-                // Ridisegna la vista
-                synchronized (view) {
-                    view.render();
+                synchronized (controller) {
+                    controller.syncChanges();
                 }
+
 
                 delta--;
                 fps++;
