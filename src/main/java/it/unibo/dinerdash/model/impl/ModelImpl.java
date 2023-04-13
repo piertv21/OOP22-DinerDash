@@ -23,6 +23,7 @@ public class ModelImpl implements Model {
     private static double FIRST_LINE_POS_REL_Y = 0.67 * RESTAURANT_HEIGHT;
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
+    private static final int MAX_CUSTOMERS_THAT_CAN_ENTER = 8;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
     private static final double PROFIT_MULTIPLIER = 2.0;
     private static final int MAX_PLAYTIME = 5 * 60;
@@ -180,9 +181,7 @@ public class ModelImpl implements Model {
 
     public void update(long elapsedUpdateTime) {
         if(!this.gameOver()) {  
-            if(System.nanoTime()>=this.lastCustomerTimeCreation+CUSTOMERS_CREATION_TIME){
-                System.out.println("creo customer");
-                //this.tables.forEach(t->System.out.println(t.getPosition()));    DA TOGLIERE
+            if((System.nanoTime()>=this.lastCustomerTimeCreation+CUSTOMERS_CREATION_TIME)&&(this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)){
                 this.addCustomer();
                 this.lastCustomerTimeCreation =System.nanoTime(); 
             }        
@@ -259,6 +258,7 @@ public class ModelImpl implements Model {
 
     public boolean thereAreAvaibleTables() {
        return this.tables.stream().anyMatch(tab->tab.isFree());  
+      // return this.tables.stream().anyMatch(tab->tab.getCustomer().equals(Optional.empty().get()));
     }
     
     public Countertop getCounterTop() {
@@ -266,14 +266,12 @@ public class ModelImpl implements Model {
     }
 
     public void leaveRestaurant(Customer cus){
-        synchronized(this.customers){  
         this.customers.remove(cus);
         this.customerLeft();
         this.customers.stream()
         .filter(p->p.getState().equals(CustomerState.LINE)).forEach((p)->{
             p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY()+25));
-        }); 
-    }     
+        });  
     }
 
     public boolean checkFreeTables(Customer cus){   //i clientei in fila controllano se si è liberato un tavolo
