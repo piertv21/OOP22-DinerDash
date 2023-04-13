@@ -2,10 +2,6 @@ package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
 import java.util.Optional;
-import java.util.stream.IntStream;
-
-import javax.swing.text.html.Option;
-
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
@@ -190,6 +186,7 @@ public class ModelImpl implements Model {
         }
     }
 
+    @Override
     public void update(long elapsedUpdateTime) {
         if(!this.gameOver()) {  
             if((System.nanoTime()>=this.lastCustomerTimeCreation+CUSTOMERS_CREATION_TIME)&&(this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)){
@@ -213,6 +210,7 @@ public class ModelImpl implements Model {
         }
     }
 
+    @Override
     public int getCoins() {
         return this.coins;
     }
@@ -221,17 +219,20 @@ public class ModelImpl implements Model {
         this.coins = coins;
     }
 
+    @Override
     public void decrementRemainingTime() {
         this.remainingTime--;
         this.controller.timeIsChanged();
     }
 
+    @Override
     public int getRemainingTime() {
         return this.remainingTime;
     }
 
+    @Override
     public LinkedList<Customer> getCustomers() {
-        return this.customers;
+        return this.customers; //TODO Copia difensiva
     }
 
     public void AssegnoTavolo(Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
@@ -265,7 +266,8 @@ public class ModelImpl implements Model {
     public boolean thereAreAvaibleTables() {
        return this.tables.stream().anyMatch(tab->tab.getCustomer().isEmpty());  
     }
-    
+
+    @Override
     public Countertop getCounterTop() {
         return counterTop;
     }
@@ -289,15 +291,18 @@ public class ModelImpl implements Model {
     } 
     }
 
+    @Override
     public GameState getGameState() {
         return this.gameState;
     }
 
+    @Override
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
 
-    public void setWaitressTableDestination(Pair<Integer,Integer> dest){    //assegno la destinazione del tavo alla cameriera
+    @Override
+    public void setWaitressTableDestination(Pair<Integer,Integer> dest) {    //assegno la destinazione del tavo alla cameriera
         if(!(this.waitress.getState().equals(WaitressState.CALLING))) {
             this.waitress.setDestination(Optional.of(dest));
             this.waitress.setState(WaitressState.CALLING);

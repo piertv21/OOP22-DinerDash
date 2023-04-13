@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class Countertop {
@@ -18,9 +19,9 @@ public class Countertop {
     private static final int MAX_COUNTERTOP_DISHES = 4;
 
     private LinkedList<Dish> dishes;
-    private ModelImpl model;
+    private Model model;
 
-    public Countertop(ModelImpl model) {
+    public Countertop(Model model) {
         this.model = model;
         this.dishes = new LinkedList<>();
     }

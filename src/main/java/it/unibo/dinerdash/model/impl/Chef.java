@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.model.api.AbstractGameEntity;
+import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -18,9 +19,9 @@ public class Chef extends AbstractGameEntity {
     private Optional<Dish> currentDish;
     private Optional<Long> timeDishReady;
     private int enabledPowerUps;
-    private ModelImpl model;
+    private Model model;
 
-    public Chef(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, ModelImpl model) {
+    public Chef(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model) {
         super(coordinates, size);
         this.setActive(false);
         this.currentDish = Optional.empty();

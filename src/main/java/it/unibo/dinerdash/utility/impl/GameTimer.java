@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 
 public class GameTimer {
@@ -14,9 +15,9 @@ public class GameTimer {
 
     private Optional<ScheduledExecutorService> executorService;
     private Runnable updateTask;
-    private ModelImpl model;
+    private Model model;
 
-    public GameTimer(ModelImpl model) {
+    public GameTimer(Model model) {
         this.model = model;
         this.executorService = Optional.empty();
     }

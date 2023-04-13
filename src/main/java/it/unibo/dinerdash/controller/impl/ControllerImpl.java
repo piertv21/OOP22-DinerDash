@@ -2,8 +2,10 @@ package it.unibo.dinerdash.controller.impl;
 
 import java.util.LinkedList;
 import it.unibo.dinerdash.controller.api.Controller;
+import it.unibo.dinerdash.engine.api.GameLoop;
 import it.unibo.dinerdash.engine.impl.GameLoopImpl;
 import it.unibo.dinerdash.model.api.GameState;
+import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.utility.impl.GameTimer;
@@ -14,10 +16,10 @@ import it.unibo.dinerdash.view.impl.GameView;
 
 public class ControllerImpl implements Controller {
 
-    private ModelImpl model;
+    private Model model;
     private View view;
     private GameView gameView;
-    private GameLoopImpl gameLoop;
+    private GameLoop gameLoop;
     private GameTimer gameTimer;
     
     public ControllerImpl() {
@@ -127,6 +129,7 @@ public class ControllerImpl implements Controller {
         //TODO
     }
 
+    @Override
     public String convertToMinutesAndSeconds(int seconds) {
         int minutes = seconds / 60;
         int remainingSeconds = seconds % 60;
