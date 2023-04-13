@@ -182,11 +182,16 @@ public class ModelImpl implements Model {
         if(!this.gameOver()) {  
             if(System.nanoTime()>=this.lastCustomerTimeCreation+CUSTOMERS_CREATION_TIME){
                 System.out.println("creo customer");
-                this.tables.forEach(t->System.out.println(t.getPosition()));
+                //this.tables.forEach(t->System.out.println(t.getPosition()));    DA TOGLIERE
                 this.addCustomer();
                 this.lastCustomerTimeCreation =System.nanoTime(); 
             }        
             this.chef.update();
+            var customIterator= this.customers.iterator();
+            while(customIterator.hasNext()){
+                customIterator.next().update(elapsedUpdateTime);
+        } 
+            
             /*
                 waitress.update(elapsedUpdateTime); //aggiornamento posizione + altro
                 for (Customer customer : customers) { //aggiornamento posizione + altro
@@ -236,9 +241,8 @@ public class ModelImpl implements Model {
         .filter(entry -> entry.getPosition().equals(cus.getDestination().get()))   
         .findFirst()
         .orElse(null);
-        //.setCustom(cus);
         tab.setCustom(cus);
-       // tab.setOccupy();
+        tab.setOccupy();
     } 
 
     public void assegnoPostoFila(Customer cus) {
@@ -262,18 +266,17 @@ public class ModelImpl implements Model {
     }
 
     public void leaveRestaurant(Customer cus){
-        synchronized(this.customers){
+        synchronized(this.customers){  
         this.customers.remove(cus);
         this.customerLeft();
-                   // forse saranno da invertire
         this.customers.stream()
         .filter(p->p.getState().equals(CustomerState.LINE)).forEach((p)->{
             p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY()+25));
-        });   
+        }); 
     }     
     }
 
-    public boolean checkFreeTables(Customer cus){
+    public boolean checkFreeTables(Customer cus){   //i clientei in fila controllano se si è liberato un tavolo
         synchronized(this.customers){
         if(this.customers.stream()          // se questo cliente è il primo della fila
         .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)){

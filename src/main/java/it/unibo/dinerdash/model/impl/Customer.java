@@ -15,7 +15,7 @@ public class Customer extends AbstractGameEntityMovable  {
 
     private static final int TIME_BEFORE_GETANGRY = 16;
     private static final int TIME_BEFORE_ORDERING = 4;
-    private static final int SPEED = 1;
+    private static final int SPEED = 3;
     private CustomerState state;
     private ModelImpl model;
     private int numClienti;
@@ -51,7 +51,7 @@ public class Customer extends AbstractGameEntityMovable  {
             if((getPosition().getX() >= this.getDestination().get().getX()) &&
             ((getPosition().getY() <= this.getDestination().get().getY() + 4) &&
             (getPosition().getY() >= this.getDestination().get().getY() - 4)))     //creo una hitbox del tavolo
-            {                          
+            {                        
                 this.startThinkTime = System.nanoTime();                                                 
                     state = CustomerState.THINKING;
                     this.setPosition(this.getDestination().get());

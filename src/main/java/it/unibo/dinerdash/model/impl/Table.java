@@ -35,7 +35,7 @@ public class Table extends AbstractGameEntity {
     }
 
     public boolean isFree() {
-        return this.isFree = true;       
+        return this.isFree;     
     }
 
     public void setCustom(Customer cs) {
