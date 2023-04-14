@@ -30,7 +30,7 @@ public class ModelImpl implements Model {
     private static final double PROFIT_MULTIPLIER = 2.0;
     private static final int MAX_PLAYTIME = 5 * 60;
 
-    private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
+    private static final int SPACE_BETWEEN_LINE_PEOPLE = 100;
     private static final int TABLES = 4;
     private static final double STARTING_TABLE_REL_X = 0.3 * RESTAURANT_WIDTH;
     private static final double STARTING_TABLE_REL_Y = 0.5 * RESTAURANT_HEIGHT;
@@ -232,7 +232,7 @@ public class ModelImpl implements Model {
             .filter(p->p.getState()
             .equals(CustomerState.LINE))
             .forEach((p) -> {
-                p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY()+25));
+                p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY() + SPACE_BETWEEN_LINE_PEOPLE));
              });
         }
     }

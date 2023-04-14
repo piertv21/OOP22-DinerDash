@@ -119,6 +119,7 @@ public class ControllerImpl implements Controller {
     }
 
     private void updateView() {
+        this.updateListPosition();
         this.gameView.render();
     }
 
