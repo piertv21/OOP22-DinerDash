@@ -176,11 +176,9 @@ public class ModelImpl implements Model {
         }
     }
 
-    @Override
     public void update(long elapsedUpdateTime) {
         if(!this.gameOver()) {  
             if((System.nanoTime()>=this.lastCustomerTimeCreation+CUSTOMERS_CREATION_TIME)&&(this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)){
-                //this.tables.forEach(t->System.out.println(t.getPosition()));
                 this.addCustomer();
                 this.lastCustomerTimeCreation =System.nanoTime(); 
             }        
@@ -201,7 +199,6 @@ public class ModelImpl implements Model {
         }
     }
 
-    @Override
     public int getCoins() {
         return this.coins;
     }
@@ -210,22 +207,21 @@ public class ModelImpl implements Model {
         this.coins = coins;
     }
 
-    @Override
     public void decrementRemainingTime() {
         this.remainingTime--;
         this.controller.timeIsChanged();
     }
 
-    @Override
     public int getRemainingTime() {
         return this.remainingTime;
     }
 
     @Override
     public LinkedList<Customer> getCustomers() {
-        return this.customers; //TODO Copia difensiva
+        return this.customers;
     }
 
+    @Override
     public void AssegnoTavolo(Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         cus.setDestination(Optional.ofNullable(
             this.tables.stream()
@@ -241,6 +237,7 @@ public class ModelImpl implements Model {
         tab.setCustom(Optional.of(cus));
     } 
 
+    @Override
     public void assegnoPostoFila(Customer cus) {
        int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
        if(inLineCustm!=1) {
@@ -256,12 +253,12 @@ public class ModelImpl implements Model {
     public boolean thereAreAvaibleTables() {
        return this.tables.stream().anyMatch(tab->tab.getCustomer().isEmpty());  
     }
-
-    @Override
+    
     public Countertop getCounterTop() {
         return counterTop;
     }
 
+    @Override
     public void leaveRestaurant(Customer cus){
         this.customers.remove(cus);
         this.customerLeft();
@@ -271,6 +268,7 @@ public class ModelImpl implements Model {
         });  
     }
 
+    @Override
     public boolean checkFreeTables(Customer cus){   //i clientei in fila controllano se si è liberato un tavolo
         synchronized(this.customers){
         if(this.customers.stream()          // se questo cliente è il primo della fila
@@ -281,18 +279,15 @@ public class ModelImpl implements Model {
     } 
     }
 
-    @Override
     public GameState getGameState() {
         return this.gameState;
     }
 
-    @Override
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
 
-    @Override
-    public void setWaitressTableDestination(Pair<Integer,Integer> dest) {    //assegno la destinazione del tavo alla cameriera
+    public void setWaitressTableDestination(Pair<Integer,Integer> dest){    //assegno la destinazione del tavo alla cameriera
         if(!(this.waitress.getState().equals(WaitressState.CALLING))) {
             this.waitress.setDestination(Optional.of(dest));
             this.waitress.setState(WaitressState.CALLING);
@@ -313,7 +308,8 @@ public class ModelImpl implements Model {
             this.tables.get(numberTable-1).setCustom(Optional.empty());
         }
     }
-    public void setTableCustomers(int customersMolteplicity,int numberTable) {
+    @Override
+    public void setTableCustomers(int customersMolteplicity,int numberTable) {   //assegna il numero di persone sedute al tavolo
         this.tables.get(numberTable-1).setSeatedPeople(customersMolteplicity);
     }
     

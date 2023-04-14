@@ -48,4 +48,14 @@ public interface Model {
 
     void setWaitressTableDestination(Pair<Integer,Integer> destination);
 
+    boolean checkFreeTables(Customer cus);
+
+    void leaveRestaurant(Customer cus);
+
+    void assegnoPostoFila(Customer cus);
+
+    void AssegnoTavolo(Customer cus);
+
+    void setTableCustomers(int customersMolteplicity,int numberTable);
+
 }
