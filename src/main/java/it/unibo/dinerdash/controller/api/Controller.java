@@ -30,6 +30,8 @@ public interface Controller {
 
     void addCustomer(int customNumber);
 
+    void removeCustomer(int indexValue);
+
     void resizeEntities();
 
     int getRestaurantWidth();

@@ -255,6 +255,10 @@ public class GameView extends GamePanel {
         this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num + ".png").getImage());
     }
 
+    public void removeCustomerViewable(int indexVal) {              //rimuovo l'elemento customers[indexVal]
+        this.customers.remove(indexVal);
+    }
+
     public void addDish() {
         //TODO
     }

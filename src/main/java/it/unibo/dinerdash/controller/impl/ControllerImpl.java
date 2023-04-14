@@ -99,6 +99,11 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
+    public void removeCustomer(int indexValue) {
+        this.gameView.removeCustomerViewable(indexValue);
+    }
+
+    @Override
     public int getRestaurantWidth() {
         return this.model.getWidth();
     }
@@ -155,5 +160,6 @@ public class ControllerImpl implements Controller {
     public void setWaitressDestination(Pair<Integer,Integer> dest) {
         this.model.setWaitressTableDestination(dest);
     }
+
 
 }
