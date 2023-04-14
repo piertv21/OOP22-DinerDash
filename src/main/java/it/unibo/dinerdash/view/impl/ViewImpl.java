@@ -20,8 +20,7 @@ public class ViewImpl extends JFrame implements View {
     public static final int MIN_HEIGHT = 600;
 
     private Controller controller;
-    private GamePanel menuView;
-    private GamePanel gameView;
+    private GamePanel currentView;
 
     private double widthRatio;
     private double heightRatio;
@@ -29,8 +28,6 @@ public class ViewImpl extends JFrame implements View {
     public ViewImpl(Controller controller) {
         super(FRAME_NAME);
         this.controller = controller;
-        this.menuView = null;
-        this.gameView = null;
         
         this.widthRatio = 0;
         this.heightRatio = 0;
@@ -50,26 +47,30 @@ public class ViewImpl extends JFrame implements View {
             }
         });
 
-        this.showMainMenu();
+        this.showStartView();
         this.setVisible(true);
     }
 
     @Override
-    public void showMainMenu() {
-        this.menuView = new StartView(this);
-        this.gameView = null;
-        
-        this.setContentPane(menuView);
-        this.validate();
-        this.repaint();
+    public void showStartView() {
+        this.currentView = new StartView(this);
+        this.refreshView();
     }
 
     @Override
-    public void startGame() {
-        this.menuView = null;
-        this.gameView = new GameView(this);
-        
-        this.setContentPane(gameView);
+    public void showGameView() {
+        this.currentView = new GameView(this);
+        this.refreshView();
+    }
+
+    @Override
+    public void showGameOverView() {
+        this.currentView = new GameOverView(this);
+        this.refreshView();
+    }
+
+    private void refreshView() {
+        this.setContentPane(this.currentView);
         this.validate();
         this.repaint();
     }
@@ -86,7 +87,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void playAgain() {
-        this.startGame();
+        this.showGameView();
     }
 
     public double getWidthRatio(){

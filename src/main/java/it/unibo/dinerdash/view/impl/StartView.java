@@ -33,7 +33,7 @@ public class StartView extends GamePanel {
 
         gridBagConstraints.gridy = 1;
         startButton = new JButton(START);
-        startButton.addActionListener((e) -> this.getMainFrame().startGame());
+        startButton.addActionListener((e) -> this.getMainFrame().showGameView());
         startButton.setPreferredSize(new Dimension(300, 40));
         add(startButton, gridBagConstraints);
 
