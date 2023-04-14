@@ -4,9 +4,11 @@ import it.unibo.dinerdash.controller.api.Controller;
 
 public interface View {
 
-    void showMainMenu();
+    void showStartView();
 
-    void startGame();
+    void showGameView();
+
+    void showGameOverView();
 
     void playAgain();
 
