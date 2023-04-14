@@ -2,6 +2,7 @@ package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.controller.api.Controller;
@@ -52,7 +53,7 @@ public class ModelImpl implements Model {
     private static final int TABLE_REL_HEIGHT =50;
 
     private long lastCustomerTimeCreation;
-    private static final long CUSTOMERS_CREATION_TIME = 6000000000L; //TODO Converti in secondi
+    private static final int CUSTOMERS_CREATION_TIME = 6;
 
     private int coins;
     private int remainingTime;
@@ -171,6 +172,7 @@ public class ModelImpl implements Model {
         var position = new Pair<>(STARTING_X,  STARTING_Y); 
         int customersMolteplicity=(int) (Math.random()* (4)) + 1;
         this.customers.add(new Customer(position, new Pair<>(WIDTH_SIZE_CUST, HEIGHT_SIZE_CUST), this,customersMolteplicity)); 
+        this.controller.addCustomer(customersMolteplicity);   // aggiungo un cliente viewable nella lista    
         if(thereAreAvaibleTables()) {
             AssegnoTavolo( this.customers.getLast());
         } else {
@@ -188,13 +190,14 @@ public class ModelImpl implements Model {
 
     public void update(long elapsedUpdateTime) {
         if(!this.gameOver()) {  
-            if((System.nanoTime()>=this.lastCustomerTimeCreation+CUSTOMERS_CREATION_TIME)&&(this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)){
+            if((System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME))&&
+            (this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)){
                 this.addCustomer();
                 this.lastCustomerTimeCreation =System.nanoTime(); 
             }        
             this.chef.update();
             var customIterator= this.customers.iterator();
-            while(customIterator.hasNext()){
+            while(customIterator.hasNext()) {
                 customIterator.next().update(elapsedUpdateTime);
             } 
             this.checkAngryCustomers();
@@ -213,13 +216,18 @@ public class ModelImpl implements Model {
     @Override
     public void checkAngryCustomers() {
         if(this.customers.stream().anyMatch(p->p.getState().equals(CustomerState.ANGRY))){
-            this.customers.remove(this.customers.stream()
+            Customer tempCustomerToDelete=
+            this.customers.stream()
             .filter(p -> p.getState()
             .equals(CustomerState.ANGRY))
             .findFirst()
-            .get()); 
+            .get();
 
+            int indexToDelete =this.customers.indexOf(tempCustomerToDelete);
+            this.customers.remove(tempCustomerToDelete); 
+            this.controller.removeCustomer(indexToDelete);
             this.customerLeft();
+
             this.customers.stream()
             .filter(p->p.getState()
             .equals(CustomerState.LINE))

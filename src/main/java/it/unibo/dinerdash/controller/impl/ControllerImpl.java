@@ -140,6 +140,7 @@ public class ControllerImpl implements Controller {
         return formattedTime;
     }
 
+    @Override
     public LinkedList<Customer> getSittedCustomList(){             
         return this.model.getCustomers();
     }

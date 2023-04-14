@@ -1,5 +1,8 @@
 package it.unibo.dinerdash.controller.api;
 
+import java.util.LinkedList;
+
+import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.View;
 import it.unibo.dinerdash.view.impl.GameView;
@@ -41,5 +44,7 @@ public interface Controller {
     void timeIsChanged();
 
     void setWaitressDestination(Pair<Integer,Integer> destination);
+
+    LinkedList<Customer> getSittedCustomList();
         
 }

@@ -252,7 +252,7 @@ public class GameView extends GamePanel {
     
     public void addCustomerViewable(int num) {              //aggiungo l'immagine ai clienti appena creati
         this.customers.add(new GameEntityViewable(null, new Pair<>(0, 0), null));
-        this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num + ".png").getImage());
+        this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customers" + SEP + "customer" + num).getImage());
     }
 
     public void removeCustomerViewable(int indexVal) {              //rimuovo l'elemento customers[indexVal]
@@ -281,10 +281,10 @@ public class GameView extends GamePanel {
         //);
 
         // Customers
-        this.customers.forEach(c ->
+       /* this.customers.forEach(c ->
             g.drawImage(c.getIcon(), c.getPosition().getX(), c.getPosition().getY(), (int)(this.getMainFrame().getWidth() * 0.13), 
             (int)(this.getMainFrame().getHeight() * 0.18), this)
-        );
+        );*/ 
 
         // Chef
         // g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
