@@ -28,7 +28,7 @@ public interface Controller {
 
     boolean gameOver();
 
-    void addCustomer();
+    void addCustomer(int customNumber);
 
     void resizeEntities();
 

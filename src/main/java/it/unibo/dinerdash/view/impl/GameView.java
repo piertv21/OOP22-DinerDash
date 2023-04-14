@@ -306,4 +306,8 @@ public class GameView extends GamePanel {
     public LinkedList<GameEntityViewable> getViewableTable() {                
         return this.tables;
     }
+
+    public void addCustomerViewable(){
+        this.customers.add(new GameEntityViewable(null, new Pair<>(0, 0), null));
+    }
 }
