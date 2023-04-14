@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import it.unibo.dinerdash.model.impl.Countertop;
 import it.unibo.dinerdash.model.impl.Customer;
+import it.unibo.dinerdash.model.impl.Table;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Model {
@@ -50,12 +51,18 @@ public interface Model {
 
     boolean checkFreeTables(Customer cus);
 
-    void leaveRestaurant(Customer cus);
-
     void assegnoPostoFila(Customer cus);
 
     void AssegnoTavolo(Customer cus);
 
     void setTableCustomers(int customersMolteplicity,int numberTable);
+
+    void checkAngryCustomers();
+
+    boolean thereAreAvaibleTables();
+
+    Table getTablefromPositon(Pair<Integer,Integer> pos);
+
+    void setTableState(TableState state,int numberTable);
 
 }

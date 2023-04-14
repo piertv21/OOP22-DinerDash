@@ -290,10 +290,6 @@ public class GameView extends GamePanel {
         // g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
        
         // g.fillRect((int)(this.getMainFrame().getWidth()*0.04), (int)(this.getMainFrame().getHeight()*0.67), 100, 100);     primo posto in fila
-        g.fillRect(1067, 360,45, 45);
-        g.fillRect(1067, 540, 45, 45);
-        g.fillRect(641, 360, 45, 45);
-        g.fillRect(641, 540, 45, 45);
 
     }
 

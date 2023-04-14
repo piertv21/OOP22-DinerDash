@@ -186,7 +186,8 @@ public class ModelImpl implements Model {
             var customIterator= this.customers.iterator();
             while(customIterator.hasNext()){
                 customIterator.next().update(elapsedUpdateTime);
-        } 
+            } 
+            this.checkAngryCustomers();
             
             /*
                 waitress.update(elapsedUpdateTime); //aggiornamento posizione + altro
@@ -196,6 +197,25 @@ public class ModelImpl implements Model {
             */
         } else {
             this.stop();
+        }
+    }
+
+    @Override
+    public void checkAngryCustomers() {
+        if(this.customers.stream().anyMatch(p->p.getState().equals(CustomerState.ANGRY))){
+            this.customers.remove(this.customers.stream()
+            .filter(p -> p.getState()
+            .equals(CustomerState.ANGRY))
+            .findFirst()
+            .get()); 
+
+            this.customerLeft();
+            this.customers.stream()
+            .filter(p->p.getState()
+            .equals(CustomerState.LINE))
+            .forEach((p) -> {
+                p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY()+25));
+             });
         }
     }
 
@@ -241,15 +261,16 @@ public class ModelImpl implements Model {
     public void assegnoPostoFila(Customer cus) {
        int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
        if(inLineCustm!=1) {
-        cus.setPosition(new Pair<Integer,Integer>((int)FIRST_LINE_POS_REL_X,(int)((FIRST_LINE_POS_REL_Y)-(inLineCustm*SPACE_BETWEEN_LINE_PEOPLE)) ));
+        cus.setPosition(new Pair<Integer,Integer>((int)FIRST_LINE_POS_REL_X,(int)((FIRST_LINE_POS_REL_Y)-((inLineCustm-1)*SPACE_BETWEEN_LINE_PEOPLE)) ));
         }
-       else cus.setPosition(new Pair<Integer,Integer>((int)FIRST_LINE_POS_REL_X,(int)FIRST_LINE_POS_REL_Y));    
+       else cus.setPosition(new Pair<Integer,Integer>((int)FIRST_LINE_POS_REL_X,(int)FIRST_LINE_POS_REL_Y));   
     }
 
     public LinkedList<Table> getTable(){
         return this.tables;
     }
 
+    @Override
     public boolean thereAreAvaibleTables() {
        return this.tables.stream().anyMatch(tab->tab.getCustomer().isEmpty());  
     }
@@ -258,25 +279,16 @@ public class ModelImpl implements Model {
         return counterTop;
     }
 
-    @Override
-    public void leaveRestaurant(Customer cus){
-        this.customers.remove(cus);
-        this.customerLeft();
-        this.customers.stream()
-        .filter(p->p.getState().equals(CustomerState.LINE)).forEach((p)->{
-            p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY()+25));
-        });  
-    }
 
     @Override
     public boolean checkFreeTables(Customer cus){   //i clientei in fila controllano se si è liberato un tavolo
-        synchronized(this.customers){
+        
         if(this.customers.stream()          // se questo cliente è il primo della fila
         .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)){
            return this.thereAreAvaibleTables();
         }
         return false;
-    } 
+    
     }
 
     public GameState getGameState() {
@@ -294,10 +306,12 @@ public class ModelImpl implements Model {
         }
     }
     
+    @Override
     public Table getTablefromPositon(Pair<Integer,Integer> pos){           // ottengo il tavolo data la posizione
        return this.tables.stream().filter(t->t.getPosition().equals(pos)).findFirst().get();
     }
 
+    @Override
     public void setTableState(TableState state,int numberTable) {    // pongo il tavolo in modalito ordering a gli assegno il numero di clienti
         this.tables.get(numberTable-1).setState(state);
         if(state.equals(TableState.EMPTY)){
