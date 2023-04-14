@@ -250,8 +250,8 @@ public class GameView extends GamePanel {
         this.dishes.clear();
     }
     
-    //TODO da rivedere dopo model
     public void addCustomerViewable(int num) {              //aggiungo l'immagine ai clienti appena creati
+        this.customers.add(new GameEntityViewable(null, new Pair<>(0, 0), null));
         this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num + ".png").getImage());
     }
 
@@ -305,9 +305,5 @@ public class GameView extends GamePanel {
 
     public LinkedList<GameEntityViewable> getViewableTable() {                
         return this.tables;
-    }
-
-    public void addCustomerViewable(){
-        this.customers.add(new GameEntityViewable(null, new Pair<>(0, 0), null));
     }
 }
