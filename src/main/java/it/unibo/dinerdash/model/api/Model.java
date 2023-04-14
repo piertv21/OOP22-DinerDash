@@ -65,4 +65,6 @@ public interface Model {
 
     void setTableState(TableState state,int numberTable);
 
+    LinkedList<Table> getTable();
+
 }

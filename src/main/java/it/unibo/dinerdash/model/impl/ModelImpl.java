@@ -2,6 +2,8 @@ package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
 import java.util.Optional;
+import java.util.stream.IntStream;
+
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.GameState;
@@ -29,8 +31,8 @@ public class ModelImpl implements Model {
 
     private static final int SPACE_BETWEEN_LINE_PEOPLE = 25;
     private static final int TABLES = 4;
-    private static final double STARTING_TABLE_REL_X = 0.3;
-    private static final double STARTING_TABLE_REL_Y = 0.3;
+    private static final double STARTING_TABLE_REL_X = 0.3 * RESTAURANT_WIDTH;
+    private static final double STARTING_TABLE_REL_Y = 0.5 * RESTAURANT_HEIGHT;
     private static final int TABLES_PADDING = 250;
 
     private static final int STARTING_X = 0;
@@ -45,6 +47,9 @@ public class ModelImpl implements Model {
 
     private static final double DISH_REL_WIDTH = 0.05;
     private static final double DISH_REL_HEIGHT = 0.02;
+
+    private static final int TABLE_REL_WIDTH =50;
+    private static final int TABLE_REL_HEIGHT =50;
 
     private long lastCustomerTimeCreation;
     private static final long CUSTOMERS_CREATION_TIME = 6000000000L; //TODO Converti in secondi
@@ -73,29 +78,34 @@ public class ModelImpl implements Model {
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
         this.clear();
-
-        // Tavoli
-        var x=0;
-        var y=0;
-        for (int i = 1, j=1; i <= 4; i++) {
-            if(i<3){
-            x = RESTAURANT_WIDTH - (RESTAURANT_WIDTH/6);
-            y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/(i*2));
-            }else{
-            x = RESTAURANT_WIDTH - 3*(RESTAURANT_WIDTH/6);
-            y = RESTAURANT_HEIGHT - (RESTAURANT_HEIGHT/(j*2));
-            j++;
-            }
-            var position = new Pair<>(x, y);
-            this.tables.add(new Table(position,new Pair<>(0, 0), i));
-        }
-
+        this.generateTables();
+    
         // Chef
         var chefPosition = new Pair<>((int)(CHEF_REL_X * RESTAURANT_WIDTH), (int)(CHEF_REL_Y * RESTAURANT_HEIGHT));
         var chefSize = new Pair<>((int)(CHEF_REL_WIDTH * RESTAURANT_WIDTH), (int)(CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
         this.chef = new Chef(chefPosition, chefSize, this);
         
         this.lastCustomerTimeCreation = System.nanoTime(); 
+    }
+
+      // Tavoli
+      private void generateTables() {
+        double x = STARTING_TABLE_REL_X;
+        double y = STARTING_TABLE_REL_Y;
+
+        IntStream.range(0, TABLES)
+            .forEach(i -> {
+                Pair<Integer, Integer> coordinates;
+                Pair<Integer, Integer> size = new Pair<Integer,Integer>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
+
+                if (i < TABLES / 2) {
+                    coordinates = new Pair<>((int) (x + i * TABLES_PADDING), (int) y);
+                    this.tables.add(new Table(coordinates, size, i + 1));
+                } else {
+                    coordinates = new Pair<>((int) (x + i * TABLES_PADDING), (int) (y + TABLES_PADDING));
+                    this.tables.add(new Table(coordinates, size, i + 1 + TABLES / 2));
+                }
+            });
     }
 
     private void clear() {
