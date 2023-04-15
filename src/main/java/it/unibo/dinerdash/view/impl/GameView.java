@@ -282,7 +282,9 @@ public class GameView extends GamePanel {
         //);
         // Customers
         this.customers.forEach(c ->
-            g.drawImage(c.getIcon(), c.getPosition().getX(), c.getPosition().getY(), (int)(c.getSize().getX() * this.getMainFrame().getWidthRatio()), 
+            g.drawImage(c.getIcon(), (int)( c.getPosition().getX()*this.getMainFrame().getWidthRatio()),
+            (int) (c.getPosition().getY()* this.getMainFrame().getHeightRatio()),
+            (int)(c.getSize().getX() * this.getMainFrame().getWidthRatio()), 
             (int)(c.getSize().getY() * this.getMainFrame().getHeightRatio()), this)
         ); 
 
