@@ -172,7 +172,7 @@ public class ModelImpl implements Model {
         var position = new Pair<>(STARTING_X,  STARTING_Y); 
         int customersMolteplicity=(int) (Math.random()* (4)) + 1;
         this.customers.add(new Customer(position, new Pair<>(WIDTH_SIZE_CUST, HEIGHT_SIZE_CUST), this,customersMolteplicity)); 
-        this.controller.addCustomer(customersMolteplicity);   // aggiungo un cliente viewable nella lista    
+        this.controller.addCustomer(customersMolteplicity,new Pair<>(WIDTH_SIZE_CUST, HEIGHT_SIZE_CUST));   // aggiungo un cliente viewable nella lista    
         if(thereAreAvaibleTables()) {
             AssegnoTavolo( this.customers.getLast());
         } else {

@@ -68,6 +68,7 @@ public class GameView extends GamePanel {
         topPanel.setOpaque(false);
         topPanel.setPreferredSize(new Dimension(0, 30));
 
+
         var controller = this.getMainFrame().getController();
         timeLabel = new JLabel("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
         timeLabel.setFont(new Font("Arial", Font.BOLD, 20));
@@ -250,8 +251,8 @@ public class GameView extends GamePanel {
         this.dishes.clear();
     }
     
-    public void addCustomerViewable(int num) {              //aggiungo l'immagine ai clienti appena creati
-        this.customers.add(new GameEntityViewable(null, new Pair<>(0, 0), null));
+    public void addCustomerViewable(int num,Pair<Integer,Integer> size) {              //aggiungo l'immagine ai clienti appena creati
+        this.customers.add(new GameEntityViewable(null, size, null));
         this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customers" + SEP + "customer" + num).getImage());
     }
 
@@ -279,11 +280,10 @@ public class GameView extends GamePanel {
         //this.tables.forEach(e ->
         //    g.drawImage(e.getIcon(), e.getPosition().getX(), e.getPosition().getY(), 120, 180, this)
         //);
-
         // Customers
         this.customers.forEach(c ->
-            g.drawImage(c.getIcon(), c.getPosition().getX(), c.getPosition().getY(), (int)(this.getMainFrame().getWidth() * 0.13), 
-            (int)(this.getMainFrame().getHeight() * 0.18), this)
+            g.drawImage(c.getIcon(), c.getPosition().getX(), c.getPosition().getY(), (int)(c.getSize().getX() * this.getMainFrame().getWidthRatio()), 
+            (int)(c.getSize().getY() * this.getMainFrame().getHeightRatio()), this)
         ); 
 
         // Chef

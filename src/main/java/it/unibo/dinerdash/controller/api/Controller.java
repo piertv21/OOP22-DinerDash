@@ -31,7 +31,7 @@ public interface Controller {
 
     boolean gameOver();
 
-    void addCustomer(int customNumber);
+    void addCustomer(int customNumber,Pair<Integer,Integer> size);
 
     void removeCustomer(int indexValue);
 

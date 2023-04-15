@@ -16,7 +16,7 @@ public class Customer extends AbstractGameEntityMovable  {
 
     private static final int TIME_BEFORE_GETANGRY = 10;
     private static final int TIME_BEFORE_ORDERING = 4;
-    private static final int SPEED = 3;
+    private static final int SPEED = 5;
     private CustomerState state;
     private Model model;
     private int numClienti;

@@ -94,8 +94,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addCustomer(int customNumber) {
-        this.gameView.addCustomerViewable(customNumber);  
+    public void addCustomer(int customNumber, Pair<Integer,Integer> size) {
+        this.gameView.addCustomerViewable(customNumber,size);  
     }
 
     @Override
