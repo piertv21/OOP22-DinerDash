@@ -3,14 +3,16 @@ package it.unibo.dinerdash.utility.impl;
 import javax.swing.ImageIcon;
 import it.unibo.dinerdash.utility.api.ImageReader;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /*
  * Image Reader with Cache (Proxy Pattern)
  */
 public class ImageReaderWithCache implements ImageReader {
+
+    private static final String SEP = System.getProperty("file.separator");
 
     private ImageReader imageReader;
     private Map<String, ImageIcon> cachedImages;
@@ -32,13 +34,11 @@ public class ImageReaderWithCache implements ImageReader {
     }
 
     private String extractImageNameFromPath(String path) {
-        return Arrays.stream(path.split("/"))
-                .map(fileNameWithExtension -> {
-                    int dotIndex = fileNameWithExtension.lastIndexOf(".");
-                    return (dotIndex != -1) ? fileNameWithExtension.substring(0, dotIndex) : fileNameWithExtension;
-                })
-                .reduce((first, second) -> second)
-                .orElse("");
+        return Stream.of(path.trim())
+                .map(p -> p.substring(0, p.lastIndexOf(".")))
+                .map(p -> p.substring(p.lastIndexOf(SEP) + 1))
+                .findFirst()
+                .orElse(path);
     }    
 
     public ImageIcon getCachedImage(String name) {

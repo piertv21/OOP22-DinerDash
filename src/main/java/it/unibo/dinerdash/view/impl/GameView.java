@@ -223,7 +223,7 @@ public class GameView extends GamePanel {
         this.imageCacher.readImage("background.jpg");
 
         // Cache chef
-        this.imageCacher.readImage("chef.png");
+        this.imageCacher.readImage("chef.gif");
 
         // Cache waitress
         this.imageCacher.readImage("waitress.png");
@@ -253,7 +253,7 @@ public class GameView extends GamePanel {
     
     public void addCustomerViewable(int num,Pair<Integer,Integer> size) {              //aggiungo l'immagine ai clienti appena creati
         this.customers.add(new GameEntityViewable(null, size, null));
-        this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customers" + SEP + "customer" + num).getImage());
+        this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num).getImage());
     }
 
     public void removeCustomerViewable(int indexVal) {              //rimuovo l'elemento customers[indexVal]
