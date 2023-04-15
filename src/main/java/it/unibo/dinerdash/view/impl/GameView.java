@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import javax.swing.JButton;
@@ -257,6 +258,13 @@ public class GameView extends GamePanel {
         var path = "src" + SEP + "main" + SEP + "resources" + SEP + ROOT;
         var assetsPath = this.searchAssets(path);
         assetsPath.forEach(this.imageCacher::readImage);
+
+        // Init Tables List
+        IntStream.range(0, 4)
+        .forEach(i->{
+            this.tables.add(new GameEntityViewable(new Pair<Integer,Integer>(120, 180), new Pair<>(120,180), 
+            this.imageCacher.getCachedImage("tables" + SEP + "table" + 0).getImage()));
+        });
     }
 
     private void assignStartingImages() {
@@ -297,12 +305,15 @@ public class GameView extends GamePanel {
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
 
         // Waitress
-        g.drawImage(waitress.getIcon(), waitress.getPosition().getX(), waitress.getPosition().getY(), waitress.getSize().getX(), waitress.getSize().getY(), this);
+       g.drawImage(waitress.getIcon(),
+            (int)(waitress.getPosition().getX()*this.getMainFrame().getWidthRatio()),
+            (int)(waitress.getPosition().getY()*this.getMainFrame().getHeightRatio()),
+            (int)(waitress.getSize().getX()*this.getMainFrame().getWidthRatio()),
+            (int)(waitress.getSize().getY()*this.getMainFrame().getHeightRatio()), this);
 
         // Tables
-        //this.tables.forEach(e ->
-        //    g.drawImage(e.getIcon(), e.getPosition().getX(), e.getPosition().getY(), 120, 180, this)
-        //);
+        this.tables.stream().filter(t->t.getPosition()!=null).forEach(e ->
+        g.drawImage(e.getIcon(), e.getPosition().getX(), e.getPosition().getY(), e.getSize().getX(), e.getSize().getY(), this));
         
         // Customers
         this.customers.forEach(c ->
@@ -328,5 +339,9 @@ public class GameView extends GamePanel {
 
     public LinkedList<GameEntityViewable> getViewableTable() {                
         return this.tables;
+    }
+
+    public GameEntityViewable getViewableWaitress(){
+        return this.waitress;
     }
 }

@@ -155,6 +155,13 @@ public class ControllerImpl implements Controller {
                 // AGGIUNGI METODO CHE AGGIORNA POSIZIONI TAVOLI ,E CONTROLLO SE IL CLIENTE è IN THINKING ,POI SE IL NUMERO DI CLIENTI SEDUTI ED LA MOLTEPLIC DEL CLIENTE
                 // ALLEGATO SONO UGUALI,  SE NON LO SONO CAMBIA L'IMMAGINE DEL TAVOLO
         }
+        this.gameView.getViewableWaitress().update(model.getWaitress());
+
+        p=0;
+        for(var table: model.getTable()){
+            this.gameView.getViewableTable().get(p).update(table);
+            p++;
+        }
         
     }
 

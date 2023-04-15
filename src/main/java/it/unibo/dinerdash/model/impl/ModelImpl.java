@@ -3,6 +3,7 @@ package it.unibo.dinerdash.model.impl;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.controller.api.Controller;
@@ -40,6 +41,11 @@ public class ModelImpl implements Model {
     private static final int STARTING_Y = 500;
     private static final int HEIGHT_SIZE_CUST = 200;
     private static final int WIDTH_SIZE_CUST = 150;
+
+    private static final int HEIGH_SIZE_WAITRESS = 180;
+    private static final int WIDTH_SIZE_WAITRESS = 120;
+    private static final int WAITERSS_STARTING_X = 40;
+    private static final int WAITERSS_STARTING_Y = 120;
     
     private static final double CHEF_REL_X = 0.55;
     private static final double CHEF_REL_Y = 0.02;
@@ -86,27 +92,27 @@ public class ModelImpl implements Model {
         var chefSize = new Pair<>((int)(CHEF_REL_WIDTH * RESTAURANT_WIDTH), (int)(CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
         this.chef = new Chef(chefPosition, chefSize, this);
         
+        this.waitress = new Waitress(new Pair<Integer,Integer>(WAITERSS_STARTING_X, WAITERSS_STARTING_Y),
+        new Pair<Integer,Integer>(WIDTH_SIZE_WAITRESS, HEIGH_SIZE_WAITRESS));
+
         this.lastCustomerTimeCreation = System.nanoTime(); 
     }
 
-      // Tavoli
-      private void generateTables() {
-        double x = STARTING_TABLE_REL_X;
-        double y = STARTING_TABLE_REL_Y;
-
-        IntStream.range(0, TABLES)
-            .forEach(i -> {
-                Pair<Integer, Integer> coordinates;
-                Pair<Integer, Integer> size = new Pair<Integer,Integer>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
-
-                if (i < TABLES / 2) {
-                    coordinates = new Pair<>((int) (x + i * TABLES_PADDING), (int) y);
-                    this.tables.add(new Table(coordinates, size, i + 1));
-                } else {
-                    coordinates = new Pair<>((int) (x + i * TABLES_PADDING), (int) (y + TABLES_PADDING));
-                    this.tables.add(new Table(coordinates, size, i + 1 + TABLES / 2));
-                }
-            });
+    // Tavoli
+    private void generateTables() {
+        var tables = IntStream.range(0, TABLES / 2)
+        .boxed()
+        .flatMap(i -> IntStream.range(0, TABLES / 2)
+        .mapToObj(j -> {
+            int x = (int) (STARTING_TABLE_REL_X + j * TABLES_PADDING);
+            int y = (int) (STARTING_TABLE_REL_Y + i * TABLES_PADDING);
+            Pair<Integer, Integer> coordinates = new Pair<>(x, y);
+            Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
+            return new Table(coordinates, size, i + 1);
+        }))
+        .collect(Collectors.toList());
+        this.tables.addAll(tables);
+        this.tables.forEach(e -> System.out.println(e.getPosition().getX() + " " + e.getPosition().getY()));
     }
 
     private void clear() {
@@ -344,6 +350,10 @@ public class ModelImpl implements Model {
     @Override
     public void setTableCustomers(int customersMolteplicity,int numberTable) {   //assegna il numero di persone sedute al tavolo
         this.tables.get(numberTable-1).setSeatedPeople(customersMolteplicity);
+    }
+
+    public Waitress getWaitress(){
+        return this.waitress;
     }
     
 

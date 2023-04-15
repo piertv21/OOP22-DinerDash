@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import it.unibo.dinerdash.model.impl.Countertop;
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.Table;
+import it.unibo.dinerdash.model.impl.Waitress;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Model {
@@ -66,5 +67,7 @@ public interface Model {
     void setTableState(TableState state,int numberTable);
 
     LinkedList<Table> getTable();
+
+    Waitress getWaitress();
 
 }
