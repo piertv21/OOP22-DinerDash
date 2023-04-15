@@ -267,7 +267,7 @@ public class GameView extends GamePanel {
         this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(120, 180), this.imageCacher.getCachedImage("waitress").getImage());
     }
 
-    private void clear() {
+    public void clear() {
         this.customers.clear();
         this.tables.clear();
         this.dishes.clear();
@@ -290,7 +290,8 @@ public class GameView extends GamePanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //TODO Imposta size delle entità qui sotto
+        var widthRatio = this.getMainFrame().getWidthRatio();
+        var heightRatio = this.getMainFrame().getHeightRatio();
 
         // Background
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
@@ -302,12 +303,11 @@ public class GameView extends GamePanel {
         //this.tables.forEach(e ->
         //    g.drawImage(e.getIcon(), e.getPosition().getX(), e.getPosition().getY(), 120, 180, this)
         //);
+        
         // Customers
         this.customers.forEach(c ->
-            g.drawImage(c.getIcon(), (int)( c.getPosition().getX()*this.getMainFrame().getWidthRatio()),
-            (int) (c.getPosition().getY()* this.getMainFrame().getHeightRatio()),
-            (int)(c.getSize().getX() * this.getMainFrame().getWidthRatio()), 
-            (int)(c.getSize().getY() * this.getMainFrame().getHeightRatio()), this)
+            g.drawImage(c.getIcon(), (int)(c.getPosition().getX() * widthRatio), (int) (c.getPosition().getY() * heightRatio),
+                (int)(c.getSize().getX() * widthRatio), (int)(c.getSize().getY() * heightRatio), this)
         ); 
 
         // Chef

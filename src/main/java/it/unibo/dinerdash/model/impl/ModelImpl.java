@@ -150,6 +150,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void restart() {
+        this.init();
         this.start();
     }
 

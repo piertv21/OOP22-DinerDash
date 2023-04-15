@@ -47,7 +47,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void restart() {        
         this.model.restart();
-        this.gameView.init();
+        this.gameView.clear();
         this.gameTimer.restartTimer();
         this.updateView();
     }
