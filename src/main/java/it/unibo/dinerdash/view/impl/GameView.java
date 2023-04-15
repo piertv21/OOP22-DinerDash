@@ -306,7 +306,7 @@ public class GameView extends GamePanel {
 
         // Waitress
        g.drawImage(waitress.getIcon(),
-            (int)(waitress.getPosition().getX()*widthRatio)),
+            (int)(waitress.getPosition().getX()*widthRatio),
             (int)(waitress.getPosition().getY()*heightRatio),
             (int)(waitress.getSize().getX()*widthRatio),
             (int)(waitress.getSize().getY()*heightRatio), this);
