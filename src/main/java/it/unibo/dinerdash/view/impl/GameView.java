@@ -4,8 +4,14 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -163,6 +169,7 @@ public class GameView extends GamePanel {
             }
         });
 
+        this.init();
         this.start();
     }
 
@@ -194,7 +201,7 @@ public class GameView extends GamePanel {
         String[] options = {"Resume", "Restart", "Exit"};
         int result = JOptionPane.showOptionDialog(this, dialogPanel, "Pause", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
     
-       switch (result) {
+        switch (result) {
             case 1 -> this.getMainFrame().getController().restart();
             case 2 -> this.getMainFrame().getController().quit();
             default -> {
@@ -205,7 +212,6 @@ public class GameView extends GamePanel {
     }
 
     private void start() {
-        this.init();
         this.loadResources();
         this.assignStartingImages();
         this.getMainFrame().getController().start(this);
@@ -217,8 +223,35 @@ public class GameView extends GamePanel {
         this.dishes = new LinkedList<>();
         this.imageCacher = new ImageReaderWithCache(ROOT);
     }
+
+    // Restituisce lista di tutti assets presenti
+    private List<String> searchAssets(String path) {
+        return Optional.ofNullable(new File(path).listFiles())
+                .map(Arrays::stream)
+                .orElse(Stream.empty())
+                .flatMap(file -> getFilesRecursively(file))
+                .filter(file -> file.getName().toLowerCase().matches(".+\\.(jpg|jpeg|png|gif)$"))
+                .map(File::getName)
+                .collect(Collectors.toList());
+    }
+
+    // Stream di files nelle sottocartelle
+    private Stream<File> getFilesRecursively(File file) {
+        return file.isDirectory() ? Optional.ofNullable(file.listFiles())
+                .map(Arrays::stream)
+                .orElse(Stream.empty())
+                .flatMap(f -> getFilesRecursively(f))
+                : Stream.of(file);
+    }
     
     private void loadResources() {
+        var path = "src" + SEP + "main" + SEP + "resources" + SEP + ROOT;
+        var assetsPath = this.searchAssets(path);
+        
+        // TODO Non funziona la lettura pur passando solo i nomi
+        // assetsPath.forEach(System.out::println);
+        // assetsPath.forEach(e -> this.imageCacher.readImage(e));
+        
         // Load background
         this.imageCacher.readImage("background.jpg");
 
