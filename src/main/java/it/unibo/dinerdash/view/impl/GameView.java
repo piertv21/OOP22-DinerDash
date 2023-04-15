@@ -1,6 +1,8 @@
 package it.unibo.dinerdash.view.impl;
 
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -10,7 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import javax.swing.JButton;
@@ -63,6 +64,9 @@ public class GameView extends GamePanel {
     private GameEntityViewable waitress;
     private GameEntityViewable chef;
 
+    private Cursor defaultCursor;
+    private Cursor handCursor;
+
     public GameView(View mainFrame) {
         super(mainFrame);
 
@@ -73,7 +77,6 @@ public class GameView extends GamePanel {
         topPanel = new JPanel(new BorderLayout());
         topPanel.setOpaque(false);
         topPanel.setPreferredSize(new Dimension(0, 30));
-
 
         var controller = this.getMainFrame().getController();
         timeLabel = new JLabel("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
@@ -134,6 +137,13 @@ public class GameView extends GamePanel {
         
         add(rightPanel, BorderLayout.EAST);
 
+        this.init();
+        this.loadResources();
+
+        var point = new Point(0, 0);
+        this.defaultCursor = Toolkit.getDefaultToolkit().createCustomCursor(this.imageCacher.getCachedImage("defaultCursor").getImage(), point, "Default Cursor");
+        this.handCursor = Toolkit.getDefaultToolkit().createCustomCursor(this.imageCacher.getCachedImage("handCursor").getImage(), point, "Hand Cursor");
+
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
@@ -145,10 +155,10 @@ public class GameView extends GamePanel {
                 //ESEMPIO
                 if (inside(mouseX, mouseY, waitress)) {
                     // Il mouse è sopra la cameriera
-                    setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    setCursor(handCursor);
                 } else {
                     // Il mouse non è sopra la cameriera
-                    setCursor(Cursor.getDefaultCursor());
+                    setCursor(defaultCursor);
                 }
             }
         });
@@ -169,7 +179,7 @@ public class GameView extends GamePanel {
             }
         });
 
-        this.init();
+        this.render();
         this.start();
     }
 
@@ -212,7 +222,6 @@ public class GameView extends GamePanel {
     }
 
     private void start() {
-        this.loadResources();
         this.assignStartingImages();
         this.getMainFrame().getController().start(this);
     }
@@ -224,50 +233,30 @@ public class GameView extends GamePanel {
         this.imageCacher = new ImageReaderWithCache(ROOT);
     }
 
-    // Restituisce lista di tutti assets presenti
     private List<String> searchAssets(String path) {
         return Optional.ofNullable(new File(path).listFiles())
                 .map(Arrays::stream)
                 .orElse(Stream.empty())
-                .flatMap(file -> getFilesRecursively(file))
+                .flatMap(file -> getFilesRecursively(file, path))
                 .filter(file -> file.getName().toLowerCase().matches(".+\\.(jpg|jpeg|png|gif)$"))
-                .map(File::getName)
+                .map(File::getPath)
                 .collect(Collectors.toList());
     }
-
-    // Stream di files nelle sottocartelle
-    private Stream<File> getFilesRecursively(File file) {
+    
+    private Stream<File> getFilesRecursively(File file, String basePath) {
+        String filePath = file.getPath();
+        String relativePath = filePath.substring(basePath.length());
         return file.isDirectory() ? Optional.ofNullable(file.listFiles())
                 .map(Arrays::stream)
                 .orElse(Stream.empty())
-                .flatMap(f -> getFilesRecursively(f))
-                : Stream.of(file);
+                .flatMap(f -> getFilesRecursively(f, basePath))
+                : Stream.of(new File(relativePath));
     }
     
     private void loadResources() {
         var path = "src" + SEP + "main" + SEP + "resources" + SEP + ROOT;
         var assetsPath = this.searchAssets(path);
-        
-        // TODO Non funziona la lettura pur passando solo i nomi
-        // assetsPath.forEach(System.out::println);
-        // assetsPath.forEach(e -> this.imageCacher.readImage(e));
-        
-        // Load background
-        this.imageCacher.readImage("background.jpg");
-
-        // Cache chef
-        this.imageCacher.readImage("chef.gif");
-
-        // Cache waitress
-        this.imageCacher.readImage("waitress.png");
-
-        // Cache customers
-        IntStream.range(1, 5)
-            .forEach(i -> this.imageCacher.readImage("customers" + SEP + "customer" + i + ".png"));
-
-        // Cache tables
-        IntStream.range(0, 5)
-            .forEach(i -> this.imageCacher.readImage("tables" + SEP + "table" + i + ".png"));
+        assetsPath.forEach(this.imageCacher::readImage);
     }
 
     private void assignStartingImages() {
@@ -325,7 +314,6 @@ public class GameView extends GamePanel {
         // g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
        
         // g.fillRect((int)(this.getMainFrame().getWidth()*0.04), (int)(this.getMainFrame().getHeight()*0.67), 100, 100);     primo posto in fila
-
     }
 
     public void render() {
