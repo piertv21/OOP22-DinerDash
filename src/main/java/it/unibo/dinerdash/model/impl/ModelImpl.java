@@ -22,30 +22,33 @@ public class ModelImpl implements Model {
     private static final int RESTAURANT_WIDTH = 1280;
     private static final int RESTAURANT_HEIGHT = 720;
 
-    private static double FIRST_LINE_POS_REL_X = 0.04 * RESTAURANT_WIDTH;
-    private static double FIRST_LINE_POS_REL_Y = 0.67 * RESTAURANT_HEIGHT;
-
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final int MAX_CUSTOMERS_THAT_CAN_ENTER = 8;
-    private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
+
+    private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;    //TODO Sposta in waitress
     private static final double PROFIT_MULTIPLIER = 2.0;
     private static final int MAX_PLAYTIME = 5 * 60;
 
-    private static final int SPACE_BETWEEN_LINE_PEOPLE = 100;
     private static final int TABLES = 4;
-    private static final double STARTING_TABLE_REL_X = 0.3 * RESTAURANT_WIDTH;
-    private static final double STARTING_TABLE_REL_Y = 0.5 * RESTAURANT_HEIGHT;
-    private static final int TABLES_PADDING = 250;
+    private static final double TABLE_STARTING_REL_X = 0.35 * RESTAURANT_WIDTH;
+    private static final double TABLE_STARTING_REL_Y = 0.35 * RESTAURANT_HEIGHT;
+    private static final int TABLES_HORIZONTAL_PADDING = 400;
+    private static final int TABLES_VERTICAL_PADDING = 200;
+    private static final int TABLE_REL_WIDTH = 10;
+    private static final int TABLE_REL_HEIGHT = 10;
 
-    private static final int STARTING_X = 0;
-    private static final int STARTING_Y = 500;
-    private static final int HEIGHT_SIZE_CUST = 200;
-    private static final int WIDTH_SIZE_CUST = 150;
+    private static final int CUSTOMER_STARTING_X = 0;
+    private static final int CUSTOMER_STARTING_Y = 500;
+    private static final int CUSTOMER_REL_WIDTH = 150;
+    private static final int CUSTOMER_REL_HEIGHT = 200;
+    private static final int CUSTOMER_IN_LINE_PADDING = 100;
+    private static final double CUSTOMER_FIRST_LINE_REL_X = 0.04 * RESTAURANT_WIDTH;
+    private static final double CUSTOMER_FIRST_LINE_REL_Y = 0.67 * RESTAURANT_HEIGHT;
 
-    private static final int HEIGH_SIZE_WAITRESS = 180;
-    private static final int WIDTH_SIZE_WAITRESS = 120;
-    private static final int WAITERSS_STARTING_X = 40;
-    private static final int WAITERSS_STARTING_Y = 120;
+    private static final int WAITRESS_STARTING_X = 40;
+    private static final int WAITRESS_STARTING_Y = 120;
+    private static final int WAITRESS_REL_WIDTH = 120;
+    private static final int WAITRESS_REL_HEIGH = 180;
     
     private static final double CHEF_REL_X = 0.55;
     private static final double CHEF_REL_Y = 0.02;
@@ -54,9 +57,6 @@ public class ModelImpl implements Model {
 
     private static final double DISH_REL_WIDTH = 0.05;
     private static final double DISH_REL_HEIGHT = 0.02;
-
-    private static final int TABLE_REL_WIDTH =50;
-    private static final int TABLE_REL_HEIGHT =50;
 
     private long lastCustomerTimeCreation;
     private static final int CUSTOMERS_CREATION_TIME = 6;
@@ -92,8 +92,8 @@ public class ModelImpl implements Model {
         var chefSize = new Pair<>((int)(CHEF_REL_WIDTH * RESTAURANT_WIDTH), (int)(CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
         this.chef = new Chef(chefPosition, chefSize, this);
         
-        this.waitress = new Waitress(new Pair<Integer,Integer>(WAITERSS_STARTING_X, WAITERSS_STARTING_Y),
-        new Pair<Integer,Integer>(WIDTH_SIZE_WAITRESS, HEIGH_SIZE_WAITRESS));
+        this.waitress = new Waitress(new Pair<Integer,Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y),
+        new Pair<Integer,Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH));
 
         this.lastCustomerTimeCreation = System.nanoTime(); 
     }
@@ -104,15 +104,14 @@ public class ModelImpl implements Model {
         .boxed()
         .flatMap(i -> IntStream.range(0, TABLES / 2)
         .mapToObj(j -> {
-            int x = (int) (STARTING_TABLE_REL_X + j * TABLES_PADDING);
-            int y = (int) (STARTING_TABLE_REL_Y + i * TABLES_PADDING);
+            int x = (int) (TABLE_STARTING_REL_X + j * TABLES_HORIZONTAL_PADDING);
+            int y = (int) (TABLE_STARTING_REL_Y + i * TABLES_VERTICAL_PADDING);
             Pair<Integer, Integer> coordinates = new Pair<>(x, y);
             Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
             return new Table(coordinates, size, i + 1);
         }))
         .collect(Collectors.toList());
         this.tables.addAll(tables);
-        this.tables.forEach(e -> System.out.println(e.getPosition().getX() + " " + e.getPosition().getY()));
     }
 
     private void clear() {
@@ -176,10 +175,10 @@ public class ModelImpl implements Model {
         if(this.gameOver()) {
             this.stop();
         }
-        var position = new Pair<>(STARTING_X,  STARTING_Y); 
+        var position = new Pair<>(CUSTOMER_STARTING_X,  CUSTOMER_STARTING_Y); 
         int customersMolteplicity=(int) (Math.random()* (4)) + 1;
-        this.customers.add(new Customer(position, new Pair<>(WIDTH_SIZE_CUST, HEIGHT_SIZE_CUST), this,customersMolteplicity)); 
-        this.controller.addCustomer(customersMolteplicity,new Pair<>(WIDTH_SIZE_CUST, HEIGHT_SIZE_CUST));   // aggiungo un cliente viewable nella lista    
+        this.customers.add(new Customer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), this,customersMolteplicity)); 
+        this.controller.addCustomer(customersMolteplicity,new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));   // aggiungo un cliente viewable nella lista    
         if(thereAreAvaibleTables()) {
             AssegnoTavolo( this.customers.getLast());
         } else {
@@ -239,7 +238,7 @@ public class ModelImpl implements Model {
             .filter(p->p.getState()
             .equals(CustomerState.LINE))
             .forEach((p) -> {
-                p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY() + SPACE_BETWEEN_LINE_PEOPLE));
+                p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
              });
         }
     }
@@ -286,9 +285,9 @@ public class ModelImpl implements Model {
     public void assegnoPostoFila(Customer cus) {
        int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
        if(inLineCustm!=1) {
-        cus.setPosition(new Pair<Integer,Integer>((int)FIRST_LINE_POS_REL_X,(int)((FIRST_LINE_POS_REL_Y)-((inLineCustm-1)*SPACE_BETWEEN_LINE_PEOPLE)) ));
+        cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)((CUSTOMER_FIRST_LINE_REL_Y)-((inLineCustm-1)*CUSTOMER_IN_LINE_PADDING)) ));
         }
-       else cus.setPosition(new Pair<Integer,Integer>((int)FIRST_LINE_POS_REL_X,(int)FIRST_LINE_POS_REL_Y));   
+       else cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)CUSTOMER_FIRST_LINE_REL_Y));   
     }
 
     public LinkedList<Table> getTable(){

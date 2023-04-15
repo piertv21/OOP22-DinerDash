@@ -263,7 +263,7 @@ public class GameView extends GamePanel {
         IntStream.range(0, 4)
         .forEach(i->{
             this.tables.add(new GameEntityViewable(new Pair<Integer,Integer>(120, 180), new Pair<>(120,180), 
-            this.imageCacher.getCachedImage("tables" + SEP + "table" + 0).getImage()));
+            this.imageCacher.getCachedImage("table0").getImage()));
         });
     }
 
@@ -305,15 +305,14 @@ public class GameView extends GamePanel {
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
 
         // Waitress
-       g.drawImage(waitress.getIcon(),
-            (int)(waitress.getPosition().getX()*widthRatio),
-            (int)(waitress.getPosition().getY()*heightRatio),
-            (int)(waitress.getSize().getX()*widthRatio),
-            (int)(waitress.getSize().getY()*heightRatio), this);
+        g.drawImage(waitress.getIcon(), (int)(waitress.getPosition().getX() * widthRatio), (int)(waitress.getPosition().getY() * heightRatio),
+            (int)(waitress.getSize().getX() * widthRatio), (int)(waitress.getSize().getY() * heightRatio), this);
 
         // Tables
-        this.tables.stream().filter(t->t.getPosition()!=null).forEach(e ->
-        g.drawImage(e.getIcon(), e.getPosition().getX(), e.getPosition().getY(), e.getSize().getX(), e.getSize().getY(), this));
+        this.tables.stream().filter(t -> t.getPosition() != null).forEach(e ->
+            g.drawImage(e.getIcon(), (int)(e.getPosition().getX() * widthRatio), (int)(e.getPosition().getY() * heightRatio),
+                (int)(e.getSize().getX() * widthRatio), (int)(e.getSize().getY() * heightRatio), this)
+        );
         
         // Customers
         this.customers.forEach(c ->
@@ -344,4 +343,5 @@ public class GameView extends GamePanel {
     public GameEntityViewable getViewableWaitress(){
         return this.waitress;
     }
+
 }
