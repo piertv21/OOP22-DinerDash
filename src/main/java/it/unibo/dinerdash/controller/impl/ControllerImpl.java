@@ -168,7 +168,8 @@ public class ControllerImpl implements Controller {
     public void setWaitressDestination(Pair<Integer,Integer> dest) {
         this.model.setWaitressTableDestination(dest);
     }
-
+    
+    @Override
     public void callWaitress(int indexList, String s, Pair<Integer,Integer> position){
         model.setWaiterssInfo(indexList,s, position);
     }

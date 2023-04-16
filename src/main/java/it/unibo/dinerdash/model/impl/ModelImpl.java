@@ -25,7 +25,6 @@ public class ModelImpl implements Model {
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final int MAX_CUSTOMERS_THAT_CAN_ENTER = 8;
 
-    private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;    //TODO Sposta in waitress
     private static final double PROFIT_MULTIPLIER = 2.0;
     private static final int MAX_PLAYTIME = 5 * 60;
 
@@ -60,6 +59,8 @@ public class ModelImpl implements Model {
 
     private long lastCustomerTimeCreation;
     private static final int CUSTOMERS_CREATION_TIME = 6;
+
+    private static final int MAX_DISH = 2;
 
     private int coins;
     private int remainingTime;
@@ -365,7 +366,7 @@ public class ModelImpl implements Model {
                     break;
             }
         }else{
-            if(this.waitress.getOrdersNumber()!=2){
+            if(this.waitress.getOrdersNumber()!=MAX_DISH){
                 this.waitress.addOrderForWaitress((this.counterTop.takeDish(pos.getX(), pos.getY())).get());
                 this.waitress.goGetDish(waitress.getOrderList().getLast());
             }

@@ -13,6 +13,7 @@ public class Waitress extends AbstractGameEntityMovable {
 
     //TODO Const (Costante) con numero max di piatti che può portare (2) 
     private static int SPEED = 1;
+    private static final double WAITRESS_SPEED_MULTIPLIER = 1.5; 
     
     private WaitressState state;
     private Model model;
