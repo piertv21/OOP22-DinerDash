@@ -267,12 +267,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         var assetsPath = this.searchAssets(path);
         assetsPath.forEach(this.imageCacher::readImage);
 
-        // Init Tables List
-        IntStream.range(0, 4)
-        .forEach(i->{
-            this.tables.add(new GameEntityViewable(new Pair<Integer,Integer>(120, 180), new Pair<>(120,180), 
-            this.imageCacher.getCachedImage("table0").getImage()));
-        });
+        this.initTable();
     }
 
     private void assignStartingImages() {
@@ -288,11 +283,21 @@ public class GameViewImpl extends GamePanel implements GameView {
         //TODO Chiamare quando cambia multiplicity di una gameentityviewable
     }
 
+    public void initTable(){
+        // Init Tables List
+        IntStream.range(0, 4)
+        .forEach(i->{
+            this.tables.add(new GameEntityViewable(new Pair<Integer,Integer>(120, 180), new Pair<>(120,180), 
+            this.imageCacher.getCachedImage("table0").getImage()));
+        });
+    }
+
     @Override
     public void clear() {
         this.customers.clear();
         this.tables.clear();
         this.dishes.clear();
+        this.initTable();
     }
 
     @Override
