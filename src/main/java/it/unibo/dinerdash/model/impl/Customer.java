@@ -67,6 +67,8 @@ public class Customer extends AbstractGameEntityMovable  {
         { 
             if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
                 state = CustomerState.ORDERING;
+                int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
+                this.model.setTableState(TableState.ORDERING, sittedTable);   
             } 
         }
         else if(state.equals(CustomerState.LINE)) {
