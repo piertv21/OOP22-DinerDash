@@ -315,7 +315,7 @@ public class GameView extends GamePanel {
         );
         
         // Customers
-        this.customers.forEach(c ->
+        this.customers.stream().filter(cus->cus.isActive()).forEach(c ->
             g.drawImage(c.getIcon(), (int)(c.getPosition().getX() * widthRatio), (int) (c.getPosition().getY() * heightRatio),
                 (int)(c.getSize().getX() * widthRatio), (int)(c.getSize().getY() * heightRatio), this)
         ); 

@@ -30,6 +30,7 @@ public class Customer extends AbstractGameEntityMovable  {
         this.numClienti = numCust;
         //this.size = size;
         this.startAngryTime = Optional.empty();
+        this.setActive(true);
     }
 
     public int getCustomerCount() {
