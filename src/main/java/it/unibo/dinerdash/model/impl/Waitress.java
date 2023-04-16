@@ -51,12 +51,12 @@ public class Waitress extends AbstractGameEntityMovable {
                 }
                 else if(state.equals(WaitressState.SERVING)) {
                     this.setPosition(this.getDestination().get());
-                    int tableNum=model.getTablefromPositon(getPosition()).getTableNumber();
-                   if(this.checkRightTable(tableNum)) {
-                    this.model.setTableState(TableState.EATING,  tableNum);
+                    serveTable=model.getTablefromPositon(getPosition()).getTableNumber();
+                   if(this.checkRightTable(serveTable)) {
+                    this.model.setTableState(TableState.EATING,  serveTable);
 
                     orderList.remove(orderList.stream()
-                    .filter(o->o.getDishNumber()==tableNum)
+                    .filter(o->o.getDishNumber()==serveTable)
                     .findFirst().get());
                     
                    }
@@ -66,8 +66,8 @@ public class Waitress extends AbstractGameEntityMovable {
                   int coin = this.model.getCoins();
                   this.model.setCoins(coin+30);
                   state=WaitressState.WAITING;
-                  int tableNum = model.getTablefromPositon(getDestination().get()).getTableNumber();
-                  this.model.setTableState(TableState.EMPTY, tableNum);
+                  serveTable = model.getTablefromPositon(getDestination().get()).getTableNumber();
+                  this.model.setTableState(TableState.EMPTY, serveTable);
                 }
                        
             }
