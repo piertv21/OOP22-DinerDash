@@ -1,6 +1,5 @@
 package it.unibo.dinerdash.model.api;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import it.unibo.dinerdash.model.impl.Countertop;
@@ -78,4 +77,5 @@ public interface Model {
     void setNeedUpdate(boolean b);
 
     boolean getNeedUpdate();
+    
 }

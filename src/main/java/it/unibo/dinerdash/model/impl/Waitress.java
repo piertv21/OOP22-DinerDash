@@ -11,7 +11,6 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 public class Waitress extends AbstractGameEntityMovable {
 
-    //TODO Const (Costante) con numero max di piatti che può portare (2) 
     private static int SPEED = 1;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5; 
     
@@ -22,8 +21,9 @@ public class Waitress extends AbstractGameEntityMovable {
     private boolean flag;
 
     private int serveTable;
+    
     public Waitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model) {
-        super(new Pair<Integer,Integer>(550, 148), size, SPEED);    //TODO usa le coordinate passate come parametro
+        super(coordinates, size, SPEED);
         this.state= WaitressState.WAITING;
         this.orderList=new LinkedList<>();
         this.model = model;

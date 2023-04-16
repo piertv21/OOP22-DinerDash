@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -28,7 +27,9 @@ public class ModelImpl implements Model {
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final int MAX_CUSTOMERS_THAT_CAN_ENTER = 8;
 
-    private static final double PROFIT_MULTIPLIER = 2.0;
+    private static final int PROFIT_PER_TABLE_MIN = 80;
+    private static final int PROFIT_PER_TABLE_MAX = 150;
+    private static final double PROFIT_MULTIPLIER = 1.5;
     private static final int MAX_PLAYTIME = 5 * 60;
 
     private static final int TABLES = 4;
@@ -46,11 +47,13 @@ public class ModelImpl implements Model {
     private static final int CUSTOMER_IN_LINE_PADDING = 100;
     private static final double CUSTOMER_FIRST_LINE_REL_X = 0.04 * RESTAURANT_WIDTH;
     private static final double CUSTOMER_FIRST_LINE_REL_Y = 0.67 * RESTAURANT_HEIGHT;
+    private static final int CUSTOMERS_CREATION_TIME = 6;
 
     private static final int WAITRESS_STARTING_X = 40;
     private static final int WAITRESS_STARTING_Y = 120;
     private static final int WAITRESS_REL_WIDTH = 120;
     private static final int WAITRESS_REL_HEIGH = 180;
+    private static final int WAITRESS_MAX_DISHES = 2;
 
     private static final double CHEF_REL_X = 0.55;
     private static final double CHEF_REL_Y = 0.02;
@@ -60,20 +63,17 @@ public class ModelImpl implements Model {
     private static final double DISH_REL_WIDTH = 0.05;
     private static final double DISH_REL_HEIGHT = 0.02;
 
-    private long lastCustomerTimeCreation;
-    private static final int CUSTOMERS_CREATION_TIME = 6;
-
-    private static final int MAX_DISH = 2;
-
     private int coins;
+    private int enabledCoinsMultipliers;
     private int remainingTime;
     private int customersWhoLeft;
     private GameState gameState;
     private Controller controller;
+    private long lastCustomerTimeCreation;
     private boolean needUpdate;
 
     private LinkedList<Customer> customers;
-    private List<Table> tables;
+    private LinkedList<Table> tables;
     private Countertop counterTop;
     private Chef chef;
     private Waitress waitress;
@@ -87,20 +87,20 @@ public class ModelImpl implements Model {
 
     private void init() {
         this.coins = 0;
+        this.enabledCoinsMultipliers = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
         this.needUpdate = true;
         this.clear();
         this.generateTables();
-
-        // Chef
+        
         var chefPosition = new Pair<>((int) (CHEF_REL_X * RESTAURANT_WIDTH), (int) (CHEF_REL_Y * RESTAURANT_HEIGHT));
-        var chefSize = new Pair<>((int) (CHEF_REL_WIDTH * RESTAURANT_WIDTH),
-                (int) (CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
+        var chefSize = new Pair<>((int) (CHEF_REL_WIDTH * RESTAURANT_WIDTH), (int) (CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
         this.chef = new Chef(chefPosition, chefSize, this);
 
-        this.waitress = new Waitress(new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y),
-                new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH), this);
+        var waitressPosition = new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y);
+        var waitressSize = new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH);
+        this.waitress = new Waitress(waitressPosition, waitressSize, this);
 
         this.lastCustomerTimeCreation = System.nanoTime();
     }
@@ -203,38 +203,32 @@ public class ModelImpl implements Model {
     public void customerLeft() {
         if (!this.gameOver()) {
             this.customersWhoLeft++;
+        } else {
+            this.stop();
         }
     }
 
     public void update(long elapsedUpdateTime) {
         if (!this.gameOver()) {
-            if ((System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME))
-                    &&
-                    (this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)) {
-                this.addCustomer();
-                this.lastCustomerTimeCreation = System.nanoTime();
+            if ((System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)) &&
+                (this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)) {
+                    this.addCustomer();
+                    this.lastCustomerTimeCreation = System.nanoTime();
             }
             this.chef.update();
-            this.waitress.handleMovement(null);
+            this.waitress.handleMovement(null); //TODO Mai usare null... a cosa serve?
             var customIterator = this.customers.iterator();
             while (customIterator.hasNext()) {
                 customIterator.next().update(elapsedUpdateTime);
             }
             this.checkAngryCustomers();
-
-            /*
-             * waitress.update(elapsedUpdateTime); //aggiornamento posizione + altro
-             * for (Customer customer : customers) { //aggiornamento posizione + altro
-             * customer.update(elapsedUpdateTime);
-             * }
-             */
         } else {
             this.stop();
         }
     }
 
     @Override
-    public void checkAngryCustomers() {
+    public void checkAngryCustomers() { //TODO Meglio 'removeAngryCustomers()'
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))) { // guardo se ci sono
                                                                                                // clienti arrabbiati
             Customer tempCustomerToDelete = this.customers.stream()
@@ -276,7 +270,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public List<Customer> getCustomers() {
+    public List<Customer> getCustomers() {  //TODO Elimina
         return Collections.unmodifiableList(this.customers.stream().collect(Collectors.toList()));
     }
 
@@ -307,7 +301,7 @@ public class ModelImpl implements Model {
                     new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y));
     }
 
-    public List<Table> getTable() {
+    public List<Table> getTable() { //TODO Elimina
         return Collections.unmodifiableList(this.tables.stream().collect(Collectors.toList()));
     }
 
@@ -316,7 +310,7 @@ public class ModelImpl implements Model {
         return this.tables.stream().anyMatch(tab -> tab.getCustomer().isEmpty());
     }
 
-    public Countertop getCounterTop() {
+    public Countertop getCounterTop() { //TODO Elimina
         return counterTop;
     }
 
@@ -378,7 +372,7 @@ public class ModelImpl implements Model {
         this.tables.get(numberTable - 1).setSeatedPeople(customersMolteplicity);
     }
 
-    public Waitress getWaitress() {
+    public Waitress getWaitress() { //TODO Elimina
         return this.waitress;
     }
 
@@ -395,7 +389,7 @@ public class ModelImpl implements Model {
                     break;
             }
         } else {
-            if (this.waitress.getOrdersNumber() != MAX_DISH) {
+            if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
                 this.waitress.addOrderForWaitress((this.counterTop.takeDish(pos.getX(), pos.getY())).get());
                 this.waitress.goGetDish(waitress.getOrderList().getLast());
             }
@@ -403,13 +397,19 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void setNeedUpdate(boolean b) {
-        this.needUpdate = b;
+    public void setNeedUpdate(boolean needUpdate) {
+        this.needUpdate = needUpdate;
     }
 
     @Override
     public boolean getNeedUpdate() {
         return this.needUpdate;
+    }
+
+    public void earnMoneyFromTable() { //Chiamato da waitress
+        var coinsEarned = (int) (Math.random() * (PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1)) + PROFIT_PER_TABLE_MIN;
+        var coinsEarnedWithBonus = (int)(coinsEarned + (coinsEarned * PROFIT_MULTIPLIER * this.enabledCoinsMultipliers));
+        this.setCoins(this.coins + coinsEarnedWithBonus);
     }
 
 }
