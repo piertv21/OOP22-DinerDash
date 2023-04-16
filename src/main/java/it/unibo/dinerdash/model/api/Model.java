@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.model.api;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import it.unibo.dinerdash.model.impl.Countertop;
 import it.unibo.dinerdash.model.impl.Customer;
@@ -46,7 +47,7 @@ public interface Model {
 
     int getRemainingTime();
 
-    LinkedList<Customer> getCustomers();
+    List<Customer> getCustomers();
 
     void setWaitressTableDestination(Pair<Integer,Integer> destination);
 

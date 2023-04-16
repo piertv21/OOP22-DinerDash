@@ -1,6 +1,8 @@
 package it.unibo.dinerdash.model.impl;
 
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -265,8 +267,8 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public LinkedList<Customer> getCustomers() {
-        return this.customers;
+    public List<Customer> getCustomers() {
+        return Collections.unmodifiableList(this.customers.stream().collect(Collectors.toList()));
     }
 
     @Override

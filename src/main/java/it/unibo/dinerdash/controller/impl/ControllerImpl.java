@@ -141,8 +141,9 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public LinkedList<Customer> getSittedCustomList(){             
-        return this.model.getCustomers();
+    public LinkedList<Customer> getSittedCustomList(){                         // TODO serve ??
+       // return this.model.getCustomers();
+       return null;
     }
 
     private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
