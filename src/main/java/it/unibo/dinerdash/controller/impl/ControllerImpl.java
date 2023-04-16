@@ -172,16 +172,6 @@ public class ControllerImpl implements Controller {
         this.model.setWaitressTableDestination(dest);
     }
 
-    public void callWaitress(int indexList, String s){
-        model.setWaiterssInfo(indexList,s);
-    }
-
-    @Override
-    public void callWaitress(int indexList, String s, Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'callWaitress'");
-    }
-
     @Override
     public void callWaitress(int indexOf, GameEntityViewable d, Pair<Integer, Integer> position) {
         // TODO Auto-generated method stub

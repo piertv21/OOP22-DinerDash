@@ -372,11 +372,7 @@ public class ModelImpl implements Model {
         }
     }
 
-    @Override
-    public void setWaiterssInfo(int indexL, String s) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setWaiterssInfo'");
-    }
+ 
     
 
 
