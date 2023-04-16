@@ -72,6 +72,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void syncChanges() {
         //TODO Sincronizza stato liste view con quelle model
+        this.updateListPosition();
 
         // Chiamare solo se ci son cambiamenti
         this.updateView();
@@ -118,7 +119,6 @@ public class ControllerImpl implements Controller {
     }
 
     private void updateView() {
-        this.updateListPosition();
         this.gameView.render();
     }
 
