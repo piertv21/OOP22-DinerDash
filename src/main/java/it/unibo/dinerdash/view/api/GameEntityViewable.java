@@ -7,7 +7,7 @@ import it.unibo.dinerdash.model.api.AbstractGameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
- * GameEntity viewable for GUI representation
+ * GameEntity viewable for GUI representation (Chef - Waitress - Dishes)
  */
 public class GameEntityViewable extends AbstractGameEntity {
 
@@ -25,8 +25,7 @@ public class GameEntityViewable extends AbstractGameEntity {
     public void setIcon(Image icon) {
         this.icon = icon;
     }
-
-    // Sync Viewable Entity with Model Entity
+    
     public void update(GameEntity gameEntity) {
         var newPosition = gameEntity.getPosition();
         this.setPosition(newPosition);

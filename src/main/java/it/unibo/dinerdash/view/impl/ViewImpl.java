@@ -59,7 +59,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void showGameView() {
-        this.currentView = new GameView(this);
+        this.currentView = new GameViewImpl(this);
         this.refreshView();
     }
 

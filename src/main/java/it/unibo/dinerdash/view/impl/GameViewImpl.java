@@ -33,15 +33,17 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 
 import it.unibo.dinerdash.view.api.GamePanel;
+import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
+import it.unibo.dinerdash.view.api.GameEntityViewableWithLabel;
 
 /*
  * Main Game View Panel
  */
-public class GameView extends GamePanel {
+public class GameViewImpl extends GamePanel implements GameView {
 
     private static final String SEP = System.getProperty("file.separator");
     private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
@@ -68,7 +70,7 @@ public class GameView extends GamePanel {
     private Cursor defaultCursor;
     private Cursor handCursor;
 
-    public GameView(View mainFrame) {
+    public GameViewImpl(View mainFrame) {
         super(mainFrame);
 
         setLayout(new BorderLayout());
@@ -275,17 +277,25 @@ public class GameView extends GamePanel {
         this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(120, 180), this.imageCacher.getCachedImage("waitress").getImage());
     }
 
+    @Override
+    public void assignNewImage(GameEntityViewableWithLabel gameEWWithLabel, int multiplicity) {
+        //TODO Chiamare quando cambia multiplicity di una gameentityviewable
+    }
+
+    @Override
     public void clear() {
         this.customers.clear();
         this.tables.clear();
         this.dishes.clear();
     }
-    
-    public void addCustomerViewable(int num,Pair<Integer,Integer> size) {              //aggiungo l'immagine ai clienti appena creati
+
+    @Override
+    public void addCustomerViewable(int num, Pair<Integer,Integer> size) {              //aggiungo l'immagine ai clienti appena creati
         this.customers.add(new GameEntityViewable(null, size, null));
         this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num).getImage());
     }
 
+    @Override
     public void removeCustomerViewable(int indexVal) {              //rimuovo l'elemento customers[indexVal]
         this.customers.remove(indexVal);
     }
@@ -326,21 +336,25 @@ public class GameView extends GamePanel {
         // g.fillRect((int)(this.getMainFrame().getWidth()*0.04), (int)(this.getMainFrame().getHeight()*0.67), 100, 100);     primo posto in fila
     }
 
+    @Override
     public void render() {
         var controller = this.getMainFrame().getController();
         this.timeLabel.setText("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
         this.repaint();
     }
 
-    public LinkedList<GameEntityViewable> getViewableCustomersList() {
+    @Override
+    public LinkedList<GameEntityViewable> getViewableCustomersList() {  //TODO Da rimuovere (usa add - update - remove)
         return this.customers;
     }
 
-    public LinkedList<GameEntityViewable> getViewableTable() {                
+    @Override
+    public LinkedList<GameEntityViewable> getViewableTable() { //TODO Da rimuovere (usa add - update - remove)
         return this.tables;
     }
 
-    public GameEntityViewable getViewableWaitress(){
+    @Override
+    public GameEntityViewable getViewableWaitress() {   //TODO Da rimuovere (usa add - update)
         return this.waitress;
     }
 

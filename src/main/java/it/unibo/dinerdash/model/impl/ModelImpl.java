@@ -31,11 +31,11 @@ public class ModelImpl implements Model {
 
     private static final int TABLES = 4;
     private static final double TABLE_STARTING_REL_X = 0.35 * RESTAURANT_WIDTH;
-    private static final double TABLE_STARTING_REL_Y = 0.35 * RESTAURANT_HEIGHT;
+    private static final double TABLE_STARTING_REL_Y = 0.40 * RESTAURANT_HEIGHT;
     private static final int TABLES_HORIZONTAL_PADDING = 400;
     private static final int TABLES_VERTICAL_PADDING = 200;
-    private static final int TABLE_REL_WIDTH = 10;
-    private static final int TABLE_REL_HEIGHT = 10;
+    private static final int TABLE_REL_WIDTH = 120;
+    private static final int TABLE_REL_HEIGHT = 120;
 
     private static final int CUSTOMER_STARTING_X = 0;
     private static final int CUSTOMER_STARTING_Y = 500;
