@@ -37,10 +37,10 @@ public class Waitress extends AbstractGameEntityMovable {
             else if(getPosition().getY() > this.getDestination().get().getY()+3) this.moveUp();
             else if(getPosition().getY() < this.getDestination().get().getY()) this.moveDown();
 
-            if((getPosition().getX()>=this.getDestination().get().getX()-100)&& 
-            ((getPosition().getX())<=this.getDestination().get().getX()+100)&& 
-            ((getPosition().getY()<=this.getDestination().get().getY()+100)&& 
-            ((getPosition().getY()>= this.getDestination().get().getY()-100)))) {
+            if((getPosition().getX()>=this.getDestination().get().getX()-4)&& 
+            ((getPosition().getX())<=this.getDestination().get().getX()+4)&& 
+            ((getPosition().getY()<=this.getDestination().get().getY()+4)&& 
+            ((getPosition().getY()>= this.getDestination().get().getY()-4)))) {
                 if(state.equals(WaitressState.CALLING)){
                     this.setPosition(this.getDestination().get()); 
                     state = WaitressState.WAITING;
