@@ -49,7 +49,7 @@ public interface Model {
 
     List<Customer> getCustomers();
 
-    void setWaitressTableDestination(Pair<Integer,Integer> destination);
+    void setWaitressTableDestination(Pair<Integer, Integer> destination);
 
     boolean checkFreeTables(Customer cus);
 
@@ -57,22 +57,22 @@ public interface Model {
 
     void AssegnoTavolo(Customer cus);
 
-    void setTableCustomers(int customersMolteplicity,int numberTable);
+    void setTableCustomers(int customersMolteplicity, int numberTable);
 
     void checkAngryCustomers();
 
     boolean thereAreAvaibleTables();
 
-    Table getTablefromPositon(Pair<Integer,Integer> pos);
+    Table getTablefromPositon(Pair<Integer, Integer> pos);
 
-    void setTableState(TableState state,int numberTable);
+    void setTableState(TableState state, int numberTable);
 
-    LinkedList<Table> getTable();
+    List<Table> getTable();
 
     Waitress getWaitress();
 
-    void setWaiterssInfo(int indexL, String s, Pair<Integer,Integer> pos);
-    
+    void setWaiterssInfo(int indexL, String s, Pair<Integer, Integer> pos);
+
     void setCoins(int val);
 
     void setNeedUpdate(boolean b);

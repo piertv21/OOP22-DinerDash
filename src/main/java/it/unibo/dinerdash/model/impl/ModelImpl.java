@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -50,7 +51,7 @@ public class ModelImpl implements Model {
     private static final int WAITRESS_STARTING_Y = 120;
     private static final int WAITRESS_REL_WIDTH = 120;
     private static final int WAITRESS_REL_HEIGH = 180;
-    
+
     private static final double CHEF_REL_X = 0.55;
     private static final double CHEF_REL_Y = 0.02;
     private static final double CHEF_REL_WIDTH = 0.05;
@@ -72,7 +73,7 @@ public class ModelImpl implements Model {
     private boolean needUpdate;
 
     private LinkedList<Customer> customers;
-    private LinkedList<Table> tables;
+    private List<Table> tables;
     private Countertop counterTop;
     private Chef chef;
     private Waitress waitress;
@@ -80,7 +81,7 @@ public class ModelImpl implements Model {
     public ModelImpl(Controller controller) {
         this.controller = controller;
         this.customers = new LinkedList<>();
-        this.tables = new LinkedList<>();        
+        this.tables = new LinkedList<>();
         this.counterTop = new Countertop(this);
     }
 
@@ -88,34 +89,34 @@ public class ModelImpl implements Model {
         this.coins = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
-        this.needUpdate=true;
+        this.needUpdate = true;
         this.clear();
         this.generateTables();
-    
-        // Chef
-        var chefPosition = new Pair<>((int)(CHEF_REL_X * RESTAURANT_WIDTH), (int)(CHEF_REL_Y * RESTAURANT_HEIGHT));
-        var chefSize = new Pair<>((int)(CHEF_REL_WIDTH * RESTAURANT_WIDTH), (int)(CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
-        this.chef = new Chef(chefPosition, chefSize, this);
-        
-        this.waitress = new Waitress(new Pair<Integer,Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y),
-        new Pair<Integer,Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH),this);
 
-        this.lastCustomerTimeCreation = System.nanoTime(); 
+        // Chef
+        var chefPosition = new Pair<>((int) (CHEF_REL_X * RESTAURANT_WIDTH), (int) (CHEF_REL_Y * RESTAURANT_HEIGHT));
+        var chefSize = new Pair<>((int) (CHEF_REL_WIDTH * RESTAURANT_WIDTH),
+                (int) (CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
+        this.chef = new Chef(chefPosition, chefSize, this);
+
+        this.waitress = new Waitress(new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y),
+                new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH), this);
+
+        this.lastCustomerTimeCreation = System.nanoTime();
     }
 
     // Tavoli
     private void generateTables() {
-        var tables = IntStream.range(0, TABLES / 2)
-        .boxed()
-        .flatMap(i -> IntStream.range(0, TABLES / 2)
-        .mapToObj(j -> {
-            int x = (int) (TABLE_STARTING_REL_X + j * TABLES_HORIZONTAL_PADDING);
-            int y = (int) (TABLE_STARTING_REL_Y + i * TABLES_VERTICAL_PADDING);
-            Pair<Integer, Integer> coordinates = new Pair<>(x, y);
-            Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
-            return new Table(coordinates, size, i + 1);
-        }))
-        .collect(Collectors.toList());
+        var tables = IntStream.range(0, TABLES)
+                .boxed()
+                .map(i -> {
+                    int x = (int) (TABLE_STARTING_REL_X + (i % (TABLES / 2)) * TABLES_HORIZONTAL_PADDING);
+                    int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
+                    Pair<Integer, Integer> coordinates = new Pair<>(x, y);
+                    Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
+                    return new Table(coordinates, size, i + 1);
+                })
+                .collect(Collectors.toList());
         this.tables.addAll(tables);
     }
 
@@ -139,7 +140,7 @@ public class ModelImpl implements Model {
     public void start() {
         this.init();
         this.gameState = GameState.RUNNING;
-        //TODO Check se serve altro
+        // TODO Check se serve altro
     }
 
     @Override
@@ -155,7 +156,7 @@ public class ModelImpl implements Model {
     @Override
     public boolean gameOver() {
         return this.remainingTime == 0 ||
-            this.customersWhoLeft == MAX_CUSTOMERS_THAT_CAN_LEAVE;
+                this.customersWhoLeft == MAX_CUSTOMERS_THAT_CAN_LEAVE;
     }
 
     @Override
@@ -167,59 +168,66 @@ public class ModelImpl implements Model {
     @Override
     public void quit() {
         this.clear();
-        //TODO Check se serve altro
+        // TODO Check se serve altro
     }
 
     @Override
-    public void sendOrder(int tableNumber) {                       //mando l'ordine al bancone
+    public void sendOrder(int tableNumber) { // mando l'ordine al bancone
         this.counterTop.addOrder(tableNumber);
     }
 
     @Override
     public void addCustomer() {
-        if(this.gameOver()) {
+        if (this.gameOver()) {
             this.stop();
         }
-        var position = new Pair<>(CUSTOMER_STARTING_X,  CUSTOMER_STARTING_Y); 
-        int customersMolteplicity=(int) (Math.random()* (4)) + 1;
-        this.customers.add(new Customer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), this,customersMolteplicity)); 
-        this.controller.addCustomer(customersMolteplicity,new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));   // aggiungo un cliente viewable nella lista    
-        if(thereAreAvaibleTables()) {
-            AssegnoTavolo( this.customers.getLast());
+        var position = new Pair<>(CUSTOMER_STARTING_X, CUSTOMER_STARTING_Y);
+        int customersMolteplicity = (int) (Math.random() * (4)) + 1;
+        this.customers.add(new Customer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), this,
+                customersMolteplicity));
+        this.controller.addCustomer(customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT)); // aggiungo
+                                                                                                                 // un
+                                                                                                                 // cliente
+                                                                                                                 // viewable
+                                                                                                                 // nella
+                                                                                                                 // lista
+        if (thereAreAvaibleTables()) {
+            AssegnoTavolo(this.customers.getLast());
         } else {
             customers.getLast().setState(CustomerState.LINE);
-            assegnoPostoFila(this.customers.getLast()); 
+            assegnoPostoFila(this.customers.getLast());
         }
     }
 
     @Override
     public void customerLeft() {
-        if(!this.gameOver()) {
+        if (!this.gameOver()) {
             this.customersWhoLeft++;
         }
     }
 
     public void update(long elapsedUpdateTime) {
-        if(!this.gameOver()) {  
-            if((System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME))&&
-            (this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)){
+        if (!this.gameOver()) {
+            if ((System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME))
+                    &&
+                    (this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)) {
                 this.addCustomer();
-                this.lastCustomerTimeCreation =System.nanoTime(); 
-            }        
+                this.lastCustomerTimeCreation = System.nanoTime();
+            }
             this.chef.update();
             this.waitress.handleMovement(null);
-            var customIterator= this.customers.iterator();
-            while(customIterator.hasNext()) {
+            var customIterator = this.customers.iterator();
+            while (customIterator.hasNext()) {
                 customIterator.next().update(elapsedUpdateTime);
-            } 
+            }
             this.checkAngryCustomers();
-            
+
             /*
-                waitress.update(elapsedUpdateTime); //aggiornamento posizione + altro
-                for (Customer customer : customers) { //aggiornamento posizione + altro
-                    customer.update(elapsedUpdateTime);
-                }
-            */
+             * waitress.update(elapsedUpdateTime); //aggiornamento posizione + altro
+             * for (Customer customer : customers) { //aggiornamento posizione + altro
+             * customer.update(elapsedUpdateTime);
+             * }
+             */
         } else {
             this.stop();
         }
@@ -227,25 +235,26 @@ public class ModelImpl implements Model {
 
     @Override
     public void checkAngryCustomers() {
-        if(this.customers.stream().anyMatch(p->p.getState().equals(CustomerState.ANGRY))){    //guardo se ci sono clienti arrabbiati
-            Customer tempCustomerToDelete=
-            this.customers.stream()
-            .filter(p -> p.getState()                                                         //prendo il prio arrabbiato
-            .equals(CustomerState.ANGRY))
-            .findFirst()
-            .get();
+        if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))) { // guardo se ci sono
+                                                                                               // clienti arrabbiati
+            Customer tempCustomerToDelete = this.customers.stream()
+                    .filter(p -> p.getState() // prendo il prio arrabbiato
+                            .equals(CustomerState.ANGRY))
+                    .findFirst()
+                    .get();
 
-            int indexToDelete =this.customers.indexOf(tempCustomerToDelete);                //prendo il suo indice
-            this.customers.remove(tempCustomerToDelete); 
-            this.controller.removeCustomer(indexToDelete);                              // elimino il cliente dalle liste
+            int indexToDelete = this.customers.indexOf(tempCustomerToDelete); // prendo il suo indice
+            this.customers.remove(tempCustomerToDelete);
+            this.controller.removeCustomer(indexToDelete); // elimino il cliente dalle liste
             this.customerLeft();
 
             this.customers.stream()
-            .filter(p->p.getState()
-            .equals(CustomerState.LINE))
-            .forEach((p) -> {
-                p.setPosition(new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
-             });
+                    .filter(p -> p.getState()
+                            .equals(CustomerState.LINE))
+                    .forEach((p) -> {
+                        p.setPosition(
+                                new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
+                    });
         }
     }
 
@@ -272,53 +281,54 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void AssegnoTavolo(Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
+    public void AssegnoTavolo(Customer cus) { // quando non ci sono più tavoli liberi non vengono piu assegnati tavoli
+                                              // nuovi
         cus.setDestination(Optional.ofNullable(
-            this.tables.stream()
-            .filter(tav->tav.getCustomer().isEmpty())
-            .findFirst()
-            .get()
-            .getPosition()
-        )); 
+                this.tables.stream()
+                        .filter(tav -> tav.getCustomer().isEmpty())
+                        .findFirst()
+                        .get()
+                        .getPosition()));
         var tab = tables.stream()
-        .filter(entry -> entry.getPosition().equals(cus.getDestination().get()))   
-        .findFirst()
-        .orElse(null);
+                .filter(entry -> entry.getPosition().equals(cus.getDestination().get()))
+                .findFirst()
+                .orElse(null);
         tab.setCustom(Optional.of(cus));
-    } 
+    }
 
     @Override
     public void assegnoPostoFila(Customer cus) {
-       int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
-       if(inLineCustm!=1) {
-        cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)((CUSTOMER_FIRST_LINE_REL_Y)-((inLineCustm-1)*CUSTOMER_IN_LINE_PADDING)) ));
-        }
-       else cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)CUSTOMER_FIRST_LINE_REL_Y));   
+        int inLineCustm = (int) customers.stream().filter(p -> p.getState().equals(CustomerState.LINE)).count();
+        if (inLineCustm != 1) {
+            cus.setPosition(new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X,
+                    (int) ((CUSTOMER_FIRST_LINE_REL_Y) - ((inLineCustm - 1) * CUSTOMER_IN_LINE_PADDING))));
+        } else
+            cus.setPosition(
+                    new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y));
     }
 
-    public LinkedList<Table> getTable(){
-        return this.tables;
+    public List<Table> getTable() {
+        return Collections.unmodifiableList(this.tables.stream().collect(Collectors.toList()));
     }
 
     @Override
     public boolean thereAreAvaibleTables() {
-       return this.tables.stream().anyMatch(tab->tab.getCustomer().isEmpty());  
+        return this.tables.stream().anyMatch(tab -> tab.getCustomer().isEmpty());
     }
-    
+
     public Countertop getCounterTop() {
         return counterTop;
     }
 
-
     @Override
-    public boolean checkFreeTables(Customer cus){   //i clientei in fila controllano se si è liberato un tavolo
-        
-        if(this.customers.stream()          // se questo cliente è il primo della fila
-        .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)){
-           return this.thereAreAvaibleTables();
+    public boolean checkFreeTables(Customer cus) { // i clientei in fila controllano se si è liberato un tavolo
+
+        if (this.customers.stream() // se questo cliente è il primo della fila
+                .filter(p -> p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)) {
+            return this.thereAreAvaibleTables();
         }
         return false;
-    
+
     }
 
     public GameState getGameState() {
@@ -329,48 +339,63 @@ public class ModelImpl implements Model {
         this.gameState = gameState;
     }
 
-    public void setWaitressTableDestination(Pair<Integer,Integer> dest){    //assegno la destinazione del tavo alla cameriera
-        if(!(this.waitress.getState().equals(WaitressState.CALLING))) {
+    public void setWaitressTableDestination(Pair<Integer, Integer> dest) { // assegno la destinazione del tavo alla
+                                                                           // cameriera
+        if (!(this.waitress.getState().equals(WaitressState.CALLING))) {
             this.waitress.setDestination(Optional.of(dest));
             this.waitress.setState(WaitressState.CALLING);
         }
     }
-    
+
     @Override
-    public Table getTablefromPositon(Pair<Integer,Integer> pos){           // ottengo il tavolo data la posizione
-       return this.tables.stream().filter(t->t.getPosition().equals(pos)).findFirst().get();
+    public Table getTablefromPositon(Pair<Integer, Integer> pos) { // ottengo il tavolo data la posizione
+        return this.tables.stream().filter(t -> t.getPosition().equals(pos)).findFirst().get();
     }
 
     @Override
-    public void setTableState(TableState state,int numberTable) {    // pongo il tavolo in modalito ordering a gli assegno il numero di clienti
-        this.tables.get(numberTable-1).setState(state);
-        if(state.equals(TableState.EMPTY)){
-            this.tables.get(numberTable-1).setSeatedPeople(0);
-            int indiceCustomerInList = this.customers.indexOf(tables.get(numberTable-1).getCustomer().get());  // da usare per cancellare elem in lista view
-            this.customers.remove(this.tables.get(numberTable-1).getCustomer().get());
-            this.tables.get(numberTable-1).setCustom(Optional.empty());
+    public void setTableState(TableState state, int numberTable) { // pongo il tavolo in modalito ordering a gli assegno
+                                                                   // il numero di clienti
+        this.tables.get(numberTable - 1).setState(state);
+        if (state.equals(TableState.EMPTY)) {
+            this.tables.get(numberTable - 1).setSeatedPeople(0);
+            int indiceCustomerInList = this.customers.indexOf(tables.get(numberTable - 1).getCustomer().get()); // da
+                                                                                                                // usare
+                                                                                                                // per
+                                                                                                                // cancellare
+                                                                                                                // elem
+                                                                                                                // in
+                                                                                                                // lista
+                                                                                                                // view
+            this.customers.remove(this.tables.get(numberTable - 1).getCustomer().get());
+            this.tables.get(numberTable - 1).setCustom(Optional.empty());
             this.controller.removeCustomer(indiceCustomerInList);
         }
     }
+
     @Override
-    public void setTableCustomers(int customersMolteplicity,int numberTable) {   //assegna il numero di persone sedute al tavolo
-        this.tables.get(numberTable-1).setSeatedPeople(customersMolteplicity);
+    public void setTableCustomers(int customersMolteplicity, int numberTable) { // assegna il numero di persone sedute
+                                                                                // al tavolo
+        this.tables.get(numberTable - 1).setSeatedPeople(customersMolteplicity);
     }
 
-    public Waitress getWaitress(){
+    public Waitress getWaitress() {
         return this.waitress;
     }
 
-    public void setWaiterssInfo(int indexL, String s, Pair<Integer,Integer> pos){
-        if(s.equals("t")){
-            switch (this.tables.get(indexL).getState()){
-                case ORDERING: this.waitress.takeTableOrder(tables.get(indexL).getPosition()); break;
-                case WANTING_TO_PAY: this.waitress.colletMoney(tables.get(indexL).getPosition()); break;
-                default: 
+    public void setWaiterssInfo(int indexL, String s, Pair<Integer, Integer> pos) {
+        if (s.equals("t")) {
+            switch (this.tables.get(indexL).getState()) {
+                case ORDERING:
+                    this.waitress.takeTableOrder(tables.get(indexL).getPosition());
+                    break;
+                case WANTING_TO_PAY:
+                    this.waitress.colletMoney(tables.get(indexL).getPosition());
+                    break;
+                default:
                     break;
             }
-        }else{
-            if(this.waitress.getOrdersNumber()!=MAX_DISH){
+        } else {
+            if (this.waitress.getOrdersNumber() != MAX_DISH) {
                 this.waitress.addOrderForWaitress((this.counterTop.takeDish(pos.getX(), pos.getY())).get());
                 this.waitress.goGetDish(waitress.getOrderList().getLast());
             }
@@ -384,11 +409,7 @@ public class ModelImpl implements Model {
 
     @Override
     public boolean getNeedUpdate() {
-       return this.needUpdate;
+        return this.needUpdate;
     }
-
- 
-    
-
 
 }
