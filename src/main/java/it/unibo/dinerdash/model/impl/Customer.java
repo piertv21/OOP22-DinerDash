@@ -57,14 +57,14 @@ public class Customer extends AbstractGameEntityMovable  {
                 this.startThinkTime = System.nanoTime();                                                 
                 state = CustomerState.THINKING;
                 this.setPosition(this.getDestination().get());
-                this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire       
+                this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire   
+                int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
+                this.model.setTableCustomers(numClienti, sittedTable);         
+                this.model.setTableState(TableState.THINKING, sittedTable);      
             }     
         }
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
-        {
-            int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
-            this.model.setTableCustomers(numClienti, sittedTable);         
-             this.model.setTableState(TableState.THINKING, sittedTable);   
+        { 
             if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
                 state = CustomerState.ORDERING;
             } 
