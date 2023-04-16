@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.model.api.AbstractGameEntity;
 import it.unibo.dinerdash.model.api.TableState;
@@ -15,6 +16,9 @@ public class Table extends AbstractGameEntity {
     private Optional<Customer> customer;
     private TableState state;
     private int SeatedPeople;
+
+    private final int TIME_FOR_EATING = 4;
+    private long startEatingTime;
 
     public Table(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
         super(coordinates, size);
@@ -53,5 +57,14 @@ public class Table extends AbstractGameEntity {
        return this.SeatedPeople;
     }
 
-    
+    public void startEating() {
+        this.startEatingTime = System.nanoTime();
+    }
+
+    public void update() {
+        if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_FOR_EATING) + this.startEatingTime) {
+            state = TableState.WANTING_TO_PAY;
+        } 
+    }
+
 }

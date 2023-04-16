@@ -18,6 +18,7 @@ public class Waitress extends AbstractGameEntityMovable {
     private Model model;
 
     private LinkedList<Dish> orderList;
+    private boolean flag;
 
     private int serveTable;
     public Waitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model) {
@@ -45,13 +46,19 @@ public class Waitress extends AbstractGameEntityMovable {
                     model.sendOrder(model.getTablefromPositon(getPosition()).getTableNumber());
 
                 }else if(state.equals(WaitressState.TAKING_DISH)) {  //cameriere è arrivata al bancone a prendere il piatto
-                    state = WaitressState.SERVING;
-                    orderList.add(dishReady); //Aggiungi solo quando arriva al tavolo
-                    //serveTable=orderList.removeFirst().getDishNumber();
+                    state = WaitressState.WAITING; 
                 }
                 else if(state.equals(WaitressState.SERVING)) {
-                    //TODO check se il tavolo è giusto
-                    //this.model.setTableState(TableState.EATING, serveTable);   decommenta
+                    this.setPosition(this.getDestination().get());
+                    int tableNum=model.getTablefromPositon(getPosition()).getTableNumber();
+                   if(this.checkRightTable(tableNum)) {
+                    this.model.setTableState(TableState.EATING,  tableNum);
+
+                    orderList.remove(orderList.stream()
+                    .filter(o->o.getDishNumber()==tableNum)
+                    .findFirst().get());
+                    
+                   }
                     state=WaitressState.WAITING;
                 }
                 else if(state.equals(WaitressState.TAKING_MONEY)) {
@@ -93,4 +100,23 @@ public class Waitress extends AbstractGameEntityMovable {
         state = WaitressState.TAKING_MONEY;
     }
 
+    public int getOrdersNumber() {
+        return this.orderList.size();
+    }
+
+    public void addOrderForWaitress(Dish dishReady) {
+        orderList.add(dishReady); 
+    }
+
+    public LinkedList<Dish> getOrderList() {
+        return this.orderList; 
+    }
+
+    private boolean checkRightTable(int tableNumber) {
+        flag=false;
+        this.orderList.forEach( o ->{
+            if(o.getDishNumber()==tableNumber)flag=true;
+        });
+       return flag;
+    }
 }

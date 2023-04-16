@@ -356,13 +356,26 @@ public class ModelImpl implements Model {
         return this.waitress;
     }
 
-    public void setWaiterssInfo(int indexL){
-        switch (this.tables.get(indexL).getState()){
-            case ORDERING: this.waitress.takeTableOrder(tables.get(indexL).getPosition()); break;
-            case WANTING_TO_PAY: this.waitress.colletMoney(tables.get(indexL).getPosition()); break;
-            default: 
-                break;
+    public void setWaiterssInfo(int indexL, String s, Pair<Integer,Integer> pos){
+        if(s.equals("t")){
+            switch (this.tables.get(indexL).getState()){
+                case ORDERING: this.waitress.takeTableOrder(tables.get(indexL).getPosition()); break;
+                case WANTING_TO_PAY: this.waitress.colletMoney(tables.get(indexL).getPosition()); break;
+                default: 
+                    break;
+            }
+        }else{
+            if(this.waitress.getOrdersNumber()!=2){
+                this.waitress.addOrderForWaitress((this.counterTop.takeDish(pos.getX(), pos.getY())).get());
+                this.waitress.goGetDish(waitress.getOrderList().getLast());
+            }
         }
+    }
+
+    @Override
+    public void setWaiterssInfo(int indexL, String s) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setWaiterssInfo'");
     }
     
 

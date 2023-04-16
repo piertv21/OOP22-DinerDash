@@ -70,7 +70,7 @@ public interface Model {
 
     Waitress getWaitress();
 
-    void setWaiterssInfo(int indexL);
+    void setWaiterssInfo(int indexL, String s);
     
     void setCoins(int val);
 }
