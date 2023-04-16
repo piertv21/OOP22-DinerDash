@@ -49,7 +49,7 @@ public interface Model {
 
     List<Customer> getCustomers();
 
-    void setWaitressTableDestination(Pair<Integer, Integer> destination);
+    void setWaitressTableDestination(Pair<Integer,Integer> destination);
 
     boolean checkFreeTables(Customer cus);
 
