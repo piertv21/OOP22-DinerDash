@@ -149,7 +149,8 @@ public class ControllerImpl implements Controller {
     private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p=0;
         for(var cus: model.getCustomers()) {
-                this.gameView.getViewableCustomersList().get(p).update(cus);
+               // this.gameView.getViewableCustomersList().get(p).update(cus);
+                this.gameView.UpdateViewableCustomer(p,cus);
                 p++;
                 // BISOGNA CHIAMARE UN METODO NELLA VIEW CHE CAMBIA L'IMMAGINE DEL TAVOLO ,
                 // AGGIUNGI METODO CHE AGGIORNA POSIZIONI TAVOLI ,E CONTROLLO SE IL CLIENTE è IN THINKING ,POI SE IL NUMERO DI CLIENTI SEDUTI ED LA MOLTEPLIC DEL CLIENTE

@@ -35,6 +35,7 @@ import javax.swing.BoxLayout;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
+import it.unibo.dinerdash.model.api.GameEntity;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
@@ -367,6 +368,11 @@ public class GameViewImpl extends GamePanel implements GameView {
     @Override
     public GameEntityViewable getViewableWaitress() {   //TODO Da rimuovere (usa add - update)
         return this.waitress;
+    }
+
+    @Override
+    public void UpdateViewableCustomer(int index,GameEntity elem) {        //aggiorno il customer 
+        this.customers.get(index).update(elem);
     }
 
 }
