@@ -171,5 +171,8 @@ public class ControllerImpl implements Controller {
         this.model.setWaitressTableDestination(dest);
     }
 
+    public void callWaitress(int indexList){
+        model.setWaiterssInfo(indexList);
+    }
 
 }

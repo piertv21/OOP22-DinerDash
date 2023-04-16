@@ -21,6 +21,7 @@ public class Table extends AbstractGameEntity {
         this.tableNumber = i;
         this.SeatedPeople =0;
         this.customer=Optional.empty();
+        this.state=TableState.EMPTY;
        
     }
 

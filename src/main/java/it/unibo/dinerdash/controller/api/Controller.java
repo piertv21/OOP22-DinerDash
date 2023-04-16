@@ -47,4 +47,5 @@ public interface Controller {
 
     LinkedList<Customer> getSittedCustomList();
         
+    void callWaitress(int indexList);
 }

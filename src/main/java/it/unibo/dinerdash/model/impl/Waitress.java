@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.AbstractGameEntityMovable;
+import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.model.api.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -14,15 +15,16 @@ public class Waitress extends AbstractGameEntityMovable {
     private static int SPEED = 1;
     
     private WaitressState state;
-    private ModelImpl model;
+    private Model model;
 
     private LinkedList<Dish> orderList;
 
     private int serveTable;
-    public Waitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
+    public Waitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model) {
         super(new Pair<Integer,Integer>(550, 148), size, SPEED);    //TODO usa le coordinate passate come parametro
-
+        this.state= WaitressState.WAITING;
         this.orderList=new LinkedList<>();
+        this.model = model;
         
     }
 

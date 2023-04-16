@@ -163,6 +163,9 @@ public class GameViewImpl extends GamePanel implements GameView {
                     // Il mouse non è sopra la cameriera
                     setCursor(defaultCursor);
                 }
+                tables.stream().forEach(tav ->{
+                    if(inside(mouseX, mouseY, tav))controller.callWaitress(tables.indexOf(tav));
+                });
             }
         });
         

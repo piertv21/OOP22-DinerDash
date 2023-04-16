@@ -93,7 +93,7 @@ public class ModelImpl implements Model {
         this.chef = new Chef(chefPosition, chefSize, this);
         
         this.waitress = new Waitress(new Pair<Integer,Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y),
-        new Pair<Integer,Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH));
+        new Pair<Integer,Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH),this);
 
         this.lastCustomerTimeCreation = System.nanoTime(); 
     }
@@ -202,6 +202,7 @@ public class ModelImpl implements Model {
                 this.lastCustomerTimeCreation =System.nanoTime(); 
             }        
             this.chef.update();
+            this.waitress.handleMovement(null);
             var customIterator= this.customers.iterator();
             while(customIterator.hasNext()) {
                 customIterator.next().update(elapsedUpdateTime);
@@ -353,6 +354,15 @@ public class ModelImpl implements Model {
 
     public Waitress getWaitress(){
         return this.waitress;
+    }
+
+    public void setWaiterssInfo(int indexL){
+        switch (this.tables.get(indexL).getState()){
+            case ORDERING: this.waitress.takeTableOrder(tables.get(indexL).getPosition()); break;
+            case WANTING_TO_PAY: this.waitress.colletMoney(tables.get(indexL).getPosition()); break;
+            default: 
+                break;
+        }
     }
     
 
