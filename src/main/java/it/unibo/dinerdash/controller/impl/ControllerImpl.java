@@ -10,11 +10,8 @@ import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.utility.impl.GameTimer;
 import it.unibo.dinerdash.utility.impl.Pair;
-import it.unibo.dinerdash.view.api.GameEntityViewable;
-import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
-import it.unibo.dinerdash.view.impl.GameViewImpl;
 
 public class ControllerImpl implements Controller {
 
@@ -172,10 +169,8 @@ public class ControllerImpl implements Controller {
         this.model.setWaitressTableDestination(dest);
     }
 
-    @Override
-    public void callWaitress(int indexOf, GameEntityViewable d, Pair<Integer, Integer> position) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'callWaitress'");
+    public void callWaitress(int indexList, String s, Pair<Integer,Integer> position){
+        model.setWaiterssInfo(indexList,s, position);
     }
 
 }

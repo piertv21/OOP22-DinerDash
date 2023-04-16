@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import it.unibo.dinerdash.model.impl.Customer;
 import it.unibo.dinerdash.utility.impl.Pair;
-import it.unibo.dinerdash.view.api.GameEntityViewable;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
 
@@ -47,8 +46,6 @@ public interface Controller {
     void setWaitressDestination(Pair<Integer,Integer> destination);
 
     LinkedList<Customer> getSittedCustomList();
-        
-    void callWaitress(int indexList, String s, Object object);
 
-    void callWaitress(int indexOf, GameEntityViewable d, Pair<Integer, Integer> position);
+    void callWaitress(int indexOf, String s, Pair<Integer, Integer> position);
 }

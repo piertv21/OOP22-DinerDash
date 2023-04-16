@@ -183,7 +183,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                     if(inside(mouseX, mouseY, tav))controller.callWaitress(tables.indexOf(tav),"t",null);
                 });
                 dishes.forEach(d->{
-                    if(inside(mouseX,mouseY,d))controller.callWaitress(dishes.indexOf(d),d, d.getPosition());
+                    if(inside(mouseX,mouseY,d))controller.callWaitress(dishes.indexOf(d),"d", d.getPosition());
                 });
             }
         });
