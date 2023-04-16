@@ -73,4 +73,8 @@ public interface Model {
     void setWaiterssInfo(int indexL, String s, Pair<Integer,Integer> pos);
     
     void setCoins(int val);
+
+    void setNeedUpdate(boolean b);
+
+    boolean getNeedUpdate();
 }

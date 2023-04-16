@@ -32,6 +32,7 @@ public class Waitress extends AbstractGameEntityMovable {
 
     public void handleMovement(Dish dishReady) {
         if((state.equals(WaitressState.CALLING))||(state.equals(WaitressState.TAKING_DISH))||(state.equals(WaitressState.SERVING))) {
+            this.model.setNeedUpdate(true);
             if(getPosition().getX() <  this.getDestination().get().getX()) this.moveRight();
             else if(getPosition().getX() > this.getDestination().get().getX()+3) this.moveLeft();
             else if(getPosition().getY() > this.getDestination().get().getY()+3) this.moveUp();

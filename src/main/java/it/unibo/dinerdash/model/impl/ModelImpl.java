@@ -67,6 +67,7 @@ public class ModelImpl implements Model {
     private int customersWhoLeft;
     private GameState gameState;
     private Controller controller;
+    private boolean needUpdate;
 
     private LinkedList<Customer> customers;
     private LinkedList<Table> tables;
@@ -85,6 +86,7 @@ public class ModelImpl implements Model {
         this.coins = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
+        this.needUpdate=true;
         this.clear();
         this.generateTables();
     
@@ -371,6 +373,16 @@ public class ModelImpl implements Model {
                 this.waitress.goGetDish(waitress.getOrderList().getLast());
             }
         }
+    }
+
+    @Override
+    public void setNeedUpdate(boolean b) {
+        this.needUpdate = b;
+    }
+
+    @Override
+    public boolean getNeedUpdate() {
+       return this.needUpdate;
     }
 
  

@@ -47,6 +47,7 @@ public class Customer extends AbstractGameEntityMovable  {
 
     public void update(long elapsedUpdateTime) {                 //manage the movement of customers     
         if(state.equals(CustomerState.WALKING)) {
+            this.model.setNeedUpdate(true);
             if(getPosition().getX() < this.getDestination().get().getX()) this.moveRight(); 
             else if(getPosition().getY() > this.getDestination().get().getY()) this.moveUp();
             else if(getPosition().getY() < this.getDestination().get().getY()) this.moveDown();
@@ -66,6 +67,7 @@ public class Customer extends AbstractGameEntityMovable  {
         else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
         { 
             if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
+                this.model.setNeedUpdate(true);
                 state = CustomerState.ORDERING;
                 int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
                 this.model.setTableState(TableState.ORDERING, sittedTable);   
@@ -75,6 +77,7 @@ public class Customer extends AbstractGameEntityMovable  {
             if(this.startAngryTime.isPresent()) {
                 if(model.checkFreeTables(this)) {
                     // vado a sedermi al tavolo
+                    this.model.setNeedUpdate(true);
                     this.model.AssegnoTavolo(this);
                     this.state=CustomerState.WALKING;
                 }
