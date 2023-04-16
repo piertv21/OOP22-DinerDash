@@ -222,17 +222,17 @@ public class ModelImpl implements Model {
 
     @Override
     public void checkAngryCustomers() {
-        if(this.customers.stream().anyMatch(p->p.getState().equals(CustomerState.ANGRY))){
+        if(this.customers.stream().anyMatch(p->p.getState().equals(CustomerState.ANGRY))){    //guardo se ci sono clienti arrabbiati
             Customer tempCustomerToDelete=
             this.customers.stream()
-            .filter(p -> p.getState()
+            .filter(p -> p.getState()                                                         //prendo il prio arrabbiato
             .equals(CustomerState.ANGRY))
             .findFirst()
             .get();
 
-            int indexToDelete =this.customers.indexOf(tempCustomerToDelete);
+            int indexToDelete =this.customers.indexOf(tempCustomerToDelete);                //prendo il suo indice
             this.customers.remove(tempCustomerToDelete); 
-            this.controller.removeCustomer(indexToDelete);
+            this.controller.removeCustomer(indexToDelete);                              // elimino il cliente dalle liste
             this.customerLeft();
 
             this.customers.stream()
@@ -344,7 +344,7 @@ public class ModelImpl implements Model {
             int indiceCustomerInList = this.customers.indexOf(tables.get(numberTable-1).getCustomer().get());  // da usare per cancellare elem in lista view
             this.customers.remove(this.tables.get(numberTable-1).getCustomer().get());
             this.tables.get(numberTable-1).setCustom(Optional.empty());
-            this.tables.get(numberTable-1).setCustom(Optional.empty());
+            this.controller.removeCustomer(indiceCustomerInList);
         }
     }
     @Override
