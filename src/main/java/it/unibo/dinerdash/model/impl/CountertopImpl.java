@@ -28,6 +28,7 @@ public class CountertopImpl implements Countertop {
         this.dishes = new LinkedList<>();
     }
 
+    @Override
     public void addOrder(int tableNumber) {
         if(this.dishes.size() < MAX_COUNTERTOP_DISHES) {
 
@@ -57,7 +58,8 @@ public class CountertopImpl implements Countertop {
                 .findFirst()
                 .orElse(startPoint);
     }
-    
+
+    @Override
     public Optional<Dish> takeDish(int x, int y) {
         Optional<Dish> dishToRemove = this.dishes.stream()
                 .filter(dish -> dish.getPosition().getX() == x && dish.getPosition().getY() == y)
@@ -69,16 +71,19 @@ public class CountertopImpl implements Countertop {
         return dishToRemove;
     }
 
+    @Override
     public void clear() {
         this.dishes.clear();
     }
 
     //dice se ci son piatti ancora con active = false
+    @Override
     public boolean thereAreAvailableDishes() {
         return this.dishes.stream().anyMatch(e -> !e.isActive());
     }
 
     // prossimo dish da preparare (active = false)
+    @Override
     public Optional<Dish> getDishInOrder() {
         return this.dishes.stream()
             .filter(dish -> !dish.isActive())

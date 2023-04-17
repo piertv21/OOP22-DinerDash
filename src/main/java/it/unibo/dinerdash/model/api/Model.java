@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.model.api.States.TableState;
-import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.model.api.GameEntities.Table;

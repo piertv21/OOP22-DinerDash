@@ -4,6 +4,8 @@ import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.impl.ChefImpl;
 import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.impl.DishImpl;
+import it.unibo.dinerdash.model.impl.TableImpl;
+import it.unibo.dinerdash.model.impl.WaitressImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class GameEntityFactoryImpl implements GameEntityFactory {
@@ -14,8 +16,12 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
     }
 
     @Override
-    public Customer createCustomer(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, 
-    final Model model, final int numCust) {
+    public Customer createCustomer(
+        final Pair<Integer, Integer> coordinates,
+        final Pair<Integer, Integer> size,
+        final Model model,
+        final int numCust
+    ) {
        return new CustomerImpl(coordinates, size, model, numCust);
     }
 
@@ -25,15 +31,13 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
     }
 
     @Override
-    public Table createTable() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createTable'");
+    public Table createTable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
+        return new TableImpl(coordinates, size, i);
     }
 
     @Override
-    public Waitress createWaitress() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createWaitress'");
+    public Waitress createWaitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model) {
+        return new WaitressImpl(coordinates, size, model);
     }
     
 }

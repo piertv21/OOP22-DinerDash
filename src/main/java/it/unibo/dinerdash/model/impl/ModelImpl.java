@@ -9,7 +9,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.controller.api.Controller;
+import it.unibo.dinerdash.model.api.Countertop;
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.GameEntities.Chef;
 import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.model.api.GameEntities.Table;
@@ -79,8 +81,8 @@ public class ModelImpl implements Model {
 
     private LinkedList<Customer> customers;
     private LinkedList<Table> tables;
-    private CountertopImpl counterTop;
-    private ChefImpl chef;
+    private Countertop counterTop;
+    private Chef chef;
     private Waitress waitress;
 
     public ModelImpl(Controller controller) {
@@ -312,8 +314,8 @@ public class ModelImpl implements Model {
         return this.tables.stream().anyMatch(tab -> tab.getCustomer().isEmpty());
     }
 
-    public CountertopImpl getCounterTop() { // TODO Elimina
-        return counterTop;
+    public Countertop getCounterTop() { // TODO Elimina
+        return this.counterTop;
     }
 
     @Override

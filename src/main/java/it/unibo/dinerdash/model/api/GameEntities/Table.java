@@ -3,7 +3,6 @@ package it.unibo.dinerdash.model.api.GameEntities;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.States.TableState;
-import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Table extends GameEntity {
@@ -27,4 +26,5 @@ public interface Table extends GameEntity {
     void update();
 
     Pair<Integer, Integer> getPosition();
+    
 }

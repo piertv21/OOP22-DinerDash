@@ -28,7 +28,6 @@ public class TableImpl extends AbstractGameEntity implements Table {
         this.SeatedPeople = 0;
         this.customer = Optional.empty();
         this.state = TableState.EMPTY;
-
     }
 
     @Override
