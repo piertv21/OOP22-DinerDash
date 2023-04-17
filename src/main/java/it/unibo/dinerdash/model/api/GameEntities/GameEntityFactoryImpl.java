@@ -2,6 +2,7 @@ package it.unibo.dinerdash.model.api.GameEntities;
 
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.impl.ChefImpl;
+import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.impl.DishImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
@@ -13,9 +14,9 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
     }
 
     @Override
-    public Customer createCustomer() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createCustomer'");
+    public Customer createCustomer(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, 
+    final Model model, final int numCust) {
+       return new CustomerImpl(coordinates, size, model, numCust);
     }
 
     @Override

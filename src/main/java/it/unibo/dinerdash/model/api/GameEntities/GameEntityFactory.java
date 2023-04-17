@@ -7,7 +7,8 @@ public interface GameEntityFactory {
 
     Chef createChef(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model);
 
-    Customer createCustomer();
+    Customer createCustomer(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, 
+    final Model model, final int numCust);
 
     Dish createDish(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int dishNumber);
 
