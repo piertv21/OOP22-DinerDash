@@ -30,4 +30,6 @@ public interface Waitress {
 
     boolean checkRightTable(int tableNumber);
 
+    void setPosition(Pair<Integer, Integer> position);
+
 }

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.States.TableState;
 import it.unibo.dinerdash.model.impl.CustomerImpl;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Table {
 
@@ -25,5 +26,5 @@ public interface Table {
 
     void update();
 
-    void getPosition();
+    Pair<Integer, Integer> getPosition();
 }
