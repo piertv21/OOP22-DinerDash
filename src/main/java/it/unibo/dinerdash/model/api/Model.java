@@ -52,7 +52,7 @@ public interface Model {
 
     boolean checkFreeTables(Customer cus);
 
-    void assegnoPostoFila(Customer cus);
+    void linePositionAssignament(Customer cus);
 
     void tableAssignament(Customer cus);
 

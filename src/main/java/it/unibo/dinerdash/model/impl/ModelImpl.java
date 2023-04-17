@@ -182,15 +182,15 @@ public class ModelImpl implements Model {
         if(this.gameOver()) {
             this.stop();
         }
-        var position = new Pair<>(CUSTOMER_STARTING_X,  CUSTOMER_STARTING_Y); 
-        int customersMolteplicity=(int) (Math.random()* (4)) + 1;
+        final var position = new Pair<>(CUSTOMER_STARTING_X,  CUSTOMER_STARTING_Y); 
+        final int customersMolteplicity=(int) (Math.random()* (4)) + 1;
         this.customers.add(new Customer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), this,customersMolteplicity)); 
         this.controller.addCustomer(customersMolteplicity,new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));   // aggiungo un cliente viewable nella lista    
         if(thereAreAvaibleTables()) {
             tableAssignament( this.customers.getLast());
         } else {
             customers.getLast().setState(CustomerState.LINE);
-            assegnoPostoFila(this.customers.getLast()); 
+            linePositionAssignament(this.customers.getLast()); 
         }
     }
 
@@ -277,7 +277,7 @@ public class ModelImpl implements Model {
             .get()
             .getPosition()
         )); 
-        var tab = tables.stream()
+        final var tab = tables.stream()
         .filter(entry -> entry.getPosition().equals(cus.getDestination().get()))   
         .findFirst()
         .orElse(null);
@@ -285,12 +285,12 @@ public class ModelImpl implements Model {
     } 
 
     @Override
-    public void assegnoPostoFila(final Customer cus) {
-       int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
-       if(inLineCustm!=1) {
-        cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)((CUSTOMER_FIRST_LINE_REL_Y)-((inLineCustm-1)*CUSTOMER_IN_LINE_PADDING)) ));
+    public void linePositionAssignament(final Customer cus) {
+        final int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
+        if(inLineCustm!=1) {
+        cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)(CUSTOMER_FIRST_LINE_REL_Y-((inLineCustm-1)*CUSTOMER_IN_LINE_PADDING))));
         }
-       else cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)CUSTOMER_FIRST_LINE_REL_Y));   
+        else cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)CUSTOMER_FIRST_LINE_REL_Y));   
     }
 
     public List<Table> getTable() { //TODO Elimina
