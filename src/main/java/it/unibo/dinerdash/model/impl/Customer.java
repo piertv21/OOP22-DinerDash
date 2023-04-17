@@ -18,8 +18,8 @@ public class Customer extends AbstractGameEntityMovable  {
     private static final int TIME_BEFORE_ORDERING = 4;
     private static final int SPEED = 5;
     private CustomerState state;
-    private Model model;
-    private int numClienti;
+    private final Model model;
+    private final int numClienti;
     private long startThinkTime;
     private Optional<Long> startAngryTime;
     
@@ -37,7 +37,7 @@ public class Customer extends AbstractGameEntityMovable  {
         return this.numClienti;
     }
 
-    public void setState(CustomerState state) {
+    public void setState(final CustomerState state) {
         this.state = state;
     }
 
@@ -51,9 +51,9 @@ public class Customer extends AbstractGameEntityMovable  {
             if(getPosition().getX() < this.getDestination().get().getX()) { this.moveRight(); }
             else if(getPosition().getY() > this.getDestination().get().getY()) { this.moveUp();}
             else if(getPosition().getY() < this.getDestination().get().getY()) { this.moveDown();}
-            if((getPosition().getX() >= this.getDestination().get().getX()) &&
-            ((getPosition().getY() <= this.getDestination().get().getY() + 4) &&
-            (getPosition().getY() >= this.getDestination().get().getY() - 4)))     //creo una hitbox del tavolo
+            if(getPosition().getX() >= this.getDestination().get().getX() &&
+            getPosition().getY() <= this.getDestination().get().getY() + 4 &&
+            getPosition().getY() >= this.getDestination().get().getY() - 4)     //creo una hitbox del tavolo
             {                       
                 this.startThinkTime = System.nanoTime();                                                 
                 state = CustomerState.THINKING;
