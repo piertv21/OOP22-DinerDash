@@ -205,14 +205,14 @@ public class ModelImpl implements Model {
 
     public void update(long elapsedUpdateTime) {
         if (!this.gameOver()) {
-            if ((System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)) &&
-                (this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER)) {
+            if (System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME) &&
+                this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER) {
                     this.addCustomer();
                     this.lastCustomerTimeCreation = System.nanoTime();
             }
             this.chef.update();
             this.waitress.handleMovement(null); //TODO Mai usare null... a cosa serve?
-            var customIterator = this.customers.iterator();
+            final var customIterator = this.customers.iterator();
             while (customIterator.hasNext()) {
                 customIterator.next().update();
             } 
@@ -225,14 +225,14 @@ public class ModelImpl implements Model {
     @Override
     public void checkAngryCustomers() { //TODO Meglio 'removeAngryCustomers()'
         if(this.customers.stream().anyMatch(p->p.getState().equals(CustomerState.ANGRY))){    //guardo se ci sono clienti arrabbiati
-            Customer tempCustomerToDelete=
+            final Customer tempCustomerToDelete=
             this.customers.stream()
             .filter(p -> p.getState()                                                         //prendo il prio arrabbiato
             .equals(CustomerState.ANGRY))
             .findFirst()
             .get();
 
-            int indexToDelete =this.customers.indexOf(tempCustomerToDelete);                //prendo il suo indice
+            final int indexToDelete =this.customers.indexOf(tempCustomerToDelete);                //prendo il suo indice
             this.customers.remove(tempCustomerToDelete); 
             this.controller.removeCustomer(indexToDelete);                              // elimino il cliente dalle liste
             this.customerLeft();
@@ -269,7 +269,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void AssegnoTavolo(Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
+    public void AssegnoTavolo(final Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         cus.setDestination(Optional.ofNullable(
             this.tables.stream()
             .filter(tav->tav.getCustomer().isEmpty())
@@ -285,7 +285,7 @@ public class ModelImpl implements Model {
     } 
 
     @Override
-    public void assegnoPostoFila(Customer cus) {
+    public void assegnoPostoFila(final Customer cus) {
        int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
        if(inLineCustm!=1) {
         cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)((CUSTOMER_FIRST_LINE_REL_Y)-((inLineCustm-1)*CUSTOMER_IN_LINE_PADDING)) ));
@@ -308,7 +308,7 @@ public class ModelImpl implements Model {
 
 
     @Override
-    public boolean checkFreeTables(Customer cus){   //i clientei in fila controllano se si è liberato un tavolo
+    public boolean checkFreeTables(final Customer cus){   //i clientei in fila controllano se si è liberato un tavolo
         
         if(this.customers.stream()          // se questo cliente è il primo della fila
         .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)){
