@@ -6,13 +6,14 @@ import java.util.concurrent.TimeUnit;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntityMovable;
+import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.States.CustomerState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /** 
  * Create a new element "Customer" who will move in the restaurant.
  */
-public class CustomerImpl extends AbstractGameEntityMovable  {
+public class CustomerImpl extends AbstractGameEntityMovable implements Customer  {
 
     private static final int TIME_BEFORE_GETANGRY = 10;
     private static final int TIME_BEFORE_ORDERING = 4;
@@ -32,18 +33,22 @@ public class CustomerImpl extends AbstractGameEntityMovable  {
         this.setActive(true);
     }
 
+    @Override
     public int getCustomerCount() {
         return this.numClienti;
     }
 
+    @Override
     public void setState(final CustomerState state) {
         this.state = state;
     }
 
+    @Override
     public CustomerState getState() {
         return this.state;
     }
 
+    @Override
     public void update() {                 //manage the movement of customers     
         if (state.equals(CustomerState.WALKING)) {
             this.model.setNeedUpdate(true);
