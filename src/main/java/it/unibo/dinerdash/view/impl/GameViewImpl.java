@@ -284,10 +284,10 @@ public class GameViewImpl extends GamePanel implements GameView {
         //TODO Chiamare quando cambia multiplicity di una gameentityviewable
     }
 
-    public void initTable(){
+    public void initTable() {
         // Init Tables List
         IntStream.range(0, 4)
-        .forEach(i->{
+        .forEach(i-> {
             this.tables.add(new GameEntityViewable(new Pair<Integer,Integer>(120, 180), new Pair<>(120,180), 
             this.imageCacher.getCachedImage("table0").getImage()));
         });
@@ -302,7 +302,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void addCustomerViewable(final int num,final Pair<Integer,Integer> size) {              //aggiungo l'immagine ai clienti appena creati
+    public void addCustomerViewable(final int num, final Pair<Integer, Integer> size) { //add viewable customer
         this.customers.add(new GameEntityViewable(null, size, null));
         this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num).getImage());
     }
@@ -337,15 +337,13 @@ public class GameViewImpl extends GamePanel implements GameView {
         );
         
         // Customers
-        this.customers.stream().filter(cus->cus.isActive()).forEach(c ->
-            g.drawImage(c.getIcon(), (int)(c.getPosition().getX() * widthRatio), (int) (c.getPosition().getY() * heightRatio),
-                (int)(c.getSize().getX() * widthRatio), (int)(c.getSize().getY() * heightRatio), this)
+        this.customers.stream().filter(cus -> cus.isActive()).forEach(c ->
+            g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio), (int) (c.getPosition().getY() * heightRatio),
+            (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this)
         ); 
 
         // Chef
         // g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
-       
-        // g.fillRect((int)(this.getMainFrame().getWidth()*0.04), (int)(this.getMainFrame().getHeight()*0.67), 100, 100);     primo posto in fila
     }
 
     @Override
@@ -366,8 +364,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void UpdateViewableCustomer(final int index,final GameEntity elem) {        //aggiorno il customer 
+    public void UpdateViewableCustomer(final int index, final GameEntity elem) {        //aggiorno il customer 
         this.customers.get(index).update(elem);
     }
-
 }

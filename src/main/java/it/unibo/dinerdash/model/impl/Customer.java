@@ -10,7 +10,7 @@ import it.unibo.dinerdash.model.api.AbstractGameEntityMovable;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /** 
- * Create a new element "Customer" who will move in the restaurant
+ * Create a new element "Customer" who will move in the restaurant.
  */
 public class Customer extends AbstractGameEntityMovable  {
 
@@ -22,13 +22,12 @@ public class Customer extends AbstractGameEntityMovable  {
     private final int numClienti;
     private long startThinkTime;
     private Optional<Long> startAngryTime;
-    
-    public Customer(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, final Model model, final int numCust) {
+    public Customer(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, 
+    final Model model, final int numCust) {
         super(coordinates, size, SPEED);
         this.model = model;
         this.state = CustomerState.WALKING;
         this.numClienti = numCust;
-        //this.size = size;
         this.startAngryTime = Optional.empty();
         this.setActive(true);
     }
@@ -42,53 +41,52 @@ public class Customer extends AbstractGameEntityMovable  {
     }
 
     public CustomerState getState() {
-        return this.state ;
+        return this.state;
     }
 
     public void update() {                 //manage the movement of customers     
-        if(state.equals(CustomerState.WALKING)) {
+        if (state.equals(CustomerState.WALKING)) {
             this.model.setNeedUpdate(true);
-            if(getPosition().getX() < this.getDestination().get().getX()) { this.moveRight(); }
-            else if(getPosition().getY() > this.getDestination().get().getY()) { this.moveUp();}
-            else if(getPosition().getY() < this.getDestination().get().getY()) { this.moveDown();}
-            if(getPosition().getX() >= this.getDestination().get().getX() &&
-            getPosition().getY() <= this.getDestination().get().getY() + 4 &&
-            getPosition().getY() >= this.getDestination().get().getY() - 4)     //creo una hitbox del tavolo
-            {                       
-                this.startThinkTime = System.nanoTime();                                                 
+            if (getPosition().getX() < this.getDestination().get().getX()) { 
+                this.moveRight(); 
+            } else if (getPosition().getY() > this.getDestination().get().getY()) {
+                this.moveUp();
+            } else if (getPosition().getY() < this.getDestination().get().getY()) {
+                this.moveDown();
+            }
+            if (getPosition().getX() >= this.getDestination().get().getX()
+            && getPosition().getY() <= this.getDestination().get().getY() + 4 
+            && getPosition().getY() >= this.getDestination().get().getY() - 4) { //create hitbox
+                this.startThinkTime = System.nanoTime();                                           
                 state = CustomerState.THINKING;
                 this.setPosition(this.getDestination().get());
-                this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire   
-               final int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
+                this.setActive(false);  //cliente think,and become invisible
+                final int sittedTable = this.model
+                .getTablefromPositon(getPosition()).getTableNumber();
                 this.model.setTableCustomers(numClienti, sittedTable);         
                 this.model.setTableState(TableState.THINKING, sittedTable);      
-            }     
-        }
-        else if(state.equals(CustomerState.THINKING))                                          //il cliente pensa a cosa ordinare
-        { 
-            if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
+            }
+        } else if (state.equals(CustomerState.THINKING)) {      //il cliente pensa a cosa ordinare
+            if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
                 this.model.setNeedUpdate(true);
                 state = CustomerState.ORDERING;
-                final int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
+                final int sittedTable = this.model.getTablefromPositon(getPosition()).getTableNumber();
                 this.model.setTableState(TableState.ORDERING, sittedTable);   
-            } 
-        }
-        else if(state.equals(CustomerState.LINE)) {
-            if(this.startAngryTime.isPresent()) {
-                if(model.checkFreeTables(this)) {
+            }
+        } else if (state.equals(CustomerState.LINE)) {
+            if (this.startAngryTime.isPresent()) {
+                if (model.checkFreeTables(this)) {
                     // vado a sedermi al tavolo
                     this.model.setNeedUpdate(true);
                     this.model.tableAssignament(this);
-                    this.state=CustomerState.WALKING;
+                    this.state = CustomerState.WALKING;
+                } else if (System.nanoTime() 
+                >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_GETANGRY) + this.startAngryTime.get()) {  //client get angry
+                    this.state = CustomerState.ANGRY;
                 }
-                else if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_GETANGRY) + this.startAngryTime.get()) {         //il cliente si arrabbia e se ne va
-                    this.state=CustomerState.ANGRY;
-                }
-            }else { this.startAngryTime = Optional.of(System.nanoTime()); }
+            } else { 
+                this.startAngryTime = Optional.of(System.nanoTime()); 
+            }
         }
     }
-
-    
     }
-    
-
