@@ -5,7 +5,7 @@ import java.util.Optional;
 import it.unibo.dinerdash.model.api.States.CustomerState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public interface Customer {
+public interface Customer extends GameEntityMovable {
 
     int getCustomerCount();
 
