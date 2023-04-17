@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.model.api.Countertop;
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class CountertopImpl implements Countertop {
@@ -19,7 +20,7 @@ public class CountertopImpl implements Countertop {
     private static final int DISH_REL_HEIGHT = 50;
     private static final int MAX_COUNTERTOP_DISHES = 4;
 
-    private LinkedList<DishImpl> dishes;
+    private LinkedList<Dish> dishes;
     private Model model;
 
     public CountertopImpl(Model model) {
@@ -57,8 +58,8 @@ public class CountertopImpl implements Countertop {
                 .orElse(startPoint);
     }
     
-    public Optional<DishImpl> takeDish(int x, int y) {
-        Optional<DishImpl> dishToRemove = this.dishes.stream()
+    public Optional<Dish> takeDish(int x, int y) {
+        Optional<Dish> dishToRemove = this.dishes.stream()
                 .filter(dish -> dish.getPosition().getX() == x && dish.getPosition().getY() == y)
                 .findFirst()
                 .map(dish -> {
@@ -78,14 +79,14 @@ public class CountertopImpl implements Countertop {
     }
 
     // prossimo dish da preparare (active = false)
-    public Optional<DishImpl> getDishInOrder() {
+    public Optional<Dish> getDishInOrder() {
         return this.dishes.stream()
             .filter(dish -> !dish.isActive())
             .findFirst();
     }
 
     // Dato un dish lo imposta a ready, chiamata dallo Chef
-    public void setDishReady(DishImpl dish) {
+    public void setDishReady(Dish dish) {
         this.dishes.stream()
             .filter(d -> d.equals(dish))
             .findFirst()

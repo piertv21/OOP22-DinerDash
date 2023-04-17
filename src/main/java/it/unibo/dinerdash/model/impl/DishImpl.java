@@ -20,6 +20,11 @@ public class DishImpl extends AbstractGameEntity implements Dish {
     @Override
     public int getDishNumber() {
         return this.dishNumber;
-    } 
+    }
+    
+    @Override
+    public Pair<Integer, Integer> getPosition() {
+        return this.getPosition();
+    }
     
 }

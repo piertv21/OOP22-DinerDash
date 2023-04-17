@@ -10,6 +10,8 @@ import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.GameEntities.Customer;
+import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.model.api.GameEntities.Table;
 import it.unibo.dinerdash.model.api.GameEntities.Waitress;
 import it.unibo.dinerdash.model.api.States.CustomerState;
@@ -269,7 +271,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public List<CustomerImpl> getCustomers() { // TODO Elimina
+    public List<Customer> getCustomers() { // TODO Elimina
         return Collections.unmodifiableList(this.customers.stream().collect(Collectors.toList()));
     }
 
@@ -424,13 +426,12 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Optional<DishImpl> getDishToPrepare() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDishToPrepare'");
+    public Optional<Dish> getDishToPrepare() {
+        return this.counterTop.getDishInOrder();
     }
 
     @Override
-    public void completeDishPreparation(DishImpl dish) {
+    public void completeDishPreparation(Dish dish) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'completeDishPreparation'");
     }

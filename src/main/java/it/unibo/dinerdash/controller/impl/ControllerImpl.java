@@ -10,8 +10,6 @@ import it.unibo.dinerdash.utility.impl.GameTimer;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
-import it.unibo.dinerdash.model.api.GameEntities.Table;
-import it.unibo.dinerdash.model.api.GameEntities.Waitress;
 
 public class ControllerImpl implements Controller {
 

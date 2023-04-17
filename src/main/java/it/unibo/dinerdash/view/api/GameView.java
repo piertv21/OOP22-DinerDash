@@ -2,6 +2,7 @@ package it.unibo.dinerdash.view.api;
 
 import java.util.LinkedList;
 
+import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
@@ -21,7 +22,7 @@ public interface GameView {
 
     LinkedList<GameEntityViewable> getViewableTable();
 
-    void UpdateViewableCustomer(int index, GameEntity elem);
+    void UpdateViewableCustomer(int index, Customer elem);
 
     void UpdateViewableTable(int index, GameEntity elem);
 

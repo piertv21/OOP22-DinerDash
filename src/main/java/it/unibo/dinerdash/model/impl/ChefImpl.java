@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntity;
 import it.unibo.dinerdash.model.api.GameEntities.Chef;
+import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -17,7 +18,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     private static final int MAX_PREPARATION_TIME = 12;
     private static final int CHEF_TIME_SAVING = 2;
 
-    private Optional<DishImpl> currentDish;
+    private Optional<Dish> currentDish;
     private Optional<Long> timeDishReady;
     private int enabledPowerUps;
     private Model model;
@@ -55,7 +56,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     }
 
     @Override
-    public void startPreparingDish(DishImpl dish) {
+    public void startPreparingDish(Dish dish) {
         this.currentDish = Optional.of(dish);
 
         int preparationTimeInSeconds = (int) (Math.random() * (MAX_PREPARATION_TIME - MIN_PREPARATION_TIME + 1)) + MIN_PREPARATION_TIME;

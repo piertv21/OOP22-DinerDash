@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.model.api.States.TableState;
-import it.unibo.dinerdash.model.impl.CountertopImpl;
 import it.unibo.dinerdash.model.impl.CustomerImpl;
-import it.unibo.dinerdash.model.impl.DishImpl;
+import it.unibo.dinerdash.model.api.GameEntities.Customer;
+import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.model.api.GameEntities.Table;
 import it.unibo.dinerdash.model.api.GameEntities.Waitress;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -36,7 +36,7 @@ public interface Model {
 
     void customerLeft();
 
-    CountertopImpl getCounterTop();
+    Countertop getCounterTop();
 
     void update(long elapsedUpdateTime);
 
@@ -50,7 +50,7 @@ public interface Model {
 
     int getRemainingTime();
 
-    List<CustomerImpl> getCustomers();
+    List<Customer> getCustomers();
 
     void setWaitressTableDestination(Pair<Integer, Integer> destination);
 
@@ -84,9 +84,9 @@ public interface Model {
 
     boolean thereAreDishesToPrepare();
 
-    Optional<DishImpl> getDishToPrepare();
+    Optional<Dish> getDishToPrepare();
 
-    void completeDishPreparation(DishImpl dish);
+    void completeDishPreparation(Dish dish);
 
     void earnMoneyFromTable();
 

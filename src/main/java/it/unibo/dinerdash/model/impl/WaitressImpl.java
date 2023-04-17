@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntityMovable;
+import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.model.api.GameEntities.Waitress;
 import it.unibo.dinerdash.model.api.States.TableState;
 import it.unibo.dinerdash.model.api.States.WaitressState;
@@ -18,7 +19,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     private WaitressState state;
     private Model model;
 
-    private LinkedList<DishImpl> orderList;
+    private LinkedList<Dish> orderList;
     private boolean flag;
 
     private int serveTable;
@@ -32,7 +33,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public void handleMovement(DishImpl dishReady) {
+    public void handleMovement(Dish dishReady) {
         if (!state.equals(WaitressState.WAITING)) {
             this.model.setNeedUpdate(true);
             if (getPosition().getX() < this.getDestination().get().getX())
@@ -92,7 +93,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public void goGetDish(DishImpl dishReady) {
+    public void goGetDish(Dish dishReady) {
         this.setDestination(Optional.of(dishReady.getPosition()));
         this.state = WaitressState.TAKING_DISH;
     }
@@ -121,12 +122,12 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public void addOrderForWaitress(DishImpl dishReady) {
+    public void addOrderForWaitress(Dish dishReady) {
         orderList.add(dishReady);
     }
 
     @Override
-    public LinkedList<DishImpl> getOrderList() {
+    public LinkedList<Dish> getOrderList() {
         return this.orderList;
     }
 
