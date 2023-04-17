@@ -179,14 +179,14 @@ public class ModelImpl implements Model {
 
     @Override
     public void addCustomer() {
-        if(this.gameOver()) {
+        if (this.gameOver()) {
             this.stop();
         }
         final var position = new Pair<>(CUSTOMER_STARTING_X,  CUSTOMER_STARTING_Y); 
-        final int customersMolteplicity=(int) (Math.random()* (4)) + 1;
+        final int customersMolteplicity = (int) (Math.random()* (4)) + 1;
         this.customers.add(new Customer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), this,customersMolteplicity)); 
-        this.controller.addCustomer(customersMolteplicity,new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));   // aggiungo un cliente viewable nella lista    
-        if(thereAreAvaibleTables()) {
+        this.controller.addCustomer(customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));   
+        if (thereAreAvaibleTables()) {
             tableAssignament( this.customers.getLast());
         } else {
             customers.getLast().setState(CustomerState.LINE);
@@ -196,7 +196,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void customerLeft() {
-        if(!this.gameOver()) {
+        if (!this.gameOver()) {
             this.customersWhoLeft++;
         } else {
             this.stop();
@@ -205,8 +205,8 @@ public class ModelImpl implements Model {
 
     public void update(long elapsedUpdateTime) {
         if (!this.gameOver()) {
-            if (System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME) &&
-                this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER) {
+            if (System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)
+            && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER) {
                     this.addCustomer();
                     this.lastCustomerTimeCreation = System.nanoTime();
             }
@@ -216,27 +216,25 @@ public class ModelImpl implements Model {
             while (customIterator.hasNext()) {
                 customIterator.next().update();
             } 
-            this.checkAngryCustomers();
+            this.removeAngryCustomers();
         } else {
             this.stop();
         }
     }
 
     @Override
-    public void checkAngryCustomers() { //TODO Meglio 'removeAngryCustomers()'
-        if(this.customers.stream().anyMatch(p->p.getState().equals(CustomerState.ANGRY))){    //guardo se ci sono clienti arrabbiati
-            final Customer tempCustomerToDelete=
-            this.customers.stream()
-            .filter(p -> p.getState()                                                         //prendo il prio arrabbiato
+    public void removeAngryCustomers() { 
+        if(this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))){ 
+            final Customer tempCustomerToDelete = this.customers.stream()
+            .filter(p -> p.getState()                      //prendo il primo arrabbiato
             .equals(CustomerState.ANGRY))
             .findFirst()
             .get();
 
-            final int indexToDelete =this.customers.indexOf(tempCustomerToDelete);                //prendo il suo indice
+            final int indexToDelete = this.customers.indexOf(tempCustomerToDelete);     //prendo il suo indice
             this.customers.remove(tempCustomerToDelete); 
             this.controller.removeCustomer(indexToDelete);                              // elimino il cliente dalle liste
             this.customerLeft();
-
             this.customers.stream()
             .filter(p->p.getState()
             .equals(CustomerState.LINE))
@@ -272,7 +270,7 @@ public class ModelImpl implements Model {
     public void tableAssignament(final Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         cus.setDestination(Optional.ofNullable(
             this.tables.stream()
-            .filter(tav->tav.getCustomer().isEmpty())
+            .filter(tav -> tav.getCustomer().isEmpty())
             .findFirst()
             .get()
             .getPosition()
@@ -286,11 +284,10 @@ public class ModelImpl implements Model {
 
     @Override
     public void linePositionAssignament(final Customer cus) {
-        final int inLineCustm= (int)customers.stream().filter(p->p.getState().equals(CustomerState.LINE)).count();
-        if(inLineCustm!=1) {
+        final int inLineCustm = (int) customers.stream().filter(p -> p.getState().equals(CustomerState.LINE)).count();
+        if (inLineCustm!=1) {
         cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)(CUSTOMER_FIRST_LINE_REL_Y-((inLineCustm-1)*CUSTOMER_IN_LINE_PADDING))));
-        }
-        else cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)CUSTOMER_FIRST_LINE_REL_Y));   
+        } else cus.setPosition(new Pair<Integer,Integer>((int) CUSTOMER_FIRST_LINE_REL_X,(int) CUSTOMER_FIRST_LINE_REL_Y));   
     }
 
     public List<Table> getTable() { //TODO Elimina
@@ -309,13 +306,11 @@ public class ModelImpl implements Model {
 
     @Override
     public boolean checkFreeTables(final Customer cus){   //i clientei in fila controllano se si è liberato un tavolo
-        
-        if(this.customers.stream()          // se questo cliente è il primo della fila
-        .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)){
+        if (this.customers.stream()          // se questo cliente è il primo della fila
+        .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)) {
            return this.thereAreAvaibleTables();
         }
         return false;
-    
     }
 
     public GameState getGameState() {
@@ -335,23 +330,23 @@ public class ModelImpl implements Model {
     
     @Override
     public Table getTablefromPositon(Pair<Integer,Integer> pos){           // ottengo il tavolo data la posizione
-       return this.tables.stream().filter(t->t.getPosition().equals(pos)).findFirst().get();
+       return this.tables.stream().filter(t -> t.getPosition().equals(pos)).findFirst().get();
     }
 
     @Override
-    public void setTableState(TableState state,int numberTable) {    // pongo il tavolo in modalito ordering a gli assegno il numero di clienti
+    public void setTableState(TableState state, int numberTable) {    // pongo il tavolo in modalito ordering a gli assegno il numero di clienti
         this.tables.get(numberTable-1).setState(state);
-        if(state.equals(TableState.EMPTY)){
-            this.tables.get(numberTable-1).setSeatedPeople(0);
-            int indiceCustomerInList = this.customers.indexOf(tables.get(numberTable-1).getCustomer().get());  // da usare per cancellare elem in lista view
-            this.customers.remove(this.tables.get(numberTable-1).getCustomer().get());
-            this.tables.get(numberTable-1).setCustom(Optional.empty());
+        if (state.equals(TableState.EMPTY)) {
+            this.tables.get(numberTable - 1).setSeatedPeople(0);
+            int indiceCustomerInList = this.customers.indexOf(tables.get(numberTable - 1).getCustomer().get());  // da usare per cancellare elem in lista view
+            this.customers.remove(this.tables.get(numberTable - 1).getCustomer().get());
+            this.tables.get(numberTable - 1).setCustom(Optional.empty());
             this.controller.removeCustomer(indiceCustomerInList);
         }
     }
     @Override
-    public void setTableCustomers(int customersMolteplicity,int numberTable) {   //assegna il numero di persone sedute al tavolo
-        this.tables.get(numberTable-1).setSeatedPeople(customersMolteplicity);
+    public void setTableCustomers(int customersMolteplicity, int numberTable) {   //assegna il numero di persone sedute al tavolo
+        this.tables.get(numberTable - 1).setSeatedPeople(customersMolteplicity);
     }
 
     public Waitress getWaitress() { //TODO Elimina
