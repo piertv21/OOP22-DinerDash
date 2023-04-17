@@ -13,7 +13,7 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
     }
 
     @Override
-    public it.unibo.dinerdash.model.api.GameEntities.Customer createCustomer() {
+    public Customer createCustomer() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createCustomer'");
     }
@@ -24,13 +24,13 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
     }
 
     @Override
-    public it.unibo.dinerdash.model.api.GameEntities.Table createTable() {
+    public Table createTable() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createTable'");
     }
 
     @Override
-    public it.unibo.dinerdash.model.api.GameEntities.Waitress createWaitress() {
+    public Waitress createWaitress() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createWaitress'");
     }
