@@ -23,7 +23,7 @@ public class Customer extends AbstractGameEntityMovable  {
     private long startThinkTime;
     private Optional<Long> startAngryTime;
     
-    public Customer(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model,int numCust) {
+    public Customer(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, final Model model, final int numCust) {
         super(coordinates, size, SPEED);
         this.model = model;
         this.state = CustomerState.WALKING;
@@ -45,12 +45,12 @@ public class Customer extends AbstractGameEntityMovable  {
         return this.state ;
     }
 
-    public void update(long elapsedUpdateTime) {                 //manage the movement of customers     
+    public void update() {                 //manage the movement of customers     
         if(state.equals(CustomerState.WALKING)) {
             this.model.setNeedUpdate(true);
-            if(getPosition().getX() < this.getDestination().get().getX()) this.moveRight(); 
-            else if(getPosition().getY() > this.getDestination().get().getY()) this.moveUp();
-            else if(getPosition().getY() < this.getDestination().get().getY()) this.moveDown();
+            if(getPosition().getX() < this.getDestination().get().getX()) { this.moveRight(); }
+            else if(getPosition().getY() > this.getDestination().get().getY()) { this.moveUp();}
+            else if(getPosition().getY() < this.getDestination().get().getY()) { this.moveDown();}
             if((getPosition().getX() >= this.getDestination().get().getX()) &&
             ((getPosition().getY() <= this.getDestination().get().getY() + 4) &&
             (getPosition().getY() >= this.getDestination().get().getY() - 4)))     //creo una hitbox del tavolo
@@ -59,7 +59,7 @@ public class Customer extends AbstractGameEntityMovable  {
                 state = CustomerState.THINKING;
                 this.setPosition(this.getDestination().get());
                 this.setActive(false);                                              //cliente pensa, quindi la sua immagine deve sparire   
-                int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
+               final int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
                 this.model.setTableCustomers(numClienti, sittedTable);         
                 this.model.setTableState(TableState.THINKING, sittedTable);      
             }     
@@ -69,7 +69,7 @@ public class Customer extends AbstractGameEntityMovable  {
             if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
                 this.model.setNeedUpdate(true);
                 state = CustomerState.ORDERING;
-                int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
+                final int sittedTable=this.model.getTablefromPositon(getPosition()).getTableNumber();
                 this.model.setTableState(TableState.ORDERING, sittedTable);   
             } 
         }

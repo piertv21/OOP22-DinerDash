@@ -214,7 +214,7 @@ public class ModelImpl implements Model {
             this.waitress.handleMovement(null); //TODO Mai usare null... a cosa serve?
             var customIterator = this.customers.iterator();
             while (customIterator.hasNext()) {
-                customIterator.next().update(elapsedUpdateTime);
+                customIterator.next().update();
             } 
             this.checkAngryCustomers();
         } else {
