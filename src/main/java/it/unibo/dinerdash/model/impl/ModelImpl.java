@@ -77,7 +77,7 @@ public class ModelImpl implements Model {
     private long lastCustomerTimeCreation;
     private boolean needUpdate;
 
-    private LinkedList<CustomerImpl> customers;
+    private LinkedList<Customer> customers;
     private LinkedList<Table> tables;
     private CountertopImpl counterTop;
     private ChefImpl chef;
@@ -233,7 +233,7 @@ public class ModelImpl implements Model {
     @Override
     public void removeAngryCustomers() {
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))) {
-            final CustomerImpl tempCustomerToDelete = this.customers.stream()
+            final Customer tempCustomerToDelete = this.customers.stream()
                     .filter(p -> p.getState() // prendo il primo arrabbiato
                             .equals(CustomerState.ANGRY))
                     .findFirst()
@@ -276,7 +276,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void tableAssignament(final CustomerImpl cus) { // quando non ci sono più tavoli liberi non vengono piu
+    public void tableAssignament(final Customer cus) { // quando non ci sono più tavoli liberi non vengono piu
                                                            // assegnati tavoli nuovi
         cus.setDestination(Optional.ofNullable(
                 this.tables.stream()
@@ -292,7 +292,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void linePositionAssignament(final CustomerImpl cus) {
+    public void linePositionAssignament(final Customer cus) {
         final int inLineCustm = (int) customers.stream().filter(p -> p.getState().equals(CustomerState.LINE)).count();
         if (inLineCustm != 1) {
             cus.setPosition(new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X,
@@ -317,7 +317,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public boolean checkFreeTables(final CustomerImpl cus) { // i clientei in fila controllano se si è liberato un
+    public boolean checkFreeTables(final Customer cus) { // i clientei in fila controllano se si è liberato un
                                                              // tavolo
         if (this.customers.stream() // se questo cliente è il primo della fila
                 .filter(p -> p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)) {

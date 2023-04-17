@@ -22,7 +22,7 @@ public interface GameView {
 
     LinkedList<GameEntityViewable> getViewableTable();
 
-    void UpdateViewableCustomer(int index, Customer elem);
+    void UpdateViewableCustomer(int index, GameEntity elem);
 
     void UpdateViewableTable(int index, GameEntity elem);
 

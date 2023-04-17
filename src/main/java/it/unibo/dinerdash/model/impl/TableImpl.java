@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntity;
+import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.GameEntities.Table;
 import it.unibo.dinerdash.model.api.States.TableState;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -14,7 +15,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public class TableImpl extends AbstractGameEntity implements Table {
 
     private int tableNumber;
-    private Optional<CustomerImpl> customer;
+    private Optional<Customer> customer;
     private TableState state;
     private int SeatedPeople;
 
@@ -41,12 +42,12 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public void setCustom(Optional<CustomerImpl> cs) {
+    public void setCustom(Optional<Customer> cs) {
         this.customer = cs;
     }
 
     @Override
-    public Optional<CustomerImpl> getCustomer() {
+    public Optional<Customer> getCustomer() {
         return this.customer;
     }
 

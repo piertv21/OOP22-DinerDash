@@ -12,9 +12,9 @@ public interface Table extends GameEntity {
 
     TableState getState();
 
-    void setCustom(Optional<CustomerImpl> cs);
+    void setCustom(Optional<Customer> cs);
 
-    Optional<CustomerImpl> getCustomer();
+    Optional<Customer> getCustomer();
 
     int getTableNumber();
 

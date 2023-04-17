@@ -54,11 +54,11 @@ public interface Model {
 
     void setWaitressTableDestination(Pair<Integer, Integer> destination);
 
-    boolean checkFreeTables(CustomerImpl cus);
+    boolean checkFreeTables(Customer cus);
 
-    void linePositionAssignament(CustomerImpl cus);
+    void linePositionAssignament(Customer cus);
 
-    void tableAssignament(CustomerImpl cus);
+    void tableAssignament(Customer cus);
 
     void setTableCustomers(int customersMolteplicity, int numberTable);
 
