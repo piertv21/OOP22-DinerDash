@@ -145,8 +145,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    private void updateListPosition() { // aggiorno le posizioni dei clienti nella lista della view SARA DA CHIAMARE
-                                        // OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
+    public void updateListPosition() { // aggiorno le posizioni dei clienti nella lista della view SARA DA CHIAMARE
+                                       // OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p = 0;
         for (final var cus : model.getCustomers()) {
             // this.gameView.getViewableCustomersList().get(p).update(cus);

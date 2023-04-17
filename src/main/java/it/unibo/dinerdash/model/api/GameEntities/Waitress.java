@@ -6,7 +6,7 @@ import it.unibo.dinerdash.model.api.States.WaitressState;
 import it.unibo.dinerdash.model.impl.DishImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public interface Waitress {
+public interface Waitress extends GameEntity {
 
     void handleMovement(DishImpl dishReady);
 
