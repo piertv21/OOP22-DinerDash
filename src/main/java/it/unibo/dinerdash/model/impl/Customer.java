@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.TableState;
-import it.unibo.dinerdash.model.api.AbstractGameEntityMovable;
+import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntityMovable;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /** 

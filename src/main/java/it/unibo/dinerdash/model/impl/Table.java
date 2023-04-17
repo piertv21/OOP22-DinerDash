@@ -3,8 +3,8 @@ package it.unibo.dinerdash.model.impl;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import it.unibo.dinerdash.model.api.AbstractGameEntity;
 import it.unibo.dinerdash.model.api.TableState;
+import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*

@@ -10,10 +10,10 @@ import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.CustomerState;
-import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.model.api.WaitressState;
+import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -74,15 +74,15 @@ public class ModelImpl implements Model {
 
     private LinkedList<Customer> customers;
     private LinkedList<Table> tables;
-    private Countertop counterTop;
-    private Chef chef;
+    private CountertopImpl counterTop;
+    private ChefImpl chef;
     private Waitress waitress;
 
     public ModelImpl(Controller controller) {
         this.controller = controller;
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();        
-        this.counterTop = new Countertop(this);
+        this.counterTop = new CountertopImpl(this);
     }
 
     private void init() {
@@ -96,7 +96,7 @@ public class ModelImpl implements Model {
         
         var chefPosition = new Pair<>((int) (CHEF_REL_X * RESTAURANT_WIDTH), (int) (CHEF_REL_Y * RESTAURANT_HEIGHT));
         var chefSize = new Pair<>((int) (CHEF_REL_WIDTH * RESTAURANT_WIDTH), (int) (CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
-        this.chef = new Chef(chefPosition, chefSize, this);
+        this.chef = new ChefImpl(chefPosition, chefSize, this);
 
         var waitressPosition = new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y);
         var waitressSize = new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH);
@@ -299,7 +299,7 @@ public class ModelImpl implements Model {
        return this.tables.stream().anyMatch(tab->tab.getCustomer().isEmpty());  
     }
 
-    public Countertop getCounterTop() { //TODO Elimina
+    public CountertopImpl getCounterTop() { //TODO Elimina
         return counterTop;
     }
 
@@ -391,13 +391,13 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Optional<Dish> getDishToPrepare() {
+    public Optional<DishImpl> getDishToPrepare() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getDishToPrepare'");
     }
 
     @Override
-    public void completeDishPreparation(Dish dish) {
+    public void completeDishPreparation(DishImpl dish) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'completeDishPreparation'");
     }

@@ -6,10 +6,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import it.unibo.dinerdash.model.api.Countertop;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class Countertop {
+public class CountertopImpl implements Countertop {
 
     private static final double START_DISH_REL_X = 0.5;
     private static final double START_DISH_REL_Y = 0.2;
@@ -18,10 +19,10 @@ public class Countertop {
     private static final int DISH_REL_HEIGHT = 50;
     private static final int MAX_COUNTERTOP_DISHES = 4;
 
-    private LinkedList<Dish> dishes;
+    private LinkedList<DishImpl> dishes;
     private Model model;
 
-    public Countertop(Model model) {
+    public CountertopImpl(Model model) {
         this.model = model;
         this.dishes = new LinkedList<>();
     }
@@ -33,7 +34,7 @@ public class Countertop {
             var coordY = (int)(START_DISH_REL_Y * this.model.getHeight());
             var dishPosition = new Pair<>(coordX, coordY);
             var dishSize = new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT);
-            var dish = new Dish(dishPosition, dishSize, tableNumber);
+            var dish = new DishImpl(dishPosition, dishSize, tableNumber);
 
             this.dishes.add(dish);
         }
@@ -56,8 +57,8 @@ public class Countertop {
                 .orElse(startPoint);
     }
     
-    public Optional<Dish> takeDish(int x, int y) {
-        Optional<Dish> dishToRemove = this.dishes.stream()
+    public Optional<DishImpl> takeDish(int x, int y) {
+        Optional<DishImpl> dishToRemove = this.dishes.stream()
                 .filter(dish -> dish.getPosition().getX() == x && dish.getPosition().getY() == y)
                 .findFirst()
                 .map(dish -> {
@@ -77,14 +78,14 @@ public class Countertop {
     }
 
     // prossimo dish da preparare (active = false)
-    public Optional<Dish> getDishInOrder() {
+    public Optional<DishImpl> getDishInOrder() {
         return this.dishes.stream()
             .filter(dish -> !dish.isActive())
             .findFirst();
     }
 
     // Dato un dish lo imposta a ready, chiamata dallo Chef
-    public void setDishReady(Dish dish) {
+    public void setDishReady(DishImpl dish) {
         this.dishes.stream()
             .filter(d -> d.equals(dish))
             .findFirst()

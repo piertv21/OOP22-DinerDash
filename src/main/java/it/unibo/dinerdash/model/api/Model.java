@@ -3,9 +3,10 @@ package it.unibo.dinerdash.model.api;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.dinerdash.model.impl.Countertop;
+import it.unibo.dinerdash.model.api.States.GameState;
+import it.unibo.dinerdash.model.impl.CountertopImpl;
 import it.unibo.dinerdash.model.impl.Customer;
-import it.unibo.dinerdash.model.impl.Dish;
+import it.unibo.dinerdash.model.impl.DishImpl;
 import it.unibo.dinerdash.model.impl.Table;
 import it.unibo.dinerdash.model.impl.Waitress;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -34,7 +35,7 @@ public interface Model {
 
     void customerLeft();
 
-    Countertop getCounterTop();
+    CountertopImpl getCounterTop();
 
     void update(long elapsedUpdateTime);
 
@@ -82,8 +83,8 @@ public interface Model {
 
     boolean thereAreDishesToPrepare();
 
-    Optional<Dish> getDishToPrepare();
+    Optional<DishImpl> getDishToPrepare();
 
-    void completeDishPreparation(Dish dish);
+    void completeDishPreparation(DishImpl dish);
     
 }

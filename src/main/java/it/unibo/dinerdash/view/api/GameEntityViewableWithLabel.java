@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import javax.swing.JLabel;
 
-import it.unibo.dinerdash.model.api.GameEntity;
+import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*

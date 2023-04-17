@@ -4,8 +4,8 @@ import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
-import it.unibo.dinerdash.model.api.GameState;
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.States.GameState;
 
 public class GameLoopImpl implements GameLoop, Runnable {
 

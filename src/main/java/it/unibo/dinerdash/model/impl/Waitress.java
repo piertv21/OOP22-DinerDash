@@ -3,10 +3,10 @@ package it.unibo.dinerdash.model.impl;
 import java.util.LinkedList;
 import java.util.Optional;
 
-import it.unibo.dinerdash.model.api.AbstractGameEntityMovable;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.model.api.WaitressState;
+import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntityMovable;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class Waitress extends AbstractGameEntityMovable {
@@ -17,7 +17,7 @@ public class Waitress extends AbstractGameEntityMovable {
     private WaitressState state;
     private Model model;
 
-    private LinkedList<Dish> orderList;
+    private LinkedList<DishImpl> orderList;
     private boolean flag;
 
     private int serveTable;
@@ -30,7 +30,7 @@ public class Waitress extends AbstractGameEntityMovable {
         
     }
 
-    public void handleMovement(Dish dishReady) {
+    public void handleMovement(DishImpl dishReady) {
         if((state.equals(WaitressState.CALLING))||(state.equals(WaitressState.TAKING_DISH))||(state.equals(WaitressState.SERVING))) {
             this.model.setNeedUpdate(true);
             if(getPosition().getX() <  this.getDestination().get().getX()) this.moveRight();
@@ -85,7 +85,7 @@ public class Waitress extends AbstractGameEntityMovable {
         return this.state ;
     }
     
-    public void goGetDish(Dish dishReady) {
+    public void goGetDish(DishImpl dishReady) {
         this.setDestination(Optional.of(dishReady.getPosition()));
         this.state=WaitressState.TAKING_DISH;
     }
@@ -106,11 +106,11 @@ public class Waitress extends AbstractGameEntityMovable {
         return this.orderList.size();
     }
 
-    public void addOrderForWaitress(Dish dishReady) {
+    public void addOrderForWaitress(DishImpl dishReady) {
         orderList.add(dishReady); 
     }
 
-    public LinkedList<Dish> getOrderList() {
+    public LinkedList<DishImpl> getOrderList() {
         return this.orderList; 
     }
 
