@@ -25,4 +25,5 @@ public interface Table {
 
     void update();
 
+    void getPosition();
 }
