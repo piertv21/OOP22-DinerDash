@@ -3,15 +3,16 @@ package it.unibo.dinerdash.model.impl;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntity;
+import it.unibo.dinerdash.model.api.GameEntities.Table;
+import it.unibo.dinerdash.model.api.States.TableState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
  * Table is not a thread
  */
-public class Table extends AbstractGameEntity {
-    
+public class TableImpl extends AbstractGameEntity implements Table {
+
     private int tableNumber;
     private Optional<CustomerImpl> customer;
     private TableState state;
@@ -20,51 +21,60 @@ public class Table extends AbstractGameEntity {
     private final int TIME_FOR_EATING = 4;
     private long startEatingTime;
 
-    public Table(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
+    public TableImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
         super(coordinates, size);
         this.tableNumber = i;
-        this.SeatedPeople =0;
-        this.customer=Optional.empty();
-        this.state=TableState.EMPTY;
-       
+        this.SeatedPeople = 0;
+        this.customer = Optional.empty();
+        this.state = TableState.EMPTY;
+
     }
 
-    public void setState(TableState TableState){                                     
+    @Override
+    public void setState(TableState TableState) {
         this.state = TableState;
     }
 
-    public TableState getState(){                                     
+    @Override
+    public TableState getState() {
         return this.state;
     }
 
+    @Override
     public void setCustom(Optional<CustomerImpl> cs) {
         this.customer = cs;
     }
 
-    public Optional<CustomerImpl> getCustomer(){
+    @Override
+    public Optional<CustomerImpl> getCustomer() {
         return this.customer;
     }
 
-    public int getTableNumber(){
+    @Override
+    public int getTableNumber() {
         return this.tableNumber;
     }
 
-    public int setSeatedPeople(int sppl){
-         return this.SeatedPeople = sppl;
+    @Override
+    public int setSeatedPeople(int sppl) {
+        return this.SeatedPeople = sppl;
     }
 
+    @Override
     public int getPeopleSeatedNumber() {
-       return this.SeatedPeople;
+        return this.SeatedPeople;
     }
 
+    @Override
     public void startEating() {
         this.startEatingTime = System.nanoTime();
     }
 
+    @Override
     public void update() {
-        if(System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_FOR_EATING) + this.startEatingTime) {
+        if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_FOR_EATING) + this.startEatingTime) {
             state = TableState.WANTING_TO_PAY;
-        } 
+        }
     }
 
 }

@@ -61,7 +61,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     private JPanel rightPanel;
     private Image backgroundImage;
     private ImageReaderWithCache imageCacher;
-    
+
     private LinkedList<GameEntityViewable> customers;
     private LinkedList<GameEntityViewable> tables;
     private LinkedList<GameEntityViewable> dishes;
@@ -77,7 +77,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         setLayout(new BorderLayout());
         setFocusable(true);
         setBackground(Color.WHITE);
-        
+
         topPanel = new JPanel(new BorderLayout());
         topPanel.setOpaque(false);
         topPanel.setPreferredSize(new Dimension(0, 30));
@@ -96,7 +96,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         topPanel.add(timeLabel, BorderLayout.WEST);
         topPanel.add(coinLabel, BorderLayout.EAST);
         add(topPanel, BorderLayout.NORTH);
-        
+
         bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         bottomPanel.setOpaque(false);
         bottomPanel.setPreferredSize(new Dimension(0, 30));
@@ -121,32 +121,34 @@ public class GameViewImpl extends GamePanel implements GameView {
         c.insets.right = 8;
 
         powerupButton1 = new JButton("1");
-        //TODO .addActionListener();  //aumenta velocità cameriera
+        // TODO .addActionListener(); //aumenta velocità cameriera
         rightPanel.add(powerupButton1, c);
 
         c.gridy = 1;
         powerupButton2 = new JButton("2");
-        //TODO .addActionListener(); aumenta velocità di preparazione dei piatti
+        // TODO .addActionListener(); aumenta velocità di preparazione dei piatti
         rightPanel.add(powerupButton2, c);
 
         c.gridy = 2;
         powerupButton3 = new JButton("3");
-        //TODO .addActionListener(); aumenta il guadagno
+        // TODO .addActionListener(); aumenta il guadagno
         rightPanel.add(powerupButton3, c);
 
         c.gridy = 3;
         powerupButton4 = new JButton("4");
-        //TODO .addActionListener(); aumenta la velocità di consumazione dei clienti
+        // TODO .addActionListener(); aumenta la velocità di consumazione dei clienti
         rightPanel.add(powerupButton4, c);
-        
+
         add(rightPanel, BorderLayout.EAST);
 
         this.init();
         this.loadResources();
 
         var point = new Point(0, 0);
-        this.defaultCursor = Toolkit.getDefaultToolkit().createCustomCursor(this.imageCacher.getCachedImage("defaultCursor").getImage(), point, "Default Cursor");
-        this.handCursor = Toolkit.getDefaultToolkit().createCustomCursor(this.imageCacher.getCachedImage("handCursor").getImage(), point, "Hand Cursor");
+        this.defaultCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+                this.imageCacher.getCachedImage("defaultCursor").getImage(), point, "Default Cursor");
+        this.handCursor = Toolkit.getDefaultToolkit()
+                .createCustomCursor(this.imageCacher.getCachedImage("handCursor").getImage(), point, "Hand Cursor");
 
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
@@ -154,9 +156,9 @@ public class GameViewImpl extends GamePanel implements GameView {
                 int mouseX = e.getX();
                 int mouseY = e.getY();
 
-                //TODO Qui vanno check mouse sopra uno dei tavoli + uno dei piatti
+                // TODO Qui vanno check mouse sopra uno dei tavoli + uno dei piatti
 
-                //ESEMPIO
+                // ESEMPIO
                 if (inside(mouseX, mouseY, waitress)) {
                     // Il mouse è sopra la cameriera
                     setCursor(handCursor);
@@ -166,28 +168,28 @@ public class GameViewImpl extends GamePanel implements GameView {
                 }
             }
         });
-        
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int mouseX = e.getX();
                 int mouseY = e.getY();
 
-                //TODO Qui vanno gli eventi mouse sopra uno dei tavoli + uno dei piatti
+                // TODO Qui vanno gli eventi mouse sopra uno dei tavoli + uno dei piatti
 
-                //ESEMPIO
+                // ESEMPIO
                 if (inside(mouseX, mouseY, waitress)) {
                     // Il mouse è stato cliccato sulla cameriera
                     System.out.println("Coordinate del mouse: (" + mouseX + ", " + mouseY + ")");
                 }
-                tables.forEach(tav ->{
+                tables.forEach(tav -> {
                     if (inside(mouseX, mouseY, tav)) {
-                        controller.callWaitress(tables.indexOf(tav),"t",null);
+                        controller.callWaitress(tables.indexOf(tav), "t", null);
                     }
                 });
-                dishes.forEach(d->{
+                dishes.forEach(d -> {
                     if (inside(mouseX, mouseY, d)) {
-                        controller.callWaitress(dishes.indexOf(d),"d", d.getPosition());
+                        controller.callWaitress(dishes.indexOf(d), "d", d.getPosition());
                     }
                 });
             }
@@ -204,27 +206,28 @@ public class GameViewImpl extends GamePanel implements GameView {
         // Coordinate x e y dell'entità
         int viewableEntityWindowX = (int) (viewableEntity.getPosition().getX() * widthRatio);
         int viewableEntityWindowY = (int) (viewableEntity.getPosition().getY() * heightRatio);
-        
+
         // Dimensioni dell'entità
         int entityWindowWidth = (int) (viewableEntity.getSize().getX() * widthRatio);
         int entityWindowHeight = (int) (viewableEntity.getSize().getY() * heightRatio);
-        
+
         // Verifica se le coordinate del mouse sono all'interno dell'entità
         return (mouseX >= viewableEntityWindowX && mouseX <= viewableEntityWindowX + entityWindowWidth &&
                 mouseY >= viewableEntityWindowY && mouseY <= viewableEntityWindowY + entityWindowHeight);
-    }    
+    }
 
     private void showPauseDialog() {
         JLabel messageLabel = new JLabel("GAME PAUSED");
-        messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);    
-    
+        messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JPanel dialogPanel = new JPanel();
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
         dialogPanel.add(messageLabel);
-    
-        String[] options = {"Resume", "Restart", "Exit"};
-        int result = JOptionPane.showOptionDialog(this, dialogPanel, "Pause", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-    
+
+        String[] options = { "Resume", "Restart", "Exit" };
+        int result = JOptionPane.showOptionDialog(this, dialogPanel, "Pause", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
         switch (result) {
             case 1 -> this.getMainFrame().getController().restart();
             case 2 -> this.getMainFrame().getController().quit();
@@ -240,7 +243,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.getMainFrame().getController().start(this);
     }
 
-    public void init() {        
+    public void init() {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
@@ -256,7 +259,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                 .map(File::getPath)
                 .collect(Collectors.toList());
     }
-    
+
     private Stream<File> getFilesRecursively(File file, String basePath) {
         String filePath = file.getPath();
         String relativePath = filePath.substring(basePath.length());
@@ -266,35 +269,25 @@ public class GameViewImpl extends GamePanel implements GameView {
                 .flatMap(f -> getFilesRecursively(f, basePath))
                 : Stream.of(new File(relativePath));
     }
-    
+
     private void loadResources() {
         var path = "src" + SEP + "main" + SEP + "resources" + SEP + ROOT;
         var assetsPath = this.searchAssets(path);
         assetsPath.forEach(this.imageCacher::readImage);
-
-        this.initTable();
     }
 
     private void assignStartingImages() {
         this.backgroundImage = this.imageCacher.getCachedImage("background").getImage();
 
-        //TODO è una prova, manca la posizione della waitress dal controller->model!
+        // TODO è una prova, manca la posizione della waitress dal controller->model!
         var waitressPosition = new Pair<>(40, 120);
-        this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(120, 180), this.imageCacher.getCachedImage("waitress").getImage());
+        this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(120, 180),
+                this.imageCacher.getCachedImage("waitress").getImage());
     }
 
     @Override
     public void assignNewImage(GameEntityViewableWithLabel gameEWWithLabel, int multiplicity) {
-        //TODO Chiamare quando cambia multiplicity di una gameentityviewable
-    }
-
-    public void initTable() {
-        // Init Tables List
-        IntStream.range(0, 4)
-        .forEach(i-> {
-            this.tables.add(new GameEntityViewable(new Pair<Integer,Integer>(120, 180), new Pair<>(120,180), 
-            this.imageCacher.getCachedImage("table0").getImage()));
-        });
+        // TODO Chiamare quando cambia multiplicity di una gameentityviewable
     }
 
     @Override
@@ -302,22 +295,21 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.customers.clear();
         this.tables.clear();
         this.dishes.clear();
-        this.initTable();
     }
 
     @Override
-    public void addCustomerViewable(final int num, final Pair<Integer, Integer> size) { //add viewable customer
+    public void addCustomerViewable(final int num, final Pair<Integer, Integer> size) { // add viewable customer
         this.customers.add(new GameEntityViewable(null, size, null));
         this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num).getImage());
     }
 
     @Override
-    public void removeCustomerViewable(final int indexVal) {              //rimuovo l'elemento customers[indexVal]
+    public void removeCustomerViewable(final int indexVal) { // rimuovo l'elemento customers[indexVal]
         this.customers.remove(indexVal);
     }
 
     public void addDish() {
-        //TODO
+        // TODO
     }
 
     @Override
@@ -325,29 +317,30 @@ public class GameViewImpl extends GamePanel implements GameView {
         super.paintComponent(g);
         final var heightRatio = this.getMainFrame().getHeightRatio();
         final var widthRatio = this.getMainFrame().getWidthRatio();
-        
 
         // Background
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
 
         // Waitress
-        g.drawImage(waitress.getIcon(), (int)(waitress.getPosition().getX() * widthRatio), (int)(waitress.getPosition().getY() * heightRatio),
-            (int)(waitress.getSize().getX() * widthRatio), (int)(waitress.getSize().getY() * heightRatio), this);
+        g.drawImage(waitress.getIcon(), (int) (waitress.getPosition().getX() * widthRatio),
+                (int) (waitress.getPosition().getY() * heightRatio),
+                (int) (waitress.getSize().getX() * widthRatio), (int) (waitress.getSize().getY() * heightRatio), this);
 
         // Tables
-        this.tables.stream().filter(t -> t.getPosition() != null).forEach(e ->
-            g.drawImage(e.getIcon(), (int)(e.getPosition().getX() * widthRatio), (int)(e.getPosition().getY() * heightRatio),
-                (int)(e.getSize().getX() * widthRatio), (int)(e.getSize().getY() * heightRatio), this)
-        );
-        
+        this.tables.stream().filter(t -> t.getPosition() != null)
+                .forEach(e -> g.drawImage(e.getIcon(), (int) (e.getPosition().getX() * widthRatio),
+                        (int) (e.getPosition().getY() * heightRatio),
+                        (int) (e.getSize().getX() * widthRatio), (int) (e.getSize().getY() * heightRatio), this));
+
         // Customers
-        this.customers.stream().filter(cus -> cus.isActive()).forEach(c ->
-            g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio), (int) (c.getPosition().getY() * heightRatio),
-            (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this)
-        ); 
+        this.customers.stream().filter(cus -> cus.isActive())
+                .forEach(c -> g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
+                        (int) (c.getPosition().getY() * heightRatio),
+                        (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this));
 
         // Chef
-        // g.drawImage(chef.getIcon(), chef.getPosition().getX(), chef.getPosition().getY(), 200, 200, this);
+        // g.drawImage(chef.getIcon(), chef.getPosition().getX(),
+        // chef.getPosition().getY(), 200, 200, this);
     }
 
     @Override
@@ -358,17 +351,29 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public LinkedList<GameEntityViewable> getViewableTable() { //TODO Da rimuovere (usa add - update - remove)
+    public LinkedList<GameEntityViewable> getViewableTable() { // TODO Da rimuovere (usa add - update - remove)
         return this.tables;
     }
 
     @Override
-    public GameEntityViewable getViewableWaitress() {   //TODO Da rimuovere (usa add - update)
+    public GameEntityViewable getViewableWaitress() { // TODO Da rimuovere (usa add - update)
         return this.waitress;
     }
 
     @Override
-    public void UpdateViewableCustomer(final int index, final GameEntity elem) {        //aggiorno il customer 
+    public void UpdateViewableCustomer(final int index, final GameEntity elem) { // aggiorno il customer
         this.customers.get(index).update(elem);
     }
+
+    @Override
+    public void UpdateViewableTable(int index, GameEntity elem) { // aggiorno il customer
+        this.customers.get(index).update(elem);
+    }
+
+    @Override
+    public void adddTableViewable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) {
+        this.tables.add(new GameEntityViewable(pos, size, null));
+        this.tables.getLast().setIcon(this.imageCacher.getCachedImage("table0").getImage());
+    }
+
 }

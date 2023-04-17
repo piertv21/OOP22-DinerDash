@@ -10,6 +10,8 @@ import it.unibo.dinerdash.utility.impl.GameTimer;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
+import it.unibo.dinerdash.model.api.GameEntities.Table;
+import it.unibo.dinerdash.model.api.GameEntities.Waitress;
 
 public class ControllerImpl implements Controller {
 
@@ -18,11 +20,11 @@ public class ControllerImpl implements Controller {
     private GameView gameView;
     private GameLoop gameLoop;
     private GameTimer gameTimer;
-    
+
     public ControllerImpl() {
         this.model = new ModelImpl(this);
     }
-    
+
     @Override
     public void setView(View view) {
         this.view = view;
@@ -42,8 +44,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void restart() {   
-        this.gameView.clear();     
+    public void restart() {
+        this.gameView.clear();
         this.model.restart();
         this.gameTimer.restartTimer();
         this.updateView();
@@ -69,7 +71,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void syncChanges() {
-        //TODO Sincronizza stato liste view con quelle model
+        // TODO Sincronizza stato liste view con quelle model
 
         // Chiamare solo se ci son cambiamenti
         this.updateView();
@@ -91,8 +93,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addCustomer(final int customNumber, final Pair<Integer,Integer> size) {
-        this.gameView.addCustomerViewable(customNumber,size);  
+    public void addCustomer(final int customNumber, final Pair<Integer, Integer> size) {
+        this.gameView.addCustomerViewable(customNumber, size);
     }
 
     @Override
@@ -116,18 +118,22 @@ public class ControllerImpl implements Controller {
     }
 
     private void updateView() {
-        if(this.model.getNeedUpdate()) { this.updateListPosition(); }   //chiamo l'aggiornamento solo se il flag di aggiornamento è true
+        if (this.model.getNeedUpdate()) {
+            this.updateListPosition();
+        } // chiamo l'aggiornamento solo se il flag di aggiornamento è true
         this.gameView.render();
     }
 
     @Override
     public void resizeEntities() {
-        //TODO        QUI CHIAMO I METODI DELLA CLASSE RESIZE
-       // model.firstLinePosition= model.resizeLog.updateFirstPos(model.firstLinePosition,(int)this.model.restaurantSize.getHeight(), (int)this.model.restaurantSize.getWidth());
+        // TODO QUI CHIAMO I METODI DELLA CLASSE RESIZE
+        // model.firstLinePosition=
+        // model.resizeLog.updateFirstPos(model.firstLinePosition,(int)this.model.restaurantSize.getHeight(),
+        // (int)this.model.restaurantSize.getWidth());
     }
 
     private void init() {
-        //TODO
+        // TODO
     }
 
     @Override
@@ -138,35 +144,43 @@ public class ControllerImpl implements Controller {
         return formattedTime;
     }
 
-    private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
-        int p=0;
-        for(final var cus: model.getCustomers()) {
-               // this.gameView.getViewableCustomersList().get(p).update(cus);
-                this.gameView.UpdateViewableCustomer(p,cus);
-                p++;
-                // BISOGNA CHIAMARE UN METODO NELLA VIEW CHE CAMBIA L'IMMAGINE DEL TAVOLO ,
-                // AGGIUNGI METODO CHE AGGIORNA POSIZIONI TAVOLI ,E CONTROLLO SE IL CLIENTE è IN THINKING ,POI SE IL NUMERO DI CLIENTI SEDUTI ED LA MOLTEPLIC DEL CLIENTE
-                // ALLEGATO SONO UGUALI,  SE NON LO SONO CAMBIA L'IMMAGINE DEL TAVOLO
+    @Override
+    private void updateListPosition() { // aggiorno le posizioni dei clienti nella lista della view SARA DA CHIAMARE
+                                        // OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
+        int p = 0;
+        for (final var cus : model.getCustomers()) {
+            // this.gameView.getViewableCustomersList().get(p).update(cus);
+            this.gameView.UpdateViewableCustomer(p, cus);
+            p++;
+            // BISOGNA CHIAMARE UN METODO NELLA VIEW CHE CAMBIA L'IMMAGINE DEL TAVOLO ,
+            // AGGIUNGI METODO CHE AGGIORNA POSIZIONI TAVOLI ,E CONTROLLO SE IL CLIENTE è IN
+            // THINKING ,POI SE IL NUMERO DI CLIENTI SEDUTI ED LA MOLTEPLIC DEL CLIENTE
+            // ALLEGATO SONO UGUALI, SE NON LO SONO CAMBIA L'IMMAGINE DEL TAVOLO
         }
         this.gameView.getViewableWaitress().update(model.getWaitress());
 
-        p=0;
-        for(var table: model.getTable()){
+        p = 0;
+        for (var table : model.getTable()) {
             this.gameView.getViewableTable().get(p).update(table);
             p++;
         }
         this.model.setNeedUpdate(false);
-        
+
     }
 
     @Override
-    public void setWaitressDestination(Pair<Integer,Integer> dest) {
+    public void setWaitressDestination(Pair<Integer, Integer> dest) {
         this.model.setWaitressTableDestination(dest);
     }
-    
+
     @Override
-    public void callWaitress(int indexList, String s, Pair<Integer,Integer> position){
-        model.setWaiterssInfo(indexList,s, position);
+    public void callWaitress(int indexList, String s, Pair<Integer, Integer> position) {
+        model.setWaiterssInfo(indexList, s, position);
+    }
+
+    @Override
+    public void addTable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) {
+        this.gameView.adddTableViewable(pos, tableNum, size);
     }
 
 }

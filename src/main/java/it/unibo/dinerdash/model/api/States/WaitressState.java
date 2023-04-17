@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.model.api;
+package it.unibo.dinerdash.model.api.States;
 
 public enum WaitressState {
     WAITING,
@@ -10,4 +10,3 @@ public enum WaitressState {
     TAKING_MONEY,
     WAITING_TO_PAY
 }
-

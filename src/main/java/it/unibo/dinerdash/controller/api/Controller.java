@@ -28,7 +28,7 @@ public interface Controller {
 
     boolean gameOver();
 
-    void addCustomer(int customNumber,Pair<Integer,Integer> size);
+    void addCustomer(int customNumber, Pair<Integer, Integer> size);
 
     void removeCustomer(int indexValue);
 
@@ -40,7 +40,11 @@ public interface Controller {
 
     void timeIsChanged();
 
-    void setWaitressDestination(Pair<Integer,Integer> destination);
+    void setWaitressDestination(Pair<Integer, Integer> destination);
 
     void callWaitress(int indexOf, String s, Pair<Integer, Integer> position);
+
+    void addTable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size);
+
+    void updateListPosition();
 }

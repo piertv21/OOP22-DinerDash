@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.States.GameState;
+import it.unibo.dinerdash.model.api.States.TableState;
 import it.unibo.dinerdash.model.impl.CountertopImpl;
 import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.impl.DishImpl;
-import it.unibo.dinerdash.model.impl.Table;
-import it.unibo.dinerdash.model.impl.Waitress;
+import it.unibo.dinerdash.model.api.GameEntities.Table;
+import it.unibo.dinerdash.model.api.GameEntities.Waitress;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Model {
@@ -51,7 +52,7 @@ public interface Model {
 
     List<CustomerImpl> getCustomers();
 
-    void setWaitressTableDestination(Pair<Integer,Integer> destination);
+    void setWaitressTableDestination(Pair<Integer, Integer> destination);
 
     boolean checkFreeTables(CustomerImpl cus);
 
@@ -86,5 +87,7 @@ public interface Model {
     Optional<DishImpl> getDishToPrepare();
 
     void completeDishPreparation(DishImpl dish);
-    
+
+    void earnMoneyFromTable();
+
 }
