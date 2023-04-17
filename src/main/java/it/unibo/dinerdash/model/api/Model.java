@@ -1,9 +1,11 @@
 package it.unibo.dinerdash.model.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.dinerdash.model.impl.Countertop;
 import it.unibo.dinerdash.model.impl.Customer;
+import it.unibo.dinerdash.model.impl.Dish;
 import it.unibo.dinerdash.model.impl.Table;
 import it.unibo.dinerdash.model.impl.Waitress;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -77,5 +79,11 @@ public interface Model {
     void setNeedUpdate(boolean b);
 
     boolean getNeedUpdate();
+
+    boolean thereAreDishesToPrepare();
+
+    Optional<Dish> getDishToPrepare();
+
+    void completeDishPreparation(Dish dish);
     
 }

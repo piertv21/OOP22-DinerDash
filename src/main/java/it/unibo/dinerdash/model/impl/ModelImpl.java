@@ -385,4 +385,21 @@ public class ModelImpl implements Model {
         this.setCoins(this.coins + coinsEarnedWithBonus);
     }
 
+    @Override
+    public boolean thereAreDishesToPrepare() {
+        return this.counterTop.thereAreAvailableDishes();
+    }
+
+    @Override
+    public Optional<Dish> getDishToPrepare() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDishToPrepare'");
+    }
+
+    @Override
+    public void completeDishPreparation(Dish dish) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'completeDishPreparation'");
+    }
+
 }

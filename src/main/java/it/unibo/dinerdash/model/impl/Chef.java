@@ -31,47 +31,38 @@ public class Chef extends AbstractGameEntity {
     }
 
     public void update() {
-        // Verifica se c'è un piatto su cui lavorare
         if (this.currentDish.isPresent()) {
-            // Verifica se il piatto corrente è pronto
             if (System.nanoTime() >= this.timeDishReady.get()) {
                 this.completeCurrentDish();
             }
         } else {
-            // Verifica se ci sono piatti da preparare sul CounterTop
-            var counterTop = this.model.getCounterTop();
-
-            if (counterTop.thereAreAvailableDishes()) {
-                // Verifica se lo chef è attualmente inattivo
+            if (this.model.thereAreDishesToPrepare()) {
+                
                 if (!this.isActive()) {
                     this.setActive(true);
                 }
-
-                // Seleziona un nuovo piatto da preparare
-                currentDish = counterTop.getDishInOrder();
+                
+                currentDish = this.model.getDishToPrepare();
 
                 this.startPreparingDish(currentDish.get());
             } else {
-                // Se non ci sono piatti da preparare, imposta lo stato di lavoro inattivo
+                
                 this.setActive(false);
             }
         }
     }
 
     public void startPreparingDish(Dish dish) {
-        // Salva nuovo piatto
         this.currentDish = Optional.of(dish);
 
-        // Calcola tempo piatto pronto
-        var currentTime = System.nanoTime();
         int preparationTimeInSeconds = (int) (Math.random() * (MAX_PREPARATION_TIME - MIN_PREPARATION_TIME + 1)) + MIN_PREPARATION_TIME;
         int bonusTime = this.enabledPowerUps * CHEF_TIME_SAVING;
+        var currentTime = System.nanoTime();
         this.timeDishReady = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(preparationTimeInSeconds - bonusTime));
     }
 
     public void completeCurrentDish() {
-        var counterTop = this.model.getCounterTop();
-        counterTop.setDishReady(this.currentDish.get());
+        this.model.completeDishPreparation(this.currentDish.get());
 
         this.currentDish = Optional.empty();
         this.timeDishReady = Optional.empty();

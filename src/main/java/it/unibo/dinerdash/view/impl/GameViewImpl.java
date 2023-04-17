@@ -180,11 +180,15 @@ public class GameViewImpl extends GamePanel implements GameView {
                     // Il mouse è stato cliccato sulla cameriera
                     System.out.println("Coordinate del mouse: (" + mouseX + ", " + mouseY + ")");
                 }
-                tables.stream().forEach(tav ->{
-                    if(inside(mouseX, mouseY, tav))controller.callWaitress(tables.indexOf(tav),"t",null);
+                tables.forEach(tav ->{
+                    if (inside(mouseX, mouseY, tav)) {
+                        controller.callWaitress(tables.indexOf(tav),"t",null);
+                    }
                 });
                 dishes.forEach(d->{
-                    if(inside(mouseX,mouseY,d))controller.callWaitress(dishes.indexOf(d),"d", d.getPosition());
+                    if (inside(mouseX, mouseY, d)) {
+                        controller.callWaitress(dishes.indexOf(d),"d", d.getPosition());
+                    }
                 });
             }
         });
