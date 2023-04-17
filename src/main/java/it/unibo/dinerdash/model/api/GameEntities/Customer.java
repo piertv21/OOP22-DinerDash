@@ -1,6 +1,9 @@
 package it.unibo.dinerdash.model.api.GameEntities;
 
+import java.util.Optional;
+
 import it.unibo.dinerdash.model.api.States.CustomerState;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Customer {
 
@@ -10,6 +13,15 @@ public interface Customer {
 
     CustomerState getState();
     
-    void update(); 
+    void update();
+
+    Pair<Integer, Integer> getPosition();
+
+    void setDestination(final Optional<Pair<Integer, Integer>> destination);
+
+    Optional<Pair<Integer, Integer>> getDestination();
+
+    void setPosition(Pair<Integer, Integer> position);
+
 }
 

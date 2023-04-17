@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.model.api.States.TableState;
-import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.model.api.GameEntities.Table;
@@ -54,11 +53,11 @@ public interface Model {
 
     void setWaitressTableDestination(Pair<Integer, Integer> destination);
 
-    boolean checkFreeTables(CustomerImpl cus);
+    boolean checkFreeTables(Customer cus);
 
-    void linePositionAssignament(CustomerImpl cus);
+    void linePositionAssignament(Customer cus);
 
-    void tableAssignament(CustomerImpl cus);
+    void tableAssignament(Customer cus);
 
     void setTableCustomers(int customersMolteplicity, int numberTable);
 

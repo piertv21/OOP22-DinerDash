@@ -4,6 +4,7 @@ import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
 import it.unibo.dinerdash.engine.impl.GameLoopImpl;
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.utility.impl.GameTimer;
@@ -148,7 +149,7 @@ public class ControllerImpl implements Controller {
         int p = 0;
         for (final var cus : model.getCustomers()) {
             // this.gameView.getViewableCustomersList().get(p).update(cus);
-            this.gameView.UpdateViewableCustomer(p, cus);
+            this.gameView.UpdateViewableCustomer(p, (GameEntity)cus);
             p++;
             // BISOGNA CHIAMARE UN METODO NELLA VIEW CHE CAMBIA L'IMMAGINE DEL TAVOLO ,
             // AGGIUNGI METODO CHE AGGIORNA POSIZIONI TAVOLI ,E CONTROLLO SE IL CLIENTE è IN
