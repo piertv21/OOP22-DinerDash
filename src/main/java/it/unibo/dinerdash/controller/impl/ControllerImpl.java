@@ -93,12 +93,12 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addCustomer(int customNumber, Pair<Integer,Integer> size) {
+    public void addCustomer(final int customNumber, final Pair<Integer,Integer> size) {
         this.gameView.addCustomerViewable(customNumber,size);  
     }
 
     @Override
-    public void removeCustomer(int indexValue) {
+    public void removeCustomer(final int indexValue) {
         this.gameView.removeCustomerViewable(indexValue);
     }
 
@@ -118,7 +118,7 @@ public class ControllerImpl implements Controller {
     }
 
     private void updateView() {
-        if(this.model.getNeedUpdate())  this.updateListPosition();   //chiamo l'aggiornamento solo se il flag di aggiornamento è true
+        if(this.model.getNeedUpdate()) { this.updateListPosition(); }   //chiamo l'aggiornamento solo se il flag di aggiornamento è true
         this.gameView.render();
     }
 
@@ -140,15 +140,9 @@ public class ControllerImpl implements Controller {
         return formattedTime;
     }
 
-    @Override
-    public LinkedList<Customer> getSittedCustomList(){                         // TODO serve ??
-       // return this.model.getCustomers();
-       return null;
-    }
-
     private void updateListPosition() {         //aggiorno le posizioni dei clienti nella lista della view  SARA DA CHIAMARE OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p=0;
-        for(var cus: model.getCustomers()) {
+        for(final var cus: model.getCustomers()) {
                // this.gameView.getViewableCustomersList().get(p).update(cus);
                 this.gameView.UpdateViewableCustomer(p,cus);
                 p++;

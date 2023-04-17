@@ -10,7 +10,7 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
     private Optional<Pair<Integer, Integer>> destination;
     private int speed;
 
-    public AbstractGameEntityMovable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int speed) {
+    public AbstractGameEntityMovable(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,final int speed) {
         super(coordinates, size);
         this.destination = Optional.empty();
         this.setMovementSpeed(speed);
@@ -22,40 +22,40 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
     }
 
     @Override
-    public void setDestination(Optional<Pair<Integer, Integer>> destination) {
+    public void setDestination(final Optional<Pair<Integer, Integer>> destination) {
         this.destination = destination;
     }
 
     @Override
-    public void setMovementSpeed(int speed) {
+    public void setMovementSpeed(final int speed) {
         this.speed = speed;
     }
 
     @Override
     public void moveUp() {
-        var oldPosition = this.getPosition();
-        var newPosition = new Pair<>(oldPosition.getX() + Direction.UP.getX() * this.speed, oldPosition.getY() + Direction.UP.getY() * this.speed);
+        final var oldPosition = this.getPosition();
+        final var newPosition = new Pair<>(oldPosition.getX() + Direction.UP.getX() * this.speed, oldPosition.getY() + Direction.UP.getY() * this.speed);
         this.setPosition(newPosition);
     }
 
     @Override
     public void moveDown() {
-        var oldPosition = this.getPosition();
-        var newPosition = new Pair<>(oldPosition.getX() + Direction.DOWN.getX() * this.speed, oldPosition.getY() + Direction.DOWN.getY() * this.speed);
+        final var oldPosition = this.getPosition();
+        final var newPosition = new Pair<>(oldPosition.getX() + Direction.DOWN.getX() * this.speed, oldPosition.getY() + Direction.DOWN.getY() * this.speed);
         this.setPosition(newPosition);
     }
 
     @Override
     public void moveRight() {
-        var oldPosition = this.getPosition();
-        var newPosition = new Pair<>(oldPosition.getX() + Direction.RIGHT.getX() * this.speed, oldPosition.getY() + Direction.RIGHT.getY() * this.speed);
+        final var oldPosition = this.getPosition();
+        final var newPosition = new Pair<>(oldPosition.getX() + Direction.RIGHT.getX() * this.speed, oldPosition.getY() + Direction.RIGHT.getY() * this.speed);
         this.setPosition(newPosition);
     }
 
     @Override
     public void moveLeft() {
-        var oldPosition = this.getPosition();
-        var newPosition = new Pair<>(oldPosition.getX() + Direction.LEFT.getX() * this.speed, oldPosition.getY() + Direction.LEFT.getY() * this.speed);
+        final var oldPosition = this.getPosition();
+        final var newPosition = new Pair<>(oldPosition.getX() + Direction.LEFT.getX() * this.speed, oldPosition.getY() + Direction.LEFT.getY() * this.speed);
         this.setPosition(newPosition);
     }
     

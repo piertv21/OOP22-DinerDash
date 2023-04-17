@@ -45,7 +45,5 @@ public interface Controller {
 
     void setWaitressDestination(Pair<Integer,Integer> destination);
 
-    LinkedList<Customer> getSittedCustomList();
-
     void callWaitress(int indexOf, String s, Pair<Integer, Integer> position);
 }

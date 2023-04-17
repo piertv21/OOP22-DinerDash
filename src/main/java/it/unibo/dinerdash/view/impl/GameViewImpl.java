@@ -302,13 +302,13 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void addCustomerViewable(int num, Pair<Integer,Integer> size) {              //aggiungo l'immagine ai clienti appena creati
+    public void addCustomerViewable(final int num,final Pair<Integer,Integer> size) {              //aggiungo l'immagine ai clienti appena creati
         this.customers.add(new GameEntityViewable(null, size, null));
         this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num).getImage());
     }
 
     @Override
-    public void removeCustomerViewable(int indexVal) {              //rimuovo l'elemento customers[indexVal]
+    public void removeCustomerViewable(final int indexVal) {              //rimuovo l'elemento customers[indexVal]
         this.customers.remove(indexVal);
     }
 
@@ -319,9 +319,9 @@ public class GameViewImpl extends GamePanel implements GameView {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        var widthRatio = this.getMainFrame().getWidthRatio();
-        var heightRatio = this.getMainFrame().getHeightRatio();
+        final var heightRatio = this.getMainFrame().getHeightRatio();
+        final var widthRatio = this.getMainFrame().getWidthRatio();
+        
 
         // Background
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
@@ -356,11 +356,6 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public LinkedList<GameEntityViewable> getViewableCustomersList() {  //TODO Da rimuovere (usa add - update - remove)
-        return this.customers;
-    }
-
-    @Override
     public LinkedList<GameEntityViewable> getViewableTable() { //TODO Da rimuovere (usa add - update - remove)
         return this.tables;
     }
@@ -371,7 +366,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void UpdateViewableCustomer(int index,GameEntity elem) {        //aggiorno il customer 
+    public void UpdateViewableCustomer(final int index,final GameEntity elem) {        //aggiorno il customer 
         this.customers.get(index).update(elem);
     }
 

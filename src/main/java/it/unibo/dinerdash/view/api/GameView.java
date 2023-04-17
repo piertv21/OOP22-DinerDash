@@ -21,8 +21,6 @@ public interface GameView {
 
     LinkedList<GameEntityViewable> getViewableTable();
 
-    LinkedList<GameEntityViewable> getViewableCustomersList();
-
     void UpdateViewableCustomer(int index,GameEntity elem);
     
 }

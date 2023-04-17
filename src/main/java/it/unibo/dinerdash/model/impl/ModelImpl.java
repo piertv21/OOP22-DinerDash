@@ -187,7 +187,7 @@ public class ModelImpl implements Model {
         this.customers.add(new Customer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), this,customersMolteplicity)); 
         this.controller.addCustomer(customersMolteplicity,new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));   // aggiungo un cliente viewable nella lista    
         if(thereAreAvaibleTables()) {
-            AssegnoTavolo( this.customers.getLast());
+            tableAssignament( this.customers.getLast());
         } else {
             customers.getLast().setState(CustomerState.LINE);
             assegnoPostoFila(this.customers.getLast()); 
@@ -269,7 +269,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void AssegnoTavolo(final Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
+    public void tableAssignament(final Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         cus.setDestination(Optional.ofNullable(
             this.tables.stream()
             .filter(tav->tav.getCustomer().isEmpty())

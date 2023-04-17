@@ -54,7 +54,7 @@ public interface Model {
 
     void assegnoPostoFila(Customer cus);
 
-    void AssegnoTavolo(Customer cus);
+    void tableAssignament(Customer cus);
 
     void setTableCustomers(int customersMolteplicity, int numberTable);
 
