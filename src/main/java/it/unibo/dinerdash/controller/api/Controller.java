@@ -47,4 +47,5 @@ public interface Controller {
     void addTable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size);
 
     void updateListPosition();
+    
 }

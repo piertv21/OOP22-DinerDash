@@ -133,11 +133,6 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
 
     @Override
     public boolean checkRightTable(int tableNumber) {
-        flag = false;
-        this.orderList.forEach(o -> {
-            if (o.getDishNumber() == tableNumber)
-                flag = true;
-        });
-        return flag;
+        return this.orderList.stream().anyMatch(e -> e.getDishNumber() == tableNumber);
     }
 }
