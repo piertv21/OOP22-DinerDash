@@ -3,16 +3,16 @@ package it.unibo.dinerdash.model.impl;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntityMovable;
+import it.unibo.dinerdash.model.api.States.CustomerState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /** 
  * Create a new element "Customer" who will move in the restaurant.
  */
-public class Customer extends AbstractGameEntityMovable  {
+public class CustomerImpl extends AbstractGameEntityMovable  {
 
     private static final int TIME_BEFORE_GETANGRY = 10;
     private static final int TIME_BEFORE_ORDERING = 4;
@@ -22,7 +22,7 @@ public class Customer extends AbstractGameEntityMovable  {
     private final int numClienti;
     private long startThinkTime;
     private Optional<Long> startAngryTime;
-    public Customer(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, 
+    public CustomerImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, 
     final Model model, final int numCust) {
         super(coordinates, size, SPEED);
         this.model = model;

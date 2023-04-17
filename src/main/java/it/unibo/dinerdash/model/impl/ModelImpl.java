@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.controller.api.Controller;
-import it.unibo.dinerdash.model.api.CustomerState;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.TableState;
 import it.unibo.dinerdash.model.api.WaitressState;
+import it.unibo.dinerdash.model.api.States.CustomerState;
 import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
@@ -72,7 +72,7 @@ public class ModelImpl implements Model {
     private long lastCustomerTimeCreation;
     private boolean needUpdate;
 
-    private LinkedList<Customer> customers;
+    private LinkedList<CustomerImpl> customers;
     private LinkedList<Table> tables;
     private CountertopImpl counterTop;
     private ChefImpl chef;
@@ -184,7 +184,7 @@ public class ModelImpl implements Model {
         }
         final var position = new Pair<>(CUSTOMER_STARTING_X,  CUSTOMER_STARTING_Y); 
         final int customersMolteplicity = (int) (Math.random()* (4)) + 1;
-        this.customers.add(new Customer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), this,customersMolteplicity)); 
+        this.customers.add(new CustomerImpl(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), this,customersMolteplicity)); 
         this.controller.addCustomer(customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));   
         if (thereAreAvaibleTables()) {
             tableAssignament( this.customers.getLast());
@@ -225,7 +225,7 @@ public class ModelImpl implements Model {
     @Override
     public void removeAngryCustomers() { 
         if(this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))){ 
-            final Customer tempCustomerToDelete = this.customers.stream()
+            final CustomerImpl tempCustomerToDelete = this.customers.stream()
             .filter(p -> p.getState()                      //prendo il primo arrabbiato
             .equals(CustomerState.ANGRY))
             .findFirst()
@@ -262,12 +262,12 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public List<Customer> getCustomers() {  //TODO Elimina
+    public List<CustomerImpl> getCustomers() {  //TODO Elimina
         return Collections.unmodifiableList(this.customers.stream().collect(Collectors.toList()));
     }
 
     @Override
-    public void tableAssignament(final Customer cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
+    public void tableAssignament(final CustomerImpl cus) {                              //quando non ci sono più tavoli liberi non vengono piu assegnati tavoli nuovi
         cus.setDestination(Optional.ofNullable(
             this.tables.stream()
             .filter(tav -> tav.getCustomer().isEmpty())
@@ -283,7 +283,7 @@ public class ModelImpl implements Model {
     } 
 
     @Override
-    public void linePositionAssignament(final Customer cus) {
+    public void linePositionAssignament(final CustomerImpl cus) {
         final int inLineCustm = (int) customers.stream().filter(p -> p.getState().equals(CustomerState.LINE)).count();
         if (inLineCustm!=1) {
         cus.setPosition(new Pair<Integer,Integer>((int)CUSTOMER_FIRST_LINE_REL_X,(int)(CUSTOMER_FIRST_LINE_REL_Y-((inLineCustm-1)*CUSTOMER_IN_LINE_PADDING))));
@@ -305,7 +305,7 @@ public class ModelImpl implements Model {
 
 
     @Override
-    public boolean checkFreeTables(final Customer cus){   //i clientei in fila controllano se si è liberato un tavolo
+    public boolean checkFreeTables(final CustomerImpl cus){   //i clientei in fila controllano se si è liberato un tavolo
         if (this.customers.stream()          // se questo cliente è il primo della fila
         .filter(p->p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)) {
            return this.thereAreAvaibleTables();

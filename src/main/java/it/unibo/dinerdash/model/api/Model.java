@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.model.impl.CountertopImpl;
-import it.unibo.dinerdash.model.impl.Customer;
+import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.impl.DishImpl;
 import it.unibo.dinerdash.model.impl.Table;
 import it.unibo.dinerdash.model.impl.Waitress;
@@ -49,15 +49,15 @@ public interface Model {
 
     int getRemainingTime();
 
-    List<Customer> getCustomers();
+    List<CustomerImpl> getCustomers();
 
     void setWaitressTableDestination(Pair<Integer,Integer> destination);
 
-    boolean checkFreeTables(Customer cus);
+    boolean checkFreeTables(CustomerImpl cus);
 
-    void linePositionAssignament(Customer cus);
+    void linePositionAssignament(CustomerImpl cus);
 
-    void tableAssignament(Customer cus);
+    void tableAssignament(CustomerImpl cus);
 
     void setTableCustomers(int customersMolteplicity, int numberTable);
 

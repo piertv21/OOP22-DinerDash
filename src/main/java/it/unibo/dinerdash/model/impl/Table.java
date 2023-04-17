@@ -13,7 +13,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public class Table extends AbstractGameEntity {
     
     private int tableNumber;
-    private Optional<Customer> customer;
+    private Optional<CustomerImpl> customer;
     private TableState state;
     private int SeatedPeople;
 
@@ -37,11 +37,11 @@ public class Table extends AbstractGameEntity {
         return this.state;
     }
 
-    public void setCustom(Optional<Customer> cs) {
+    public void setCustom(Optional<CustomerImpl> cs) {
         this.customer = cs;
     }
 
-    public Optional<Customer> getCustomer(){
+    public Optional<CustomerImpl> getCustomer(){
         return this.customer;
     }
 
