@@ -2,36 +2,21 @@ package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
 
-import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntity;
 import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/*
- * GameEntity viewable for GUI representation (Chef - Waitress - Dishes)
- */
-public class GameEntityViewable extends AbstractGameEntity {
+public interface GameEntityViewable {
 
-    private Image icon;
+    Image getIcon();
 
-    public GameEntityViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Image icon) {
-        super(coordinates, size);
-        this.setIcon(icon);
-    }
+    void setIcon(Image icon);
 
-    public Image getIcon() {
-        return this.icon;
-    }
+    void update(GameEntity gameEntity);
 
-    public void setIcon(Image icon) {
-        this.icon = icon;
-    }
+    Pair<Integer, Integer> getPosition();
 
-    public void update(GameEntity gameEntity) {
-        var newPosition = gameEntity.getPosition();
-        this.setPosition(newPosition);
+    Pair<Integer, Integer> getSize();
 
-        var newActiveStatus = gameEntity.isActive();
-        this.setActive(newActiveStatus);
-    }
-
+    boolean isActive();
+    
 }

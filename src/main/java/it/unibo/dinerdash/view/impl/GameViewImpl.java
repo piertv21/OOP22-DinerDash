@@ -38,6 +38,7 @@ import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
+import it.unibo.dinerdash.view.api.GameEntityViewableImpl;
 
 /*
  * Main Game View Panel
@@ -261,7 +262,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         // TODO è una prova, manca la posizione della waitress dal controller->model!
         var waitressPosition = new Pair<>(40, 120);
-        this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(120, 180),
+        this.waitress = new GameEntityViewableImpl(waitressPosition, new Pair<>(120, 180),
                 this.imageCacher.getCachedImage("waitress").getImage());
     }
 
@@ -274,7 +275,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addCustomerViewable(final int num, final Pair<Integer, Integer> size) { // add viewable customer
-        this.customers.add(new GameEntityViewable(null, size, null));
+        this.customers.add(new GameEntityViewableImpl(null, size, null));
         this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num).getImage());
     }
 
@@ -347,7 +348,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void adddTableViewable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) {
-        this.tables.add(new GameEntityViewable(pos, size, null));
+        this.tables.add(new GameEntityViewableImpl(pos, size, null));
         this.tables.getLast().setIcon(this.imageCacher.getCachedImage("table0").getImage());
     }
 
