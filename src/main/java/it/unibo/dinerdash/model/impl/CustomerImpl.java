@@ -15,8 +15,8 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public class CustomerImpl extends AbstractGameEntityMovable implements Customer {
 
-    private static final int TIME_BEFORE_GETANGRY = 10;
-    private static final int TIME_BEFORE_ORDERING = 4;
+    private static final int ZERO = 0;
+    private static final int MAX_ORDERING_TIME = 4;
     private static final int TIME_BEFORE_LOOSEPATIENCE = 2;
     private static final int MAX_PATIECE = 6;
     private static final int SPEED = 5;
@@ -26,6 +26,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     private long startThinkTime;
     private Optional<Long> lastPatienceReduce;
     private int patience;
+    private final int timeBeforeOrder;
 
     public CustomerImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,
             final Model model, final int numCusters) {
@@ -34,7 +35,8 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
         this.state = CustomerState.WALKING;
         this.numberClients = numCusters;
         this.lastPatienceReduce = Optional.empty();
-        this.patience=MAX_PATIECE;
+        this.patience = MAX_PATIECE;
+        this.timeBeforeOrder = (int) ((Math.random() * (MAX_ORDERING_TIME)) + 1);
         this.setActive(true);
     }
 
@@ -77,7 +79,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 this.model.setNumberOfClientsAtTable(numberClients, sittedTable);
             }
         } else if (state.equals(CustomerState.THINKING)) { // client think what to order
-            if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
+            if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(timeBeforeOrder) + this.startThinkTime) {
                 this.model.setNeedUpdate(true);
                 state = CustomerState.ORDERING;
                 final int sittedTable = this.model.getTablefromPositon(getPosition()).getTableNumber();
@@ -90,7 +92,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                     this.model.tableAssignament(this);
                     this.model.setNeedUpdate(true);
                     this.state = CustomerState.WALKING;
-                } else if (this.patience==0) { // client get angry
+                } else if (this.patience == ZERO) { // client get angry
                     this.state = CustomerState.ANGRY;
                     this.model.setNeedUpdate(true);
                 } else if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_LOOSEPATIENCE)
