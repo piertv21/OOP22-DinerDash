@@ -90,12 +90,7 @@ public class ViewImpl extends JFrame implements View {
         this.showGameView();
     }
 
-    public double getWidthRatio(){
-        return this.widthRatio;
-    }
 
-    public double getHeightRatio() {
-        return this.heightRatio;
-    }
+    
 
 }

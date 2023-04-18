@@ -22,17 +22,17 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     private static final int SPEED = 5;
     private CustomerState state;
     private final Model model;
-    private final int numClienti;
+    private final int numberClients;
     private long startThinkTime;
     private Optional<Long> lastPatienceReduce;
     private int patience;
 
     public CustomerImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,
-            final Model model, final int numCust) {
+            final Model model, final int numCusters) {
         super(coordinates, size, SPEED);
         this.model = model;
         this.state = CustomerState.WALKING;
-        this.numClienti = numCust;
+        this.numberClients = numCusters;
         this.lastPatienceReduce = Optional.empty();
         this.patience=MAX_PATIECE;
         this.setActive(true);
@@ -40,7 +40,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
 
     @Override
     public int getCustomerCount() {
-        return this.numClienti;
+        return this.numberClients;
     }
 
     @Override
@@ -73,10 +73,10 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 this.setActive(false); // cliente think,and become invisible
                 final int sittedTable = this.model
                         .getTablefromPositon(getPosition()).getTableNumber();
-                this.model.setTableCustomers(numClienti, sittedTable);
+                this.model.setTableCustomers(numberClients, sittedTable);
                 this.model.setTableState(TableState.THINKING, sittedTable);
             }
-        } else if (state.equals(CustomerState.THINKING)) { // il cliente pensa a cosa ordinare
+        } else if (state.equals(CustomerState.THINKING)) { // client think what to order
             if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
                 this.model.setNeedUpdate(true);
                 state = CustomerState.ORDERING;
@@ -86,7 +86,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
         } else if (state.equals(CustomerState.LINE)) {
             if (this.lastPatienceReduce.isPresent()) {
                 if (model.checkFreeTables(this)) {
-                    // vado a sedermi al tavolo
+                    // go to sit at table
                     this.model.tableAssignament(this);
                     this.model.setNeedUpdate(true);
                     this.state = CustomerState.WALKING;
@@ -100,7 +100,6 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                     this.model.setNeedUpdate(true);
                 }
             } else {
-                //this.startAngryTime = Optional.of(System.nanoTime());
                 this.lastPatienceReduce = Optional.of(System.nanoTime());
             }
         }
