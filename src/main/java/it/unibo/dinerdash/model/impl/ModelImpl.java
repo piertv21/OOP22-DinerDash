@@ -187,6 +187,7 @@ public class ModelImpl implements Model {
     @Override
     public void sendOrder(int tableNumber) { // mando l'ordine al bancone
         this.counterTop.addOrder(tableNumber);
+        this.setTableState(TableState.WAITING_MEAL, tableNumber);
     }
 
     @Override
@@ -196,8 +197,8 @@ public class ModelImpl implements Model {
         }
         final var position = new Pair<>(CUSTOMER_STARTING_X, CUSTOMER_STARTING_Y);
         final int customersMolteplicity = (int) (Math.random() * (4)) + 1;
-        this.customers.add( this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
-                   this, customersMolteplicity) );     
+        this.customers.add(this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
+                this, customersMolteplicity));
         this.controller.addCustomer(customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));
         if (thereAreAvaibleTables()) {
             tableAssignament(this.customers.getLast());
@@ -283,7 +284,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void tableAssignament(final Customer client) { // quando non ci sono più tavoli liberi non vengono piu
-                                                           // assegnati tavoli nuovi
+                                                          // assegnati tavoli nuovi
         client.setDestination(Optional.ofNullable(
                 this.tables.stream()
                         .filter(tav -> tav.getCustomer().isEmpty())
@@ -304,8 +305,8 @@ public class ModelImpl implements Model {
             client.setPosition(new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X,
                     (int) (CUSTOMER_FIRST_LINE_REL_Y - ((inLineCustm - 1) * CUSTOMER_IN_LINE_PADDING))));
         } else {
-            client.setPosition( new Pair<Integer, Integer>(
-                (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y));
+            client.setPosition(new Pair<Integer, Integer>(
+                    (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y));
         }
     }
 

@@ -15,6 +15,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
 
     private static int SPEED = 1;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
+    private int enabledPowerUps = 0;
 
     private WaitressState state;
     private Model model;
@@ -138,6 +139,11 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     @Override
     public void setPosition(Pair<Integer, Integer> position) {
         super.setPosition(position);
+    }
+
+    @Override
+    public void incrementSped() {
+        this.enabledPowerUps++;
     }
 
 }

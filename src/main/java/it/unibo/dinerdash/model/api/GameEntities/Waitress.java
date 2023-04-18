@@ -31,4 +31,6 @@ public interface Waitress extends GameEntityMovable {
 
     void setPosition(Pair<Integer, Integer> position);
 
+    void incrementSped();
+
 }
