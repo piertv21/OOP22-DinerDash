@@ -8,6 +8,9 @@ import it.unibo.dinerdash.model.impl.TableImpl;
 import it.unibo.dinerdash.model.impl.WaitressImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
+/*
+ * Factory method for game entities
+ */
 public class GameEntityFactoryImpl implements GameEntityFactory {
     
     @Override

@@ -20,7 +20,6 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     private Model model;
 
     private LinkedList<Dish> orderList;
-    private boolean flag;
 
     private int serveTable;
 

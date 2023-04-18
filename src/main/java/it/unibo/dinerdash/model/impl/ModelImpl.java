@@ -92,7 +92,7 @@ public class ModelImpl implements Model {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.counterTop = new CountertopImpl(this);
-        this.factory=new GameEntityFactoryImpl();
+        this.factory = new GameEntityFactoryImpl();
     }
 
     private void init() {
@@ -107,11 +107,11 @@ public class ModelImpl implements Model {
         var chefPosition = new Pair<>((int) (CHEF_REL_X * RESTAURANT_WIDTH), (int) (CHEF_REL_Y * RESTAURANT_HEIGHT));
         var chefSize = new Pair<>((int) (CHEF_REL_WIDTH * RESTAURANT_WIDTH),
                 (int) (CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
-        this.chef = new ChefImpl(chefPosition, chefSize, this);
+        this.chef = this.factory.createChef(chefPosition, chefSize, this);
 
         var waitressPosition = new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y);
         var waitressSize = new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH);
-        this.waitress = new WaitressImpl(waitressPosition, waitressSize, this);
+        this.waitress = this.factory.createWaitress(waitressPosition, waitressSize, this);
 
         this.lastCustomerTimeCreation = System.nanoTime();
     }
@@ -127,7 +127,7 @@ public class ModelImpl implements Model {
                             Pair<Integer, Integer> coordinates = new Pair<>(x, y);
                             Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
                             this.controller.addTable(coordinates, i + 1, size);
-                            return new TableImpl(coordinates, size, i + 1);
+                            return this.factory.createTable(coordinates, size, i + 1);
                         }))
                 .collect(Collectors.toList());
         this.tables.addAll(tables);
