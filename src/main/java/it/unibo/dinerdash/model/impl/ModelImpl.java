@@ -14,6 +14,8 @@ import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.GameEntities.Chef;
 import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
+import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactory;
+import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.api.GameEntities.Table;
 import it.unibo.dinerdash.model.api.GameEntities.Waitress;
 import it.unibo.dinerdash.model.api.States.CustomerState;
@@ -78,6 +80,7 @@ public class ModelImpl implements Model {
     private Controller controller;
     private long lastCustomerTimeCreation;
     private boolean needUpdate;
+    private GameEntityFactory factory;
 
     private LinkedList<Customer> customers;
     private LinkedList<Table> tables;
@@ -90,6 +93,7 @@ public class ModelImpl implements Model {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.counterTop = new CountertopImpl(this);
+        this.factory=new GameEntityFactoryImpl();
     }
 
     private void init() {
@@ -193,8 +197,8 @@ public class ModelImpl implements Model {
         }
         final var position = new Pair<>(CUSTOMER_STARTING_X, CUSTOMER_STARTING_Y);
         final int customersMolteplicity = (int) (Math.random() * (4)) + 1;
-        this.customers.add(new CustomerImpl(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), this,
-                customersMolteplicity));
+        this.customers.add( this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
+                   this, customersMolteplicity) );     
         this.controller.addCustomer(customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));
         if (thereAreAvaibleTables()) {
             tableAssignament(this.customers.getLast());
@@ -202,6 +206,7 @@ public class ModelImpl implements Model {
             customers.getLast().setState(CustomerState.LINE);
             linePositionAssignament(this.customers.getLast());
         }
+        this.setNeedUpdate(true);
     }
 
     @Override
