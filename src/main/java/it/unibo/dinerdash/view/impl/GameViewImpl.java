@@ -155,16 +155,10 @@ public class GameViewImpl extends GamePanel implements GameView {
                 int mouseX = e.getX();
                 int mouseY = e.getY();
 
-                // TODO Qui vanno check mouse sopra uno dei tavoli + uno dei piatti
-
-                // ESEMPIO
-                if (inside(mouseX, mouseY, waitress)) {
-                    // Il mouse è sopra la cameriera
-                    setCursor(handCursor);
-                } else {
-                    // Il mouse non è sopra la cameriera
-                    setCursor(defaultCursor);
-                }
+                setCursor(
+                    tables.stream().anyMatch(table -> inside(mouseX, mouseY, table)) ||
+                        dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish)) ? handCursor : defaultCursor
+                );
             }
         });
 
@@ -173,19 +167,13 @@ public class GameViewImpl extends GamePanel implements GameView {
             public void mouseClicked(MouseEvent e) {
                 int mouseX = e.getX();
                 int mouseY = e.getY();
-
-                // TODO Qui vanno gli eventi mouse sopra uno dei tavoli + uno dei piatti
-
-                // ESEMPIO
-                if (inside(mouseX, mouseY, waitress)) {
-                    // Il mouse è stato cliccato sulla cameriera
-                    System.out.println("Coordinate del mouse: (" + mouseX + ", " + mouseY + ")");
-                }
+                
                 tables.forEach(tav -> {
                     if (inside(mouseX, mouseY, tav)) {
                         controller.callWaitress(tables.indexOf(tav), "t", null);
                     }
                 });
+
                 dishes.forEach(d -> {
                     if (inside(mouseX, mouseY, d)) {
                         controller.callWaitress(dishes.indexOf(d), "d", d.getPosition());
@@ -201,16 +189,13 @@ public class GameViewImpl extends GamePanel implements GameView {
     private boolean inside(int mouseX, int mouseY, GameEntityViewable viewableEntity) {
         var widthRatio = this.getMainFrame().getWidthRatio();
         var heightRatio = this.getMainFrame().getHeightRatio();
-
-        // Coordinate x e y dell'entità
+        
         int viewableEntityWindowX = (int) (viewableEntity.getPosition().getX() * widthRatio);
         int viewableEntityWindowY = (int) (viewableEntity.getPosition().getY() * heightRatio);
-
-        // Dimensioni dell'entità
+        
         int entityWindowWidth = (int) (viewableEntity.getSize().getX() * widthRatio);
         int entityWindowHeight = (int) (viewableEntity.getSize().getY() * heightRatio);
-
-        // Verifica se le coordinate del mouse sono all'interno dell'entità
+        
         return (mouseX >= viewableEntityWindowX && mouseX <= viewableEntityWindowX + entityWindowWidth &&
                 mouseY >= viewableEntityWindowY && mouseY <= viewableEntityWindowY + entityWindowHeight);
     }

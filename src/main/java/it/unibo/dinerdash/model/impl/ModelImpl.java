@@ -45,8 +45,8 @@ public class ModelImpl implements Model {
     private static final double TABLE_STARTING_REL_Y = 0.40 * RESTAURANT_HEIGHT;
     private static final int TABLES_HORIZONTAL_PADDING = 400;
     private static final int TABLES_VERTICAL_PADDING = 200;
-    private static final int TABLE_REL_WIDTH = 120;
-    private static final int TABLE_REL_HEIGHT = 120;
+    private static final int TABLE_REL_WIDTH = 150;
+    private static final int TABLE_REL_HEIGHT = 150;
 
     private static final int CUSTOMER_STARTING_X = 0;
     private static final int CUSTOMER_STARTING_Y = 500;
@@ -70,7 +70,6 @@ public class ModelImpl implements Model {
 
     private static final double DISH_REL_WIDTH = 0.05;
     private static final double DISH_REL_HEIGHT = 0.02;
-    private static final Pair<Integer, Integer> TABLES_SIZE = new Pair<Integer, Integer>(120, 180);
 
     private int coins;
     private int enabledCoinsMultipliers;
@@ -127,7 +126,7 @@ public class ModelImpl implements Model {
                             int y = (int) (TABLE_STARTING_REL_Y + i * TABLES_VERTICAL_PADDING);
                             Pair<Integer, Integer> coordinates = new Pair<>(x, y);
                             Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
-                            this.controller.addTable(coordinates, i + 1, TABLES_SIZE);
+                            this.controller.addTable(coordinates, i + 1, size);
                             return new TableImpl(coordinates, size, i + 1);
                         }))
                 .collect(Collectors.toList());
