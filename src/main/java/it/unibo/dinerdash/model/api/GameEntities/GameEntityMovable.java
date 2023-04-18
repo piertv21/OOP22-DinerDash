@@ -10,6 +10,8 @@ public interface GameEntityMovable extends GameEntity {
 
     void setDestination(Optional<Pair<Integer, Integer>> destination);
 
+    int getMovementSpeed();
+
     void setMovementSpeed(int speed);
 
     void moveUp();

@@ -27,6 +27,11 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
     }
 
     @Override
+    public int getMovementSpeed() {
+        return this.speed;
+    }
+
+    @Override
     public void setMovementSpeed(final int speed) {
         this.speed = speed;
     }
