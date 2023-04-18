@@ -17,12 +17,15 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
 
     private static final int TIME_BEFORE_GETANGRY = 10;
     private static final int TIME_BEFORE_ORDERING = 4;
+    private static final int TIME_BEFORE_LOOSEPATIENCE = 2;
+    private static final int MAX_PATIECE = 6;
     private static final int SPEED = 5;
     private CustomerState state;
     private final Model model;
     private final int numClienti;
     private long startThinkTime;
-    private Optional<Long> startAngryTime;
+    private Optional<Long> lastPatienceReduce;
+    private int patience;
 
     public CustomerImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,
             final Model model, final int numCust) {
@@ -30,7 +33,8 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
         this.model = model;
         this.state = CustomerState.WALKING;
         this.numClienti = numCust;
-        this.startAngryTime = Optional.empty();
+        this.lastPatienceReduce = Optional.empty();
+        this.patience=MAX_PATIECE;
         this.setActive(true);
     }
 
@@ -80,18 +84,24 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 this.model.setTableState(TableState.ORDERING, sittedTable);
             }
         } else if (state.equals(CustomerState.LINE)) {
-            if (this.startAngryTime.isPresent()) {
+            if (this.lastPatienceReduce.isPresent()) {
                 if (model.checkFreeTables(this)) {
                     // vado a sedermi al tavolo
-                    this.model.setNeedUpdate(true);
                     this.model.tableAssignament(this);
+                    this.model.setNeedUpdate(true);
                     this.state = CustomerState.WALKING;
-                } else if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_GETANGRY)
-                        + this.startAngryTime.get()) { // client get angry
+                } else if (this.patience==0) { // client get angry
                     this.state = CustomerState.ANGRY;
+                    this.model.setNeedUpdate(true);
+                } else if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_LOOSEPATIENCE)
+                + this.lastPatienceReduce.get()) {
+                    this.lastPatienceReduce = Optional.of(System.nanoTime());
+                    this.patience-- ;
+                    this.model.setNeedUpdate(true);
                 }
             } else {
-                this.startAngryTime = Optional.of(System.nanoTime());
+                //this.startAngryTime = Optional.of(System.nanoTime());
+                this.lastPatienceReduce = Optional.of(System.nanoTime());
             }
         }
     }
