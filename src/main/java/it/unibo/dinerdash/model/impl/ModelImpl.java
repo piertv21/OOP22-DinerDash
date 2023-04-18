@@ -283,30 +283,31 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void tableAssignament(final Customer cus) { // quando non ci sono più tavoli liberi non vengono piu
+    public void tableAssignament(final Customer client) { // quando non ci sono più tavoli liberi non vengono piu
                                                            // assegnati tavoli nuovi
-        cus.setDestination(Optional.ofNullable(
+        client.setDestination(Optional.ofNullable(
                 this.tables.stream()
                         .filter(tav -> tav.getCustomer().isEmpty())
                         .findFirst()
                         .get()
                         .getPosition()));
         final var tab = tables.stream()
-                .filter(entry -> entry.getPosition().equals(cus.getDestination().get()))
+                .filter(entry -> entry.getPosition().equals(client.getDestination().get()))
                 .findFirst()
                 .orElse(null);
-        tab.setCustom(Optional.of(cus));
+        tab.setCustom(Optional.of(client));
     }
 
     @Override
-    public void linePositionAssignament(final Customer cus) {
+    public void linePositionAssignament(final Customer client) {
         final int inLineCustm = (int) customers.stream().filter(p -> p.getState().equals(CustomerState.LINE)).count();
         if (inLineCustm != 1) {
-            cus.setPosition(new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X,
+            client.setPosition(new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X,
                     (int) (CUSTOMER_FIRST_LINE_REL_Y - ((inLineCustm - 1) * CUSTOMER_IN_LINE_PADDING))));
-        } else
-            cus.setPosition(
-                    new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y));
+        } else {
+            client.setPosition( new Pair<Integer, Integer>(
+                (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y));
+        }
     }
 
     @Override
@@ -324,10 +325,12 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public boolean checkFreeTables(final Customer cus) { // i clientei in fila controllano se si è liberato un
-                                                             // tavolo
-        if (this.customers.stream() // se questo cliente è il primo della fila
-                .filter(p -> p.getState().equals(CustomerState.LINE)).findFirst().get().equals(cus)) {
+    public boolean checkFreeTables(final Customer client) { // check for a free table
+        if (this.customers.stream() // check if client is the first in line
+                .filter(p -> p.getState().equals(CustomerState.LINE))
+                .findFirst()
+                .get()
+                .equals(client)) {
             return this.thereAreAvaibleTables();
         }
         return false;
