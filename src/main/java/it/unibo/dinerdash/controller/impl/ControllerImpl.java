@@ -148,13 +148,8 @@ public class ControllerImpl implements Controller {
                                        // OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p = 0;
         for (final var cus : model.getCustomers()) {
-            // this.gameView.getViewableCustomersList().get(p).update(cus);
             this.gameView.UpdateViewableCustomer(p, (GameEntity)cus);
             p++;
-            // BISOGNA CHIAMARE UN METODO NELLA VIEW CHE CAMBIA L'IMMAGINE DEL TAVOLO ,
-            // AGGIUNGI METODO CHE AGGIORNA POSIZIONI TAVOLI ,E CONTROLLO SE IL CLIENTE è IN
-            // THINKING ,POI SE IL NUMERO DI CLIENTI SEDUTI ED LA MOLTEPLIC DEL CLIENTE
-            // ALLEGATO SONO UGUALI, SE NON LO SONO CAMBIA L'IMMAGINE DEL TAVOLO
         }
         this.gameView.getViewableWaitress().update(model.getWaitress());
 
