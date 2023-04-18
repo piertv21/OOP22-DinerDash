@@ -87,4 +87,5 @@ public interface Model {
 
     void earnMoneyFromTable();
 
+    void setNumberOfClientsAtTable(int numberOfClienty, int numberOfTable);
 }

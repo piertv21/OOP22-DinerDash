@@ -436,6 +436,9 @@ public class ModelImpl implements Model {
         this.counterTop.setDishReady(dish);
     }
 
-    
+    @Override
+    public void setNumberOfClientsAtTable(int numberOfClient, int numberOfTable) { // set sitted clients at table
+        this.tables.get(numberOfTable - 1).setSeatedPeople(numberOfClient);
+    }
 
 }

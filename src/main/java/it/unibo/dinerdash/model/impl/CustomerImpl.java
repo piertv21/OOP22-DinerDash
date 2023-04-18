@@ -74,6 +74,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 final int sittedTable = this.model
                         .getTablefromPositon(getPosition()).getTableNumber();
                 this.model.setTableState(TableState.THINKING, sittedTable);
+                this.model.setNumberOfClientsAtTable(numberClients, sittedTable);
             }
         } else if (state.equals(CustomerState.THINKING)) { // client think what to order
             if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_ORDERING) + this.startThinkTime) {
