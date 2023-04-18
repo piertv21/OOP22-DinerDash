@@ -434,8 +434,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void completeDishPreparation(Dish dish) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'completeDishPreparation'");
+        this.counterTop.setDishReady(dish);
     }
 
 }
