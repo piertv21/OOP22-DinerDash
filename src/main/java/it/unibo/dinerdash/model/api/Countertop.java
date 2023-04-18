@@ -16,4 +16,6 @@ public interface Countertop {
 
     Optional<Dish> getDishInOrder();
 
+    void setDishReady(Dish dish);
+
 }
