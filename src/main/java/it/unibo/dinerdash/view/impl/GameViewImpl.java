@@ -38,7 +38,6 @@ import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
-import it.unibo.dinerdash.view.api.GameEntityViewableWithLabel;
 
 /*
  * Main Game View Panel
@@ -264,11 +263,6 @@ public class GameViewImpl extends GamePanel implements GameView {
         var waitressPosition = new Pair<>(40, 120);
         this.waitress = new GameEntityViewable(waitressPosition, new Pair<>(120, 180),
                 this.imageCacher.getCachedImage("waitress").getImage());
-    }
-
-    @Override
-    public void assignNewImage(GameEntityViewableWithLabel gameEWWithLabel, int multiplicity) {
-        // TODO Chiamare quando cambia multiplicity di una gameentityviewable
     }
 
     @Override
