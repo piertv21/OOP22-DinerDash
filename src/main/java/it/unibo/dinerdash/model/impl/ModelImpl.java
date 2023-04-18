@@ -378,12 +378,6 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void setTableCustomers(int customersMolteplicity, int numberTable) { // assegna il numero di persone sedute
-                                                                                // al tavolo
-        this.tables.get(numberTable - 1).setSeatedPeople(customersMolteplicity);
-    }
-
-    @Override
     public Waitress getWaitress() { // TODO Elimina
         return this.waitress;
     }
@@ -441,5 +435,7 @@ public class ModelImpl implements Model {
     public void completeDishPreparation(Dish dish) {
         this.counterTop.setDishReady(dish);
     }
+
+    
 
 }

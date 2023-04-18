@@ -59,8 +59,6 @@ public interface Model {
 
     void tableAssignament(Customer cus);
 
-    void setTableCustomers(int customersMolteplicity, int numberTable);
-
     void removeAngryCustomers();
 
     boolean thereAreAvaibleTables();

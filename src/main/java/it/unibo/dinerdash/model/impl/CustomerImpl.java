@@ -73,7 +73,6 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 this.setActive(false); // cliente think,and become invisible
                 final int sittedTable = this.model
                         .getTablefromPositon(getPosition()).getTableNumber();
-                this.model.setTableCustomers(numberClients, sittedTable);
                 this.model.setTableState(TableState.THINKING, sittedTable);
             }
         } else if (state.equals(CustomerState.THINKING)) { // client think what to order
