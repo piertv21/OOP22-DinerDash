@@ -7,8 +7,6 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface GameView {
 
-    void assignNewImage(GameEntityViewableWithLabel gameEWWithLabel, int multiplicity);
-
     void clear();
 
     void render();
