@@ -11,7 +11,7 @@ import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.States.CustomerState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class CustomerImplTest {
+public class CustomerTest {
     Model modello =new ModelImpl(null);
     Customer prova = new CustomerImpl(new Pair<Integer,Integer>(100, 100), new Pair<Integer,Integer>(100, 100),
         modello, 2);
@@ -19,28 +19,28 @@ public class CustomerImplTest {
     void testGetDestination() {
         Optional<Pair<Integer,Integer>> destination=Optional.of(new Pair<Integer,Integer>(200, 300));
        prova.setDestination(destination);
-       assertTrue(prova.getDestination().equals(destination), "è giusto");
+       assertTrue(prova.getDestination().equals(destination));
 
     }
 
     @Test
     void testGetPosition() {
 
-       assertTrue(prova.getPosition().equals(new Pair<Integer,Integer>(100, 100)), "è giusto");
+       assertTrue(prova.getPosition().equals(new Pair<Integer,Integer>(100, 100)));
     }
 
     @Test
     void testSetDestination() {
         Optional<Pair<Integer,Integer>> destination = Optional.of(new Pair<Integer,Integer>(500, 300));
         prova.setDestination(destination);
-        assertTrue(prova.getDestination().equals(destination), "è giusto");
+        assertTrue(prova.getDestination().equals(destination));
     }
 
     @Test
     void testSetPosition() {
         Pair<Integer,Integer> newPosition = new Pair<Integer,Integer>(500, 600);
         prova.setPosition(newPosition);
-        assertTrue(prova.getPosition().equals(newPosition), "è giusto");
+        assertTrue(prova.getPosition().equals(newPosition));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class CustomerImplTest {
         Customer prova2 = new CustomerImpl(new Pair<Integer,Integer>(100, 100), new Pair<Integer,Integer>(100, 100),
         modello, 2);
         prova2.setState(CustomerState.ORDERING);
-        assertTrue(prova2.getState().equals(CustomerState.ORDERING), "è giusto");
+        assertTrue(prova2.getState().equals(CustomerState.ORDERING));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class CustomerImplTest {
         prova3.update();
         prova3.update();
         Pair<Integer,Integer> newPosition2 = new Pair<Integer,Integer>(315, 300);
-        assertTrue(prova3.getPosition().equals(newPosition2), "è giusto");
+        assertTrue(prova3.getPosition().equals(newPosition2));
 
     }
 
@@ -78,7 +78,7 @@ public class CustomerImplTest {
         prova4.update();
         prova4.update();
         Pair<Integer,Integer> newPosition3 = new Pair<Integer,Integer>(200, 315);
-        assertTrue(prova4.getPosition().equals(newPosition3), "è giusto");
+        assertTrue(prova4.getPosition().equals(newPosition3));
 
     }
 }

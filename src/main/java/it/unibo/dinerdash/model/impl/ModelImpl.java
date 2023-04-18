@@ -118,25 +118,24 @@ public class ModelImpl implements Model {
 
     // Tavoli
     private void generateTables() {
-        var tables = IntStream.range(0, TABLES / 2)
-                .boxed()
-                .flatMap(i -> IntStream.range(0, TABLES / 2)
-                        .mapToObj(j -> {
-                            int x = (int) (TABLE_STARTING_REL_X + j * TABLES_HORIZONTAL_PADDING);
-                            int y = (int) (TABLE_STARTING_REL_Y + i * TABLES_VERTICAL_PADDING);
-                            Pair<Integer, Integer> coordinates = new Pair<>(x, y);
-                            Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
-                            this.controller.addTable(coordinates, i + 1, size);
-                            return this.factory.createTable(coordinates, size, i + 1);
-                        }))
-                .collect(Collectors.toList());
+        var tables = IntStream.range(0, TABLES)
+            .boxed()
+            .map(i -> {
+                int x = (int) (TABLE_STARTING_REL_X + (i % (TABLES / 2)) * TABLES_HORIZONTAL_PADDING);
+                int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
+                Pair<Integer, Integer> coordinates = new Pair<>(x, y);
+                Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
+                this.controller.addTable(coordinates, i + 1, size);
+                return this.factory.createTable(coordinates, size, i + 1);
+            })
+            .collect(Collectors.toList());
         this.tables.addAll(tables);
     }
-
     private void clear() {
         this.customers.clear();
         this.tables.clear();
         this.counterTop.clear();
+        
     }
 
     @Override
