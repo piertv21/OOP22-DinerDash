@@ -226,7 +226,7 @@ public class ModelImpl implements Model {
                 this.lastCustomerTimeCreation = System.nanoTime();
             }
             this.chef.update();
-            this.waitress.handleMovement(null); // TODO Mai usare null... a cosa serve?
+            this.waitress.handleMovement(); // TODO Mai usare null... a cosa serve?
             final var customIterator = this.customers.iterator();
             while (customIterator.hasNext()) {
                 customIterator.next().update();

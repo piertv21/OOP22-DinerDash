@@ -7,7 +7,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Waitress extends GameEntityMovable {
 
-    void handleMovement(Dish dishReady);
+    void handleMovement();
 
     void setState(WaitressState state);
 

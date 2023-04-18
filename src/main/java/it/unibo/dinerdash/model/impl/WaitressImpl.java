@@ -15,7 +15,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
 
     private static int SPEED = 1;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
-    private int enabledPowerUps = 0;
+    private double speed = 0;
 
     private WaitressState state;
     private Model model;
@@ -33,7 +33,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public void handleMovement(Dish dishReady) {
+    public void handleMovement() {
         if (!state.equals(WaitressState.WAITING)) {
             this.model.setNeedUpdate(true);
             if (getPosition().getX() < this.getDestination().get().getX())
@@ -143,7 +143,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
 
     @Override
     public void incrementSped() {
-        this.enabledPowerUps++;
+        this.speed = this.speed * WAITRESS_SPEED_MULTIPLIER;
     }
 
 }

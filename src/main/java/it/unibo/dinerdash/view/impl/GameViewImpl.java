@@ -156,9 +156,9 @@ public class GameViewImpl extends GamePanel implements GameView {
                 int mouseY = e.getY();
 
                 setCursor(
-                    tables.stream().anyMatch(table -> inside(mouseX, mouseY, table)) ||
-                        dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish)) ? handCursor : defaultCursor
-                );
+                        tables.stream().anyMatch(table -> inside(mouseX, mouseY, table)) ||
+                                dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish)) ? handCursor
+                                        : defaultCursor);
             }
         });
 
@@ -167,18 +167,15 @@ public class GameViewImpl extends GamePanel implements GameView {
             public void mouseClicked(MouseEvent e) {
                 int mouseX = e.getX();
                 int mouseY = e.getY();
-                
-                tables.forEach(tav -> {
-                    if (inside(mouseX, mouseY, tav)) {
-                        controller.callWaitress(tables.indexOf(tav), "t", null);
-                    }
-                });
+                tables.stream()
+                        .filter(table -> inside(mouseX, mouseY, table))
+                        .findFirst()
+                        .ifPresent(table -> controller.callWaitress(tables.indexOf(table), "t", null));
 
-                dishes.forEach(d -> {
-                    if (inside(mouseX, mouseY, d)) {
-                        controller.callWaitress(dishes.indexOf(d), "d", d.getPosition());
-                    }
-                });
+                dishes.stream()
+                        .filter(dish -> inside(mouseX, mouseY, dish))
+                        .findFirst()
+                        .ifPresent(dish -> controller.callWaitress(dishes.indexOf(dish), "d", dish.getPosition()));
             }
         });
 
@@ -189,13 +186,13 @@ public class GameViewImpl extends GamePanel implements GameView {
     private boolean inside(int mouseX, int mouseY, GameEntityViewable viewableEntity) {
         var widthRatio = this.getMainFrame().getWidthRatio();
         var heightRatio = this.getMainFrame().getHeightRatio();
-        
+
         int viewableEntityWindowX = (int) (viewableEntity.getPosition().getX() * widthRatio);
         int viewableEntityWindowY = (int) (viewableEntity.getPosition().getY() * heightRatio);
-        
+
         int entityWindowWidth = (int) (viewableEntity.getSize().getX() * widthRatio);
         int entityWindowHeight = (int) (viewableEntity.getSize().getY() * heightRatio);
-        
+
         return (mouseX >= viewableEntityWindowX && mouseX <= viewableEntityWindowX + entityWindowWidth &&
                 mouseY >= viewableEntityWindowY && mouseY <= viewableEntityWindowY + entityWindowHeight);
     }
