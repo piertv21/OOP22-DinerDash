@@ -142,7 +142,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
 
     @Override
     public void incrementSped() {
-        this.speed = this.speed * WAITRESS_SPEED_MULTIPLIER;
+        this.setMovementSpeed((int) (this.getMovementSpeed() * WAITRESS_SPEED_MULTIPLIER));
     }
 
 }
