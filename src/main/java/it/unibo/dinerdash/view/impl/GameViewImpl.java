@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.view.impl;
 
 import java.awt.Image;
+import java.awt.Label;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;

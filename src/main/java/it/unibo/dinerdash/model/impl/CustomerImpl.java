@@ -20,6 +20,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     private static final int TIME_BEFORE_LOOSEPATIENCE = 2;
     private static final int MAX_PATIECE = 6;
     private static final int SPEED = 5;
+    private static final int HITBOX_SPACE = 4;
     private CustomerState state;
     private final Model model;
     private final int numberClients;
@@ -67,8 +68,8 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 this.moveDown();
             }
             if (getPosition().getX() >= this.getDestination().get().getX()
-                    && getPosition().getY() <= this.getDestination().get().getY() + 4
-                    && getPosition().getY() >= this.getDestination().get().getY() - 4) { // create hitbox
+                    && getPosition().getY() <= this.getDestination().get().getY() + HITBOX_SPACE
+                    && getPosition().getY() >= this.getDestination().get().getY() - HITBOX_SPACE) { // create hitbox
                 this.startThinkTime = System.nanoTime();
                 state = CustomerState.THINKING;
                 this.setPosition(this.getDestination().get());

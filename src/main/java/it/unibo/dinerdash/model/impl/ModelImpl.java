@@ -33,7 +33,8 @@ public class ModelImpl implements Model {
     private static final int RESTAURANT_HEIGHT = 720;
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
-    private static final int MAX_CUSTOMERS_THAT_CAN_ENTER = 8;
+    private static final int MAX_CUSTOMERS_THAT_CAN_STAY = 8;
+    private static final int MAX_CUSTOMERS_THAT_CAN_ENTER = 4;
 
     private static final int PROFIT_PER_TABLE_MIN = 80;
     private static final int PROFIT_PER_TABLE_MAX = 150;
@@ -195,7 +196,7 @@ public class ModelImpl implements Model {
             this.stop();
         }
         final var position = new Pair<>(CUSTOMER_STARTING_X, CUSTOMER_STARTING_Y);
-        final int customersMolteplicity = (int) (Math.random() * (4)) + 1;
+        final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_THAT_CAN_ENTER)) + 1;
         this.customers.add(this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity));
         this.controller.addCustomer(customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));
@@ -220,7 +221,7 @@ public class ModelImpl implements Model {
     public void update(long elapsedUpdateTime) {
         if (!this.gameOver()) {
             if (System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)
-                    && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_ENTER) {
+                    && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_STAY) {
                 this.addCustomer();
                 this.lastCustomerTimeCreation = System.nanoTime();
             }
@@ -240,16 +241,16 @@ public class ModelImpl implements Model {
     public void removeAngryCustomers() {
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))) {
             final Customer tempCustomerToDelete = this.customers.stream()
-                    .filter(p -> p.getState() // prendo il primo arrabbiato
+                    .filter(p -> p.getState() // Get frist angry customer
                             .equals(CustomerState.ANGRY))
                     .findFirst()
                     .get();
 
-            final int indexToDelete = this.customers.indexOf(tempCustomerToDelete); // prendo il suo indice
+            final int indexToDelete = this.customers.indexOf(tempCustomerToDelete); // get his index
             this.customers.remove(tempCustomerToDelete);
-            this.controller.removeCustomer(indexToDelete); // elimino il cliente dalle liste
+            this.controller.removeCustomer(indexToDelete); // delete client from lists
             this.customerLeft();
-            this.customers.stream()
+            this.customers.stream()                   // fix line positions
                     .filter(p -> p.getState()
                             .equals(CustomerState.LINE))
                     .forEach((p) -> {
@@ -282,8 +283,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void tableAssignament(final Customer client) { // quando non ci sono più tavoli liberi non vengono piu
-                                                          // assegnati tavoli nuovi
+    public void tableAssignament(final Customer client) { // assign a table to client
         client.setDestination(Optional.ofNullable(
                 this.tables.stream()
                         .filter(tav -> tav.getCustomer().isEmpty())
