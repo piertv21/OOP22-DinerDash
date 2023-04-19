@@ -7,12 +7,12 @@ public class GameEntityViewableWithNumber extends AbstractGameEntityViewableDeco
     public GameEntityViewableWithNumber(GameEntityViewable decorated) {
         super(decorated);
     }
-
+    
     @Override
     public void setNumber(int number) {
         this.number = number;
     }
-
+    
     @Override
     public int getNumber() {
         return this.number;

@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import javax.swing.JLabel;
 
-public class GameEntityViewableWithLabel extends AbstractGameEntityViewableDecorator implements LabelDecorator {
+public class GameEntityViewableWithLabel extends GameEntityViewableWithNumber implements LabelDecorator {
 
     private Optional<JLabel> state;
 
@@ -16,7 +16,7 @@ public class GameEntityViewableWithLabel extends AbstractGameEntityViewableDecor
     public void setState(JLabel state) {
         this.state = Optional.ofNullable(state);
     }
-
+    
     @Override
     public Optional<JLabel> getState() {
         return this.state;

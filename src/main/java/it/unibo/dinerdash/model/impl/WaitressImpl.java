@@ -15,7 +15,6 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
 
     private static int SPEED = 1;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
-    private double speed = 0;
 
     private WaitressState state;
     private Model model;

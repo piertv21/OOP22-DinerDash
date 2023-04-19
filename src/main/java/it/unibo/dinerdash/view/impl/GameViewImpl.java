@@ -77,6 +77,9 @@ public class GameViewImpl extends GamePanel implements GameView {
         setFocusable(true);
         setBackground(Color.WHITE);
 
+        this.init();
+        this.loadResources();
+
         topPanel = new JPanel(new BorderLayout());
         topPanel.setOpaque(false);
         topPanel.setPreferredSize(new Dimension(0, 30));
@@ -87,6 +90,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
+        //TODO Add image coin
         coinLabel = new JLabel("Coins: " + this.getMainFrame().getController().getCoins());
         coinLabel.setFont(new Font("Arial", Font.BOLD, 20));
         coinLabel.setForeground(Color.WHITE);
@@ -139,9 +143,6 @@ public class GameViewImpl extends GamePanel implements GameView {
         rightPanel.add(powerupButton4, c);
 
         add(rightPanel, BorderLayout.EAST);
-
-        this.init();
-        this.loadResources();
 
         var point = new Point(0, 0);
         this.defaultCursor = Toolkit.getDefaultToolkit().createCustomCursor(
@@ -263,7 +264,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         // TODO è una prova, manca la posizione della waitress dal controller->model!
         var waitressPosition = new Pair<>(40, 120);
         this.waitress = new GameEntityViewableImpl(waitressPosition, new Pair<>(120, 180),
-                this.imageCacher.getCachedImage("waitress").getImage());
+                this.imageCacher.getCachedImage("waitress0").getImage());
 
         // TODO è una prova, manca la posizione dal controller->model!
         var chefPosition = new Pair<>(this.getMainFrame().getWidth() / 2, (int)(this.getMainFrame().getHeight() * 0.047));
