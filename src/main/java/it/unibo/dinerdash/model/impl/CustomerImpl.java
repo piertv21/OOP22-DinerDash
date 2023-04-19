@@ -127,5 +127,10 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     public void setPosition(Pair<Integer, Integer> position) {
         super.setPosition(position);
     }
+
+    @Override
+    public int getCustomerPatience() {
+        return this.patience;
+    }
     
 }

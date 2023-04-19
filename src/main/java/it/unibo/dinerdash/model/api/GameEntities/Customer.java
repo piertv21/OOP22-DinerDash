@@ -23,5 +23,7 @@ public interface Customer extends GameEntityMovable {
 
     void setPosition(Pair<Integer, Integer> position);
 
+    int getCustomerPatience();
+
 }
 
