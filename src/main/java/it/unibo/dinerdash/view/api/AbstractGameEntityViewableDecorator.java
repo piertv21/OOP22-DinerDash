@@ -46,5 +46,20 @@ public abstract class AbstractGameEntityViewableDecorator implements GameEntityV
     public boolean isActive() {
         return this.decorated.isActive();
     }
+
+    @Override
+    public void setPosition(Pair<Integer, Integer> position) {
+        this.decorated.setPosition(position);
+    }
+
+    @Override
+    public void setSize(Pair<Integer, Integer> size) {
+        this.decorated.setSize(size);
+    }
+
+    @Override
+    public void setActive(boolean active) {
+        this.decorated.setActive(active);
+    }
     
 }

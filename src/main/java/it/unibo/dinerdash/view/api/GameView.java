@@ -2,7 +2,6 @@ package it.unibo.dinerdash.view.api;
 
 import java.util.LinkedList;
 
-import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface GameView {
@@ -11,18 +10,45 @@ public interface GameView {
 
     void render();
 
-    void addCustomerViewable(int num, Pair<Integer, Integer> size);
+    // ---------------------------------------
+    void addCustomerViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int multiplicity);
 
-    void removeCustomerViewable(int indexVal);
+    void updateCustomerViewable(int index);
 
-    GameEntityViewable getViewableWaitress();
+    void removeCustomerViewable(int index);
+    // ---------------------------------------
 
-    LinkedList<GameEntityViewable> getViewableTable();
+    // ---------------------------------------
+    void addChefViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active);
+    // ---------------------------------------
 
-    void UpdateViewableCustomer(int index, GameEntity elem);
+    // ---------------------------------------
+    void addWaitressViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active);
 
-    void UpdateViewableTable(int index, GameEntity elem);
+    void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes);
+    // ---------------------------------------
 
-    void adddTableViewable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size);
+    // ---------------------------------------
+    void addDishViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int numTable);
+
+    void deleteDishViewable(int index);
+    // ---------------------------------------
+
+    // ---------------------------------------
+    void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size);
+
+    void updateTableViewable(int index, int peopleNumber, String state);
+    // ---------------------------------------
+
+    // NB: da usare solo nel Controller per richiamare i metodi update/remove queste sotto
+    GameEntityViewable getWaitressViewable();
+
+    GameEntityViewable getChefViewable();
+
+    LinkedList<GameEntityViewableWithNumberAndLabel> getCustomersViewable();
+
+    LinkedList<GameEntityViewableWithNumberAndLabel> getTablesViewable();
+
+    LinkedList<GameEntityViewableWithNumber> getDishesViewable();
 
 }

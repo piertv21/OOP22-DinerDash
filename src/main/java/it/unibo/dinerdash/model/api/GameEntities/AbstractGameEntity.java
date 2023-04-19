@@ -11,6 +11,7 @@ public abstract class AbstractGameEntity implements GameEntity {
     public AbstractGameEntity(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
         this.setPosition(coordinates);
         this.setSize(size);
+        this.setActive(true);
     }
     
     @Override

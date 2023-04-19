@@ -13,8 +13,9 @@ public class GameEntityViewableImpl extends AbstractGameEntity implements GameEn
 
     private Image icon;
 
-    public GameEntityViewableImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Image icon) {
+    public GameEntityViewableImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, Image icon) {
         super(coordinates, size);
+        this.setActive(active);
         this.setIcon(icon);
     }
 
@@ -35,21 +36,6 @@ public class GameEntityViewableImpl extends AbstractGameEntity implements GameEn
 
         var newActiveStatus = gameEntity.isActive();
         this.setActive(newActiveStatus);
-    }
-
-    @Override
-    public Pair<Integer, Integer> getPosition() {
-        return super.getPosition();
-    }
-
-    @Override
-    public Pair<Integer, Integer> getSize() {
-        return super.getSize();
-    }
-
-    @Override
-    public boolean isActive() {
-        return super.isActive();
     }
 
 }

@@ -77,9 +77,4 @@ public class TableImpl extends AbstractGameEntity implements Table {
         }
     }
 
-    @Override
-    public Pair<Integer, Integer> getPosition() {
-        return super.getPosition();
-    }
-
 }

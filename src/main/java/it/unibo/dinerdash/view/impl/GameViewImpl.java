@@ -34,11 +34,12 @@ import javax.swing.BoxLayout;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
-import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 import it.unibo.dinerdash.view.api.GameEntityViewableImpl;
+import it.unibo.dinerdash.view.api.GameEntityViewableWithNumber;
+import it.unibo.dinerdash.view.api.GameEntityViewableWithNumberAndLabel;
 
 /*
  * Main Game View Panel
@@ -61,9 +62,9 @@ public class GameViewImpl extends GamePanel implements GameView {
     private Image backgroundImage;
     private ImageReaderWithCache imageCacher;
 
-    private LinkedList<GameEntityViewable> customers;
-    private LinkedList<GameEntityViewable> tables;
-    private LinkedList<GameEntityViewable> dishes;
+    private LinkedList<GameEntityViewableWithNumberAndLabel> customers;
+    private LinkedList<GameEntityViewableWithNumberAndLabel> tables;
+    private LinkedList<GameEntityViewableWithNumber> dishes;
     private GameEntityViewable waitress;
     private GameEntityViewable chef;
 
@@ -178,7 +179,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                         .findFirst()
                         .ifPresent(dish -> controller.callWaitress(dishes.indexOf(dish), "d", dish.getPosition()));
             }
-        });
+        });        
 
         this.render();
         this.start();
@@ -263,12 +264,12 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         // TODO è una prova, manca la posizione della waitress dal controller->model!
         var waitressPosition = new Pair<>(40, 120);
-        this.waitress = new GameEntityViewableImpl(waitressPosition, new Pair<>(120, 180),
+        this.waitress = new GameEntityViewableImpl(waitressPosition, new Pair<>(120, 180), true,
                 this.imageCacher.getCachedImage("waitress0").getImage());
 
         // TODO è una prova, manca la posizione dal controller->model!
         var chefPosition = new Pair<>(this.getMainFrame().getWidth() / 2, (int)(this.getMainFrame().getHeight() * 0.047));
-        this.chef = new GameEntityViewableImpl(chefPosition, new Pair<>(120, 150),
+        this.chef = new GameEntityViewableImpl(chefPosition, new Pair<>(120, 150), true,
                 this.imageCacher.getCachedImage("chef").getImage());
     }
 
@@ -277,21 +278,6 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.customers.clear();
         this.tables.clear();
         this.dishes.clear();
-    }
-
-    @Override
-    public void addCustomerViewable(final int num, final Pair<Integer, Integer> size) { // add viewable customer
-        this.customers.add(new GameEntityViewableImpl(null, size, null));
-        this.customers.getLast().setIcon(this.imageCacher.getCachedImage("customer" + num).getImage());
-    }
-
-    @Override
-    public void removeCustomerViewable(final int indexVal) { // rimuovo l'elemento customers[indexVal]
-        this.customers.remove(indexVal);
-    }
-
-    public void addDish() {
-        // TODO
     }
 
     @Override
@@ -333,15 +319,121 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.repaint();
     }
 
+    // NUOVI METODI DA IMPLEMENTARE
+    
     @Override
-    public LinkedList<GameEntityViewable> getViewableTable() { // TODO Da rimuovere (usa add - update - remove)
-        return this.tables;
+    public void addCustomerViewable(
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int multiplicity
+    ) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addCustomerViewable'");
     }
 
     @Override
-    public GameEntityViewable getViewableWaitress() { // TODO Da rimuovere (usa add - update)
-        return this.waitress;
+    public void updateCustomerViewable(int index) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateCustomerViewable'");
     }
+
+    @Override
+    public void removeCustomerViewable(final int index) { // rimuovo l'elemento customers[indexVal]
+        this.customers.remove(index);
+    }
+
+    @Override
+    public void addChefViewable(
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active
+    ) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addChefViewable'");
+    }
+
+    @Override
+    public void addWaitressViewable(
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active
+    ) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addWaitressViewable'");
+    }
+
+    @Override
+    public void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateWaitressViewable'");
+    }
+
+    @Override
+    public void addDishViewable(
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int numTable
+    ) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addDishViewable'");
+    }
+
+    @Override
+    public void deleteDishViewable(int index) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteDishViewable'");
+    }
+
+    @Override
+    public void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addTableViewable'");
+    }
+
+    @Override
+    public void updateTableViewable(int index, int peopleNumber, String state) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateTableViewable'");
+    }
+
+    @Override
+    public GameEntityViewable getWaitressViewable() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getWaitressViewable'");
+    }
+
+    @Override
+    public GameEntityViewable getChefViewable() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getChefViewable'");
+    }
+
+    @Override
+    public LinkedList<GameEntityViewableWithNumberAndLabel> getCustomersViewable() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCustomersViewable'");
+    }
+
+    @Override
+    public LinkedList<GameEntityViewableWithNumberAndLabel> getTablesViewable() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTablesViewable'");
+    }
+
+    @Override
+    public LinkedList<GameEntityViewableWithNumber> getDishesViewable() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDishesViewable'");
+    }
+
+
+
+
+    /*
+
+    VECCHI
 
     @Override
     public void UpdateViewableCustomer(final int index, final GameEntity elem) { // aggiorno il customer
@@ -355,8 +447,9 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void adddTableViewable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) {
-        this.tables.add(new GameEntityViewableImpl(pos, size, null));
+        this.tables.add(new GameEntityViewableImpl(pos, size, true, null));
         this.tables.getLast().setIcon(this.imageCacher.getCachedImage("table0").getImage());
     }
+    */
 
 }

@@ -104,26 +104,6 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     }
 
     @Override
-    public Pair<Integer, Integer> getPosition() {
-        return super.getPosition();
-    }
-
-    @Override
-    public void setDestination(final Optional<Pair<Integer, Integer>> destination) {
-        super.setDestination(destination);
-    }
-
-    @Override
-    public Optional<Pair<Integer, Integer>> getDestination() {
-        return super.getDestination();
-    }
-
-    @Override
-    public void setPosition(Pair<Integer, Integer> position) {
-        super.setPosition(position);
-    }
-
-    @Override
     public int getCustomerPatience() {
         return this.patience;
     }

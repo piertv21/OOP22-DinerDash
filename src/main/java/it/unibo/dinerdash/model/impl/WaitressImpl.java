@@ -135,11 +135,6 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public void setPosition(Pair<Integer, Integer> position) {
-        super.setPosition(position);
-    }
-
-    @Override
     public void incrementSped() {
         this.setMovementSpeed((int) (this.getMovementSpeed() * WAITRESS_SPEED_MULTIPLIER));
     }

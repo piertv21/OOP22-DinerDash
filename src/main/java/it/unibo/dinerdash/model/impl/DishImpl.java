@@ -22,19 +22,4 @@ public class DishImpl extends AbstractGameEntity implements Dish {
         return this.dishNumber;
     }
     
-    @Override
-    public Pair<Integer, Integer> getPosition() {
-        return super.getPosition();
-    }
-
-    @Override
-    public boolean isActive() {
-        return super.isActive();
-    }
-
-    @Override
-    public void setActive(boolean active) {
-        super.setActive(active);
-    }
-    
 }
