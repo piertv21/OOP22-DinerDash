@@ -75,10 +75,6 @@ public interface Model {
 
     void setCoins(int val);
 
-    void setNeedUpdate(boolean b);
-
-    boolean getNeedUpdate();
-
     boolean thereAreDishesToPrepare();
 
     Optional<Dish> getDishToPrepare();
@@ -88,4 +84,5 @@ public interface Model {
     void earnMoneyFromTable();
 
     void setNumberOfClientsAtTable(int numberOfClienty, int numberOfTable);
+    
 }

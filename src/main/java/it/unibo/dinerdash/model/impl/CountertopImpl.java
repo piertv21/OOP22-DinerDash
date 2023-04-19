@@ -9,6 +9,8 @@ import java.util.stream.IntStream;
 import it.unibo.dinerdash.model.api.Countertop;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
+import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactory;
+import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class CountertopImpl implements Countertop {
@@ -19,6 +21,7 @@ public class CountertopImpl implements Countertop {
     private static final int DISH_REL_WIDTH = 70;
     private static final int DISH_REL_HEIGHT = 50;
     private static final int MAX_COUNTERTOP_DISHES = 4;
+    private GameEntityFactory factory;
 
     private LinkedList<Dish> dishes;
     private Model model;
@@ -26,6 +29,7 @@ public class CountertopImpl implements Countertop {
     public CountertopImpl(Model model) {
         this.model = model;
         this.dishes = new LinkedList<>();
+        this.factory = new GameEntityFactoryImpl();
     }
 
     @Override
@@ -36,7 +40,7 @@ public class CountertopImpl implements Countertop {
             var coordY = (int)(START_DISH_REL_Y * this.model.getHeight());
             var dishPosition = new Pair<>(coordX, coordY);
             var dishSize = new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT);
-            var dish = new DishImpl(dishPosition, dishSize, tableNumber);
+            var dish = this.factory.createDish(dishPosition, dishSize, tableNumber);
 
             this.dishes.add(dish);
         }

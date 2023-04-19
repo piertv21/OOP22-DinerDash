@@ -35,7 +35,6 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     @Override
     public void handleMovement() {
         if (!state.equals(WaitressState.WAITING)) {
-            this.model.setNeedUpdate(true);
             if (getPosition().getX() < this.getDestination().get().getX())
                 this.moveRight();
             else if (getPosition().getX() > this.getDestination().get().getX() + 3)

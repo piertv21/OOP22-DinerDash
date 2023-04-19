@@ -69,9 +69,6 @@ public class ModelImpl implements Model {
     private static final double CHEF_REL_WIDTH = 0.05;
     private static final double CHEF_REL_HEIGHT = 0.02;
 
-    private static final double DISH_REL_WIDTH = 0.05;
-    private static final double DISH_REL_HEIGHT = 0.02;
-
     private int coins;
     private int enabledCoinsMultipliers;
     private int remainingTime;
@@ -79,7 +76,6 @@ public class ModelImpl implements Model {
     private GameState gameState;
     private Controller controller;
     private long lastCustomerTimeCreation;
-    private boolean needUpdate;
     private GameEntityFactory factory;
 
     private LinkedList<Customer> customers;
@@ -101,7 +97,6 @@ public class ModelImpl implements Model {
         this.enabledCoinsMultipliers = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
-        this.needUpdate = true;
         this.clear();
         this.generateTables();
 
@@ -206,7 +201,6 @@ public class ModelImpl implements Model {
             customers.getLast().setState(CustomerState.LINE);
             linePositionAssignament(this.customers.getLast());
         }
-        this.setNeedUpdate(true);
     }
 
     @Override
@@ -402,16 +396,6 @@ public class ModelImpl implements Model {
                 this.waitress.goGetDish(waitress.getOrderList().getLast());
             }
         }
-    }
-
-    @Override
-    public void setNeedUpdate(boolean needUpdate) {
-        this.needUpdate = needUpdate;
-    }
-
-    @Override
-    public boolean getNeedUpdate() {
-        return this.needUpdate;
     }
 
     @Override

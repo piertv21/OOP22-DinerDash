@@ -13,12 +13,12 @@ public class GameLoopImpl implements GameLoop, Runnable {
     private static final int TARGET_FPS = 60;
     private static final long TARGET_FRAME_TIME = TimeUnit.SECONDS.toNanos(1) / TARGET_FPS;
 
-    private Model model;
-    private Controller controller;
+    private final Model model;
+    private final Controller controller;
 
-    private boolean running;
-    private long lastTime;
-    private double delta;
+    private volatile boolean running = false;
+    private long lastTime = 0;
+    private double delta = 0;
 
     private Thread thread;
 
@@ -27,38 +27,40 @@ public class GameLoopImpl implements GameLoop, Runnable {
         this.controller = controller;
     }
 
-    public void start() {
-        running = true;
-        lastTime = System.nanoTime();
-        this.thread = new Thread(this);
-        thread.start();
+    public synchronized void start() {
+        if (!this.running) {
+            running = true;
+            lastTime = System.nanoTime();
+            thread = new Thread(this);
+            thread.start();
+        }
     }
 
-    public void stop() {
-        running = false;
-        try {
-            this.thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public synchronized void stop() {
+        if (this.running) {
+            running = false;
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
     @Override
     public void run() {
         int fps = 0;
-        long timer = System.currentTimeMillis();
+        long fpsTimer = System.nanoTime();
+        long frameTimer = System.nanoTime();
 
         while (running) {
-            long now = System.nanoTime();
-            long elapsedTime = now - lastTime;
-            lastTime = now;
+            long currentTime = System.nanoTime();
+            long elapsedTime = currentTime - lastTime;
+            lastTime = currentTime;
             delta += elapsedTime / (double) TARGET_FRAME_TIME;
-            
-            if (delta >= 1.0 && this.model.getGameState() == GameState.RUNNING) {
-                
+
+            if (delta >= 1.0 && model.getGameState() == GameState.RUNNING) {
                 synchronized (model) {
-                    //TODO Model usa elapsed time (tempo dall'ultimo ciclo) per calcolare dinamicamente la velocità di cameriera e clienti
-                    // e fare in modo che non aumenti/diminuisca a caso
                     model.update(elapsedTime);
                 }
 
@@ -70,26 +72,23 @@ public class GameLoopImpl implements GameLoop, Runnable {
                 fps++;
             }
 
-            //TODO - DEBUG Mostra gli fps nella console ogni secondo
-            if (System.currentTimeMillis() - timer >= TimeUnit.SECONDS.toMillis(1) && DEBUG) {
+            // Mostra gli fps nella console ogni secondo
+            if (currentTime - fpsTimer >= TimeUnit.SECONDS.toNanos(1) && DEBUG) {
                 System.out.println("FPS: " + fps);
                 fps = 0;
-                timer += TimeUnit.SECONDS.toMillis(1);
+                fpsTimer += TimeUnit.SECONDS.toNanos(1);
             }
 
             // Pausa il thread solo se necessario per risparmiare risorse della CPU
-            if (delta < 1.0) {
-                long sleepTime = (long) ((1.0 - delta) * TARGET_FRAME_TIME);
+            long sleepTime = TimeUnit.NANOSECONDS.toMillis(frameTimer + TARGET_FRAME_TIME - System.nanoTime());
+            if (sleepTime > 0) {
                 try {
-                    if (sleepTime < TimeUnit.MILLISECONDS.toNanos(1)) {
-                        Thread.sleep(1);
-                    } else {
-                        Thread.sleep(TimeUnit.NANOSECONDS.toMillis(sleepTime));
-                    }
+                    Thread.sleep(sleepTime);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             }
+            frameTimer = System.nanoTime();
         }
     }
 }

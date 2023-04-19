@@ -59,7 +59,6 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     @Override
     public void update() { // manage the movement of customers
         if (state.equals(CustomerState.WALKING)) {
-            this.model.setNeedUpdate(true);
             if (getPosition().getX() < this.getDestination().get().getX()) {
                 this.moveRight();
             } else if (getPosition().getY() > this.getDestination().get().getY()) {
@@ -81,7 +80,6 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
             }
         } else if (state.equals(CustomerState.THINKING)) { // client think what to order
             if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(timeBeforeOrder) + this.startThinkTime) {
-                this.model.setNeedUpdate(true);
                 state = CustomerState.ORDERING;
                 final int sittedTable = this.model.getTablefromPositon(getPosition()).getTableNumber();
                 this.model.setTableState(TableState.ORDERING, sittedTable);
@@ -91,16 +89,13 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 if (model.checkFreeTables(this)) {
                     // go to sit at table
                     this.model.tableAssignament(this);
-                    this.model.setNeedUpdate(true);
                     this.state = CustomerState.WALKING;
                 } else if (this.patience == ZERO) { // client get angry
                     this.state = CustomerState.ANGRY;
-                    this.model.setNeedUpdate(true);
                 } else if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_LOOSEPATIENCE)
                 + this.lastPatienceReduce.get()) {
                     this.lastPatienceReduce = Optional.of(System.nanoTime());
                     this.patience-- ;
-                    this.model.setNeedUpdate(true);
                 }
             } else {
                 this.lastPatienceReduce = Optional.of(System.nanoTime());

@@ -117,9 +117,7 @@ public class ControllerImpl implements Controller {
     }
 
     private void updateView() {
-        if (this.model.getNeedUpdate()) {
-            this.updateListPosition();
-        } // chiamo l'aggiornamento solo se il flag di aggiornamento è true
+        this.updateListPosition();
         this.gameView.render();
     }
 
@@ -158,8 +156,6 @@ public class ControllerImpl implements Controller {
             this.gameView.getViewableTable().get(p).update(table);
             p++;
         }
-        this.model.setNeedUpdate(false);
-
     }
 
     @Override
