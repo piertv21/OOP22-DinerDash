@@ -4,7 +4,6 @@ import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
 import it.unibo.dinerdash.engine.impl.GameLoopImpl;
 import it.unibo.dinerdash.model.api.Model;
-import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.utility.impl.GameTimer;

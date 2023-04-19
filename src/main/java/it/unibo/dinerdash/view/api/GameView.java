@@ -41,7 +41,7 @@ public interface GameView {
     // ---------------------------------------
 
     // NB: da usare solo nel Controller per richiamare i metodi update/remove queste sotto
-    GameEntityViewable getWaitressViewable();
+    GameEntityViewableWithNumber getWaitressViewable();
 
     GameEntityViewable getChefViewable();
 

@@ -65,7 +65,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     private LinkedList<GameEntityViewableWithNumberAndLabel> customers;
     private LinkedList<GameEntityViewableWithNumberAndLabel> tables;
     private LinkedList<GameEntityViewableWithNumber> dishes;
-    private GameEntityViewable waitress;
+    private GameEntityViewableWithNumber waitress;
     private GameEntityViewable chef;
 
     private Cursor defaultCursor;
@@ -263,14 +263,14 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.backgroundImage = this.imageCacher.getCachedImage("background").getImage();
 
         // TODO è una prova, manca la posizione della waitress dal controller->model!
-        var waitressPosition = new Pair<>(40, 120);
+        /*var waitressPosition = new Pair<>(40, 120);
         this.waitress = new GameEntityViewableImpl(waitressPosition, new Pair<>(120, 180), true,
                 this.imageCacher.getCachedImage("waitress0").getImage());
 
         // TODO è una prova, manca la posizione dal controller->model!
         var chefPosition = new Pair<>(this.getMainFrame().getWidth() / 2, (int)(this.getMainFrame().getHeight() * 0.047));
         this.chef = new GameEntityViewableImpl(chefPosition, new Pair<>(120, 150), true,
-                this.imageCacher.getCachedImage("chef").getImage());
+                this.imageCacher.getCachedImage("chef").getImage());*/
     }
 
     @Override
@@ -283,6 +283,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         final var heightRatio = this.getMainFrame().getHeightRatio();
         final var widthRatio = this.getMainFrame().getWidthRatio();
 
@@ -319,7 +320,11 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.repaint();
     }
 
-    // NUOVI METODI DA IMPLEMENTARE
+
+
+
+
+    // NUOVI METODI DA IMPLEMENTARE ----------------------------------------------------------------
     
     @Override
     public void addCustomerViewable(
@@ -328,18 +333,18 @@ public class GameViewImpl extends GamePanel implements GameView {
         boolean active,
         int multiplicity
     ) {
-        // TODO Auto-generated method stub
+        // Aggiunge new GameEntityViewableWithNumberAndLabel(new GameEntityViewable(....)) ai Customers
         throw new UnsupportedOperationException("Unimplemented method 'addCustomerViewable'");
     }
 
     @Override
     public void updateCustomerViewable(int index) {
-        // TODO Auto-generated method stub
+        // Aggiorna Customer in lista dato index
         throw new UnsupportedOperationException("Unimplemented method 'updateCustomerViewable'");
     }
 
     @Override
-    public void removeCustomerViewable(final int index) { // rimuovo l'elemento customers[indexVal]
+    public void removeCustomerViewable(final int index) {
         this.customers.remove(index);
     }
 
@@ -349,8 +354,10 @@ public class GameViewImpl extends GamePanel implements GameView {
         Pair<Integer, Integer> size,
         boolean active
     ) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addChefViewable'");
+        this.chef = new GameEntityViewableImpl(
+            coordinates, size, active,
+            this.imageCacher.getCachedImage("chef").getImage()
+        );
     }
 
     @Override
@@ -359,13 +366,13 @@ public class GameViewImpl extends GamePanel implements GameView {
         Pair<Integer, Integer> size,
         boolean active
     ) {
-        // TODO Auto-generated method stub
+        // Assegna a this.waitress new GameEntityViewableWithNumber(new GameEntityViewable(...))
         throw new UnsupportedOperationException("Unimplemented method 'addWaitressViewable'");
     }
 
     @Override
     public void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes) {
-        // TODO Auto-generated method stub
+        // Chiama metodo update() della waitress + aggiorna il numero con .setNumber()
         throw new UnsupportedOperationException("Unimplemented method 'updateWaitressViewable'");
     }
 
@@ -376,55 +383,54 @@ public class GameViewImpl extends GamePanel implements GameView {
         boolean active,
         int numTable
     ) {
-        // TODO Auto-generated method stub
+        // Aggiunge un new GameEntityViewableWithNumber(new GameEntityViewable(...)) a this.dishes
         throw new UnsupportedOperationException("Unimplemented method 'addDishViewable'");
     }
 
     @Override
     public void deleteDishViewable(int index) {
-        // TODO Auto-generated method stub
+        // Rimuove dish dato index
         throw new UnsupportedOperationException("Unimplemented method 'deleteDishViewable'");
     }
 
     @Override
     public void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
-        // TODO Auto-generated method stub
+        // Aggiunge un new GameEntityViewableWithNumberAndLabel(new GameEntityViewable(...)) a this.tables
         throw new UnsupportedOperationException("Unimplemented method 'addTableViewable'");
     }
 
     @Override
     public void updateTableViewable(int index, int peopleNumber, String state) {
-        // TODO Auto-generated method stub
+        // Chiama metodo update() del tavolo i + aggiorna con .setNumber() e .setState()
         throw new UnsupportedOperationException("Unimplemented method 'updateTableViewable'");
     }
 
     @Override
-    public GameEntityViewable getWaitressViewable() {
-        // TODO Auto-generated method stub
+    public GameEntityViewableWithNumber getWaitressViewable() {
+        // Ritorna this.waitress
         throw new UnsupportedOperationException("Unimplemented method 'getWaitressViewable'");
     }
 
     @Override
     public GameEntityViewable getChefViewable() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getChefViewable'");
+        return this.chef;
     }
 
     @Override
     public LinkedList<GameEntityViewableWithNumberAndLabel> getCustomersViewable() {
-        // TODO Auto-generated method stub
+        // Ritorna this.customers
         throw new UnsupportedOperationException("Unimplemented method 'getCustomersViewable'");
     }
 
     @Override
     public LinkedList<GameEntityViewableWithNumberAndLabel> getTablesViewable() {
-        // TODO Auto-generated method stub
+        // Ritorna this.tables
         throw new UnsupportedOperationException("Unimplemented method 'getTablesViewable'");
     }
 
     @Override
     public LinkedList<GameEntityViewableWithNumber> getDishesViewable() {
-        // TODO Auto-generated method stub
+        // Ritorna this.dishes
         throw new UnsupportedOperationException("Unimplemented method 'getDishesViewable'");
     }
 
@@ -433,7 +439,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     /*
 
-    VECCHI
+    VECCHI (DA ELIMINARE)
 
     @Override
     public void UpdateViewableCustomer(final int index, final GameEntity elem) { // aggiorno il customer
