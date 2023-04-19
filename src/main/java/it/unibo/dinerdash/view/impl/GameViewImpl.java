@@ -264,6 +264,11 @@ public class GameViewImpl extends GamePanel implements GameView {
         var waitressPosition = new Pair<>(40, 120);
         this.waitress = new GameEntityViewableImpl(waitressPosition, new Pair<>(120, 180),
                 this.imageCacher.getCachedImage("waitress").getImage());
+
+        // TODO è una prova, manca la posizione dal controller->model!
+        var chefPosition = new Pair<>(this.getMainFrame().getWidth() / 2, (int)(this.getMainFrame().getHeight() * 0.047));
+        this.chef = new GameEntityViewableImpl(chefPosition, new Pair<>(120, 150),
+                this.imageCacher.getCachedImage("chef").getImage());
     }
 
     @Override
@@ -315,8 +320,9 @@ public class GameViewImpl extends GamePanel implements GameView {
                         (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this));
 
         // Chef
-        // g.drawImage(chef.getIcon(), chef.getPosition().getX(),
-        // chef.getPosition().getY(), 200, 200, this);
+        g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
+                (int) (chef.getPosition().getY() * heightRatio),
+                (int) (chef.getSize().getX() * widthRatio), (int) (chef.getSize().getY() * heightRatio), this);
     }
 
     @Override
