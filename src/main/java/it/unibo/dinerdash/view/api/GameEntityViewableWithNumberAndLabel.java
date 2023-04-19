@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import javax.swing.JLabel;
 
-public class GameEntityViewableWithLabel extends GameEntityViewableWithNumber implements LabelDecorator {
+public class GameEntityViewableWithNumberAndLabel extends GameEntityViewableWithNumber implements LabelDecorator {
 
     private Optional<JLabel> state;
 
-    public GameEntityViewableWithLabel(GameEntityViewable decorated) {
+    public GameEntityViewableWithNumberAndLabel(GameEntityViewable decorated) {
         super(decorated);
     }
 
