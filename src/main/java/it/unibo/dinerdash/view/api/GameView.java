@@ -20,13 +20,13 @@ public interface GameView {
     // ---------------------------------------
     void addChefViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active);
 
-    void updateChefViewable();
+    void updateChefViewable(GameEntity gameEntity);
     // ---------------------------------------
 
     // ---------------------------------------
-    void addWaitressViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active);
+    void addWaitressViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int numDishes);
 
-    void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes);
+    void updateWaitressViewable(GameEntity gameEntity, int numDishes);
     // ---------------------------------------
 
     // ---------------------------------------
@@ -38,7 +38,7 @@ public interface GameView {
     // ---------------------------------------
 
     // ---------------------------------------
-    void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size);
+    void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer, String state);
 
     void updateTablesViewable(int index, GameEntity gameEntity, int peopleNumber, String state);
     // ---------------------------------------

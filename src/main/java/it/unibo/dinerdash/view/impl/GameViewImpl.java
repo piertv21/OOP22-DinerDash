@@ -375,7 +375,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void updateChefViewable() {
+    public void updateChefViewable(GameEntity gameEntity) {
         // Chiama update()
         throw new UnsupportedOperationException("Unimplemented method 'updateChefViewable'");
     }
@@ -384,14 +384,15 @@ public class GameViewImpl extends GamePanel implements GameView {
     public void addWaitressViewable(
         Pair<Integer, Integer> coordinates,
         Pair<Integer, Integer> size,
-        boolean active
+        boolean active,
+        int numDishes
     ) {
         // Assegna a this.waitress new GameEntityViewableWithNumber(new GameEntityViewable(...))
         throw new UnsupportedOperationException("Unimplemented method 'addWaitressViewable'");
     }
 
     @Override
-    public void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes) {
+    public void updateWaitressViewable(GameEntity gameEntity, int numDishes) {
         // Chiama metodo update() della waitress + aggiorna il numero con .setNumber()
         throw new UnsupportedOperationException("Unimplemented method 'updateWaitressViewable'");
     }
@@ -420,7 +421,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
+    public void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer, String state) {
         // Aggiunge un new GameEntityViewableWithNumberAndLabel(new GameEntityViewable(...)) a this.tables
         throw new UnsupportedOperationException("Unimplemented method 'addTableViewable'");
     }
