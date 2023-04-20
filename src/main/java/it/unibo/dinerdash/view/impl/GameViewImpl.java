@@ -48,7 +48,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     private static final String SEP = System.getProperty("file.separator");
     private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
     private static int HEAD_PATTEN = -20;
-    private static Pair<Integer,Integer> CLIENT_PATIENCE_IMG_SIZE = new Pair<Integer,Integer>(100, 30);
+    private static Pair<Integer, Integer> CLIENT_PATIENCE_IMG_SIZE = new Pair<Integer, Integer>(100, 30);
 
     private JLabel timeLabel;
     private JLabel coinLabel;
@@ -93,7 +93,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
-        //TODO Add image coin
+        // TODO Add image coin
         coinLabel = new JLabel("Coins: " + this.getMainFrame().getController().getCoins());
         coinLabel.setFont(new Font("Arial", Font.BOLD, 20));
         coinLabel.setForeground(Color.WHITE);
@@ -276,45 +276,61 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         // Background
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
-        Image exp=  this.imageCacher.getCachedImage("heart6").getImage();
-       
+        Image exp = this.imageCacher.getCachedImage("heart6").getImage();
 
         // Waitress
-      /*    g.drawImage(waitress.getIcon(), (int) (waitress.getPosition().getX() * widthRatio),
-                (int) (waitress.getPosition().getY() * heightRatio),
-                (int) (waitress.getSize().getX() * widthRatio), (int) (waitress.getSize().getY() * heightRatio), this);*/ 
+        /*
+         * g.drawImage(waitress.getIcon(), (int) (waitress.getPosition().getX() *
+         * widthRatio),
+         * (int) (waitress.getPosition().getY() * heightRatio),
+         * (int) (waitress.getSize().getX() * widthRatio), (int)
+         * (waitress.getSize().getY() * heightRatio), this);
+         */
 
         // Tables
-       /*  this.tables.stream().filter(t -> t.getPosition() != null)
-                .forEach(e -> g.drawImage(e.getIcon(), (int) (e.getPosition().getX() * widthRatio),
-                        (int) (e.getPosition().getY() * heightRatio),
-                        (int) (e.getSize().getX() * widthRatio), (int) (e.getSize().getY() * heightRatio), this));*/ 
-                        
-        // Customers
-        /*this.customers.stream().filter(cus -> cus.isActive() && cus.getNumber() == 7)   //stampo i clienti che vanno ai tavoli
-                .forEach(c -> {
-                    g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
-                        (int) (c.getPosition().getY() * heightRatio),
-                        (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this);
-                    });
+        /*
+         * this.tables.stream().filter(t -> t.getPosition() != null)
+         * .forEach(e -> g.drawImage(e.getIcon(), (int) (e.getPosition().getX() *
+         * widthRatio),
+         * (int) (e.getPosition().getY() * heightRatio),
+         * (int) (e.getSize().getX() * widthRatio), (int) (e.getSize().getY() *
+         * heightRatio), this));
+         */
 
-      
-        this.customers.stream().filter(cus -> cus.isActive() && cus.getNumber() != 7)  //stampo i clienti in fila
-                    .forEach(c -> {
-                        g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
-                        (int) (c.getPosition().getY() * heightRatio),
-                        (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this);
-                        g.drawImage( exp, 
-                        (int) ((c.getPosition().getX() - HEAD_PATTEN) * widthRatio),
-                        (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
-                        (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
-                        (int) (CLIENT_PATIENCE_IMG_SIZE.getY() * heightRatio), this);
-                    });*/
-                                
+        // Customers
+        /*
+         * this.customers.stream().filter(cus -> cus.isActive() && cus.getNumber() == 7)
+         * //stampo i clienti che vanno ai tavoli
+         * .forEach(c -> {
+         * g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
+         * (int) (c.getPosition().getY() * heightRatio),
+         * (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() *
+         * heightRatio), this);
+         * });
+         * 
+         * 
+         * this.customers.stream().filter(cus -> cus.isActive() && cus.getNumber() != 7)
+         * //stampo i clienti in fila
+         * .forEach(c -> {
+         * g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
+         * (int) (c.getPosition().getY() * heightRatio),
+         * (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() *
+         * heightRatio), this);
+         * g.drawImage( exp,
+         * (int) ((c.getPosition().getX() - HEAD_PATTEN) * widthRatio),
+         * (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
+         * (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
+         * (int) (CLIENT_PATIENCE_IMG_SIZE.getY() * heightRatio), this);
+         * });
+         */
+
         // Chef
-     /*     g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
-                (int) (chef.getPosition().getY() * heightRatio),
-                  (int) (chef.getSize().getX() * widthRatio), (int) (chef.getSize().getY() * heightRatio), this);*/ 
+        /*
+         * g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
+         * (int) (chef.getPosition().getY() * heightRatio),
+         * (int) (chef.getSize().getX() * widthRatio), (int) (chef.getSize().getY() *
+         * heightRatio), this);
+         */
     }
 
     @Override
@@ -324,37 +340,31 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.repaint();
     }
 
+    // NUOVI METODI DA IMPLEMENTARE
+    // ----------------------------------------------------------------
 
-
-
-
-    // NUOVI METODI DA IMPLEMENTARE ----------------------------------------------------------------
-    
     @Override
     public void addCustomerViewable(
-        Pair<Integer, Integer> coordinates,
-        Pair<Integer, Integer> size,
-        boolean active,
-        int multiplicity,
-        int patience
-    ) {
-        var client =  new ImageDecoratorImpl(
-            new NumberDecoratorImpl(
-                new GameEntityViewableImpl(coordinates, size, true ,
-                this.imageCacher.getCachedImage("customer" + multiplicity).getImage())
-            )
-        );
-        ((NumberDecoratorImpl)client.getDecorated()).setNumber(patience);
+            Pair<Integer, Integer> coordinates,
+            Pair<Integer, Integer> size,
+            boolean active,
+            int multiplicity,
+            int patience) {
+        var client = new ImageDecoratorImpl(
+                new NumberDecoratorImpl(
+                        new GameEntityViewableImpl(coordinates, size, true,
+                                this.imageCacher.getCachedImage("customer" + multiplicity).getImage())));
+        ((NumberDecoratorImpl) client.getDecorated()).setNumber(patience);
         this.customers.add(client);
     }
 
     @Override
     public void updateCustomersViewable(int index, Pair<Integer, Integer> coordinates, boolean active, int patience) {
-        this.customers.get(index).update(coordinates,active);
-        var client = ((NumberDecoratorImpl)this.customers.get(index).getDecorated());
+        this.customers.get(index).update(coordinates, active);
+        var client = ((NumberDecoratorImpl) this.customers.get(index).getDecorated());
 
-        if ( client.getNumber() != patience) {
-            Image img = this.imageCacher.getCachedImage("heart"+patience).getImage();
+        if (client.getNumber() != patience) {
+            Image img = this.imageCacher.getCachedImage("heart" + patience).getImage();
             this.customers.get(index).setState(img);
             client.setNumber(patience);
         }
@@ -367,14 +377,12 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addChefViewable(
-        Pair<Integer, Integer> coordinates,
-        Pair<Integer, Integer> size,
-        boolean active
-    ) {
+            Pair<Integer, Integer> coordinates,
+            Pair<Integer, Integer> size,
+            boolean active) {
         this.chef = new GameEntityViewableImpl(
-            coordinates, size, active,
-            this.imageCacher.getCachedImage("chef").getImage()
-        );
+                coordinates, size, active,
+                this.imageCacher.getCachedImage("chef").getImage());
     }
 
     @Override
@@ -385,31 +393,32 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addWaitressViewable(
-        Pair<Integer, Integer> coordinates,
-        Pair<Integer, Integer> size,
-        boolean active,
-        int numDishes
-    ) {
-        // Crea una var waitress = new GameEntityViewableWithNumber(new GameEntityViewable(...))
-        // con impostazioni passate, salva numDishes nel decorator.
-        // Alla fine fa this.waitress = waitress
-        throw new UnsupportedOperationException("Unimplemented method 'addWaitressViewable'");
+            Pair<Integer, Integer> coordinates,
+            Pair<Integer, Integer> size,
+            boolean active,
+            int numDishes) {
+        waitress = new NumberDecoratorImpl(
+                new GameEntityViewableImpl(coordinates, size, true,
+                        this.imageCacher.getCachedImage("waitress" + numDishes).getImage()));
+        waitress.setNumber(numDishes);
     }
 
     @Override
     public void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes) {
-        // Chiama update(coordinates, this.waitress.isActive()), se numDishes è diverso lo aggiorna ed aggiorna l'immagine
-        // della waitress coi piatti
-        throw new UnsupportedOperationException("Unimplemented method 'updateWaitressViewable'");
+        this.waitress.update(coordinates, true);
+        if (waitress.getNumber() != numDishes) {
+            waitress.setNumber(numDishes);
+            Image img = this.imageCacher.getCachedImage("waitress" + numDishes).getImage();
+            waitress.setIcon(img);
+        }
     }
 
     @Override
     public void addDishViewable(
-        Pair<Integer, Integer> coordinates,
-        Pair<Integer, Integer> size,
-        boolean active,
-        int numTable
-    ) {
+            Pair<Integer, Integer> coordinates,
+            Pair<Integer, Integer> size,
+            boolean active,
+            int numTable) {
         // Crea var dish = new GameEntityViewableWithNumber(new GameEntityViewable(...))
         // setta tutto quanto + number decorator (numTable)
         // aggiunge il dish alla lista
@@ -418,7 +427,8 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void updateDishesViewable(int index, boolean active) {
-        // Aggiorna il dish chiamando update(this.dish.getPosition(), active) sul corretto dish nella lista (usare var)
+        // Aggiorna il dish chiamando update(this.dish.getPosition(), active) sul
+        // corretto dish nella lista (usare var)
         throw new UnsupportedOperationException("Unimplemented method 'updateDishesViewable'");
     }
 
@@ -429,39 +439,44 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer, Image state) {
-        // Crea var table = new GameEntityViewableWithNumberAndLabel(new GameEntityViewable(...))
-        // setta tutto + decorator numero + decorator state
-        // aggiunge il dish alla lista
-        throw new UnsupportedOperationException("Unimplemented method 'addTableViewable'");
+    public void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer,
+            Image state) {
+        Image img = this.imageCacher.getCachedImage("table" + peopleNumer).getImage();
+        var table = new ImageDecoratorImpl(new NumberDecoratorImpl(
+                new GameEntityViewableImpl(coordinates, size, true, img)));
+        ((NumberDecoratorImpl) table.getDecorated()).setNumber(peopleNumer);
+        table.setState(null);
+        this.tables.add(table);
     }
 
     @Override
     public void updateTablesViewable(int index, int peopleNumber, Image state) {
-        // Se peopleNumber è != lo aggiorna ed aggiorna l'immagine del tavolo
-        // Se state è diverso lo aggiorna
-        throw new UnsupportedOperationException("Unimplemented method 'updateTablesViewable'");
+        var tempTable = (NumberDecoratorImpl) tables.get(index).getDecorated();
+        if (tempTable.getNumber() != peopleNumber) {
+            tempTable.setNumber(peopleNumber);
+            Image img = this.imageCacher.getCachedImage("table" + peopleNumber).getImage();
+            tempTable.setIcon(img);
+        }
     }
-    
-
-
-
 
     /*
-
-    VECCHI (DA ELIMINARE)
-
-
-    @Override
-    public void UpdateViewableTable(int index, GameEntity elem) { // aggiorno il customer
-        this.customers.get(index).update(elem);
-    }
-
-    @Override
-    public void adddTableViewable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) {
-        this.tables.add(new GameEntityViewableImpl(pos, size, true, null));
-        this.tables.getLast().setIcon(this.imageCacher.getCachedImage("table0").getImage());
-    }
-    */
+     * 
+     * VECCHI (DA ELIMINARE)
+     * 
+     * 
+     * @Override
+     * public void UpdateViewableTable(int index, GameEntity elem) { // aggiorno il
+     * customer
+     * this.customers.get(index).update(elem);
+     * }
+     * 
+     * @Override
+     * public void adddTableViewable(Pair<Integer, Integer> pos, int tableNum,
+     * Pair<Integer, Integer> size) {
+     * this.tables.add(new GameEntityViewableImpl(pos, size, true, null));
+     * this.tables.getLast().setIcon(this.imageCacher.getCachedImage("table0").
+     * getImage());
+     * }
+     */
 
 }
