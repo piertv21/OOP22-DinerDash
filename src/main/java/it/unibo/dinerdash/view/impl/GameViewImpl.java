@@ -34,6 +34,7 @@ import javax.swing.BoxLayout;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
+import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
@@ -338,9 +339,9 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void updateCustomerViewable(int index) {
-        // Aggiorna Customer in lista dato index
-        throw new UnsupportedOperationException("Unimplemented method 'updateCustomerViewable'");
+    public void updateCustomersViewable(int index, GameEntity gameEntity) {
+        // Aggiorna customer con update() dato index
+        throw new UnsupportedOperationException("Unimplemented method 'updateCustomersViewable'");
     }
 
     @Override
@@ -358,6 +359,12 @@ public class GameViewImpl extends GamePanel implements GameView {
             coordinates, size, active,
             this.imageCacher.getCachedImage("chef").getImage()
         );
+    }
+
+    @Override
+    public void updateChefViewable() {
+        // Chiama update()
+        throw new UnsupportedOperationException("Unimplemented method 'updateChefViewable'");
     }
 
     @Override
@@ -388,6 +395,12 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
+    public void updateDishesViewable(int index, GameEntity gameEntity) {
+        // Chiama this.update() nel giusto elemento
+        throw new UnsupportedOperationException("Unimplemented method 'updateDishesViewable'");
+    }
+
+    @Override
     public void deleteDishViewable(int index) {
         // Rimuove dish dato index
         throw new UnsupportedOperationException("Unimplemented method 'deleteDishViewable'");
@@ -400,39 +413,11 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void updateTableViewable(int index, int peopleNumber, String state) {
-        // Chiama metodo update() del tavolo i + aggiorna con .setNumber() e .setState()
-        throw new UnsupportedOperationException("Unimplemented method 'updateTableViewable'");
+    public void updateTablesViewable(int index, GameEntity gameEntity, int peopleNumber, String state) {
+        // Chiama this.update() + aggiorna con .setNumber() e .setState()
+        throw new UnsupportedOperationException("Unimplemented method 'updateTablesViewable'");
     }
-
-    @Override
-    public GameEntityViewableWithNumber getWaitressViewable() {
-        // Ritorna this.waitress
-        throw new UnsupportedOperationException("Unimplemented method 'getWaitressViewable'");
-    }
-
-    @Override
-    public GameEntityViewable getChefViewable() {
-        return this.chef;
-    }
-
-    @Override
-    public LinkedList<GameEntityViewableWithNumberAndLabel> getCustomersViewable() {
-        // Ritorna this.customers
-        throw new UnsupportedOperationException("Unimplemented method 'getCustomersViewable'");
-    }
-
-    @Override
-    public LinkedList<GameEntityViewableWithNumberAndLabel> getTablesViewable() {
-        // Ritorna this.tables
-        throw new UnsupportedOperationException("Unimplemented method 'getTablesViewable'");
-    }
-
-    @Override
-    public LinkedList<GameEntityViewableWithNumber> getDishesViewable() {
-        // Ritorna this.dishes
-        throw new UnsupportedOperationException("Unimplemented method 'getDishesViewable'");
-    }
+    
 
 
 

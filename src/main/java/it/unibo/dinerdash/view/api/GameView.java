@@ -1,7 +1,6 @@
 package it.unibo.dinerdash.view.api;
 
-import java.util.LinkedList;
-
+import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface GameView {
@@ -13,13 +12,15 @@ public interface GameView {
     // ---------------------------------------
     void addCustomerViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int multiplicity);
 
-    void updateCustomerViewable(int index);
+    void updateCustomersViewable(int index, GameEntity gameEntity);
 
     void removeCustomerViewable(int index);
     // ---------------------------------------
 
     // ---------------------------------------
     void addChefViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active);
+
+    void updateChefViewable();
     // ---------------------------------------
 
     // ---------------------------------------
@@ -31,24 +32,15 @@ public interface GameView {
     // ---------------------------------------
     void addDishViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int numTable);
 
+    void updateDishesViewable(int index, GameEntity gameEntity);
+
     void deleteDishViewable(int index);
     // ---------------------------------------
 
     // ---------------------------------------
     void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size);
 
-    void updateTableViewable(int index, int peopleNumber, String state);
+    void updateTablesViewable(int index, GameEntity gameEntity, int peopleNumber, String state);
     // ---------------------------------------
-
-    // NB: da usare solo nel Controller per richiamare i metodi update/remove queste sotto
-    GameEntityViewableWithNumber getWaitressViewable();
-
-    GameEntityViewable getChefViewable();
-
-    LinkedList<GameEntityViewableWithNumberAndLabel> getCustomersViewable();
-
-    LinkedList<GameEntityViewableWithNumberAndLabel> getTablesViewable();
-
-    LinkedList<GameEntityViewableWithNumber> getDishesViewable();
 
 }
