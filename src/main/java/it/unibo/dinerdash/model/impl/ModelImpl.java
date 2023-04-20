@@ -194,7 +194,8 @@ public class ModelImpl implements Model {
         final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_THAT_CAN_ENTER)) + 1;
         this.customers.add(this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity));
-        this.controller.addCustomer(customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));
+
+        this.controller.addCustomer(position,customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));
         if (thereAreAvaibleTables()) {
             tableAssignament(this.customers.getLast());
         } else {

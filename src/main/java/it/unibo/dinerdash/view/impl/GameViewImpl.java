@@ -297,7 +297,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                 (int) (waitress.getSize().getX() * widthRatio), (int) (waitress.getSize().getY() * heightRatio), this);
 
         // Tables
-        this.tables.stream().filter(t -> t.getPosition() != null)
+         this.tables.stream().filter(t -> t.getPosition() != null)
                 .forEach(e -> g.drawImage(e.getIcon(), (int) (e.getPosition().getX() * widthRatio),
                         (int) (e.getPosition().getY() * heightRatio),
                         (int) (e.getSize().getX() * widthRatio), (int) (e.getSize().getY() * heightRatio), this));
@@ -309,7 +309,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                         (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this));
 
         // Chef
-        g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
+         g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
                 (int) (chef.getPosition().getY() * heightRatio),
                 (int) (chef.getSize().getX() * widthRatio), (int) (chef.getSize().getY() * heightRatio), this);
     }
@@ -334,14 +334,18 @@ public class GameViewImpl extends GamePanel implements GameView {
         boolean active,
         int multiplicity
     ) {
-        // Aggiunge new GameEntityViewableWithNumberAndLabel(new GameEntityViewable(....)) ai Customers
-        throw new UnsupportedOperationException("Unimplemented method 'addCustomerViewable'");
+
+        this.customers.add(new GameEntityViewableWithNumberAndLabel(
+            new GameEntityViewableImpl(coordinates, 
+                size, 
+                active, 
+                this.imageCacher.getCachedImage("customer"+multiplicity).getImage())));
     }
 
     @Override
     public void updateCustomersViewable(int index, GameEntity gameEntity) {
-        // Aggiorna customer con update() dato index
-        throw new UnsupportedOperationException("Unimplemented method 'updateCustomersViewable'");
+        
+        this.customers.get(index).update(gameEntity);
     }
 
     @Override
@@ -426,10 +430,6 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     VECCHI (DA ELIMINARE)
 
-    @Override
-    public void UpdateViewableCustomer(final int index, final GameEntity elem) { // aggiorno il customer
-        this.customers.get(index).update(elem);
-    }
 
     @Override
     public void UpdateViewableTable(int index, GameEntity elem) { // aggiorno il customer

@@ -91,8 +91,10 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addCustomer(final int customNumber, final Pair<Integer, Integer> size) {
-        //this.gameView.addCustomerViewable(customNumber, size);
+    public void addCustomer( final Pair<Integer, Integer> position,
+        final int customNumber,
+        final Pair<Integer, Integer> size) {
+        this.gameView.addCustomerViewable(position, size, true, customNumber);
     }
 
     @Override
@@ -144,11 +146,12 @@ public class ControllerImpl implements Controller {
     public void updateListPosition() { // aggiorno le posizioni dei clienti nella lista della view SARA DA CHIAMARE
                                        // OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p = 0;
-        /*for (final var cus : model.getCustomers()) {
-            this.gameView.UpdateViewableCustomer(p, (GameEntity)cus);
+        for (final var cus : model.getCustomers()) {
+           // this.gameView.UpdateViewableCustomer(p, (GameEntity)cus);
+            this.gameView.updateCustomersViewable(p, cus);
             p++;
         }
-        this.gameView.getViewableWaitress().update(model.getWaitress());
+        /*this.gameView.getViewableWaitress().update(model.getWaitress());
 
         p = 0;
         for (var table : model.getTable()) {
