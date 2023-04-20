@@ -116,23 +116,24 @@ public class ModelImpl implements Model {
     // Tavoli
     private void generateTables() {
         var tables = IntStream.range(0, TABLES)
-            .boxed()
-            .map(i -> {
-                int x = (int) (TABLE_STARTING_REL_X + (i % (TABLES / 2)) * TABLES_HORIZONTAL_PADDING);
-                int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
-                Pair<Integer, Integer> coordinates = new Pair<>(x, y);
-                Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
-                this.controller.addTable(coordinates, i + 1, size);
-                return this.factory.createTable(coordinates, size, i + 1);
-            })
-            .collect(Collectors.toList());
+                .boxed()
+                .map(i -> {
+                    int x = (int) (TABLE_STARTING_REL_X + (i % (TABLES / 2)) * TABLES_HORIZONTAL_PADDING);
+                    int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
+                    Pair<Integer, Integer> coordinates = new Pair<>(x, y);
+                    Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
+                    this.controller.addTable(coordinates, i + 1, size);
+                    return this.factory.createTable(coordinates, size, i + 1);
+                })
+                .collect(Collectors.toList());
         this.tables.addAll(tables);
     }
+
     private void clear() {
         this.customers.clear();
         this.tables.clear();
         this.counterTop.clear();
-        
+
     }
 
     @Override
@@ -196,7 +197,8 @@ public class ModelImpl implements Model {
         this.customers.add(this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity));
 
-        this.controller.addCustomer(position,customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), MAX_PATIENCE);
+        this.controller.addCustomer(position, customersMolteplicity,
+                new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), MAX_PATIENCE);
         if (thereAreAvaibleTables()) {
             tableAssignament(this.customers.getLast());
         } else {
@@ -222,7 +224,7 @@ public class ModelImpl implements Model {
                 this.lastCustomerTimeCreation = System.nanoTime();
             }
             this.chef.update();
-            this.waitress.handleMovement(); 
+            this.waitress.handleMovement();
             final var customIterator = this.customers.iterator();
             while (customIterator.hasNext()) {
                 customIterator.next().update();
@@ -246,7 +248,7 @@ public class ModelImpl implements Model {
             this.customers.remove(tempCustomerToDelete);
             this.controller.removeCustomer(indexToDelete); // delete client from lists
             this.customerLeft();
-            this.customers.stream()                   // fix line positions
+            this.customers.stream() // fix line positions
                     .filter(p -> p.getState()
                             .equals(CustomerState.LINE))
                     .forEach((p) -> {
@@ -372,6 +374,10 @@ public class ModelImpl implements Model {
             this.customers.remove(this.tables.get(numberTable - 1).getCustomer().get());
             this.tables.get(numberTable - 1).setCustom(Optional.empty());
             this.controller.removeCustomer(indiceCustomerInList);
+        }
+
+        if (state.equals(TableState.EATING)) {
+            this.tables.get(numberTable - 1).startEating();
         }
     }
 

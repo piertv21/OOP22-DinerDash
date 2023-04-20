@@ -92,9 +92,9 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addCustomer( final Pair<Integer, Integer> position,
-        final int customNumber,
-        final Pair<Integer, Integer> size ,int maxPatience) {
+    public void addCustomer(final Pair<Integer, Integer> position,
+            final int customNumber,
+            final Pair<Integer, Integer> size, int maxPatience) {
         this.gameView.addCustomerViewable(position, size, true, customNumber, maxPatience);
     }
 
@@ -149,17 +149,17 @@ public class ControllerImpl implements Controller {
         int p = 0;
         for (final var client : model.getCustomers()) {
             this.gameView.updateCustomersViewable(p,
-                client.getPosition(),
-                client.isActive(), client.getCustomerPatience());
+                    client.getPosition(),
+                    client.isActive(), client.getCustomerPatience());
             p++;
         }
-        p =0 ;
-        /*this.gameView.getViewableWaitress().update(model.getWaitress());
+        p = 0;
+        this.gameView.updateWaitressViewable(model.getWaitress().getPosition(), model.getWaitress().getOrdersNumber());
 
         for (var table : model.getTable()) {
-            this.gameView.getViewableTable().get(p).update(table);
+            this.gameView.updateTablesViewable(p, table.getPeopleSeatedNumber(), table.getStateInText());
             p++;
-        }*/
+        }
     }
 
     @Override
@@ -174,7 +174,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addTable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) {
-        //this.gameView.adddTableViewable(pos, tableNum, size);
+        this.gameView.adddTableViewable(pos, size,peopleNumer:0,state:"" );
     }
 
 }
