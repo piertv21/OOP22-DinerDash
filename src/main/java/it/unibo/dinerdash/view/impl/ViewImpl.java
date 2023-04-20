@@ -3,17 +3,27 @@ package it.unibo.dinerdash.view.impl;
 import javax.swing.JFrame;
 
 import it.unibo.dinerdash.controller.api.Controller;
+import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.View;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
  * Main View.
  */
 public class ViewImpl extends JFrame implements View {
+
+    private static final String SEP = System.getProperty("file.separator");
+    private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
 
     public static final String FRAME_NAME = "Diner Dash";
     public static final int MIN_WIDTH = 800;
@@ -21,6 +31,7 @@ public class ViewImpl extends JFrame implements View {
 
     private Controller controller;
     private GamePanel currentView;
+    private ImageReaderWithCache imageCacher;
 
     private double widthRatio;
     private double heightRatio;
@@ -28,6 +39,7 @@ public class ViewImpl extends JFrame implements View {
     public ViewImpl(Controller controller) {
         super(FRAME_NAME);
         this.controller = controller;
+        this.imageCacher = new ImageReaderWithCache(ROOT);
         
         this.widthRatio = 0;
         this.heightRatio = 0;
@@ -47,6 +59,7 @@ public class ViewImpl extends JFrame implements View {
             }
         });
 
+        this.loadResources();
         this.showStartView();
         this.setVisible(true);
     }
@@ -98,6 +111,37 @@ public class ViewImpl extends JFrame implements View {
     @Override
     public double getWidthRatio(){
         return this.widthRatio;
-    }    
+    }
+
+    private void loadResources() {
+        var path = "src" + SEP + "main" + SEP + "resources" + SEP + ROOT;
+        var assetsPath = this.searchAssets(path);
+        assetsPath.forEach(this.imageCacher::readImage);
+    }
+    
+    private List<String> searchAssets(String path) {
+        return Optional.ofNullable(new File(path).listFiles())
+                .map(Arrays::stream)
+                .orElse(Stream.empty())
+                .flatMap(file -> getFilesRecursively(file, path))
+                .filter(file -> file.getName().toLowerCase().matches(".+\\.(jpg|jpeg|png|gif)$"))
+                .map(File::getPath)
+                .collect(Collectors.toList());
+    }
+
+    private Stream<File> getFilesRecursively(File file, String basePath) {
+        String filePath = file.getPath();
+        String relativePath = filePath.substring(basePath.length());
+        return file.isDirectory() ? Optional.ofNullable(file.listFiles())
+                .map(Arrays::stream)
+                .orElse(Stream.empty())
+                .flatMap(f -> getFilesRecursively(f, basePath))
+                : Stream.of(new File(relativePath));
+    }
+
+    @Override
+    public ImageReaderWithCache getImageCacher() {
+        return this.imageCacher;
+    }
 
 }

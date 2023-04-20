@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.view.api;
 
 import it.unibo.dinerdash.controller.api.Controller;
+import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 
 public interface View {
 
@@ -23,5 +24,7 @@ public interface View {
     int getWidth();
 
     int getHeight();
+
+    ImageReaderWithCache getImageCacher();
     
 }

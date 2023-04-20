@@ -6,14 +6,8 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.io.File;
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -45,8 +39,6 @@ import it.unibo.dinerdash.view.api.ImageDecoratorImpl;
  */
 public class GameViewImpl extends GamePanel implements GameView {
 
-    private static final String SEP = System.getProperty("file.separator");
-    private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
     private static int HEAD_PATTEN = -20;
     private static Pair<Integer, Integer> CLIENT_PATIENCE_IMG_SIZE = new Pair<Integer, Integer>(100, 30);
 
@@ -80,7 +72,6 @@ public class GameViewImpl extends GamePanel implements GameView {
         setBackground(Color.WHITE);
 
         this.init();
-        this.loadResources();
         this.backgroundImage = this.imageCacher.getCachedImage("background").getImage();
 
         topPanel = new JPanel(new BorderLayout());
@@ -231,33 +222,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
-        this.imageCacher = new ImageReaderWithCache(ROOT);
-    }
-
-    private List<String> searchAssets(String path) {
-        return Optional.ofNullable(new File(path).listFiles())
-                .map(Arrays::stream)
-                .orElse(Stream.empty())
-                .flatMap(file -> getFilesRecursively(file, path))
-                .filter(file -> file.getName().toLowerCase().matches(".+\\.(jpg|jpeg|png|gif)$"))
-                .map(File::getPath)
-                .collect(Collectors.toList());
-    }
-
-    private Stream<File> getFilesRecursively(File file, String basePath) {
-        String filePath = file.getPath();
-        String relativePath = filePath.substring(basePath.length());
-        return file.isDirectory() ? Optional.ofNullable(file.listFiles())
-                .map(Arrays::stream)
-                .orElse(Stream.empty())
-                .flatMap(f -> getFilesRecursively(f, basePath))
-                : Stream.of(new File(relativePath));
-    }
-
-    private void loadResources() {
-        var path = "src" + SEP + "main" + SEP + "resources" + SEP + ROOT;
-        var assetsPath = this.searchAssets(path);
-        assetsPath.forEach(this.imageCacher::readImage);
+        this.imageCacher = this.getMainFrame().getImageCacher();
     }
 
     @Override
