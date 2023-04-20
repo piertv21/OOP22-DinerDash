@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -309,21 +310,26 @@ public class GameViewImpl extends GamePanel implements GameView {
                         (int) (e.getSize().getX() * widthRatio), (int) (e.getSize().getY() * heightRatio), this));*/ 
                         
         // Customers
-        this.customers.stream().filter(cus -> cus.isActive())
+        this.customers.stream().filter(cus -> cus.isActive() && cus.getNumber() == 7)   //stampo i clienti che vanno ai tavoli
                 .forEach(c -> {
                     g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
                         (int) (c.getPosition().getY() * heightRatio),
                         (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this);
-                    if (c.getNumber() != patience) {   // disegno le immagini con gli stati
+                    });
+
+      
+        this.customers.stream().filter(cus -> cus.isActive() && cus.getNumber() != 7)  //stampo i clienti in fila
+                    .forEach(c -> {
+                        g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
+                        (int) (c.getPosition().getY() * heightRatio),
+                        (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this);
                         g.drawImage( exp, 
                         (int) ((c.getPosition().getX() - HEAD_PATTEN) * widthRatio),
                         (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
                         (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
                         (int) (CLIENT_PATIENCE_IMG_SIZE.getY() * heightRatio), this);
-                    }
                     });
-                       
-
+                                
         // Chef
      /*     g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
                 (int) (chef.getPosition().getY() * heightRatio),
