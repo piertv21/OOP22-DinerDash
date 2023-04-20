@@ -366,7 +366,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         if (client.getNumber() != patience) {
             var img = this.imageCacher.getCachedImage("heart" + patience).getImage();
-            this.customers.get(index).setState(img);
+            //this.customers.get(index).setState(img);
             client.setNumber(patience);
         }
     }

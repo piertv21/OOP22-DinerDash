@@ -6,20 +6,31 @@ import java.awt.Image;
 
 public class ImageDecoratorImpl extends AbstractGameEntityViewableDecorator implements ImageDecorator {
 
-    private Optional<Image> state;
+    private String stateText;
+    private Optional<Image> stateIcon;
 
     public ImageDecoratorImpl(GameEntityViewable decorated) {
         super(decorated);
     }
 
     @Override
-    public void setState(Image state) {
-        this.state = Optional.ofNullable(state);
+    public void setState(String state) {
+        this.stateText = state;
     }
     
     @Override
-    public Optional<Image> getState() {
-        return this.state;
+    public String getState() {
+        return this.stateText;
+    }
+
+    @Override
+    public void setStateIcon(Image icon) {
+        this.stateIcon = Optional.ofNullable(icon);
+    }
+
+    @Override
+    public Optional<Image> getStateIcon() {
+        return this.stateIcon;
     }
     
 }
