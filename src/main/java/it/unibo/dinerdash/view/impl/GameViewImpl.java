@@ -345,14 +345,15 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addCustomerViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active,
-            int multiplicity,
-            int patience) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int multiplicity,
+        int patience
+    ) {
         var client = new ImageDecoratorImpl(
                 new NumberDecoratorImpl(
-                        new GameEntityViewableImpl(coordinates, size, true,
+                        new GameEntityViewableImpl(coordinates, size, active,
                                 this.imageCacher.getCachedImage("customer" + multiplicity).getImage())));
         ((NumberDecoratorImpl) client.getDecorated()).setNumber(patience);
         this.customers.add(client);
@@ -364,7 +365,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         var client = ((NumberDecoratorImpl) this.customers.get(index).getDecorated());
 
         if (client.getNumber() != patience) {
-            Image img = this.imageCacher.getCachedImage("heart" + patience).getImage();
+            var img = this.imageCacher.getCachedImage("heart" + patience).getImage();
             this.customers.get(index).setState(img);
             client.setNumber(patience);
         }
@@ -377,48 +378,51 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addChefViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active
+    ) {
         this.chef = new GameEntityViewableImpl(
-                coordinates, size, active,
-                this.imageCacher.getCachedImage("chef").getImage());
+                coordinates, size, active, this.imageCacher.getCachedImage("chef").getImage()
+        );
     }
 
     @Override
     public void updateChefViewable(boolean active) {
-        // Chiama update(this.chef.getPosition(), active) su chef
-        throw new UnsupportedOperationException("Unimplemented method 'updateChefViewable'");
+        this.chef.update(this.chef.getPosition(), active);
     }
 
     @Override
     public void addWaitressViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active,
-            int numDishes) {
-        waitress = new NumberDecoratorImpl(
-                new GameEntityViewableImpl(coordinates, size, true,
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int numDishes
+    ) {
+        this.waitress = new NumberDecoratorImpl(
+                new GameEntityViewableImpl(coordinates, size, active,
                         this.imageCacher.getCachedImage("waitress" + numDishes).getImage()));
-        waitress.setNumber(numDishes);
+        this.waitress.setNumber(numDishes);
     }
 
     @Override
     public void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes) {
-        this.waitress.update(coordinates, true);
-        if (waitress.getNumber() != numDishes) {
-            waitress.setNumber(numDishes);
-            Image img = this.imageCacher.getCachedImage("waitress" + numDishes).getImage();
-            waitress.setIcon(img);
+        this.waitress.update(coordinates, this.waitress.isActive());
+        
+        if (this.waitress.getNumber() != numDishes) {
+            this.waitress.setNumber(numDishes);
+            var img = this.imageCacher.getCachedImage("waitress" + numDishes).getImage();
+            this.waitress.setIcon(img);
         }
     }
 
     @Override
     public void addDishViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active,
-            int numTable) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int numTable
+    ) {
         // Crea var dish = new GameEntityViewableWithNumber(new GameEntityViewable(...))
         // setta tutto quanto + number decorator (numTable)
         // aggiunge il dish alla lista
@@ -439,9 +443,13 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer,
-            Image state) {
-        Image img = this.imageCacher.getCachedImage("table" + peopleNumer).getImage();
+    public void addTableViewable(
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        int peopleNumer,
+        Image state
+    ) {
+        var img = this.imageCacher.getCachedImage("table" + peopleNumer).getImage();
         var table = new ImageDecoratorImpl(new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, true, img)));
         ((NumberDecoratorImpl) table.getDecorated()).setNumber(peopleNumer);
