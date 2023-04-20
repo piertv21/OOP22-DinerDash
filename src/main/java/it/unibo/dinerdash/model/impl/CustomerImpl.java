@@ -18,7 +18,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     private static final int ZERO = 0;
     private static final int MAX_ORDERING_TIME = 4;
     private static final int TIME_BEFORE_LOOSEPATIENCE = 2;
-    private static final int MAX_PATIECE = 6;
+    private static final int MAX_PATIECE = 7;
     private static final int SPEED = 5;
     private static final int HITBOX_SPACE = 4;
     private CustomerState state;
@@ -99,6 +99,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 }
             } else {
                 this.lastPatienceReduce = Optional.of(System.nanoTime());
+                this.patience-- ;
             }
         }
     }
