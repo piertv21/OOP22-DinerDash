@@ -3,7 +3,6 @@ package it.unibo.dinerdash.view.api;
 import java.awt.Image;
 
 import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntity;
-import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
@@ -30,12 +29,9 @@ public class GameEntityViewableImpl extends AbstractGameEntity implements GameEn
     }
 
     @Override
-    public void update(GameEntity gameEntity) {
-        var newPosition = gameEntity.getPosition();
-        this.setPosition(newPosition);
-
-        var newActiveStatus = gameEntity.isActive();
-        this.setActive(newActiveStatus);
+    public void update(Pair<Integer, Integer> coordinates, boolean active) {
+        this.setPosition(coordinates);
+        this.setActive(active);
     }
 
 }

@@ -33,7 +33,6 @@ import javax.swing.BoxLayout;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
-import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
@@ -50,7 +49,6 @@ public class GameViewImpl extends GamePanel implements GameView {
     private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
     private static int HEAD_PATTEN = -20;
     private static Pair<Integer,Integer> CLIENT_PATIENCE_IMG_SIZE = new Pair<Integer,Integer>(100, 30);
-    private  int patience;
 
     private JLabel timeLabel;
     private JLabel coinLabel;
@@ -338,23 +336,26 @@ public class GameViewImpl extends GamePanel implements GameView {
         Pair<Integer, Integer> size,
         boolean active,
         int multiplicity,
-        int maxPatience
+        int patience
     ) {
-
+        // Consiglio:
+        // Crea un var customer = new ImageDecoratorImpl( new ...
+        // Setti tutto quel che serve nella GameEntity + decoratori
+        // e poi fai this.customers.add()
         this.customers.add(new ImageDecoratorImpl(
             new GameEntityViewableImpl(coordinates, 
                 size, 
                 active, 
                 this.imageCacher.getCachedImage("customer" + multiplicity).getImage())));
 
-        //this.customers.getLast().setNumber(maxPatience);  
-        this.patience = maxPatience;      
+        //this.customers.getLast().setNumber(patience);
     }
 
     @Override
-    public void updateCustomersViewable(int index, GameEntity gameEntity, int patience) {
-        
-        this.customers.get(index).update(gameEntity);
+    public void updateCustomersViewable(int index, Pair<Integer, Integer> coordinates, boolean active, int patience) {
+        // Chiama update(coordinates, active) sul giusto customer, se patience è diversa la aggiorna e aggiorna immagine cuori
+
+        //this.customers.get(index).update(gameEntity);
         /*if( this.customers.get(index).getNumber() != patience) {
           // Icon ic = (Icon)this.imageCacher.getCachedImage("heart"+patience).getImage();
            // JLabel icona= new JLabel();
@@ -382,8 +383,8 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void updateChefViewable(GameEntity gameEntity) {
-        // Chiama update()
+    public void updateChefViewable(boolean active) {
+        // Chiama update(this.getPosition(), active) su chef
         throw new UnsupportedOperationException("Unimplemented method 'updateChefViewable'");
     }
 
@@ -394,13 +395,16 @@ public class GameViewImpl extends GamePanel implements GameView {
         boolean active,
         int numDishes
     ) {
-        // Assegna a this.waitress new GameEntityViewableWithNumber(new GameEntityViewable(...))
+        // Crea una var waitress = new GameEntityViewableWithNumber(new GameEntityViewable(...))
+        // con impostazioni passate, salva numDishes nel decorator.
+        // Alla fine fa this.waitress = waitress
         throw new UnsupportedOperationException("Unimplemented method 'addWaitressViewable'");
     }
 
     @Override
-    public void updateWaitressViewable(GameEntity gameEntity, int numDishes) {
-        // Chiama metodo update() della waitress + aggiorna il numero con .setNumber()
+    public void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes) {
+        // Chiama update(coordinates, this.isActive()), se numDishes è diverso lo aggiorna ed aggiorna l'immagine
+        // della waitress coi piatti
         throw new UnsupportedOperationException("Unimplemented method 'updateWaitressViewable'");
     }
 
@@ -411,13 +415,15 @@ public class GameViewImpl extends GamePanel implements GameView {
         boolean active,
         int numTable
     ) {
-        // Aggiunge un new GameEntityViewableWithNumber(new GameEntityViewable(...)) a this.dishes
+        // Crea var dish = new GameEntityViewableWithNumber(new GameEntityViewable(...))
+        // setta tutto quanto + number decorator (numTable)
+        // aggiunge il dish alla lista
         throw new UnsupportedOperationException("Unimplemented method 'addDishViewable'");
     }
 
     @Override
-    public void updateDishesViewable(int index, GameEntity gameEntity) {
-        // Chiama this.update() nel giusto elemento
+    public void updateDishesViewable(int index, boolean active) {
+        // Aggiorna il dish chiamando update(this.getPosition(), active)
         throw new UnsupportedOperationException("Unimplemented method 'updateDishesViewable'");
     }
 
@@ -428,14 +434,17 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer, String state) {
-        // Aggiunge un new GameEntityViewableWithNumberAndLabel(new GameEntityViewable(...)) a this.tables
+    public void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer, Image state) {
+        // Crea var table = new GameEntityViewableWithNumberAndLabel(new GameEntityViewable(...))
+        // setta tutto + decorator numero + decorator state
+        // aggiunge il dish alla lista
         throw new UnsupportedOperationException("Unimplemented method 'addTableViewable'");
     }
 
     @Override
-    public void updateTablesViewable(int index, GameEntity gameEntity, int peopleNumber, String state) {
-        // Chiama this.update() + aggiorna con .setNumber() e .setState()
+    public void updateTablesViewable(int index, int peopleNumber, Image state) {
+        // Se peopleNumber è != lo aggiorna ed aggiorna l'immagine del tavolo
+        // Se state è diverso lo aggiorna
         throw new UnsupportedOperationException("Unimplemented method 'updateTablesViewable'");
     }
     

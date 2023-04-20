@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.view.api;
 
-import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
+import java.awt.Image;
+
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface GameView {
@@ -10,9 +11,9 @@ public interface GameView {
     void render();
 
     // ---------------------------------------
-    void addCustomerViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int multiplicity, int maxPatience);
+    void addCustomerViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int multiplicity, int patience);
 
-    void updateCustomersViewable(int index, GameEntity gameEntity, int patience);
+    void updateCustomersViewable(int index, Pair<Integer, Integer> coordinates, boolean active, int patience);
 
     void removeCustomerViewable(int index);
     // ---------------------------------------
@@ -20,27 +21,27 @@ public interface GameView {
     // ---------------------------------------
     void addChefViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active);
 
-    void updateChefViewable(GameEntity gameEntity);
+    void updateChefViewable(boolean active);
     // ---------------------------------------
 
     // ---------------------------------------
     void addWaitressViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int numDishes);
 
-    void updateWaitressViewable(GameEntity gameEntity, int numDishes);
+    void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes);
     // ---------------------------------------
 
     // ---------------------------------------
     void addDishViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int numTable);
 
-    void updateDishesViewable(int index, GameEntity gameEntity);
+    void updateDishesViewable(int index, boolean active);
 
     void deleteDishViewable(int index);
     // ---------------------------------------
 
     // ---------------------------------------
-    void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer, String state);
+    void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer, Image state);
 
-    void updateTablesViewable(int index, GameEntity gameEntity, int peopleNumber, String state);
+    void updateTablesViewable(int index, int peopleNumber, Image state);
     // ---------------------------------------
 
 }

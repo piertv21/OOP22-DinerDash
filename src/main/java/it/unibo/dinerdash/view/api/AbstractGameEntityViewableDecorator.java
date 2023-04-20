@@ -2,7 +2,6 @@ package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
 
-import it.unibo.dinerdash.model.api.GameEntities.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public abstract class AbstractGameEntityViewableDecorator implements GameEntityViewable {
@@ -28,8 +27,8 @@ public abstract class AbstractGameEntityViewableDecorator implements GameEntityV
     }
 
     @Override
-    public void update(GameEntity gameEntity) {
-        this.decorated.update(gameEntity);
+    public void update(Pair<Integer, Integer> coordinates, boolean active) {
+        this.decorated.update(coordinates, active);
     }
 
     @Override
