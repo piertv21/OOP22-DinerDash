@@ -146,14 +146,15 @@ public class ControllerImpl implements Controller {
     public void updateListPosition() { // aggiorno le posizioni dei clienti nella lista della view SARA DA CHIAMARE
                                        // OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p = 0;
-        for (final var cus : model.getCustomers()) {
-           // this.gameView.UpdateViewableCustomer(p, (GameEntity)cus);
-            //this.gameView.updateCustomersViewable(p, cus, cus.getCustomerPatience());
+        for (final var client : model.getCustomers()) {
+            this.gameView.updateCustomersViewable(p,
+                client.getPosition(),
+                client.isActive(), client.getCustomerPatience());
             p++;
         }
+        p =0 ;
         /*this.gameView.getViewableWaitress().update(model.getWaitress());
 
-        p = 0;
         for (var table : model.getTable()) {
             this.gameView.getViewableTable().get(p).update(table);
             p++;
