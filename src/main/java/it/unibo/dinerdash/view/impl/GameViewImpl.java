@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +30,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
-
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
@@ -41,8 +38,8 @@ import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 import it.unibo.dinerdash.view.api.GameEntityViewableImpl;
-import it.unibo.dinerdash.view.api.GameEntityViewableWithNumber;
-import it.unibo.dinerdash.view.api.GameEntityViewableWithNumberAndLabel;
+import it.unibo.dinerdash.view.api.NumberDecoratorImpl;
+import it.unibo.dinerdash.view.api.ImageDecoratorImpl;
 
 /*
  * Main Game View Panel
@@ -68,10 +65,10 @@ public class GameViewImpl extends GamePanel implements GameView {
     private Image backgroundImage;
     private ImageReaderWithCache imageCacher;
 
-    private LinkedList<GameEntityViewableWithNumberAndLabel> customers;
-    private LinkedList<GameEntityViewableWithNumberAndLabel> tables;
-    private LinkedList<GameEntityViewableWithNumber> dishes;
-    private GameEntityViewableWithNumber waitress;
+    private LinkedList<ImageDecoratorImpl> customers;
+    private LinkedList<ImageDecoratorImpl> tables;
+    private LinkedList<NumberDecoratorImpl> dishes;
+    private NumberDecoratorImpl waitress;
     private GameEntityViewable chef;
 
     private Cursor defaultCursor;
@@ -86,6 +83,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         this.init();
         this.loadResources();
+        this.backgroundImage = this.imageCacher.getCachedImage("background").getImage();
 
         topPanel = new JPanel(new BorderLayout());
         topPanel.setOpaque(false);
@@ -185,7 +183,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                         .findFirst()
                         .ifPresent(dish -> controller.callWaitress(dishes.indexOf(dish), "d", dish.getPosition()));
             }
-        });        
+        });
 
         this.render();
         this.start();
@@ -228,7 +226,6 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     private void start() {
-        this.assignStartingImages();
         this.getMainFrame().getController().start(this);
     }
 
@@ -265,20 +262,6 @@ public class GameViewImpl extends GamePanel implements GameView {
         assetsPath.forEach(this.imageCacher::readImage);
     }
 
-    private void assignStartingImages() {
-        this.backgroundImage = this.imageCacher.getCachedImage("background").getImage();
-
-        // TODO è una prova, manca la posizione della waitress dal controller->model!
-        /*var waitressPosition = new Pair<>(40, 120);
-        this.waitress = new GameEntityViewableImpl(waitressPosition, new Pair<>(120, 180), true,
-                this.imageCacher.getCachedImage("waitress0").getImage());
-
-        // TODO è una prova, manca la posizione dal controller->model!
-        var chefPosition = new Pair<>(this.getMainFrame().getWidth() / 2, (int)(this.getMainFrame().getHeight() * 0.047));
-        this.chef = new GameEntityViewableImpl(chefPosition, new Pair<>(120, 150), true,
-                this.imageCacher.getCachedImage("chef").getImage());*/
-    }
-
     @Override
     public void clear() {
         this.customers.clear();
@@ -310,7 +293,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                         (int) (e.getSize().getX() * widthRatio), (int) (e.getSize().getY() * heightRatio), this));*/ 
                         
         // Customers
-        this.customers.stream().filter(cus -> cus.isActive() && cus.getNumber() == 7)   //stampo i clienti che vanno ai tavoli
+        /*this.customers.stream().filter(cus -> cus.isActive() && cus.getNumber() == 7)   //stampo i clienti che vanno ai tavoli
                 .forEach(c -> {
                     g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
                         (int) (c.getPosition().getY() * heightRatio),
@@ -328,7 +311,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                         (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
                         (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
                         (int) (CLIENT_PATIENCE_IMG_SIZE.getY() * heightRatio), this);
-                    });
+                    });*/
                                 
         // Chef
      /*     g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
@@ -358,13 +341,13 @@ public class GameViewImpl extends GamePanel implements GameView {
         int maxPatience
     ) {
 
-        this.customers.add(new GameEntityViewableWithNumberAndLabel(
+        this.customers.add(new ImageDecoratorImpl(
             new GameEntityViewableImpl(coordinates, 
                 size, 
                 active, 
                 this.imageCacher.getCachedImage("customer" + multiplicity).getImage())));
 
-        this.customers.getLast().setNumber(maxPatience);  
+        //this.customers.getLast().setNumber(maxPatience);  
         this.patience = maxPatience;      
     }
 
@@ -372,13 +355,13 @@ public class GameViewImpl extends GamePanel implements GameView {
     public void updateCustomersViewable(int index, GameEntity gameEntity, int patience) {
         
         this.customers.get(index).update(gameEntity);
-        if( this.customers.get(index).getNumber() != patience) {
+        /*if( this.customers.get(index).getNumber() != patience) {
           // Icon ic = (Icon)this.imageCacher.getCachedImage("heart"+patience).getImage();
            // JLabel icona= new JLabel();
             //icona.setIcon(ic);
             //this.customers.get(index).setState(icona);
             this.customers.get(index).setNumber(patience);
-        }
+        }*/
     }
 
     @Override

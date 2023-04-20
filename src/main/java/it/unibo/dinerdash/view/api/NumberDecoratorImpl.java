@@ -1,10 +1,10 @@
 package it.unibo.dinerdash.view.api;
 
-public class GameEntityViewableWithNumber extends AbstractGameEntityViewableDecorator implements NumberDecorator {
+public class NumberDecoratorImpl extends AbstractGameEntityViewableDecorator implements NumberDecorator {
 
     private int number;
 
-    public GameEntityViewableWithNumber(GameEntityViewable decorated) {
+    public NumberDecoratorImpl(GameEntityViewable decorated) {
         super(decorated);
     }
     
