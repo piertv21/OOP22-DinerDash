@@ -342,6 +342,8 @@ public class GameViewImpl extends GamePanel implements GameView {
                 size, 
                 active, 
                 this.imageCacher.getCachedImage("customer"+multiplicity).getImage())));
+
+        this.customers.getLast().setNumber(6);        
     }
 
     @Override
