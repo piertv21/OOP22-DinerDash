@@ -338,31 +338,26 @@ public class GameViewImpl extends GamePanel implements GameView {
         int multiplicity,
         int patience
     ) {
-        // Consiglio:
-        // Crea un var customer = new ImageDecoratorImpl( new ...
-        // Setti tutto quel che serve nella GameEntity + decoratori
-        // e poi fai this.customers.add()
-        this.customers.add(new ImageDecoratorImpl(
-            new GameEntityViewableImpl(coordinates, 
-                size, 
-                active, 
-                this.imageCacher.getCachedImage("customer" + multiplicity).getImage())));
-
-        //this.customers.getLast().setNumber(patience);
+        var client =  new ImageDecoratorImpl(
+            new NumberDecoratorImpl(
+                new GameEntityViewableImpl(coordinates, size, true ,
+                this.imageCacher.getCachedImage("customer" + multiplicity).getImage())
+            )
+        );
+        ((NumberDecoratorImpl)client.getDecorated()).setNumber(patience);
+        this.customers.add(client);
     }
 
     @Override
     public void updateCustomersViewable(int index, Pair<Integer, Integer> coordinates, boolean active, int patience) {
-        // Chiama update(coordinates, active) sul giusto customer, se patience è diversa la aggiorna e aggiorna immagine cuori
+        this.customers.get(index).update(coordinates,active);
+        var client = ((NumberDecoratorImpl)this.customers.get(index).getDecorated());
 
-        //this.customers.get(index).update(gameEntity);
-        /*if( this.customers.get(index).getNumber() != patience) {
-          // Icon ic = (Icon)this.imageCacher.getCachedImage("heart"+patience).getImage();
-           // JLabel icona= new JLabel();
-            //icona.setIcon(ic);
-            //this.customers.get(index).setState(icona);
-            this.customers.get(index).setNumber(patience);
-        }*/
+        if ( client.getNumber() != patience) {
+            Image img = this.imageCacher.getCachedImage("heart"+patience).getImage();
+            this.customers.get(index).setState(img);
+            client.setNumber(patience);
+        }
     }
 
     @Override
