@@ -1,7 +1,5 @@
 package it.unibo.dinerdash.view.api;
 
-import java.awt.Image;
-
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface GameView {
@@ -30,8 +28,8 @@ public interface GameView {
 
     void deleteDishViewable(int index);
     
-    void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer, Image state);
+    void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer, String state);
 
-    void updateTablesViewable(int index, int peopleNumber, Image state);
+    void updateTablesViewable(int index, int peopleNumber, String state);
     
 }

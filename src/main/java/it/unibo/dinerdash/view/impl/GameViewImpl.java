@@ -366,7 +366,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         if (client.getNumber() != patience) {
             var img = this.imageCacher.getCachedImage("heart" + patience).getImage();
-            //this.customers.get(index).setState(img);
+            this.customers.get(index).setState(Optional.of(img));
             client.setNumber(patience);
         }
     }
@@ -447,18 +447,18 @@ public class GameViewImpl extends GamePanel implements GameView {
         Pair<Integer, Integer> coordinates,
         Pair<Integer, Integer> size,
         int peopleNumer,
-        Image state
+        String state
     ) {
         var img = this.imageCacher.getCachedImage("table" + peopleNumer).getImage();
         var table = new ImageDecoratorImpl(new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, true, img)));
         ((NumberDecoratorImpl) table.getDecorated()).setNumber(peopleNumer);
-        table.setState(null);
+        table.setState(Optional.empty());
         this.tables.add(table);
     }
 
     @Override
-    public void updateTablesViewable(int index, int peopleNumber, Image state) {
+    public void updateTablesViewable(int index, int peopleNumber, String state) {
         var tempTable = (NumberDecoratorImpl) tables.get(index).getDecorated();
         if (tempTable.getNumber() != peopleNumber) {
             tempTable.setNumber(peopleNumber);
@@ -466,25 +466,5 @@ public class GameViewImpl extends GamePanel implements GameView {
             tempTable.setIcon(img);
         }
     }
-
-    /*
-     * 
-     * VECCHI (DA ELIMINARE)
-     * 
-     * 
-     * @Override
-     * public void UpdateViewableTable(int index, GameEntity elem) { // aggiorno il
-     * customer
-     * this.customers.get(index).update(elem);
-     * }
-     * 
-     * @Override
-     * public void adddTableViewable(Pair<Integer, Integer> pos, int tableNum,
-     * Pair<Integer, Integer> size) {
-     * this.tables.add(new GameEntityViewableImpl(pos, size, true, null));
-     * this.tables.getLast().setIcon(this.imageCacher.getCachedImage("table0").
-     * getImage());
-     * }
-     */
 
 }

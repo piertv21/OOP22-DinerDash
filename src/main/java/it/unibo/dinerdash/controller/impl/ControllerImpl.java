@@ -6,7 +6,8 @@ import it.unibo.dinerdash.engine.impl.GameLoopImpl;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
-import it.unibo.dinerdash.utility.impl.GameTimer;
+import it.unibo.dinerdash.utility.api.GameTimer;
+import it.unibo.dinerdash.utility.impl.GameTimerImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
@@ -37,7 +38,7 @@ public class ControllerImpl implements Controller {
         this.gameLoop = new GameLoopImpl(model, this);
         this.gameLoop.start();
 
-        this.gameTimer = new GameTimer(this.model);
+        this.gameTimer = new GameTimerImpl(this.model);
         gameTimer.startTimer();
     }
 

@@ -6,12 +6,8 @@ import java.awt.Image;
 
 public interface ImageDecorator {
 
-    void setState(String state);
+    void setState(Optional<Image> icon);
 
-    String getState();
-
-    void setStateIcon(Image icon);
-
-    Optional<Image> getStateIcon();
+    Optional<Image> getState();
 
 }
