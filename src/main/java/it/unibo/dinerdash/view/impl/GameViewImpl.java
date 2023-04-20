@@ -384,7 +384,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void updateChefViewable(boolean active) {
-        // Chiama update(this.getPosition(), active) su chef
+        // Chiama update(this.chef.getPosition(), active) su chef
         throw new UnsupportedOperationException("Unimplemented method 'updateChefViewable'");
     }
 
@@ -403,7 +403,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes) {
-        // Chiama update(coordinates, this.isActive()), se numDishes è diverso lo aggiorna ed aggiorna l'immagine
+        // Chiama update(coordinates, this.waitress.isActive()), se numDishes è diverso lo aggiorna ed aggiorna l'immagine
         // della waitress coi piatti
         throw new UnsupportedOperationException("Unimplemented method 'updateWaitressViewable'");
     }
@@ -423,7 +423,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void updateDishesViewable(int index, boolean active) {
-        // Aggiorna il dish chiamando update(this.getPosition(), active)
+        // Aggiorna il dish chiamando update(this.dish.getPosition(), active) sul corretto dish nella lista (usare var)
         throw new UnsupportedOperationException("Unimplemented method 'updateDishesViewable'");
     }
 

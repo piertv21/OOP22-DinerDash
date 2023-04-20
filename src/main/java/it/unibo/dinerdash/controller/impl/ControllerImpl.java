@@ -148,7 +148,7 @@ public class ControllerImpl implements Controller {
         int p = 0;
         for (final var cus : model.getCustomers()) {
            // this.gameView.UpdateViewableCustomer(p, (GameEntity)cus);
-            this.gameView.updateCustomersViewable(p, cus, cus.getCustomerPatience());
+            //this.gameView.updateCustomersViewable(p, cus, cus.getCustomerPatience());
             p++;
         }
         /*this.gameView.getViewableWaitress().update(model.getWaitress());
