@@ -12,7 +12,7 @@ public interface GameView {
     // ---------------------------------------
     void addCustomerViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int multiplicity);
 
-    void updateCustomersViewable(int index, GameEntity gameEntity);
+    void updateCustomersViewable(int index, GameEntity gameEntity, int patience);
 
     void removeCustomerViewable(int index);
     // ---------------------------------------

@@ -30,6 +30,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.GameView;
@@ -307,6 +308,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                 .forEach(c -> g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
                         (int) (c.getPosition().getY() * heightRatio),
                         (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this));
+                       
 
         // Chef
          g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
@@ -343,9 +345,16 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void updateCustomersViewable(int index, GameEntity gameEntity) {
+    public void updateCustomersViewable(int index, GameEntity gameEntity, int patience) {
         
         this.customers.get(index).update(gameEntity);
+        if( this.customers.get(index).getNumber() != patience) {
+           Icon ic = (Icon)this.imageCacher.getCachedImage("heart"+patience).getImage();
+            JLabel icona= new JLabel();
+            icona.setIcon(ic);
+            this.customers.get(index).setState(icona);
+            this.customers.get(index).setNumber(patience);
+        }
     }
 
     @Override
