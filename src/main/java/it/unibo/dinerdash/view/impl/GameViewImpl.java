@@ -388,23 +388,22 @@ public class GameViewImpl extends GamePanel implements GameView {
         boolean active,
         int numTable
     ) {
-        // Crea var dish = new GameEntityViewableWithNumber(new GameEntityViewable(...))
-        // setta tutto quanto + number decorator (numTable)
-        // aggiunge il dish alla lista
-        throw new UnsupportedOperationException("Unimplemented method 'addDishViewable'");
+        var img = this.imageCacher.getCachedImage("dish" + numTable).getImage();
+        var dish = new NumberDecoratorImpl(
+                new GameEntityViewableImpl(coordinates, size, active, img));
+        dish.setNumber(numTable);
+        this.dishes.add(dish);
     }
 
     @Override
     public void updateDishesViewable(int index, boolean active) {
-        // Aggiorna il dish chiamando update(this.dish.getPosition(), active) sul
-        // corretto dish nella lista (usare var)
-        throw new UnsupportedOperationException("Unimplemented method 'updateDishesViewable'");
+        var dish = this.dishes.get(index);
+        this.dishes.get(index).update(dish.getPosition(), active);
     }
 
     @Override
     public void deleteDishViewable(int index) {
-        // Rimuove dish dato index
-        throw new UnsupportedOperationException("Unimplemented method 'deleteDishViewable'");
+        this.dishes.remove(index);
     }
 
     @Override
