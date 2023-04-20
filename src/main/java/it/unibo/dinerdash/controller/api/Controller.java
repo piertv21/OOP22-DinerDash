@@ -28,7 +28,7 @@ public interface Controller {
 
     boolean gameOver();
 
-    void addCustomer( Pair<Integer, Integer> position, int customNumber, Pair<Integer, Integer> size);
+    void addCustomer( Pair<Integer, Integer> position, int customNumber, Pair<Integer, Integer> size, int maxPatience);
 
     void removeCustomer(int indexValue);
 

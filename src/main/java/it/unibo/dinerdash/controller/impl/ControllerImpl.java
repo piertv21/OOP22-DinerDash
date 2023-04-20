@@ -93,8 +93,8 @@ public class ControllerImpl implements Controller {
     @Override
     public void addCustomer( final Pair<Integer, Integer> position,
         final int customNumber,
-        final Pair<Integer, Integer> size) {
-        this.gameView.addCustomerViewable(position, size, true, customNumber);
+        final Pair<Integer, Integer> size ,int maxPatience) {
+        this.gameView.addCustomerViewable(position, size, true, customNumber, maxPatience);
     }
 
     @Override

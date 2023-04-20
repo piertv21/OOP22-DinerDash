@@ -50,8 +50,9 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     private static final String SEP = System.getProperty("file.separator");
     private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
-    private static int MAX_PATIENCE = 7;
+    private static int HEAD_PATTEN = -20;
     private static Pair<Integer,Integer> CLIENT_PATIENCE_IMG_SIZE = new Pair<Integer,Integer>(100, 30);
+    private  int patience;
 
     private JLabel timeLabel;
     private JLabel coinLabel;
@@ -297,15 +298,15 @@ public class GameViewImpl extends GamePanel implements GameView {
        
 
         // Waitress
-         g.drawImage(waitress.getIcon(), (int) (waitress.getPosition().getX() * widthRatio),
+      /*    g.drawImage(waitress.getIcon(), (int) (waitress.getPosition().getX() * widthRatio),
                 (int) (waitress.getPosition().getY() * heightRatio),
-                (int) (waitress.getSize().getX() * widthRatio), (int) (waitress.getSize().getY() * heightRatio), this);
+                (int) (waitress.getSize().getX() * widthRatio), (int) (waitress.getSize().getY() * heightRatio), this);*/ 
 
         // Tables
-         this.tables.stream().filter(t -> t.getPosition() != null)
+       /*  this.tables.stream().filter(t -> t.getPosition() != null)
                 .forEach(e -> g.drawImage(e.getIcon(), (int) (e.getPosition().getX() * widthRatio),
                         (int) (e.getPosition().getY() * heightRatio),
-                        (int) (e.getSize().getX() * widthRatio), (int) (e.getSize().getY() * heightRatio), this));
+                        (int) (e.getSize().getX() * widthRatio), (int) (e.getSize().getY() * heightRatio), this));*/ 
                         
         // Customers
         this.customers.stream().filter(cus -> cus.isActive())
@@ -313,20 +314,20 @@ public class GameViewImpl extends GamePanel implements GameView {
                     g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
                         (int) (c.getPosition().getY() * heightRatio),
                         (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() * heightRatio), this);
-                    if (c.getNumber() != MAX_PATIENCE) {   // disegno le immagini con gli stati
+                    if (c.getNumber() != patience) {   // disegno le immagini con gli stati
                         g.drawImage( exp, 
-                        (int) (c.getPosition().getX() * widthRatio),
-                        (int) (c.getPosition().getY() * heightRatio),
+                        (int) ((c.getPosition().getX() - HEAD_PATTEN) * widthRatio),
+                        (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
                         (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
-                        (int) (CLIENT_PATIENCE_IMG_SIZE.getY()  * heightRatio), this);
+                        (int) (CLIENT_PATIENCE_IMG_SIZE.getY() * heightRatio), this);
                     }
                     });
                        
 
         // Chef
-         g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
+     /*     g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
                 (int) (chef.getPosition().getY() * heightRatio),
-                  (int) (chef.getSize().getX() * widthRatio), (int) (chef.getSize().getY() * heightRatio), this);
+                  (int) (chef.getSize().getX() * widthRatio), (int) (chef.getSize().getY() * heightRatio), this);*/ 
     }
 
     @Override
@@ -347,7 +348,8 @@ public class GameViewImpl extends GamePanel implements GameView {
         Pair<Integer, Integer> coordinates,
         Pair<Integer, Integer> size,
         boolean active,
-        int multiplicity
+        int multiplicity,
+        int maxPatience
     ) {
 
         this.customers.add(new GameEntityViewableWithNumberAndLabel(
@@ -356,7 +358,8 @@ public class GameViewImpl extends GamePanel implements GameView {
                 active, 
                 this.imageCacher.getCachedImage("customer" + multiplicity).getImage())));
 
-        this.customers.getLast().setNumber(MAX_PATIENCE);        
+        this.customers.getLast().setNumber(maxPatience);  
+        this.patience = maxPatience;      
     }
 
     @Override
@@ -364,10 +367,10 @@ public class GameViewImpl extends GamePanel implements GameView {
         
         this.customers.get(index).update(gameEntity);
         if( this.customers.get(index).getNumber() != patience) {
-           Icon ic = (Icon)this.imageCacher.getCachedImage("heart"+patience).getImage();
-            JLabel icona= new JLabel();
-            icona.setIcon(ic);
-            this.customers.get(index).setState(icona);
+          // Icon ic = (Icon)this.imageCacher.getCachedImage("heart"+patience).getImage();
+           // JLabel icona= new JLabel();
+            //icona.setIcon(ic);
+            //this.customers.get(index).setState(icona);
             this.customers.get(index).setNumber(patience);
         }
     }

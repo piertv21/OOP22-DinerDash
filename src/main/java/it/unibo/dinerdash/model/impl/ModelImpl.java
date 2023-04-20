@@ -57,6 +57,7 @@ public class ModelImpl implements Model {
     private static final double CUSTOMER_FIRST_LINE_REL_X = 0.04 * RESTAURANT_WIDTH;
     private static final double CUSTOMER_FIRST_LINE_REL_Y = 0.67 * RESTAURANT_HEIGHT;
     private static final int CUSTOMERS_CREATION_TIME = 6;
+    private static final int MAX_PATIENCE = 7;
 
     private static final int WAITRESS_STARTING_X = 40;
     private static final int WAITRESS_STARTING_Y = 120;
@@ -195,7 +196,7 @@ public class ModelImpl implements Model {
         this.customers.add(this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity));
 
-        this.controller.addCustomer(position,customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT));
+        this.controller.addCustomer(position,customersMolteplicity, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), MAX_PATIENCE);
         if (thereAreAvaibleTables()) {
             tableAssignament(this.customers.getLast());
         } else {

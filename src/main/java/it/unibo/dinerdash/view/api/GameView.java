@@ -10,7 +10,7 @@ public interface GameView {
     void render();
 
     // ---------------------------------------
-    void addCustomerViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int multiplicity);
+    void addCustomerViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int multiplicity, int maxPatience);
 
     void updateCustomersViewable(int index, GameEntity gameEntity, int patience);
 
