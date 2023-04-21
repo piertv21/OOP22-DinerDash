@@ -128,23 +128,6 @@ public class ControllerImpl implements Controller {
 
 
 
-    @Override
-    public void addCustomerToView(  //TODO Rimuovi
-        final Pair<Integer, Integer> position,
-        final int customNumber,
-        final Pair<Integer, Integer> size,
-        int patience
-    ) {
-        this.gameView.addCustomerViewable(position, size, true, customNumber, patience);
-    }
-
-    @Override
-    public void removeCustomerToView(final int indexValue) {    //TODO Rimuovi
-        this.gameView.removeCustomerViewable(indexValue);
-    }
-
-    
-
     
 
     @Override   // TODO Rimuovi (update già fatti in model di tutto)
@@ -192,20 +175,19 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addCustomerToView(Customer customer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addCustomerToView'");
+        this.gameView.addCustomerViewable(customer.getPosition(), customer.getSize(),
+        true, customer.getCustomerCount(), customer.getCustomerPatience());
     }
 
     @Override
     public void updateCustomersInView(int index, Customer customer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateCustomersInView'");
+        this.gameView.updateCustomersViewable(index, customer.getPosition(),
+         customer.isActive(), customer.getCustomerPatience());
     }
 
     @Override
     public void removeCustomerInView(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeCustomerInView'");
+        this.gameView.removeCustomerViewable(index);
     }
 
     @Override

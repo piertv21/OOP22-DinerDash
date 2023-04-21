@@ -197,8 +197,7 @@ public class ModelImpl implements Model {
         this.customers.add(this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity));
 
-        this.controller.addCustomerToView(position, customersMolteplicity,
-                new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), MAX_PATIENCE);
+        this.controller.addCustomerToView(this.customers.getLast());
         if (thereAreAvaibleTables()) {
             tableAssignament(this.customers.getLast());
         } else {
@@ -246,7 +245,7 @@ public class ModelImpl implements Model {
 
             final int indexToDelete = this.customers.indexOf(tempCustomerToDelete); // get his index
             this.customers.remove(tempCustomerToDelete);
-            this.controller.removeCustomerToView(indexToDelete); // delete client from lists
+            this.controller.removeCustomerInView(indexToDelete); // delete client from lists
             this.customerLeft();
             this.customers.stream() // fix line positions
                     .filter(p -> p.getState()
@@ -373,7 +372,7 @@ public class ModelImpl implements Model {
                                                                                                                 // view
             this.customers.remove(this.tables.get(numberTable - 1).getCustomer().get());
             this.tables.get(numberTable - 1).setCustom(Optional.empty());
-            this.controller.removeCustomerToView(indiceCustomerInList);
+            this.controller.removeCustomerInView(indiceCustomerInList);
         }
 
         if (state.equals(TableState.EATING)) {

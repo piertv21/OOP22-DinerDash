@@ -45,11 +45,6 @@ public interface Controller {
 
     void updateListPosition();
 
-
-    void addCustomerToView(Pair<Integer, Integer> position, int customNumber, Pair<Integer, Integer> size, int patience); //TODO: RIMUOVI
-
-    void removeCustomerToView(int indexValue); //TODO: RIMUOVI
-
     void addTableToView(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size); //TODO: RIMUOVI
 
 
