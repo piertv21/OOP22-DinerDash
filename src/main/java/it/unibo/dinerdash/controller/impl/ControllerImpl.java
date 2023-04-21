@@ -214,20 +214,17 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addDishToView(Dish dish) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addDishToView'");
+        this.gameView.addDishViewable(dish.getPosition(), dish.getSize(), dish.isActive(), dish.getDishNumber());
     }
 
     @Override
     public void updateDishesInView(int index, Dish dish) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateDishesInView'");
+        this.gameView.updateDishesViewable(index, dish.isActive());
     }
 
     @Override
     public void deleteDishInView(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteDishInView'");
+        this.gameView.deleteDishViewable(index);
     }
 
     @Override
