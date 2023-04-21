@@ -65,8 +65,6 @@ public interface Model {
 
     void setTableState(TableState state, int numberTable);
 
-    List<Table> getTable();
-
     Waitress getWaitress();
 
     void setWaiterssInfo(int indexL, String s, Pair<Integer, Integer> pos);
@@ -82,5 +80,5 @@ public interface Model {
     void earnMoneyFromTable();
 
     void setNumberOfClientsAtTable(int numberOfClienty, int numberOfTable);
-    
+
 }

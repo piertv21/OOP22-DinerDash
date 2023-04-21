@@ -43,7 +43,6 @@ public interface Controller {
 
     void callWaitress(int indexOf, String s, Pair<Integer, Integer> position);
 
-
     // ----
     void addCustomerToView(Customer customer);
 
@@ -74,7 +73,5 @@ public interface Controller {
     void addTableToView(Table table);
 
     void updateTablesInView(int index, Table table);
-
-    void addWaitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int numDishes);
 
 }

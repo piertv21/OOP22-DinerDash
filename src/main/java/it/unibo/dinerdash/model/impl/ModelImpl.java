@@ -233,6 +233,9 @@ public class ModelImpl implements Model {
                         controller.updateCustomersInView(customers.indexOf(client), client);
                     });
             this.removeAngryCustomers();
+            this.tables.forEach(t -> {
+                controller.updateTablesInView(tables.indexOf(t), t);
+            });
         } else {
             this.stop();
         }
@@ -278,7 +281,6 @@ public class ModelImpl implements Model {
         return this.remainingTime;
     }
 
-
     @Override
     public void tableAssignament(final Customer client) { // assign a table to client
         client.setDestination(Optional.ofNullable(
@@ -304,11 +306,6 @@ public class ModelImpl implements Model {
             client.setPosition(new Pair<Integer, Integer>(
                     (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y));
         }
-    }
-
-    @Override
-    public List<Table> getTable() { // TODO Elimina
-        return Collections.unmodifiableList(this.tables.stream().collect(Collectors.toList()));
     }
 
     @Override

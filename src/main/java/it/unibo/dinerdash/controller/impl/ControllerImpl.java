@@ -125,7 +125,6 @@ public class ControllerImpl implements Controller {
         return formattedTime;
     }
 
-
     @Override
     public void setWaitressDestination(Pair<Integer, Integer> dest) {
         this.model.setWaitressTableDestination(dest);
@@ -134,13 +133,6 @@ public class ControllerImpl implements Controller {
     @Override
     public void callWaitress(int indexList, String s, Pair<Integer, Integer> position) {
         model.setWaiterssInfo(indexList, s, position);
-    }
-
-    @Override
-    public void addWaitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active,
-            int numDishes) {
-        this.gameView.addWaitressViewable(coordinates, size, active, numDishes);
-
     }
 
     // NUOVI METODI DA IMPLEMENTARE
