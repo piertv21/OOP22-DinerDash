@@ -126,11 +126,7 @@ public class ControllerImpl implements Controller {
         return formattedTime;
     }
 
-
-
-    
-
-    @Override   // TODO Rimuovi (update già fatti in model di tutto)
+    @Override // TODO Rimuovi (update già fatti in model di tutto)
     public void updateListPosition() { // aggiorno le posizioni dei clienti nella lista della view SARA DA CHIAMARE
                                        // OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p = 0;
@@ -160,29 +156,25 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addTableToView(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) { //TODO Rimuovi
-        this.gameView.addTableViewable(pos, size,0,"" );
+    public void addWaitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active,
+            int numDishes) {
+        this.gameView.addWaitressViewable(coordinates, size, active, numDishes);
+
     }
 
-
-
-
-
-
-
-
-    // NUOVI METODI DA IMPLEMENTARE ------------------------------------------------------------------
+    // NUOVI METODI DA IMPLEMENTARE
+    // ------------------------------------------------------------------
 
     @Override
     public void addCustomerToView(Customer customer) {
         this.gameView.addCustomerViewable(customer.getPosition(), customer.getSize(),
-        customer.isActive(), customer.getCustomerCount(), customer.getCustomerPatience());
+                customer.isActive(), customer.getCustomerCount(), customer.getCustomerPatience());
     }
 
     @Override
     public void updateCustomersInView(int index, Customer customer) {
         this.gameView.updateCustomersViewable(index, customer.getPosition(),
-         customer.isActive(), customer.getCustomerPatience());
+                customer.isActive(), customer.getCustomerPatience());
     }
 
     @Override
@@ -202,14 +194,14 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addWaitressToView(Waitress waitress) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addWaitressToView'");
+        this.gameView.addWaitressViewable(waitress.getPosition(), waitress.getSize(), waitress.isActive(),
+                waitress.getOrdersNumber());
+
     }
 
     @Override
     public void updateWaitressInView(Waitress waitress) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateWaitressInView'");
+        this.gameView.updateWaitressViewable(waitress.getPosition(), waitress.getOrdersNumber());
     }
 
     @Override
@@ -229,14 +221,12 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addTableToView(Table table) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addTableToView'");
+        this.gameView.addTableViewable(table.getPosition(), table.getSize(), table.getPeopleSeatedNumber(), "");
     }
 
     @Override
     public void updateTablesInView(int index, Table table) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateTablesInView'");
+        this.gameView.updateTablesViewable(index, table.getPeopleSeatedNumber(), table.getStateInText());
     }
 
 }

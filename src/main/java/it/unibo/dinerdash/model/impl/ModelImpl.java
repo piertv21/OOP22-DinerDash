@@ -109,7 +109,7 @@ public class ModelImpl implements Model {
         var waitressPosition = new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y);
         var waitressSize = new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH);
         this.waitress = this.factory.createWaitress(waitressPosition, waitressSize, this);
-
+        this.controller.addWaitressToView(waitress);
         this.lastCustomerTimeCreation = System.nanoTime();
     }
 
@@ -122,7 +122,8 @@ public class ModelImpl implements Model {
                     int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
                     Pair<Integer, Integer> coordinates = new Pair<>(x, y);
                     Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
-                    this.controller.addTableToView(coordinates, i + 1, size);
+                    var tempTable = new TableImpl(coordinates, size, i + 1);
+                    this.controller.addTableToView(tempTable);
                     return this.factory.createTable(coordinates, size, i + 1);
                 })
                 .collect(Collectors.toList());
@@ -195,7 +196,7 @@ public class ModelImpl implements Model {
         final var position = new Pair<>(CUSTOMER_STARTING_X, CUSTOMER_STARTING_Y);
         final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_THAT_CAN_ENTER)) + 1;
         var tempClient = this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
-                        this, customersMolteplicity);
+                this, customersMolteplicity);
         this.customers.add(tempClient);
 
         this.controller.addCustomerToView(tempClient);
@@ -226,11 +227,11 @@ public class ModelImpl implements Model {
             this.chef.update();
             this.waitress.handleMovement();
             this.customers.stream()
-            .filter(c -> c.isActive())
-            .forEach(client -> {
-                client.update();
-                controller.updateCustomersInView(customers.indexOf(client), client);
-            });
+                    .filter(c -> c.isActive())
+                    .forEach(client -> {
+                        client.update();
+                        controller.updateCustomersInView(customers.indexOf(client), client);
+                    });
             this.removeAngryCustomers();
         } else {
             this.stop();
@@ -389,23 +390,26 @@ public class ModelImpl implements Model {
     }
 
     public void setWaiterssInfo(int indexL, String s, Pair<Integer, Integer> pos) {
-        if (s.equals("t")) {
-            switch (this.tables.get(indexL).getState()) {
-                case ORDERING:
-                    this.waitress.takeTableOrder(tables.get(indexL).getPosition());
-                    break;
-                case WANTING_TO_PAY:
-                    this.waitress.colletMoney(tables.get(indexL).getPosition());
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
-                this.waitress.addOrderForWaitress((this.counterTop.takeDish(pos.getX(), pos.getY())).get());
-                this.waitress.goGetDish(waitress.getOrderList().getLast());
+        if (this.waitress.getState().equals(WaitressState.WAITING)) {
+            if (s.equals("t")) {
+                switch (this.tables.get(indexL).getState()) {
+                    case ORDERING:
+                        this.waitress.takeTableOrder(tables.get(indexL).getPosition());
+                        break;
+                    case WANTING_TO_PAY:
+                        this.waitress.colletMoney(tables.get(indexL).getPosition());
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
+                    this.waitress.addOrderForWaitress((this.counterTop.takeDish(pos.getX(), pos.getY())).get());
+                    this.waitress.goGetDish(waitress.getOrderList().getLast());
+                }
             }
         }
+
     }
 
     @Override

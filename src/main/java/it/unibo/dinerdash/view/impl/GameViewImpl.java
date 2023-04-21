@@ -250,23 +250,27 @@ public class GameViewImpl extends GamePanel implements GameView {
         Image exp = this.imageCacher.getCachedImage("heart6").getImage();
 
         // Waitress
-        /*
-         * g.drawImage(waitress.getIcon(), (int) (waitress.getPosition().getX() *
-         * widthRatio),
-         * (int) (waitress.getPosition().getY() * heightRatio),
-         * (int) (waitress.getSize().getX() * widthRatio), (int)
-         * (waitress.getSize().getY() * heightRatio), this);
-         */
+
+        g.drawImage(waitress.getIcon(), (int) (waitress.getPosition().getX() *
+                widthRatio),
+                (int) (waitress.getPosition().getY() * heightRatio),
+                (int) (waitress.getSize().getX() * widthRatio), (int) (waitress.getSize().getY() * heightRatio), this);
 
         // Tables
-        /*
-         * this.tables.stream().filter(t -> t.getPosition() != null)
-         * .forEach(e -> g.drawImage(e.getIcon(), (int) (e.getPosition().getX() *
-         * widthRatio),
-         * (int) (e.getPosition().getY() * heightRatio),
-         * (int) (e.getSize().getX() * widthRatio), (int) (e.getSize().getY() *
-         * heightRatio), this));
-         */
+
+        this.tables.stream().filter(t -> t.getPosition() != null)
+                .forEach(e -> {
+                    g.drawImage(e.getIcon(), (int) (e.getPosition().getX() * widthRatio),
+                            (int) (e.getPosition().getY() * heightRatio),
+                            (int) (e.getSize().getX() * widthRatio), (int) (e.getSize().getY() *
+                                    heightRatio),
+                            this);
+
+                    if (e.getState().isPresent()) {
+                        g.drawImage(e.getState().get(), (int) (e.getPosition().getX() * widthRatio),
+                                (int) (e.getPosition().getY() * heightRatio), 50, 30, this);
+                    }
+                });
 
         // Customers
         this.customers.stream().filter(cus -> cus.isActive()
@@ -274,32 +278,30 @@ public class GameViewImpl extends GamePanel implements GameView {
                 .forEach(c -> { // stampo i clienti che vanno ai tavoli
                     g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
                             (int) (c.getPosition().getY() * heightRatio),
-                            (int) (c.getSize().getX() * widthRatio), 
+                            (int) (c.getSize().getX() * widthRatio),
                             (int) (c.getSize().getY() * heightRatio),
                             this);
                 });
-    
+
         var streamLineCustomer = this.customers.stream()
-                    .filter(cus -> cus.isActive() 
-                    && ((NumberDecoratorImpl) cus.getDecorated()).getNumber() != MAX_PATIECE);
-         
+                .filter(cus -> cus.isActive()
+                        && ((NumberDecoratorImpl) cus.getDecorated()).getNumber() != MAX_PATIECE);
+
         var list = streamLineCustomer.collect(Collectors.toList());
         Collections.reverse(list);
         list.forEach(c -> {
             g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
-            (int) (c.getPosition().getY() * heightRatio),
-            (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() *
-            heightRatio), this);
+                    (int) (c.getPosition().getY() * heightRatio),
+                    (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() *
+                            heightRatio),
+                    this);
 
-            g.drawImage( exp,
-            (int) ((c.getPosition().getX() - HEAD_PATTEN) * widthRatio),
-            (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
-            (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
-            (int) (CLIENT_PATIENCE_IMG_SIZE.getY() * heightRatio), this);
+            g.drawImage(exp,
+                    (int) ((c.getPosition().getX() - HEAD_PATTEN) * widthRatio),
+                    (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
+                    (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
+                    (int) (CLIENT_PATIENCE_IMG_SIZE.getY() * heightRatio), this);
         });
-
-       
-         
 
         // Chef
         /*
@@ -438,6 +440,8 @@ public class GameViewImpl extends GamePanel implements GameView {
         if (!state.isEmpty()) {
             Image imgState = this.imageCacher.getCachedImage(state).getImage();
             tables.get(index).setState(Optional.of(imgState));
+        } else if (tables.get(index).getState().isPresent()) {
+            tables.get(index).setState(Optional.empty());
         }
     }
 

@@ -45,9 +45,6 @@ public interface Controller {
 
     void updateListPosition();
 
-    void addTableToView(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size); //TODO: RIMUOVI
-
-
     // ----
     void addCustomerToView(Customer customer);
 
@@ -55,7 +52,7 @@ public interface Controller {
 
     void removeCustomerInView(int index);
     // ----
-    
+
     // ----
     void addChefToView(Chef chef);
 
@@ -74,9 +71,11 @@ public interface Controller {
 
     void deleteDishInView(int index);
     // ----
-    
+
     void addTableToView(Table table);
 
     void updateTablesInView(int index, Table table);
-    
+
+    void addWaitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int numDishes);
+
 }
