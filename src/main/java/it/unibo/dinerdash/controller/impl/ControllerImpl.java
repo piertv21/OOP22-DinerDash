@@ -192,14 +192,12 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addChefToView(Chef chef) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addChefToView'");
+        this.gameView.addChefViewable(chef.getPosition(), chef.getSize(), chef.isActive());
     }
 
     @Override
     public void updateChefInView(Chef chef) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateChefInView'");
+        this.gameView.updateChefViewable(chef.isActive());
     }
 
     @Override

@@ -1,6 +1,6 @@
 package it.unibo.dinerdash.model.api.GameEntities;
 
-public interface Chef {
+public interface Chef extends GameEntity {
     
     void update();
 
