@@ -1,13 +1,18 @@
 package it.unibo.dinerdash.view.impl;
 
 import java.awt.Image;
+import java.awt.List;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,6 +45,7 @@ import it.unibo.dinerdash.view.api.ImageDecoratorImpl;
 public class GameViewImpl extends GamePanel implements GameView {
 
     private static int HEAD_PATTEN = -20;
+    private static int MAX_PATIECE = 7;
     private static Pair<Integer, Integer> CLIENT_PATIENCE_IMG_SIZE = new Pair<Integer, Integer>(100, 30);
 
     private JLabel timeLabel;
@@ -265,7 +271,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         // Customers
 
         this.customers.stream().filter(cus -> cus.isActive()
-                && ((NumberDecoratorImpl) cus.getDecorated()).getNumber() == 7)
+                && ((NumberDecoratorImpl) cus.getDecorated()).getNumber() == MAX_PATIECE)
                 .forEach(c -> { // stampo i clienti che vanno ai tavoli
                     g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
                             (int) (c.getPosition().getY() * heightRatio),
@@ -273,22 +279,28 @@ public class GameViewImpl extends GamePanel implements GameView {
                                     heightRatio),
                             this);
                 });
-        /*
-         * 
-         * this.customers.stream().filter(cus -> cus.isActive() && cus.getNumber() != 7)
-         * //stampo i clienti in fila
-         * .forEach(c -> {
-         * g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
-         * (int) (c.getPosition().getY() * heightRatio),
-         * (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() *
-         * heightRatio), this);
-         * g.drawImage( exp,
-         * (int) ((c.getPosition().getX() - HEAD_PATTEN) * widthRatio),
-         * (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
-         * (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
-         * (int) (CLIENT_PATIENCE_IMG_SIZE.getY() * heightRatio), this);
-         * });
-         */
+    
+        var streamLineCustomer = this.customers.stream()
+                    .filter(cus -> cus.isActive() 
+                    && ((NumberDecoratorImpl) cus.getDecorated()).getNumber() != MAX_PATIECE);
+         
+        var list = streamLineCustomer.collect(Collectors.toList());
+        Collections.reverse(list);
+        list.forEach(c -> {
+            g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
+            (int) (c.getPosition().getY() * heightRatio),
+            (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() *
+            heightRatio), this);
+
+            g.drawImage( exp,
+            (int) ((c.getPosition().getX() - HEAD_PATTEN) * widthRatio),
+            (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
+            (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
+            (int) (CLIENT_PATIENCE_IMG_SIZE.getY() * heightRatio), this);
+        });
+
+       
+         
 
         // Chef
         /*
