@@ -89,6 +89,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 if (model.checkFreeTables(this)) {
                     // go to sit at table
                     this.model.tableAssignament(this);
+                    this.patience = MAX_PATIECE;
                     this.state = CustomerState.WALKING;
                 } else if (this.patience == ZERO) { // client get angry
                     this.state = CustomerState.ANGRY;

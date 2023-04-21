@@ -269,14 +269,13 @@ public class GameViewImpl extends GamePanel implements GameView {
          */
 
         // Customers
-
         this.customers.stream().filter(cus -> cus.isActive()
                 && ((NumberDecoratorImpl) cus.getDecorated()).getNumber() == MAX_PATIECE)
                 .forEach(c -> { // stampo i clienti che vanno ai tavoli
                     g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
                             (int) (c.getPosition().getY() * heightRatio),
-                            (int) (c.getSize().getX() * widthRatio), (int) (c.getSize().getY() *
-                                    heightRatio),
+                            (int) (c.getSize().getX() * widthRatio), 
+                            (int) (c.getSize().getY() * heightRatio),
                             this);
                 });
     
