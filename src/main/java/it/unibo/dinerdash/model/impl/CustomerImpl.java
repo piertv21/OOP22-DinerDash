@@ -73,8 +73,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 state = CustomerState.THINKING;
                 this.setPosition(this.getDestination().get());
                 this.setActive(false); // cliente think,and become invisible
-                final int sittedTable = this.model
-                        .getTablefromPositon(getPosition()).getTableNumber();
+                final int sittedTable = this.model.getTablefromPositon(getPosition()).getTableNumber();
                 this.model.setTableState(TableState.THINKING, sittedTable);
                 this.model.setNumberOfClientsAtTable(numberClients, sittedTable);
             }

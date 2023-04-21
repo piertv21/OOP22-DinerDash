@@ -227,7 +227,7 @@ public class ModelImpl implements Model {
             this.chef.update();
             this.waitress.handleMovement();
             this.customers.stream()
-                    .filter(c -> c.isActive())
+                    .filter(c -> !c.getState().equals(CustomerState.ORDERING))
                     .forEach(client -> {
                         client.update();
                         controller.updateCustomersInView(customers.indexOf(client), client);

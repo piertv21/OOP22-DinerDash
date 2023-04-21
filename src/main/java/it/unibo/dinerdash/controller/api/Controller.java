@@ -43,7 +43,6 @@ public interface Controller {
 
     void callWaitress(int indexOf, String s, Pair<Integer, Integer> position);
 
-    void updateListPosition();
 
     // ----
     void addCustomerToView(Customer customer);

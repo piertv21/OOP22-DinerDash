@@ -110,7 +110,6 @@ public class ControllerImpl implements Controller {
     }
 
     private void updateView() {
-        this.updateListPosition();
         this.gameView.render();
     }
 
@@ -126,24 +125,6 @@ public class ControllerImpl implements Controller {
         return formattedTime;
     }
 
-    @Override // TODO Rimuovi (update già fatti in model di tutto)
-    public void updateListPosition() { // aggiorno le posizioni dei clienti nella lista della view SARA DA CHIAMARE
-                                       // OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
-        int p = 0;
-        for (final var client : model.getCustomers()) {
-            this.gameView.updateCustomersViewable(p,
-                    client.getPosition(),
-                    client.isActive(), client.getCustomerPatience());
-            p++;
-        }
-        p = 0;
-        this.gameView.updateWaitressViewable(model.getWaitress().getPosition(), model.getWaitress().getOrdersNumber());
-
-        for (var table : model.getTable()) {
-            this.gameView.updateTablesViewable(p, table.getPeopleSeatedNumber(), table.getStateInText());
-            p++;
-        }
-    }
 
     @Override
     public void setWaitressDestination(Pair<Integer, Integer> dest) {
