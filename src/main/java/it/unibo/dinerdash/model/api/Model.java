@@ -49,8 +49,6 @@ public interface Model {
 
     int getRemainingTime();
 
-    List<Customer> getCustomers();
-
     void setWaitressTableDestination(Pair<Integer, Integer> destination);
 
     boolean checkFreeTables(Customer cus);

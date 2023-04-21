@@ -278,10 +278,6 @@ public class ModelImpl implements Model {
         return this.remainingTime;
     }
 
-    @Override
-    public List<Customer> getCustomers() { // TODO Elimina
-        return Collections.unmodifiableList(this.customers.stream().collect(Collectors.toList()));
-    }
 
     @Override
     public void tableAssignament(final Customer client) { // assign a table to client
