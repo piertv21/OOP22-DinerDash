@@ -227,7 +227,10 @@ public class ModelImpl implements Model {
             this.waitress.handleMovement();
             this.customers.stream()
             .filter(c -> c.isActive())
-            .forEach(client -> client.update());
+            .forEach(client -> {
+                client.update();
+                controller.updateCustomersInView(customers.indexOf(client), client);
+            });
             this.removeAngryCustomers();
         } else {
             this.stop();
