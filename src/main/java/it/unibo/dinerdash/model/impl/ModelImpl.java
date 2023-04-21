@@ -225,10 +225,9 @@ public class ModelImpl implements Model {
             }
             this.chef.update();
             this.waitress.handleMovement();
-            final var customIterator = this.customers.iterator();
-            while (customIterator.hasNext()) {
-                customIterator.next().update();
-            }
+            this.customers.stream()
+            .filter(c -> c.isActive())
+            .forEach(client -> client.update());
             this.removeAngryCustomers();
         } else {
             this.stop();
