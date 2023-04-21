@@ -122,7 +122,7 @@ public class ModelImpl implements Model {
                     int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
                     Pair<Integer, Integer> coordinates = new Pair<>(x, y);
                     Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
-                    var tempTable = new TableImpl(coordinates, size, i + 1);
+                    var tempTable = this.factory.createTable(coordinates, size, i + 1);
                     this.controller.addTableToView(tempTable);
                     return this.factory.createTable(coordinates, size, i + 1);
                 })
