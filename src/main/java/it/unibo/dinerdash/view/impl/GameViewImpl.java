@@ -296,7 +296,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                             heightRatio),
                     this);
 
-            g.drawImage(exp,
+            g.drawImage(c.getState().get(),
                     (int) ((c.getPosition().getX() - HEAD_PATTEN) * widthRatio),
                     (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
                     (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
