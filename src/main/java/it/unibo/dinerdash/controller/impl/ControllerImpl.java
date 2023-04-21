@@ -174,7 +174,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addTable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) {
-        this.gameView.adddTableViewable(pos, size,peopleNumer:0,state:"" );
+        this.gameView.addTableViewable(pos, size,0,"" );
     }
 
 }

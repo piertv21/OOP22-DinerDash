@@ -82,7 +82,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
         switch(this.state){
             case ORDERING : return "ordering" ;
             case WANTING_TO_PAY: return "paying";
-            defalut : return "";
+            default : return "";
         }
     }
 

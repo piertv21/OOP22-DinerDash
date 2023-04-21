@@ -27,6 +27,6 @@ public interface Table extends GameEntity {
 
     Pair<Integer, Integer> getPosition();
 
-    public String getStateInText();
+    String getStateInText();
 
 }
