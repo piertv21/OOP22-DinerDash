@@ -194,10 +194,11 @@ public class ModelImpl implements Model {
         }
         final var position = new Pair<>(CUSTOMER_STARTING_X, CUSTOMER_STARTING_Y);
         final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_THAT_CAN_ENTER)) + 1;
-        this.customers.add(this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
-                this, customersMolteplicity));
+        var tempClient = this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
+                        this, customersMolteplicity);
+        this.customers.add(tempClient);
 
-        this.controller.addCustomerToView(this.customers.getLast());
+        this.controller.addCustomerToView(tempClient);
         if (thereAreAvaibleTables()) {
             tableAssignament(this.customers.getLast());
         } else {

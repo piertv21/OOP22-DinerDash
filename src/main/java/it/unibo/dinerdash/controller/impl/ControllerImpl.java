@@ -176,7 +176,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void addCustomerToView(Customer customer) {
         this.gameView.addCustomerViewable(customer.getPosition(), customer.getSize(),
-        true, customer.getCustomerCount(), customer.getCustomerPatience());
+        customer.isActive(), customer.getCustomerCount(), customer.getCustomerPatience());
     }
 
     @Override
