@@ -4,6 +4,11 @@ import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
 import it.unibo.dinerdash.engine.impl.GameLoopImpl;
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.GameEntities.Chef;
+import it.unibo.dinerdash.model.api.GameEntities.Customer;
+import it.unibo.dinerdash.model.api.GameEntities.Dish;
+import it.unibo.dinerdash.model.api.GameEntities.Table;
+import it.unibo.dinerdash.model.api.GameEntities.Waitress;
 import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.utility.api.GameTimer;
@@ -70,9 +75,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void syncChanges() {
-        // TODO Sincronizza stato liste view con quelle model
-
-        // Chiamare solo se ci son cambiamenti
+        // TODO Poi verrà rimosso questo metodo
         this.updateView();
     }
 
@@ -89,21 +92,6 @@ public class ControllerImpl implements Controller {
     @Override
     public boolean gameOver() {
         return this.model.gameOver();
-    }
-
-    @Override
-    public void addCustomerToView(
-        final Pair<Integer, Integer> position,
-        final int customNumber,
-        final Pair<Integer, Integer> size,
-        int patience
-    ) {
-        this.gameView.addCustomerViewable(position, size, true, customNumber, patience);
-    }
-
-    @Override
-    public void removeCustomerToView(final int indexValue) {
-        this.gameView.removeCustomerViewable(indexValue);
     }
 
     @Override
@@ -126,14 +114,6 @@ public class ControllerImpl implements Controller {
         this.gameView.render();
     }
 
-    @Override
-    public void resizeEntities() {
-        // TODO QUI CHIAMO I METODI DELLA CLASSE RESIZE
-        // model.firstLinePosition=
-        // model.resizeLog.updateFirstPos(model.firstLinePosition,(int)this.model.restaurantSize.getHeight(),
-        // (int)this.model.restaurantSize.getWidth());
-    }
-
     private void init() {
         // TODO
     }
@@ -146,7 +126,28 @@ public class ControllerImpl implements Controller {
         return formattedTime;
     }
 
+
+
     @Override
+    public void addCustomerToView(  //TODO Rimuovi
+        final Pair<Integer, Integer> position,
+        final int customNumber,
+        final Pair<Integer, Integer> size,
+        int patience
+    ) {
+        this.gameView.addCustomerViewable(position, size, true, customNumber, patience);
+    }
+
+    @Override
+    public void removeCustomerToView(final int indexValue) {    //TODO Rimuovi
+        this.gameView.removeCustomerViewable(indexValue);
+    }
+
+    
+
+    
+
+    @Override   // TODO Rimuovi (update già fatti in model di tutto)
     public void updateListPosition() { // aggiorno le posizioni dei clienti nella lista della view SARA DA CHIAMARE
                                        // OGNI VOLTA PRIMA DI STAMPARE LE IMMAGINI
         int p = 0;
@@ -176,8 +177,89 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addTableToView(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) {
+    public void addTableToView(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) { //TODO Rimuovi
         this.gameView.addTableViewable(pos, size,0,"" );
+    }
+
+
+
+
+
+
+
+
+    // NUOVI METODI DA IMPLEMENTARE ------------------------------------------------------------------
+
+    @Override
+    public void addCustomerToView(Customer customer) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addCustomerToView'");
+    }
+
+    @Override
+    public void updateCustomersInView(int index, Customer customer) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateCustomersInView'");
+    }
+
+    @Override
+    public void removeCustomerInView(int index) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeCustomerInView'");
+    }
+
+    @Override
+    public void addChefToView(Chef chef) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addChefToView'");
+    }
+
+    @Override
+    public void updateChefInView(Chef chef) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateChefInView'");
+    }
+
+    @Override
+    public void addWaitressToView(Waitress waitress) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addWaitressToView'");
+    }
+
+    @Override
+    public void updateWaitressInView(Waitress waitress) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateWaitressInView'");
+    }
+
+    @Override
+    public void addDishToView(Dish dish) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addDishToView'");
+    }
+
+    @Override
+    public void updateDishesInView(int index, Dish dish) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateDishesInView'");
+    }
+
+    @Override
+    public void deleteDishInView(int index) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteDishInView'");
+    }
+
+    @Override
+    public void addTableToView(Table table) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addTableToView'");
+    }
+
+    @Override
+    public void updateTablesInView(int index, Table table) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateTablesInView'");
     }
 
 }

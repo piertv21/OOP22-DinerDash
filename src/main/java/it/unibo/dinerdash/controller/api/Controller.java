@@ -1,5 +1,10 @@
 package it.unibo.dinerdash.controller.api;
 
+import it.unibo.dinerdash.model.api.GameEntities.Chef;
+import it.unibo.dinerdash.model.api.GameEntities.Customer;
+import it.unibo.dinerdash.model.api.GameEntities.Dish;
+import it.unibo.dinerdash.model.api.GameEntities.Table;
+import it.unibo.dinerdash.model.api.GameEntities.Waitress;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
@@ -28,12 +33,6 @@ public interface Controller {
 
     boolean gameOver();
 
-    void addCustomerToView(Pair<Integer, Integer> position, int customNumber, Pair<Integer, Integer> size, int patience);
-
-    void removeCustomerToView(int indexValue);
-
-    void resizeEntities();
-
     int getRestaurantWidth();
 
     int getRestaurantHeight();
@@ -44,8 +43,45 @@ public interface Controller {
 
     void callWaitress(int indexOf, String s, Pair<Integer, Integer> position);
 
-    void addTableToView(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size);
-
     void updateListPosition();
+
+
+    void addCustomerToView(Pair<Integer, Integer> position, int customNumber, Pair<Integer, Integer> size, int patience); //TODO: RIMUOVI
+
+    void removeCustomerToView(int indexValue); //TODO: RIMUOVI
+
+    void addTableToView(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size); //TODO: RIMUOVI
+
+
+    // ----
+    void addCustomerToView(Customer customer);
+
+    void updateCustomersInView(int index, Customer customer);
+
+    void removeCustomerInView(int index);
+    // ----
+    
+    // ----
+    void addChefToView(Chef chef);
+
+    void updateChefInView(Chef chef);
+    // ----
+
+    // ----
+    void addWaitressToView(Waitress waitress);
+
+    void updateWaitressInView(Waitress waitress);
+    // ----
+
+    void addDishToView(Dish dish);
+
+    void updateDishesInView(int index, Dish dish);
+
+    void deleteDishInView(int index);
+    // ----
+    
+    void addTableToView(Table table);
+
+    void updateTablesInView(int index, Table table);
     
 }
