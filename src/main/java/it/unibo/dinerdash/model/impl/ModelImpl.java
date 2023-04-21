@@ -122,7 +122,7 @@ public class ModelImpl implements Model {
                     int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
                     Pair<Integer, Integer> coordinates = new Pair<>(x, y);
                     Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
-                    this.controller.addTable(coordinates, i + 1, size);
+                    this.controller.addTableToView(coordinates, i + 1, size);
                     return this.factory.createTable(coordinates, size, i + 1);
                 })
                 .collect(Collectors.toList());
@@ -197,7 +197,7 @@ public class ModelImpl implements Model {
         this.customers.add(this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity));
 
-        this.controller.addCustomer(position, customersMolteplicity,
+        this.controller.addCustomerToView(position, customersMolteplicity,
                 new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT), MAX_PATIENCE);
         if (thereAreAvaibleTables()) {
             tableAssignament(this.customers.getLast());
@@ -246,7 +246,7 @@ public class ModelImpl implements Model {
 
             final int indexToDelete = this.customers.indexOf(tempCustomerToDelete); // get his index
             this.customers.remove(tempCustomerToDelete);
-            this.controller.removeCustomer(indexToDelete); // delete client from lists
+            this.controller.removeCustomerToView(indexToDelete); // delete client from lists
             this.customerLeft();
             this.customers.stream() // fix line positions
                     .filter(p -> p.getState()
@@ -373,7 +373,7 @@ public class ModelImpl implements Model {
                                                                                                                 // view
             this.customers.remove(this.tables.get(numberTable - 1).getCustomer().get());
             this.tables.get(numberTable - 1).setCustom(Optional.empty());
-            this.controller.removeCustomer(indiceCustomerInList);
+            this.controller.removeCustomerToView(indiceCustomerInList);
         }
 
         if (state.equals(TableState.EATING)) {

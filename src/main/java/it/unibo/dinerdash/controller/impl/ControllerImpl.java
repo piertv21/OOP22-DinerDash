@@ -92,14 +92,17 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addCustomer(final Pair<Integer, Integer> position,
-            final int customNumber,
-            final Pair<Integer, Integer> size, int maxPatience) {
-        this.gameView.addCustomerViewable(position, size, true, customNumber, maxPatience);
+    public void addCustomerToView(
+        final Pair<Integer, Integer> position,
+        final int customNumber,
+        final Pair<Integer, Integer> size,
+        int patience
+    ) {
+        this.gameView.addCustomerViewable(position, size, true, customNumber, patience);
     }
 
     @Override
-    public void removeCustomer(final int indexValue) {
+    public void removeCustomerToView(final int indexValue) {
         this.gameView.removeCustomerViewable(indexValue);
     }
 
@@ -173,7 +176,7 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void addTable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) {
+    public void addTableToView(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size) {
         this.gameView.addTableViewable(pos, size,0,"" );
     }
 

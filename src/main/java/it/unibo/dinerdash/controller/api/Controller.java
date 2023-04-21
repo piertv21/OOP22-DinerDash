@@ -28,9 +28,9 @@ public interface Controller {
 
     boolean gameOver();
 
-    void addCustomer( Pair<Integer, Integer> position, int customNumber, Pair<Integer, Integer> size, int maxPatience);
+    void addCustomerToView(Pair<Integer, Integer> position, int customNumber, Pair<Integer, Integer> size, int patience);
 
-    void removeCustomer(int indexValue);
+    void removeCustomerToView(int indexValue);
 
     void resizeEntities();
 
@@ -44,7 +44,7 @@ public interface Controller {
 
     void callWaitress(int indexOf, String s, Pair<Integer, Integer> position);
 
-    void addTable(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size);
+    void addTableToView(Pair<Integer, Integer> pos, int tableNum, Pair<Integer, Integer> size);
 
     void updateListPosition();
     
