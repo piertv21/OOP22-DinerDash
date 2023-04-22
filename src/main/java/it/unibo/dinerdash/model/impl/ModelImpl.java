@@ -159,6 +159,7 @@ public class ModelImpl implements Model {
     @Override
     public void stop() {
         this.gameState = GameState.ENDED;
+        this.controller.gameIsEnded();
     }
 
     @Override

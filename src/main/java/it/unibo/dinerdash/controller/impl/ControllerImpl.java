@@ -74,6 +74,13 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
+    public void gameIsEnded() {
+        this.gameLoop.stop();
+        this.gameTimer.stopTimer();        
+        this.view.showGameOverView();
+    }
+
+    @Override
     public void syncChanges() {
         // TODO Poi verrà rimosso questo metodo
         this.updateView();
