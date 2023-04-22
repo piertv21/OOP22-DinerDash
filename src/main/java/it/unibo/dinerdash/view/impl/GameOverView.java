@@ -37,8 +37,9 @@ public class GameOverView extends GamePanel {
         gameoverLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(gameoverLabel, gridBagConstraints);
 
+        var controller = this.getMainFrame().getController();
         gridBagConstraints.gridy = 1;
-        coinLabel = new JLabel("Your coins: " + this.getMainFrame().getController().getCoins());
+        coinLabel = new JLabel("Your coins: " + controller.getCoins());
         coinLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         coinLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(coinLabel, gridBagConstraints);
@@ -58,7 +59,7 @@ public class GameOverView extends GamePanel {
         esciButton = new JButton("Exit");
         esciButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         esciButton.addActionListener(e -> {
-            this.getMainFrame().getController().quit();
+            controller.quit();
         });
         buttonPanel.add(esciButton);
 

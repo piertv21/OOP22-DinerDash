@@ -10,6 +10,8 @@ import it.unibo.dinerdash.view.api.View;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +46,13 @@ public class ViewImpl extends JFrame implements View {
         this.widthRatio = 0;
         this.heightRatio = 0;
         
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(final WindowEvent e) {
+                controller.quit();
+            }
+        });
         this.setLocationByPlatform(true);
         this.setResizable(true);
         

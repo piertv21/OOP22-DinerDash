@@ -37,7 +37,6 @@ public class ControllerImpl implements Controller {
     @Override
     public void start(GameView gameView) {
         this.gameView = gameView;
-        this.init();
         this.model.start();
 
         this.gameLoop = new GameLoopImpl(this.model, this);
@@ -52,6 +51,7 @@ public class ControllerImpl implements Controller {
         this.gameView.clear();
         this.model.restart();
         this.gameTimer.restartTimer();
+        this.model.setGameState(GameState.RUNNING);
         this.updateView();
     }
 
@@ -108,10 +108,6 @@ public class ControllerImpl implements Controller {
     @Override
     public void updateView() {
         this.gameView.render();
-    }
-
-    private void init() {
-        // TODO
     }
 
     @Override

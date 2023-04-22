@@ -148,7 +148,6 @@ public class ModelImpl implements Model {
     public void start() {
         this.init();
         this.gameState = GameState.RUNNING;
-        // TODO Check se serve altro
     }
 
     @Override
@@ -170,7 +169,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void restart() {
-        this.init();
+        this.clear();
         this.start();
     }
 
