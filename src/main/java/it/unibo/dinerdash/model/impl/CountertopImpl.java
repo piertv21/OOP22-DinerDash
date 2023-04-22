@@ -70,6 +70,7 @@ public class CountertopImpl implements Countertop {
                 .findFirst()
                 .map(dish -> {
                     dishes.remove(dish);
+                    //TODO Rimuoverlo anche dalla lista viewable
                     return dish;
                 });
         return dishToRemove;
@@ -82,13 +83,13 @@ public class CountertopImpl implements Countertop {
 
     //dice se ci son piatti ancora con active = false
     @Override
-    public boolean thereAreAvailableDishes() {
+    public boolean thereAreDishesToPrepare() {
         return this.dishes.stream().anyMatch(e -> !e.isActive());
     }
 
     // prossimo dish da preparare (active = false)
     @Override
-    public Optional<Dish> getDishInOrder() {
+    public Optional<Dish> getNextDishToPrepare() {
         return this.dishes.stream()
             .filter(dish -> !dish.isActive())
             .findFirst();
@@ -100,6 +101,8 @@ public class CountertopImpl implements Countertop {
             .filter(d -> d.equals(dish))
             .findFirst()
             .ifPresent(d -> d.setActive(true));
+
+        //TODO Mettilo nella lista dish della view
     }
 
 }

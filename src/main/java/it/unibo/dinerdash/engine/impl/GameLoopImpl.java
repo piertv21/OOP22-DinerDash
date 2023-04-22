@@ -56,12 +56,13 @@ public class GameLoopImpl implements GameLoop, Runnable {
             delta += elapsedTime / (double) TARGET_FRAME_TIME;
 
             if (delta >= 1.0 && model.getGameState() == GameState.RUNNING) {
+
                 synchronized (model) {
-                    model.update(elapsedTime);
+                    this.model.update();
                 }
 
                 synchronized (controller) {
-                    controller.syncChanges();
+                    this.controller.updateView();
                 }
 
                 delta--;

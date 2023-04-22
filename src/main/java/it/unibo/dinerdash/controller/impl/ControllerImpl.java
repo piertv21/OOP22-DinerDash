@@ -40,7 +40,7 @@ public class ControllerImpl implements Controller {
         this.init();
         this.model.start();
 
-        this.gameLoop = new GameLoopImpl(model, this);
+        this.gameLoop = new GameLoopImpl(this.model, this);
         this.gameLoop.start();
 
         this.gameTimer = new GameTimerImpl(this.model);
@@ -112,11 +112,7 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void timeIsChanged() {
-        this.updateView();
-    }
-
-    private void updateView() {
+    public void updateView() {
         this.gameView.render();
     }
 

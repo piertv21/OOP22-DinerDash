@@ -47,14 +47,15 @@ public class ModelImpl implements Model {
     private static final int TABLE_REL_WIDTH = 150;
     private static final int TABLE_REL_HEIGHT = 150;
 
-    private static final int CUSTOMER_STARTING_X = 0;
-    private static final int CUSTOMER_STARTING_Y = 500;
     private static final int CUSTOMER_REL_WIDTH = 150;
     private static final int CUSTOMER_REL_HEIGHT = 200;
     private static final int CUSTOMER_IN_LINE_PADDING = 100;
     private static final double CUSTOMER_FIRST_LINE_REL_X = 0.04 * RESTAURANT_WIDTH;
     private static final double CUSTOMER_FIRST_LINE_REL_Y = 0.67 * RESTAURANT_HEIGHT;
     private static final int CUSTOMERS_CREATION_TIME = 6;
+    private static final int CUSTOMER_START_X = 0;
+    private static final int  CUSTOMER_START_Y = 300;
+
 
     private static final int WAITRESS_STARTING_X = 40;
     private static final int WAITRESS_STARTING_Y = 120;
@@ -131,7 +132,6 @@ public class ModelImpl implements Model {
         this.customers.clear();
         this.tables.clear();
         this.counterTop.clear();
-
     }
 
     @Override
@@ -191,7 +191,7 @@ public class ModelImpl implements Model {
         if (this.gameOver()) {
             this.stop();
         }
-        final var position = new Pair<>(CUSTOMER_STARTING_X, CUSTOMER_STARTING_Y);
+        final var position = new Pair<>(CUSTOMER_START_X, CUSTOMER_START_Y);
         final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_THAT_CAN_ENTER)) + 1;
         var tempClient = this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity);
@@ -215,7 +215,7 @@ public class ModelImpl implements Model {
         }
     }
 
-    public void update(long elapsedUpdateTime) {
+    public void update() {
         if (!this.gameOver()) {
             // Aggiunta clienti
             if (System.nanoTime() >= this.lastCustomerTimeCreation
@@ -277,7 +277,6 @@ public class ModelImpl implements Model {
 
     public void decrementRemainingTime() {
         this.remainingTime--;
-        this.controller.timeIsChanged();
     }
 
     public int getRemainingTime() {
@@ -316,10 +315,6 @@ public class ModelImpl implements Model {
         return this.tables.stream().anyMatch(tab -> tab.getCustomer().isEmpty());
     }
 
-    public Countertop getCounterTop() { // TODO Elimina
-        return this.counterTop;
-    }
-
     @Override
     public boolean checkFreeTables(final Customer client) { // check for a free table
         if (this.customers.stream() // check if client is the first in line
@@ -343,8 +338,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void setWaitressTableDestination(Pair<Integer, Integer> dest) { // assegno la destinazione del tavo alla
-                                                                           // cameriera
+    public void setWaitressTableDestination(Pair<Integer, Integer> dest) {
         if (!(this.waitress.getState().equals(WaitressState.CALLING))) {
             this.waitress.setDestination(Optional.of(dest));
             this.waitress.setState(WaitressState.CALLING);
@@ -378,11 +372,6 @@ public class ModelImpl implements Model {
         if (state.equals(TableState.EATING)) {
             this.tables.get(numberTable - 1).startEating();
         }
-    }
-
-    @Override
-    public Waitress getWaitress() { // TODO Elimina
-        return this.waitress;
     }
 
     public void setWaiterssInfo(int indexL, String s, Pair<Integer, Integer> pos) {
@@ -419,12 +408,12 @@ public class ModelImpl implements Model {
 
     @Override
     public boolean thereAreDishesToPrepare() {
-        return this.counterTop.thereAreAvailableDishes();
+        return this.counterTop.thereAreDishesToPrepare();
     }
 
     @Override
     public Optional<Dish> getDishToPrepare() {
-        return this.counterTop.getDishInOrder();
+        return this.counterTop.getNextDishToPrepare();
     }
 
     @Override
