@@ -78,11 +78,16 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public String getStateInText(){
-        switch(this.state){
-            case ORDERING : return "ordering" ;
-            case WANTING_TO_PAY: return "paying";
-            default : return "";
+    public String getStateInText() {
+        switch (this.state) {
+            case ORDERING:
+                return "wantToOrder";
+            case WANTING_TO_PAY:
+                return "wantTOPay";
+            case EATING:
+                return "eating";
+            default:
+                return "";
         }
     }
 
