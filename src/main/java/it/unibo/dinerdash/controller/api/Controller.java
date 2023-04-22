@@ -35,8 +35,16 @@ public interface Controller {
 
     boolean gameOver();
 
+    /**
+     * @return model's background's Width
+     * getter for model's background's Width
+     */
     int getRestaurantWidth();
 
+    /**
+     * @return model's background's Height
+     * getter for model's background's Height
+     */
     int getRestaurantHeight();
 
     void updateView();
@@ -44,11 +52,28 @@ public interface Controller {
     void setWaitressDestination(Pair<Integer, Integer> destination);
 
     void callWaitress(int indexOf, String s, Pair<Integer, Integer> position);
-    
+
+    // ----
+    /**
+     * @param customer customer whom will be added
+     * call a view method to add a new customer whom 
+     * will get created in the view
+     */
     void addCustomerToView(Customer customer);
 
+    /**
+     * @param index of the customer in the list
+     * @param customer whom will get update
+     * call a view method to update the information 
+     * of the customer in the view list using index 
+     * to find it , and customer's to get new informations
+     */
     void updateCustomersInView(int index, Customer customer);
 
+    /**
+     * @param index of the customer whom need to delete
+     * call view method to delete the index element
+     */
     void removeCustomerInView(int index);
     
     void addChefToView(Chef chef);

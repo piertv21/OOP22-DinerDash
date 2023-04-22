@@ -17,12 +17,30 @@ public interface View {
 
     Controller getController();
 
+    /**
+     * @return ratio between model's Widtht
+     * and main window's Widtht
+     * getter for WidthRatio
+     */
     double getWidthRatio();
 
+    /**
+     * @return ratio between model's height
+     * and main window's height
+     * getter for HeightRatio
+     */
     double getHeightRatio();
 
+    /**
+     * @return Width of the main window
+     * getter for main window's Width
+     */
     int getWidth();
 
+    /**
+     * @return height of the main window
+     * getter for main window's Height
+     */
     int getHeight();
 
     ImageReaderWithCache getImageCacher();

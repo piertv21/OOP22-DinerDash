@@ -8,10 +8,27 @@ public interface GameView {
 
     void render();
     
+    /**
+     * @param coordinates Position of the new customer
+     * @param size image size of the new customer
+     * @param active visibility of the new customer
+     * @param multiplicity number of Customer
+     * @param patience level of patience of the new customer
+     */
     void addCustomerViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int multiplicity, int patience);
 
+    /**
+     * @param index element of the view list to update 
+     * @param coordinates new Position of customer
+     * @param active new visibility of customer
+     * @param patience new patience level of customer
+     */
     void updateCustomersViewable(int index, Pair<Integer, Integer> coordinates, boolean active, int patience);
 
+    /**
+     * @param index of the element to delete
+     * remove a customer from the view list
+     */
     void removeCustomerViewable(int index);
     
     void addChefViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active);
