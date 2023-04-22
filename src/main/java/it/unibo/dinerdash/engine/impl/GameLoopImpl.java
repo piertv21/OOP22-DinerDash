@@ -39,11 +39,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
     public synchronized void stop() {
         if (this.running) {
             running = false;
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            thread.interrupt();
         }
     }
 

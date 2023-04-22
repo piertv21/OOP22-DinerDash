@@ -23,6 +23,8 @@ public interface Controller {
 
     void quit();
 
+    void gameIsEnded();
+
     void syncChanges();
 
     int getCoins();
@@ -42,33 +44,26 @@ public interface Controller {
     void setWaitressDestination(Pair<Integer, Integer> destination);
 
     void callWaitress(int indexOf, String s, Pair<Integer, Integer> position);
-
-    // ----
+    
     void addCustomerToView(Customer customer);
 
     void updateCustomersInView(int index, Customer customer);
 
     void removeCustomerInView(int index);
-    // ----
-
-    // ----
+    
     void addChefToView(Chef chef);
 
     void updateChefInView(Chef chef);
-    // ----
-
-    // ----
+    
     void addWaitressToView(Waitress waitress);
 
     void updateWaitressInView(Waitress waitress);
-    // ----
-
+    
     void addDishToView(Dish dish);
 
     void updateDishesInView(int index, Dish dish);
 
     void deleteDishInView(int index);
-    // ----
 
     void addTableToView(Table table);
 
