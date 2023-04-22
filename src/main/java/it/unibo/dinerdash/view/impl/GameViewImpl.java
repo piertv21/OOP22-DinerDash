@@ -300,12 +300,15 @@ public class GameViewImpl extends GamePanel implements GameView {
         });
 
         // Chef
-        /*
-         * g.drawImage(chef.getIcon(), (int) (chef.getPosition().getX() * widthRatio),
-         * (int) (chef.getPosition().getY() * heightRatio),
-         * (int) (chef.getSize().getX() * widthRatio), (int) (chef.getSize().getY() *
-         * heightRatio), this);
-         */
+        if(this.chef.isActive()) {
+            g.drawImage(chef.getIcon(),
+                (int) (chef.getPosition().getX() * widthRatio),
+                (int) (chef.getPosition().getY() * heightRatio),
+                (int) (chef.getSize().getX() * widthRatio),
+                (int) (chef.getSize().getY() * heightRatio),
+            this);
+        }
+        
     }
 
     @Override

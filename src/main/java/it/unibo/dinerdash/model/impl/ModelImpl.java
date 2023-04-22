@@ -62,10 +62,10 @@ public class ModelImpl implements Model {
     private static final int WAITRESS_REL_HEIGH = 180;
     private static final int WAITRESS_MAX_DISHES = 2;
 
-    private static final double CHEF_REL_X = 0.55;
-    private static final double CHEF_REL_Y = 0.02;
-    private static final double CHEF_REL_WIDTH = 0.05;
-    private static final double CHEF_REL_HEIGHT = 0.02;
+    private static final int CHEF_REL_X = (int)(RESTAURANT_WIDTH * 0.65);
+    private static final int CHEF_REL_Y = (int)(RESTAURANT_WIDTH * 0.05);
+    private static final int CHEF_REL_WIDTH = 150;
+    private static final int CHEF_REL_HEIGHT = 120;
 
     private int coins;
     private int enabledCoinsMultipliers;
@@ -98,10 +98,10 @@ public class ModelImpl implements Model {
         this.clear();
         this.generateTables();
 
-        var chefPosition = new Pair<>((int) (CHEF_REL_X * RESTAURANT_WIDTH), (int) (CHEF_REL_Y * RESTAURANT_HEIGHT));
-        var chefSize = new Pair<>((int) (CHEF_REL_WIDTH * RESTAURANT_WIDTH),
-                (int) (CHEF_REL_HEIGHT * RESTAURANT_HEIGHT));
+        var chefPosition = new Pair<>(CHEF_REL_X, CHEF_REL_Y);
+        var chefSize = new Pair<>(CHEF_REL_WIDTH, CHEF_REL_HEIGHT);
         this.chef = this.factory.createChef(chefPosition, chefSize, this);
+        this.controller.addChefToView(this.chef);
 
         var waitressPosition = new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y);
         var waitressSize = new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH);
@@ -216,14 +216,23 @@ public class ModelImpl implements Model {
 
     public void update(long elapsedUpdateTime) {
         if (!this.gameOver()) {
+            // Aggiunta clienti
             if (System.nanoTime() >= this.lastCustomerTimeCreation 
-                + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)
-                && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_STAY) {
+                    + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)
+                        && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_STAY) {
                 this.addCustomer();
                 this.lastCustomerTimeCreation = System.nanoTime();
             }
+            
+            // Update chef
             this.chef.update();
+            this.controller.updateChefInView(this.chef);
+            
+            // Update cameriera (usa update)
             this.waitress.handleMovement();
+            // TODO Aggiorna cameriera chiamando controller
+
+            // Update customers
             this.customers.stream()
                     .filter(c -> !c.getState().equals(CustomerState.ORDERING))
                     .forEach(client -> {
@@ -231,6 +240,8 @@ public class ModelImpl implements Model {
                         controller.updateCustomersInView(customers.indexOf(client), client);
                     });
             this.removeAngryCustomers();
+
+            // Rimozione arrabbiati
             this.tables.forEach(t -> {
                 controller.updateTablesInView(tables.indexOf(t), t);
             });
