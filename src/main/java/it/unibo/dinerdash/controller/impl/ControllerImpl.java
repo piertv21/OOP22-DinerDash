@@ -81,12 +81,6 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void syncChanges() {
-        // TODO Poi verrà rimosso questo metodo
-        this.updateView();
-    }
-
-    @Override
     public int getCoins() {
         return this.model.getCoins();
     }

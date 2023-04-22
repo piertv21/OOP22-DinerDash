@@ -25,8 +25,6 @@ public interface Controller {
 
     void gameIsEnded();
 
-    void syncChanges();
-
     int getCoins();
 
     int getRemainingTime();

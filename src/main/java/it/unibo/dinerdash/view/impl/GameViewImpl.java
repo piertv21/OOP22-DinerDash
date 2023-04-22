@@ -88,7 +88,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         timeLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
         // TODO Add image coin
-        coinLabel = new JLabel("Coins: " + this.getMainFrame().getController().getCoins());
+        coinLabel = new JLabel("Coins: " + controller.getCoins());
         coinLabel.setFont(new Font("Arial", Font.BOLD, 20));
         coinLabel.setForeground(Color.WHITE);
         coinLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
@@ -103,7 +103,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         pauseButton = new JButton("Pause");
         pauseButton.addActionListener((e) -> {
-            this.getMainFrame().getController().pause();
+            controller.pause();
             this.showPauseDialog();
         });
         bottomPanel.add(pauseButton, BorderLayout.EAST);
@@ -207,11 +207,13 @@ public class GameViewImpl extends GamePanel implements GameView {
         int result = JOptionPane.showOptionDialog(this, dialogPanel, "Pause", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
+        var controller = this.getMainFrame().getController();
+
         switch (result) {
-            case 1 -> this.getMainFrame().getController().restart();
-            case 2 -> this.getMainFrame().getController().quit();
+            case 1 -> controller.restart();
+            case 2 -> controller.quit();
             default -> {
-                this.getMainFrame().getController().resume();
+                controller.resume();
                 JOptionPane.getRootFrame().dispose();
             }
         }
@@ -318,6 +320,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     public void render() {
         var controller = this.getMainFrame().getController();
         this.timeLabel.setText("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
+        this.coinLabel = new JLabel("Coins: " + controller.getCoins());
         this.repaint();
     }
 
