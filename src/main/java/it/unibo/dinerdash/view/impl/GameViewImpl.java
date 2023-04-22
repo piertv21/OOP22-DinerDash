@@ -1,7 +1,6 @@
 package it.unibo.dinerdash.view.impl;
 
 import java.awt.Image;
-import java.awt.List;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -11,8 +10,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -247,7 +244,6 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         // Background
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
-        Image exp = this.imageCacher.getCachedImage("heart6").getImage();
 
         // Waitress
 

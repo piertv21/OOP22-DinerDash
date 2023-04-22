@@ -1,8 +1,6 @@
 package it.unibo.dinerdash.model.impl;
 
-import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -57,7 +55,6 @@ public class ModelImpl implements Model {
     private static final double CUSTOMER_FIRST_LINE_REL_X = 0.04 * RESTAURANT_WIDTH;
     private static final double CUSTOMER_FIRST_LINE_REL_Y = 0.67 * RESTAURANT_HEIGHT;
     private static final int CUSTOMERS_CREATION_TIME = 6;
-    private static final int MAX_PATIENCE = 7;
 
     private static final int WAITRESS_STARTING_X = 40;
     private static final int WAITRESS_STARTING_Y = 120;

@@ -1,6 +1,5 @@
 package it.unibo.dinerdash.model.api;
 
-import java.util.List;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.States.GameState;
