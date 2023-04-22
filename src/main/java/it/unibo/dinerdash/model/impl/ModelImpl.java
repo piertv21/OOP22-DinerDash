@@ -47,14 +47,14 @@ public class ModelImpl implements Model {
     private static final int TABLE_REL_WIDTH = 150;
     private static final int TABLE_REL_HEIGHT = 150;
 
-    private static final int CUSTOMER_REL_WIDTH = 150;
-    private static final int CUSTOMER_REL_HEIGHT = 200;
+    private static final int CUSTOMER_REL_WIDTH = 100; 
+    private static final int CUSTOMER_REL_HEIGHT = 150; 
     private static final int CUSTOMER_IN_LINE_PADDING = 100;
     private static final double CUSTOMER_FIRST_LINE_REL_X = 0.04 * RESTAURANT_WIDTH;
     private static final double CUSTOMER_FIRST_LINE_REL_Y = 0.67 * RESTAURANT_HEIGHT;
     private static final int CUSTOMERS_CREATION_TIME = 6;
     private static final int CUSTOMER_START_X = 0;
-    private static final int  CUSTOMER_START_Y = 300;
+    private static final int  CUSTOMER_START_Y = 330;
 
 
     private static final int WAITRESS_STARTING_X = 40;
