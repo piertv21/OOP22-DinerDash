@@ -227,8 +227,13 @@ public class ModelImpl implements Model {
 
             // Update chef
             this.chef.update();
+            this.controller.updateChefInView(this.chef);
+
+            // Update Waitress
             this.waitress.handleMovement();
-            this.controller.updateWaitressInView(waitress);
+            this.controller.updateWaitressInView(this.waitress);
+
+            // Update Customers
             this.customers.stream()
                     .filter(c -> !c.getState().equals(CustomerState.ORDERING))
                     .forEach(client -> {
@@ -236,6 +241,8 @@ public class ModelImpl implements Model {
                         controller.updateCustomersInView(customers.indexOf(client), client);
                     });
             this.removeAngryCustomers();
+
+            // Update tables
             this.tables.forEach(t -> {
                 controller.updateTablesInView(tables.indexOf(t), t);
             });
