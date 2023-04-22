@@ -111,11 +111,11 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 } else if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_BEFORE_LOOSEPATIENCE)
                 + this.lastPatienceReduce.get()) {
                     this.lastPatienceReduce = Optional.of(System.nanoTime());
-                    this.patience-- ;
+                    this.patience--;
                 }
             } else {
                 this.lastPatienceReduce = Optional.of(System.nanoTime());
-                this.patience-- ;
+                this.patience--;
             }
         }
     }
