@@ -5,16 +5,20 @@ import java.util.Optional;
 import it.unibo.dinerdash.model.api.States.CustomerState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
+/**
+* interface with the method's to control and update all 
+Customer's instances.
+*/
 public interface Customer extends GameEntityMovable {
 
     /**
-     * getter for customer's moltiplicity
+     * getter for customer's moltiplicity.
      * @return number of customers from 1-4
      */
     int getCustomerCount();
 
     /**
-     * for customers's enum state
+     * setter for customers's enum state
      * @param state new Customer's state
      */
     void setState(final CustomerState state);

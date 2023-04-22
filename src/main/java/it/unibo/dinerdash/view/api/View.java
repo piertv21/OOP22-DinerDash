@@ -18,28 +18,28 @@ public interface View {
     Controller getController();
 
     /**
+     * getter for WidthRatio.
      * @return ratio between model's Widtht
      * and main window's Widtht
-     * getter for WidthRatio
      */
     double getWidthRatio();
 
     /**
+     * getter for HeightRatio.
      * @return ratio between model's height
      * and main window's height
-     * getter for HeightRatio
      */
     double getHeightRatio();
 
     /**
+     * getter for main window's Width.
      * @return Width of the main window
-     * getter for main window's Width
      */
     int getWidth();
 
     /**
+     * getter for main window's Height.
      * @return height of the main window
-     * getter for main window's Height
      */
     int getHeight();
 
