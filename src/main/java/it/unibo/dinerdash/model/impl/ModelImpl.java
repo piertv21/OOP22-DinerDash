@@ -131,7 +131,6 @@ public class ModelImpl implements Model {
         this.customers.clear();
         this.tables.clear();
         this.counterTop.clear();
-
     }
 
     @Override
@@ -215,7 +214,7 @@ public class ModelImpl implements Model {
         }
     }
 
-    public void update(long elapsedUpdateTime) {
+    public void update() {
         if (!this.gameOver()) {
             // Aggiunta clienti
             if (System.nanoTime() >= this.lastCustomerTimeCreation 
@@ -284,7 +283,6 @@ public class ModelImpl implements Model {
 
     public void decrementRemainingTime() {
         this.remainingTime--;
-        this.controller.timeIsChanged();
     }
 
     public int getRemainingTime() {
@@ -323,10 +321,6 @@ public class ModelImpl implements Model {
         return this.tables.stream().anyMatch(tab -> tab.getCustomer().isEmpty());
     }
 
-    public Countertop getCounterTop() { // TODO Elimina
-        return this.counterTop;
-    }
-
     @Override
     public boolean checkFreeTables(final Customer client) { // check for a free table
         if (this.customers.stream() // check if client is the first in line
@@ -350,8 +344,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void setWaitressTableDestination(Pair<Integer, Integer> dest) { // assegno la destinazione del tavo alla
-                                                                           // cameriera
+    public void setWaitressTableDestination(Pair<Integer, Integer> dest) {
         if (!(this.waitress.getState().equals(WaitressState.CALLING))) {
             this.waitress.setDestination(Optional.of(dest));
             this.waitress.setState(WaitressState.CALLING);
@@ -385,11 +378,6 @@ public class ModelImpl implements Model {
         if (state.equals(TableState.EATING)) {
             this.tables.get(numberTable - 1).startEating();
         }
-    }
-
-    @Override
-    public Waitress getWaitress() { // TODO Elimina
-        return this.waitress;
     }
 
     public void setWaiterssInfo(int indexL, String s, Pair<Integer, Integer> pos) {
@@ -426,12 +414,12 @@ public class ModelImpl implements Model {
 
     @Override
     public boolean thereAreDishesToPrepare() {
-        return this.counterTop.thereAreAvailableDishes();
+        return this.counterTop.thereAreDishesToPrepare();
     }
 
     @Override
     public Optional<Dish> getDishToPrepare() {
-        return this.counterTop.getDishInOrder();
+        return this.counterTop.getNextDishToPrepare();
     }
 
     @Override
