@@ -31,7 +31,6 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
         this.state = WaitressState.WAITING;
         this.orderList = new LinkedList<>();
         this.model = model;
-
     }
 
     @Override
@@ -112,7 +111,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public void colletMoney(Pair<Integer, Integer> position) {
+    public void collectMoney(Pair<Integer, Integer> position) {
         this.setDestination(Optional.of(position));
         state = WaitressState.TAKING_MONEY;
     }
@@ -138,7 +137,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public void incrementSped() {
+    public void incrementSpeed() {
         this.setMovementSpeed((int) (this.getMovementSpeed() * WAITRESS_SPEED_MULTIPLIER));
     }
 

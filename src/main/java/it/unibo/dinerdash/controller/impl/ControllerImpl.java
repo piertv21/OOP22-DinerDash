@@ -51,7 +51,6 @@ public class ControllerImpl implements Controller {
         this.gameView.clear();
         this.model.restart();
         this.gameTimer.restartTimer();
-        this.model.setGameState(GameState.RUNNING);
         this.updateView();
     }
 
@@ -77,7 +76,7 @@ public class ControllerImpl implements Controller {
     public void quit() {
         this.model.clear();
         this.gameView.clear();
-        quitWithoutPlaying();
+        this.quitWithoutPlaying();
     }
 
     @Override
@@ -101,6 +100,11 @@ public class ControllerImpl implements Controller {
     public boolean gameOver() {
         return this.model.gameOver();
     }
+
+    @Override
+	public int getCustomersWhoLeft() {
+		return this.model.getCustomersWhoLeft();
+	}
 
     @Override
     public int getRestaurantWidth() {
@@ -134,9 +138,6 @@ public class ControllerImpl implements Controller {
     public void callWaitress(int indexList, String s, Pair<Integer, Integer> position) {
         model.setWaiterssInfo(indexList, s, position);
     }
-
-    // NUOVI METODI DA IMPLEMENTARE
-    // ------------------------------------------------------------------
 
     @Override
     public void addCustomerToView(Customer customer) {

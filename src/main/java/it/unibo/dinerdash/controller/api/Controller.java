@@ -35,6 +35,8 @@ public interface Controller {
 
     boolean gameOver();
 
+    int getCustomersWhoLeft();
+
     /**
      * getter for model's background's Width
      * @return model's background's Width

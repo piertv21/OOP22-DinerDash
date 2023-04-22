@@ -29,7 +29,7 @@ public interface Model {
 
     void restart();
 
-    void quit();
+    int getCustomersWhoLeft();
 
     /**
      * used to create a new Customer

@@ -56,7 +56,6 @@ public class ModelImpl implements Model {
     private static final int CUSTOMER_START_X = 0;
     private static final int  CUSTOMER_START_Y = 330;
 
-
     private static final int WAITRESS_STARTING_X = 40;
     private static final int WAITRESS_STARTING_Y = 120;
     private static final int WAITRESS_REL_WIDTH = 120;
@@ -122,7 +121,7 @@ public class ModelImpl implements Model {
                     Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
                     var tempTable = this.factory.createTable(coordinates, size, i + 1);
                     this.controller.addTableToView(tempTable);
-                    return this.factory.createTable(coordinates, size, i + 1);
+                    return tempTable;
                 })
                 .collect(Collectors.toList());
         this.tables.addAll(tables);
@@ -175,13 +174,12 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void quit() {
-        this.clear();
-        // TODO Check se serve altro
-    }
+	public int getCustomersWhoLeft() {
+		return this.customersWhoLeft;
+	}
 
     @Override
-    public void sendOrder(int tableNumber) { // mando l'ordine al bancone
+    public void sendOrder(int tableNumber) {
         this.counterTop.addOrder(tableNumber);
         this.setTableState(TableState.WAITING_MEAL, tableNumber);
     }
@@ -229,6 +227,8 @@ public class ModelImpl implements Model {
             this.chef.update();
             this.controller.updateChefInView(this.chef);
 
+            // TODO Piatti
+
             // Update Waitress
             this.waitress.handleMovement();
             this.controller.updateWaitressInView(this.waitress);
@@ -256,7 +256,7 @@ public class ModelImpl implements Model {
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))) {
             final Customer tempCustomerToDelete = this.customers.stream()
                     .filter(p -> p.getState() // Get frist angry customer
-                            .equals(CustomerState.ANGRY))
+                    .equals(CustomerState.ANGRY))
                     .findFirst()
                     .get();
 
@@ -389,7 +389,7 @@ public class ModelImpl implements Model {
                         this.waitress.takeTableOrder(tables.get(indexL).getPosition());
                         break;
                     case WANTING_TO_PAY:
-                        this.waitress.colletMoney(tables.get(indexL).getPosition());
+                        this.waitress.collectMoney(tables.get(indexL).getPosition());
                         break;
                     default:
                         break;
