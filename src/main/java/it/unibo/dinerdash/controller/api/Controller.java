@@ -47,7 +47,7 @@ public interface Controller {
      */
     int getRestaurantHeight();
 
-    void timeIsChanged();
+    void updateView();
 
     void setWaitressDestination(Pair<Integer, Integer> destination);
 

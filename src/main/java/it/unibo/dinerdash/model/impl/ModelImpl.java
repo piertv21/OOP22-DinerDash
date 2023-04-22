@@ -63,8 +63,8 @@ public class ModelImpl implements Model {
     private static final int WAITRESS_REL_HEIGH = 180;
     private static final int WAITRESS_MAX_DISHES = 2;
 
-    private static final int CHEF_REL_X = (int)(RESTAURANT_WIDTH * 0.65);
-    private static final int CHEF_REL_Y = (int)(RESTAURANT_WIDTH * 0.05);
+    private static final int CHEF_REL_X = (int) (RESTAURANT_WIDTH * 0.65);
+    private static final int CHEF_REL_Y = (int) (RESTAURANT_WIDTH * 0.05);
     private static final int CHEF_REL_WIDTH = 150;
     private static final int CHEF_REL_HEIGHT = 120;
 
@@ -132,7 +132,6 @@ public class ModelImpl implements Model {
         this.customers.clear();
         this.tables.clear();
         this.counterTop.clear();
-
     }
 
     @Override
@@ -216,25 +215,20 @@ public class ModelImpl implements Model {
         }
     }
 
-    public void update(long elapsedUpdateTime) {
+    public void update() {
         if (!this.gameOver()) {
             // Aggiunta clienti
-            if (System.nanoTime() >= this.lastCustomerTimeCreation 
+            if (System.nanoTime() >= this.lastCustomerTimeCreation
                     + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)
-                        && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_STAY) {
+                    && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_STAY) {
                 this.addCustomer();
                 this.lastCustomerTimeCreation = System.nanoTime();
             }
-            
+
             // Update chef
             this.chef.update();
-            this.controller.updateChefInView(this.chef);
-            
-            // Update cameriera (usa update)
             this.waitress.handleMovement();
-            // TODO Aggiorna cameriera chiamando controller
-
-            // Update customers
+            this.controller.updateWaitressInView(waitress);
             this.customers.stream()
                     .filter(c -> !c.getState().equals(CustomerState.ORDERING))
                     .forEach(client -> {
@@ -242,8 +236,6 @@ public class ModelImpl implements Model {
                         controller.updateCustomersInView(customers.indexOf(client), client);
                     });
             this.removeAngryCustomers();
-
-            // Rimozione arrabbiati
             this.tables.forEach(t -> {
                 controller.updateTablesInView(tables.indexOf(t), t);
             });
@@ -285,7 +277,6 @@ public class ModelImpl implements Model {
 
     public void decrementRemainingTime() {
         this.remainingTime--;
-        this.controller.timeIsChanged();
     }
 
     public int getRemainingTime() {
@@ -324,10 +315,6 @@ public class ModelImpl implements Model {
         return this.tables.stream().anyMatch(tab -> tab.getCustomer().isEmpty());
     }
 
-    public Countertop getCounterTop() { // TODO Elimina
-        return this.counterTop;
-    }
-
     @Override
     public boolean checkFreeTables(final Customer client) { // check for a free table
         if (this.customers.stream() // check if client is the first in line
@@ -351,8 +338,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void setWaitressTableDestination(Pair<Integer, Integer> dest) { // assegno la destinazione del tavo alla
-                                                                           // cameriera
+    public void setWaitressTableDestination(Pair<Integer, Integer> dest) {
         if (!(this.waitress.getState().equals(WaitressState.CALLING))) {
             this.waitress.setDestination(Optional.of(dest));
             this.waitress.setState(WaitressState.CALLING);
@@ -386,11 +372,6 @@ public class ModelImpl implements Model {
         if (state.equals(TableState.EATING)) {
             this.tables.get(numberTable - 1).startEating();
         }
-    }
-
-    @Override
-    public Waitress getWaitress() { // TODO Elimina
-        return this.waitress;
     }
 
     public void setWaiterssInfo(int indexL, String s, Pair<Integer, Integer> pos) {
@@ -427,12 +408,12 @@ public class ModelImpl implements Model {
 
     @Override
     public boolean thereAreDishesToPrepare() {
-        return this.counterTop.thereAreAvailableDishes();
+        return this.counterTop.thereAreDishesToPrepare();
     }
 
     @Override
     public Optional<Dish> getDishToPrepare() {
-        return this.counterTop.getDishInOrder();
+        return this.counterTop.getNextDishToPrepare();
     }
 
     @Override

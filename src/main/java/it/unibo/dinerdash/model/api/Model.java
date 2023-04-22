@@ -7,7 +7,6 @@ import it.unibo.dinerdash.model.api.States.TableState;
 import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.model.api.GameEntities.Table;
-import it.unibo.dinerdash.model.api.GameEntities.Waitress;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Model {
@@ -41,9 +40,7 @@ public interface Model {
      */
     void customerLeft();
 
-    Countertop getCounterTop();
-
-    void update(long elapsedUpdateTime);
+    void update();
 
     GameState getGameState();
 
@@ -92,8 +89,6 @@ public interface Model {
 
     void setTableState(TableState state, int numberTable);
 
-    Waitress getWaitress();
-
     void setWaiterssInfo(int indexL, String s, Pair<Integer, Integer> pos);
 
     void setCoins(int val);
@@ -103,6 +98,8 @@ public interface Model {
     Optional<Dish> getDishToPrepare();
 
     void completeDishPreparation(Dish dish);
+
+    //TODO Aggiungi funzioni dish (pronto preso)
 
     void earnMoneyFromTable();
 

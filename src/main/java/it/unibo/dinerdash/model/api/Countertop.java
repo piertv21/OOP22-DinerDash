@@ -12,9 +12,9 @@ public interface Countertop {
 
     void clear();
 
-    boolean thereAreAvailableDishes();
+    boolean thereAreDishesToPrepare();
 
-    Optional<Dish> getDishInOrder();
+    Optional<Dish> getNextDishToPrepare();
 
     void setDishReady(Dish dish);
 
