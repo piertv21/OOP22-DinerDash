@@ -2,7 +2,6 @@ package it.unibo.dinerdash.model.impl;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntityMovable;
 import it.unibo.dinerdash.model.api.GameEntities.Customer;
@@ -11,12 +10,16 @@ import it.unibo.dinerdash.model.api.States.TableState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**
- * Create a new element "Customer" who will move in the restaurant.
+ * Create a new element "Customer" who will move in the restaurant, Or will 
+ * wait in Line for a free table
  */
 public class CustomerImpl extends AbstractGameEntityMovable implements Customer {
 
     private static final int ZERO = 0;
     private static final int MAX_ORDERING_TIME = 4;
+    /**
+     * seconds used to decrease a customer's patience
+     */
     private static final int TIME_BEFORE_LOOSEPATIENCE = 2;
     private static final int MAX_PATIECE = 7;
     private static final int SPEED = 5;
@@ -25,10 +28,23 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     private final Model model;
     private final int numberClients;
     private long startThinkTime;
+    /**
+     * The last time when a customer reduced his 
+     * patience level.
+     */
     private Optional<Long> lastPatienceReduce;
     private int patience;
+    /**
+     * random Time in seconds before make a order
+     */
     private final int timeBeforeOrder;
 
+    /**
+     * @param coordinates starting customer's position
+     * @param size customer's image size (height, width)
+     * @param model reference to modeImpl
+     * @param numCusters customer's moltiplicity 
+     */
     public CustomerImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,
             final Model model, final int numCusters) {
         super(coordinates, size, SPEED);
@@ -57,7 +73,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     }
 
     @Override
-    public void update() { // manage the movement of customers
+    public void update() { 
         if (state.equals(CustomerState.WALKING)) {
             if (getPosition().getX() < this.getDestination().get().getX()) {
                 this.moveRight();

@@ -31,8 +31,15 @@ public interface Model {
 
     void quit();
 
+    /**
+     * used to create a new Customer
+     */
     void addCustomer();
 
+    /**
+     * reduce a counter of Customers who left,cause
+     * they have finished to eat ,or they are too angry
+     */
     void customerLeft();
 
     Countertop getCounterTop();
@@ -51,11 +58,19 @@ public interface Model {
 
     void setWaitressTableDestination(Pair<Integer, Integer> destination);
 
-    boolean checkFreeTables(Customer cus);
+    /**
+     * @param client client in line looking for a free table
+     * @return true if there is a free table to sit,and
+     * client is the fist in line waiting
+     */
+    boolean checkFreeTables(Customer client);
 
-    void linePositionAssignament(Customer cus);
+    /**
+     * @param client
+     */
+    void linePositionAssignament(Customer client);
 
-    void tableAssignament(Customer cus);
+    void tableAssignament(Customer client);
 
     void removeAngryCustomers();
 

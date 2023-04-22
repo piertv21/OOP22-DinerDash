@@ -7,12 +7,27 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Customer extends GameEntityMovable {
 
+    /**
+     * getter for customer's moltiplicity
+     * @return number of customers from 1-4
+     */
     int getCustomerCount();
 
+    /**
+     * for customers's enum state
+     * @param state new Customer's state
+     */
     void setState(final CustomerState state);
 
+    /**
+     * getter for customers's enum state
+     * @return customer's InGame state 
+     */
     CustomerState getState();
     
+    /**
+     * manage the movement of customers ,or their behaviour
+     */
     void update();
 
     Pair<Integer, Integer> getPosition();
@@ -23,6 +38,10 @@ public interface Customer extends GameEntityMovable {
 
     void setPosition(Pair<Integer, Integer> position);
 
+    /**
+     * getter for customers's patience 
+     * @return customers's patience level
+     */
     int getCustomerPatience();
 
 }

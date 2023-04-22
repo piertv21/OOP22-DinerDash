@@ -219,8 +219,9 @@ public class ModelImpl implements Model {
 
     public void update(long elapsedUpdateTime) {
         if (!this.gameOver()) {
-            if (System.nanoTime() >= this.lastCustomerTimeCreation + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)
-                    && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_STAY) {
+            if (System.nanoTime() >= this.lastCustomerTimeCreation 
+                + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)
+                && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_STAY) {
                 this.addCustomer();
                 this.lastCustomerTimeCreation = System.nanoTime();
             }
