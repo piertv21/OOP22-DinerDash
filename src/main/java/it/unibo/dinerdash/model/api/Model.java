@@ -65,14 +65,27 @@ public interface Model {
     boolean checkFreeTables(Customer client);
 
     /**
-     * @param client
+     * @param client to whom i will assign a place in line
+     * assign the first free spot in line queue
      */
     void linePositionAssignament(Customer client);
 
+    /**
+     * @param client to whom i will assign a free table
+     * assign the first free table to a customer
+     */
     void tableAssignament(Customer client);
 
+    /**
+     * remove a client whom waited in line
+     * for too much 
+     */
     void removeAngryCustomers();
 
+    /**
+     * @return true if there is a free table
+     * check if there is a free table to sit
+     */
     boolean thereAreAvaibleTables();
 
     Table getTablefromPositon(Pair<Integer, Integer> pos);
@@ -93,6 +106,12 @@ public interface Model {
 
     void earnMoneyFromTable();
 
+    /**
+     * @param numberOfClienty number of clients whom are sitted
+     * at the table
+     * @param numberOfTable number of the table
+     * set the number of clients sitted at the table number "numberOfTable"
+     */
     void setNumberOfClientsAtTable(int numberOfClienty, int numberOfTable);
 
 }
