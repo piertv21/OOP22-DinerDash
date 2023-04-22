@@ -438,7 +438,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         }
         if (!state.isBlank()) {
             if (state.equals("eating")) {
-                tempTable.setIcon(this.imageCacher.getCachedImage("talbeOrder" + peopleNumber).getImage());
+                tempTable.setIcon(this.imageCacher.getCachedImage("TableWithDish" + peopleNumber).getImage());
             } else {
                 Image imgState = this.imageCacher.getCachedImage(state).getImage();
                 tables.get(index).setState(Optional.of(imgState));
