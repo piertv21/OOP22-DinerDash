@@ -21,6 +21,8 @@ public interface Controller {
 
     void resume();
 
+    void quitWithoutPlaying();
+
     void quit();
 
     void gameIsEnded();

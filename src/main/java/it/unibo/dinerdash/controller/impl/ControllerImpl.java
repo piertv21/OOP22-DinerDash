@@ -68,9 +68,16 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void quit() {
+    public void quitWithoutPlaying() {
         this.view.quit();
         System.exit(0);
+    }
+
+    @Override
+    public void quit() {
+        this.model.clear();
+        this.gameView.clear();
+        quitWithoutPlaying();
     }
 
     @Override

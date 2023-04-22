@@ -50,7 +50,7 @@ public class ViewImpl extends JFrame implements View {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(final WindowEvent e) {
-                controller.quit();
+                controller.quitWithoutPlaying();
             }
         });
         this.setLocationByPlatform(true);
@@ -98,6 +98,7 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void quit() {
+        this.imageCacher.clearCache();
         this.dispose();
     }
 

@@ -39,7 +39,7 @@ public class StartView extends GamePanel {
 
         gridBagConstraints.gridy = 2;
         exitButton = new JButton(EXIT);        
-        exitButton.addActionListener((e) -> this.getMainFrame().getController().quit());
+        exitButton.addActionListener((e) -> this.getMainFrame().getController().quitWithoutPlaying());
         exitButton.setPreferredSize(new Dimension(300, 40));
         add(exitButton, gridBagConstraints);
     }

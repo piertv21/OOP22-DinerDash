@@ -15,6 +15,8 @@ public interface Model {
 
     int getHeight();
 
+    void clear();
+
     void start();
 
     void pause();

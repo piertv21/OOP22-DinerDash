@@ -128,7 +128,8 @@ public class ModelImpl implements Model {
         this.tables.addAll(tables);
     }
 
-    private void clear() {
+    @Override
+    public void clear() {
         this.customers.clear();
         this.tables.clear();
         this.counterTop.clear();
