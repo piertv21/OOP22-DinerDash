@@ -43,6 +43,7 @@ public class CountertopImpl implements Countertop {
             var dish = this.factory.createDish(dishPosition, dishSize, tableNumber);
 
             this.dishes.add(dish);
+            this.model.addDishToView(dish);
         }
     }
 
@@ -101,7 +102,7 @@ public class CountertopImpl implements Countertop {
         var oldDishIndex = this.dishes.indexOf(dish);
         var dishInList = this.dishes.get(oldDishIndex);
         dishInList.setActive(true);
-        this.model.addDishToView(dishInList);
+        this.model.updateDishInView(oldDishIndex, dishInList);
     }
 
 }

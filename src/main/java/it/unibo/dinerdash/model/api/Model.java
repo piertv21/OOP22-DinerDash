@@ -131,4 +131,5 @@ public interface Model {
 
     void increaseCoinsMultiplier();
 
+    void updateDishInView(int index, Dish dish);
 }
