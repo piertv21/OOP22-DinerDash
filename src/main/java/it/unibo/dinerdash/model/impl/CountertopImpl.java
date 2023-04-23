@@ -65,14 +65,14 @@ public class CountertopImpl implements Countertop {
     }
 
     @Override
-    public Optional<Dish> takeDish(int x, int y) {
+    public Optional<Dish> takeDish(Pair<Integer, Integer> coordinates) {
         Optional<Dish> dishToRemove = this.dishes.stream()
-                .filter(dish -> dish.getPosition().getX() == x && dish.getPosition().getY() == y)
+                .filter(dish -> dish.getPosition().equals(coordinates))
                 .findFirst()
-                .map(dish -> {
-                    dishes.remove(dish);
+                .map(dish -> {                    
                     var dishIndex = this.dishes.indexOf(dish);
                     this.model.removeDishInView(dishIndex);
+                    dishes.remove(dish);
                     return dish;
                 });
         return dishToRemove;

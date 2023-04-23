@@ -403,7 +403,7 @@ public class ModelImpl implements Model {
                 }
             } else {
                 if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
-                    this.waitress.addOrderForWaitress((this.counterTop.takeDish(pos.getX(), pos.getY())).get());
+                    this.waitress.addOrderForWaitress((this.counterTop.takeDish(pos)).get());
                     this.waitress.goGetDish(waitress.getOrderList().getLast());
                 }
             }

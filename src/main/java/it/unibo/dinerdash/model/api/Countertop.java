@@ -3,12 +3,13 @@ package it.unibo.dinerdash.model.api;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Countertop {
 
     void addOrder(int tableNumber);
 
-    Optional<Dish> takeDish(int x, int y);
+    Optional<Dish> takeDish(Pair<Integer, Integer> coordinates);
 
     void clear();
 
