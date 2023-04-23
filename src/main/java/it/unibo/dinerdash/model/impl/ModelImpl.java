@@ -501,4 +501,9 @@ public class ModelImpl implements Model{
         this.enabledCoinsMultipliers++;
     }
 
+    @Override
+    public void updateDishInView(int index, Dish dish) {
+        this.controller.updateDishesInView(index, dish);
+    }
+
 }
