@@ -68,7 +68,8 @@ public class TableImpl extends AbstractGameEntity implements Table {
 
     @Override
     public void startEating() {
-        this.startEatingTime = System.nanoTime();
+        this.startEatingTime = Optional.of(System.nanoTime());
+    
     }
 
     @Override
