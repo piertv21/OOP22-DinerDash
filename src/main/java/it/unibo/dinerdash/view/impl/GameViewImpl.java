@@ -165,7 +165,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
                 setCursor(
                         tables.stream().anyMatch(table -> inside(mouseX, mouseY, table)) ||
-                                dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish)) ? handCursor
+                                dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish) && dish.isActive()) ? handCursor
                                         : defaultCursor);
             }
         });
