@@ -113,4 +113,8 @@ public interface Model {
      */
     void setNumberOfClientsAtTable(int numberOfClienty, int numberOfTable);
 
+    void addDishToView(Dish dish);
+
+    void removeDishInView(int dishIndex);
+
 }

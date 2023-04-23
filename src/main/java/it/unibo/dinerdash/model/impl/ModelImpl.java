@@ -25,7 +25,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 /*
  * Solo metodi getter e setter sulle entità model
  */
-public class ModelImpl implements Model {
+public class ModelImpl implements Model{
 
     private static final int RESTAURANT_WIDTH = 1280;
     private static final int RESTAURANT_HEIGHT = 720;
@@ -431,6 +431,16 @@ public class ModelImpl implements Model {
     @Override
     public void setNumberOfClientsAtTable(int numberOfClient, int numberOfTable) { // set sitted clients at table
         this.tables.get(numberOfTable - 1).setSeatedPeople(numberOfClient);
+    }
+
+    @Override
+    public void addDishToView(Dish dish) {
+        this.controller.addDishToView(dish);
+    }
+
+    @Override
+    public void removeDishInView(int dishIndex) {
+        this.controller.deleteDishInView(dishIndex);
     }
 
 }

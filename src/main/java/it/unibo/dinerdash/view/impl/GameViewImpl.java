@@ -329,8 +329,18 @@ public class GameViewImpl extends GamePanel implements GameView {
                     this);
         }
 
+        this.dishes.forEach(dish ->
+            g.drawImage(dish.getIcon(),
+                    (int) (dish.getPosition().getX() * widthRatio),
+                    (int) (dish.getPosition().getY() * heightRatio),
+                    (int) (dish.getSize().getX() * widthRatio),
+                    (int) (dish.getSize().getY() * heightRatio),
+            this)
+        );
+
     }
 
+    
     @Override
     public void render() {
         var controller = this.getMainFrame().getController();

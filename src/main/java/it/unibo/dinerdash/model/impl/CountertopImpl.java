@@ -15,10 +15,10 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 public class CountertopImpl implements Countertop {
 
-    private static final double START_DISH_REL_X = 0.5;
+    private static final double START_DISH_REL_X = 0.37;
     private static final double START_DISH_REL_Y = 0.2;
-    private static final int DISHES_X_PADDING = 150;
-    private static final int DISH_REL_WIDTH = 70;
+    private static final int DISHES_X_PADDING = 80;
+    private static final int DISH_REL_WIDTH = 50;
     private static final int DISH_REL_HEIGHT = 50;
     private static final int MAX_COUNTERTOP_DISHES = 4;
     private GameEntityFactory factory;
@@ -70,7 +70,8 @@ public class CountertopImpl implements Countertop {
                 .findFirst()
                 .map(dish -> {
                     dishes.remove(dish);
-                    //TODO Rimuoverlo anche dalla lista viewable
+                    var dishIndex = this.dishes.indexOf(dish);
+                    this.model.removeDishInView(dishIndex);
                     return dish;
                 });
         return dishToRemove;
@@ -97,12 +98,10 @@ public class CountertopImpl implements Countertop {
 
     // Dato un dish lo imposta a ready, chiamata dallo Chef
     public void setDishReady(Dish dish) {
-        this.dishes.stream()
-            .filter(d -> d.equals(dish))
-            .findFirst()
-            .ifPresent(d -> d.setActive(true));
-
-        //TODO Mettilo nella lista dish della view
+        var oldDishIndex = this.dishes.indexOf(dish);
+        var dishInList = this.dishes.get(oldDishIndex);
+        dishInList.setActive(true);
+        this.model.addDishToView(dishInList);
     }
 
 }
