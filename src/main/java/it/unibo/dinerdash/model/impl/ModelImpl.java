@@ -398,16 +398,24 @@ public class ModelImpl implements Model {
                     case WANTING_TO_PAY:
                         this.waitress.collectMoney(tables.get(indexL).getPosition());
                         break;
+                    case WAITING_MEAL:
+                        this.waitress.serveOrder(pos);
+                        break;
                     default:
                         break;
                 }
             } else {
                 if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
-                    this.waitress.addOrderForWaitress((this.counterTop.takeDish(pos)).get());
-                    this.waitress.goGetDish(waitress.getOrderList().getLast());
+                    this.waitress.goGetDish(pos);
                 }
             }
         }
+
+    }
+
+    @Override
+    public Optional<Dish> takeDishFromPosition(Pair<Integer, Integer> pos) {
+        return this.counterTop.takeDish(pos);
 
     }
 

@@ -56,6 +56,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
 
                 } else if (state.equals(WaitressState.TAKING_DISH)) { // cameriere è arrivata al bancone a prendere il
                                                                       // piatto
+                    orderList.add(model.takeDishFromPosition(getDestination().get()).get());
                     state = WaitressState.WAITING;
                 } else if (state.equals(WaitressState.SERVING)) {
                     this.setPosition(this.getDestination().get());
@@ -93,8 +94,8 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public void goGetDish(Dish dishReady) {
-        this.setDestination(Optional.of(dishReady.getPosition()));
+    public void goGetDish(Pair<Integer, Integer> dishReady) {
+        this.setDestination(Optional.of(dishReady));
         this.state = WaitressState.TAKING_DISH;
     }
 

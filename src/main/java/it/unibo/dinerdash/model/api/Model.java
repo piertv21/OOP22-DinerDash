@@ -59,31 +59,31 @@ public interface Model {
     /**
      * @param client client in line looking for a free table
      * @return true if there is a free table to sit,and
-     * client is the fist in line waiting
+     *         client is the fist in line waiting
      */
     boolean checkFreeTables(Customer client);
 
     /**
      * @param client to whom i will assign a place in line
-     * assign the first free spot in line queue
+     *               assign the first free spot in line queue
      */
     void linePositionAssignament(Customer client);
 
     /**
      * @param client to whom i will assign a free table
-     * assign the first free table to a customer
+     *               assign the first free table to a customer
      */
     void tableAssignament(Customer client);
 
     /**
      * remove a client whom waited in line
-     * for too much 
+     * for too much
      */
     void removeAngryCustomers();
 
     /**
      * @return true if there is a free table
-     * check if there is a free table to sit
+     *         check if there is a free table to sit
      */
     boolean thereAreAvaibleTables();
 
@@ -101,15 +101,16 @@ public interface Model {
 
     void completeDishPreparation(Dish dish);
 
-    //TODO Aggiungi funzioni dish (pronto preso)
+    // TODO Aggiungi funzioni dish (pronto preso)
 
     void earnMoneyFromTable();
 
     /**
      * @param numberOfClienty number of clients whom are sitted
-     * at the table
-     * @param numberOfTable number of the table
-     * set the number of clients sitted at the table number "numberOfTable"
+     *                        at the table
+     * @param numberOfTable   number of the table
+     *                        set the number of clients sitted at the table number
+     *                        "numberOfTable"
      */
     void setNumberOfClientsAtTable(int numberOfClienty, int numberOfTable);
 
@@ -132,4 +133,6 @@ public interface Model {
     void increaseCoinsMultiplier();
 
     void updateDishInView(int index, Dish dish);
+
+    Optional<Dish> takeDishFromPosition(Pair<Integer, Integer> pos);
 }

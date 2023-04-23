@@ -13,8 +13,6 @@ public interface Waitress extends GameEntityMovable {
 
     WaitressState getState();
 
-    void goGetDish(Dish dishReady);
-
     void takeTableOrder(Pair<Integer, Integer> position);
 
     void serveOrder(Pair<Integer, Integer> position);
@@ -32,5 +30,7 @@ public interface Waitress extends GameEntityMovable {
     void setPosition(Pair<Integer, Integer> position);
 
     void incrementSpeed();
+
+    void goGetDish(Pair<Integer, Integer> dishReady);
 
 }
