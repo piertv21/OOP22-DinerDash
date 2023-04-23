@@ -96,4 +96,12 @@ public interface Controller {
 
     void updateTablesInView(int index, Table table);
 
+    void enablePowerUp(int index);
+
+    int[] getPowerUpsPrices();
+
+    void addPricesToPowerUpsInView();
+
+    void updatePowerUpsButtonsInView();
+
 }

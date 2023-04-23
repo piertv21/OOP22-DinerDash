@@ -1,5 +1,7 @@
 package it.unibo.dinerdash.controller.impl;
 
+import java.util.Optional;
+
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
 import it.unibo.dinerdash.engine.impl.GameLoopImpl;
@@ -203,4 +205,37 @@ public class ControllerImpl implements Controller {
         this.gameView.updateTablesViewable(index, table.getPeopleSeatedNumber(), table.getStateInText());
     }
 
+    @Override
+    public void enablePowerUp(int index) {
+            switch (index) {
+                case 1 -> this.model.reduceDishPreparationTime();
+                case 2 -> this.model.increaseWaitressSpeed();
+                case 3 -> this.model.increaseMaxCustomerThatCanLeave();
+                case 4 -> this.model.increaseGainMultiplier();
+                default -> throw new UnsupportedOperationException("Invalid PowerUp Index");
+            }
+    }
+
+    @Override
+    public int[] getPowerUpsPrices() {
+        return this.model.getPowerUpsPrices();
+    }
+
+    @Override
+    public void updatePowerUpsButtonsInView() {
+        var prices = this.model.getPowerUpsPrices();
+        for(int i = 0; i < prices.length; i++) {
+            if(prices[i] <= this.model.getCoins()) {
+                this.gameView.updatePowerUpButton(i, Optional.empty(), true);
+            }
+        }
+    }
+
+    @Override
+    public void addPricesToPowerUpsInView() {
+        var prices = this.model.getPowerUpsPrices();
+        for(int i = 0; i < prices.length; i++) {
+            this.gameView.updatePowerUpButton(i, Optional.of(prices[i] + ""), false);
+        }
+    }
 }

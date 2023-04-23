@@ -1,5 +1,6 @@
 package it.unibo.dinerdash.model.api;
 
+import java.util.LinkedList;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.States.GameState;
@@ -116,5 +117,15 @@ public interface Model {
     void addDishToView(Dish dish);
 
     void removeDishInView(int dishIndex);
+
+    void reduceDishPreparationTime();
+
+    void increaseWaitressSpeed();
+
+    void increaseMaxCustomerThatCanLeave();
+
+    void increaseGainMultiplier();
+
+    int[] getPowerUpsPrices();
 
 }

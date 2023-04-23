@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -45,15 +46,12 @@ public class GameViewImpl extends GamePanel implements GameView {
     private static int HEAD_PATTEN = -20;
     private static int MAX_PATIECE = 7;
     private static Pair<Integer, Integer> CLIENT_PATIENCE_IMG_SIZE = new Pair<Integer, Integer>(100, 30);
-
+    
     private JLabel timeLabel;
     private JLabel customerWhoLeftLabel;
     private JLabel coinLabel;
     private JButton pauseButton;
-    private JButton powerupButton1;
-    private JButton powerupButton2;
-    private JButton powerupButton3;
-    private JButton powerupButton4;
+    private ArrayList<JButton> powerupButtons;
     private JPanel topPanel;
     private JPanel bottomPanel;
     private JPanel rightPanel;
@@ -133,25 +131,17 @@ public class GameViewImpl extends GamePanel implements GameView {
         c.anchor = GridBagConstraints.LINE_END;
         c.insets.top = 6;
         c.insets.right = 8;
-
-        powerupButton1 = new JButton("1");
-        // TODO .addActionListener(); //aumenta velocità cameriera
-        rightPanel.add(powerupButton1, c);
-
-        c.gridy = 1;
-        powerupButton2 = new JButton("2");
-        // TODO .addActionListener(); aumenta velocità di preparazione dei piatti
-        rightPanel.add(powerupButton2, c);
-
-        c.gridy = 2;
-        powerupButton3 = new JButton("3");
-        // TODO .addActionListener(); aumenta il guadagno
-        rightPanel.add(powerupButton3, c);
-
-        c.gridy = 3;
-        powerupButton4 = new JButton("4");
-        // TODO .addActionListener(); aumenta la velocità di consumazione dei clienti
-        rightPanel.add(powerupButton4, c);
+        
+        var prices = controller.getPowerUpsPrices();
+        for(int i = 0; i < prices.length; i++) {
+            var button = new JButton(prices[i]+"");
+            int index = i + 1;
+            button.addActionListener( e -> controller.enablePowerUp(index) );
+            button.setEnabled(false);
+            rightPanel.add(button, c);
+            this.powerupButtons.add(button);
+            c.gridy++;
+        }
 
         add(rightPanel, BorderLayout.EAST);
 
@@ -243,6 +233,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
         this.imageCacher = this.getMainFrame().getImageCacher();
+        this.powerupButtons = new ArrayList<>();
     }
 
     @Override
@@ -486,6 +477,17 @@ public class GameViewImpl extends GamePanel implements GameView {
             tables.get(index).setState(Optional.empty());
         }
 
+    }
+
+    @Override
+    public void updatePowerUpButton(int index, Optional<String> text, boolean active) {
+        var button = powerupButtons.get(index);
+        if(text.isPresent() && !button.getText().equals(text.get())) {
+            button.setText(text.get());
+        }
+        if(button.isEnabled() != active) {
+            button.setEnabled(active);
+        }
     }
 
 }

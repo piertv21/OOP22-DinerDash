@@ -67,6 +67,8 @@ public class ModelImpl implements Model{
     private static final int CHEF_REL_WIDTH = 150;
     private static final int CHEF_REL_HEIGHT = 120;
 
+    private static final int[] POWER_UP_PRICES = {100, 150, 220, 310};
+
     private int coins;
     private int enabledCoinsMultipliers;
     private int remainingTime;
@@ -108,6 +110,8 @@ public class ModelImpl implements Model{
         this.waitress = this.factory.createWaitress(waitressPosition, waitressSize, this);
         this.controller.addWaitressToView(waitress);
         this.lastCustomerTimeCreation = System.nanoTime();
+
+        this.controller.addPricesToPowerUpsInView();
     }
 
     // Tavoli
@@ -246,6 +250,9 @@ public class ModelImpl implements Model{
             this.tables.forEach(t -> {
                 controller.updateTablesInView(tables.indexOf(t), t);
             });
+
+            this.controller.updatePowerUpsButtonsInView();
+            if(remainingTime < 295){this.coins = 300;}
         } else {
             this.stop();
         }
@@ -441,6 +448,48 @@ public class ModelImpl implements Model{
     @Override
     public void removeDishInView(int dishIndex) {
         this.controller.deleteDishInView(dishIndex);
+    }
+
+    private boolean canAfford(int price) {
+        return this.coins >= price;
+    }
+
+    @Override
+    public void reduceDishPreparationTime() {
+        if(this.canAfford(POWER_UP_PRICES[0])) {
+            this.reduceDishPreparationTime();   //TODO usa corretta funzione
+            this.setCoins(this.coins - POWER_UP_PRICES[0]);
+        }
+    }
+
+    @Override
+    public void increaseWaitressSpeed() {
+        if(this.canAfford(POWER_UP_PRICES[1])) {
+            System.out.println("sono qui "+POWER_UP_PRICES[1]);
+            this.waitress.incrementSpeed();     
+            this.setCoins(this.coins - POWER_UP_PRICES[1]);
+        }
+    }
+
+    @Override
+    public void increaseMaxCustomerThatCanLeave() {
+        if(this.canAfford(POWER_UP_PRICES[2])) {        //TODO usa corretta funzione
+            this.increaseMaxCustomerThatCanLeave();
+            this.setCoins(this.coins - POWER_UP_PRICES[2]);
+        }
+    }
+
+    @Override
+    public void increaseGainMultiplier() {
+        if(this.canAfford(POWER_UP_PRICES[3])) {        //TODO usa corretta funzione
+            this.increaseGainMultiplier();
+            this.setCoins(this.coins - POWER_UP_PRICES[3]);
+        }
+    }
+
+    @Override
+    public int[] getPowerUpsPrices() {
+        return POWER_UP_PRICES;
     }
 
 }
