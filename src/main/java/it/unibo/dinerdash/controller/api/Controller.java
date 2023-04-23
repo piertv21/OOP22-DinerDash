@@ -5,6 +5,7 @@ import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.model.api.GameEntities.Table;
 import it.unibo.dinerdash.model.api.GameEntities.Waitress;
+import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
@@ -24,6 +25,8 @@ public interface Controller {
     void quitWithoutPlaying();
 
     void quit();
+
+    void updateGame();
 
     void gameIsEnded();
 
@@ -101,5 +104,7 @@ public interface Controller {
     int[] getPowerUpsPrices();
 
     void updatePowerUpsButtonsInView();
+
+    GameState getGameState();
 
 }
