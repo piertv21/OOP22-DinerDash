@@ -127,4 +127,8 @@ public interface Model {
 
     int[] getPowerUpsPrices();
 
+    void addMaxCustomerThatCanLeave(int number);
+
+    void increaseCoinsMultiplier();
+
 }

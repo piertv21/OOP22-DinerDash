@@ -31,6 +31,7 @@ public class ModelImpl implements Model{
     private static final int RESTAURANT_HEIGHT = 720;
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
+    private static final int ADDITIONAL_CUSTOMERS_POWERUP = 2;
     private static final int MAX_CUSTOMERS_THAT_CAN_STAY = 8;
     private static final int MAX_CUSTOMERS_THAT_CAN_ENTER = 4;
 
@@ -73,6 +74,7 @@ public class ModelImpl implements Model{
     private int enabledCoinsMultipliers;
     private int remainingTime;
     private int customersWhoLeft;
+    private int maxCustomerThatCanLeave;
     private GameState gameState;
     private Controller controller;
     private long lastCustomerTimeCreation;
@@ -97,6 +99,7 @@ public class ModelImpl implements Model{
         this.enabledCoinsMultipliers = 0;
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
+        this.maxCustomerThatCanLeave = MAX_CUSTOMERS_THAT_CAN_LEAVE;
         this.clear();
         this.generateTables();
 
@@ -471,15 +474,15 @@ public class ModelImpl implements Model{
 
     @Override
     public void increaseMaxCustomerThatCanLeave() {
-        if(this.canAfford(POWER_UP_PRICES[2])) {        //TODO usa corretta funzione
-            this.increaseMaxCustomerThatCanLeave();
+        if(this.canAfford(POWER_UP_PRICES[2])) {
+            this.addMaxCustomerThatCanLeave(ADDITIONAL_CUSTOMERS_POWERUP);
             this.setCoins(this.coins - POWER_UP_PRICES[2]);
         }
     }
 
     @Override
     public void increaseGainMultiplier() {
-        if(this.canAfford(POWER_UP_PRICES[3])) {        //TODO usa corretta funzione
+        if(this.canAfford(POWER_UP_PRICES[3])) {
             this.increaseGainMultiplier();
             this.setCoins(this.coins - POWER_UP_PRICES[3]);
         }
@@ -488,6 +491,16 @@ public class ModelImpl implements Model{
     @Override
     public int[] getPowerUpsPrices() {
         return POWER_UP_PRICES;
+    }
+
+    @Override
+    public void addMaxCustomerThatCanLeave(int number) {
+        this.maxCustomerThatCanLeave = this.maxCustomerThatCanLeave + number;
+    }
+
+    @Override
+    public void increaseCoinsMultiplier() {
+        this.enabledCoinsMultipliers++;
     }
 
 }
