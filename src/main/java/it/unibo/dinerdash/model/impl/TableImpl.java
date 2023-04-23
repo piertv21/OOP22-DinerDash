@@ -20,13 +20,14 @@ public class TableImpl extends AbstractGameEntity implements Table {
     private int SeatedPeople;
 
     private final int TIME_FOR_EATING = 4;
-    private long startEatingTime;
+    private Optional<Long> startEatingTime;
 
     public TableImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
         super(coordinates, size);
         this.tableNumber = i;
         this.SeatedPeople = 0;
         this.customer = Optional.empty();
+        this.startEatingTime = Optional.empty();
         this.state = TableState.EMPTY;
     }
 
@@ -72,8 +73,11 @@ public class TableImpl extends AbstractGameEntity implements Table {
 
     @Override
     public void update() {
-        if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_FOR_EATING) + this.startEatingTime) {
-            state = TableState.WANTING_TO_PAY;
+        if (this.startEatingTime.isPresent()) {
+            if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_FOR_EATING) + this.startEatingTime.get()) {
+                System.out.println("hanno finito");
+                state = TableState.WANTING_TO_PAY;
+            }
         }
     }
 

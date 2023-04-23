@@ -249,6 +249,7 @@ public class ModelImpl implements Model {
 
             // Update tables
             this.tables.forEach(t -> {
+                t.update();
                 controller.updateTablesInView(tables.indexOf(t), t);
             });
 
