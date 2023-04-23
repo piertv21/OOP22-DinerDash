@@ -1,13 +1,14 @@
 # **Diner Dash (OOP22-diner-dash)**
-Scopo del gruppo è realizzare un gioco ispirato a Diner Dash.
 
-**Componenti del gruppo:**
+This program recreates a game very similar to the iconic 2004 Diner Dash.
+
+**Group components:**
 - Pier Costante Babini
 - Marco Giorgi
 - Matteo Donati
 - Federico Benzi
 
-![Diner Dash Example](https://upload.wikimedia.org/wikipedia/it/f/f2/Diner_Dash.png)
+![Diner Dash Example](![image](https://user-images.githubusercontent.com/116550787/233856823-f05943de-0b2a-4bf6-84fc-658f155d17ed.png))
 
-**Funzionamento:**
-L'applicazione consente di controllare una cameriera all'intero di un ristorante. Obiettivo del giocatore è servire quanti più clienti possibile facendoli sedere, prendendo le ordinazioni e servendoli. Terminato il pasto un cliente o gruppo di clienti paga e il guadagno totale del giocatore aumenta. Durante la partita sono attivabili alcuni PowerUp per modificare in-game alcune dinamiche di gioco.
+**Functioning:**
+The application allows the player to control a waitress within a restaurant. The player's goal is to serve as many customers as possible by seating them, taking orders and serving them. When the meal is finished, a customer or group of customers pays, and the player's total earnings increase. Some PowerUp can be activated during the game to modify in-game certain game dynamics.
