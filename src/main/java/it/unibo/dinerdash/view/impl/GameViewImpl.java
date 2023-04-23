@@ -38,6 +38,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
 import it.unibo.dinerdash.view.api.GameEntityViewableImpl;
 import it.unibo.dinerdash.view.api.NumberDecoratorImpl;
+import it.unibo.dinerdash.view.api.OutlinedLabel;
 import it.unibo.dinerdash.view.api.ImageDecoratorImpl;
 
 /*
@@ -84,28 +85,28 @@ public class GameViewImpl extends GamePanel implements GameView {
         topPanel = new JPanel();
         topPanel.setOpaque(false);
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
-        topPanel.setPreferredSize(new Dimension(0, 50));
+        topPanel.setPreferredSize(new Dimension(0, 60));
 
         var controller = this.getMainFrame().getController();
-        timeLabel = new JLabel("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
+        timeLabel = new OutlinedLabel("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()), Color.BLACK);
         timeLabel.setFont(new Font("Arial", Font.BOLD, 25));
         timeLabel.setForeground(Color.WHITE);
-        timeLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+        timeLabel.setBorder(BorderFactory.createEmptyBorder(25, 25, 0, 0));
         topPanel.add(timeLabel);
 
-        customerWhoLeftLabel = new JLabel("Customers who left: " + controller.getCustomersWhoLeft());
+        customerWhoLeftLabel = new OutlinedLabel("Customers who left: " + controller.getCustomersWhoLeft(), Color.BLACK);
         customerWhoLeftLabel.setFont(new Font("Arial", Font.BOLD, 25));
         customerWhoLeftLabel.setForeground(Color.WHITE);
-        customerWhoLeftLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+        customerWhoLeftLabel.setBorder(BorderFactory.createEmptyBorder(25, 10, 0, 0));
         topPanel.add(Box.createHorizontalGlue());
         topPanel.add(customerWhoLeftLabel);
         topPanel.add(Box.createHorizontalGlue());
 
         // TODO Add image coin
-        coinLabel = new JLabel("Coins: " + controller.getCoins());
+        coinLabel = new OutlinedLabel("Coins: " + controller.getCoins(), Color.BLACK);
         coinLabel.setFont(new Font("Arial", Font.BOLD, 25));
         coinLabel.setForeground(Color.WHITE);
-        coinLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
+        coinLabel.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 25));
         topPanel.add(coinLabel);
 
         add(topPanel, BorderLayout.NORTH);
