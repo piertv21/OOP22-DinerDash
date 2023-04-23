@@ -456,7 +456,7 @@ public class ModelImpl implements Model{
     @Override
     public void reduceDishPreparationTime() {
         if(this.canAfford(POWER_UP_PRICES[0])) {
-            this.reduceDishPreparationTime();   //TODO usa corretta funzione
+            this.chef.reducePreparationTime();
             this.setCoins(this.coins - POWER_UP_PRICES[0]);
         }
     }
