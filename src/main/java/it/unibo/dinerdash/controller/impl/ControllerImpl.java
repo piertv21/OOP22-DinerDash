@@ -1,6 +1,6 @@
 package it.unibo.dinerdash.controller.impl;
 
-import java.util.Optional;
+import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
@@ -224,18 +224,9 @@ public class ControllerImpl implements Controller {
     @Override
     public void updatePowerUpsButtonsInView() {
         var prices = this.model.getPowerUpsPrices();
-        for(int i = 0; i < prices.length; i++) {
-            if(prices[i] <= this.model.getCoins()) {
-                this.gameView.updatePowerUpButton(i, Optional.empty(), true);
-            }
-        }
+        IntStream.range(0, prices.length)
+            .filter(i -> prices[i] <= this.model.getCoins())
+            .forEach(i -> this.gameView.updatePowerUpButton(i, true));
     }
 
-    @Override
-    public void addPricesToPowerUpsInView() {
-        var prices = this.model.getPowerUpsPrices();
-        for(int i = 0; i < prices.length; i++) {
-            this.gameView.updatePowerUpButton(i, Optional.of(prices[i] + ""), false);
-        }
-    }
 }

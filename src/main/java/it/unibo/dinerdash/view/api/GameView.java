@@ -1,7 +1,5 @@
 package it.unibo.dinerdash.view.api;
 
-import java.util.Optional;
-
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface GameView {
@@ -53,6 +51,6 @@ public interface GameView {
 
     void updateTablesViewable(int index, int peopleNumber, String state);
 
-    void updatePowerUpButton(int index, Optional<String> text, boolean active);
-    
+    void updatePowerUpButton(int index, boolean active);
+
 }

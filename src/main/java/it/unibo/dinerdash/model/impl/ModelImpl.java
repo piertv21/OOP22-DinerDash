@@ -113,8 +113,6 @@ public class ModelImpl implements Model{
         this.waitress = this.factory.createWaitress(waitressPosition, waitressSize, this);
         this.controller.addWaitressToView(waitress);
         this.lastCustomerTimeCreation = System.nanoTime();
-
-        this.controller.addPricesToPowerUpsInView();
     }
 
     // Tavoli

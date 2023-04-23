@@ -100,8 +100,6 @@ public interface Controller {
 
     int[] getPowerUpsPrices();
 
-    void addPricesToPowerUpsInView();
-
     void updatePowerUpsButtonsInView();
 
 }

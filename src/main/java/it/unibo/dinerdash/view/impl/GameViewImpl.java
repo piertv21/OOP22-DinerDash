@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -133,15 +135,18 @@ public class GameViewImpl extends GamePanel implements GameView {
         c.insets.right = 8;
         
         var prices = controller.getPowerUpsPrices();
-        for(int i = 0; i < prices.length; i++) {
-            var button = new JButton(prices[i]+"");
-            int index = i + 1;
-            button.addActionListener( e -> controller.enablePowerUp(index) );
-            button.setEnabled(false);
-            rightPanel.add(button, c);
-            this.powerupButtons.add(button);
-            c.gridy++;
-        }
+        IntStream.range(0, prices.length)
+            .forEach(i -> {
+                JButton button = new JButton(prices[i]+"", this.imageCacher.getCachedImage("powerUp" + (i + 1)));
+                button.setHorizontalTextPosition(JButton.CENTER);
+                button.setVerticalTextPosition(JButton.BOTTOM);
+                button.addActionListener(e -> controller.enablePowerUp(i));
+                button.setEnabled(false);
+                rightPanel.add(button, c);
+                this.powerupButtons.add(button);
+                c.gridy++;
+            }
+        );
 
         add(rightPanel, BorderLayout.EAST);
 
@@ -480,11 +485,8 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     @Override
-    public void updatePowerUpButton(int index, Optional<String> text, boolean active) {
+    public void updatePowerUpButton(int index, boolean active) {
         var button = powerupButtons.get(index);
-        if(text.isPresent() && !button.getText().equals(text.get())) {
-            button.setText(text.get());
-        }
         if(button.isEnabled() != active) {
             button.setEnabled(active);
         }
