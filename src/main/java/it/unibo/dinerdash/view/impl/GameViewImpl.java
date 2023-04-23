@@ -330,7 +330,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                     this);
         }
 
-        this.dishes.forEach(dish ->
+        this.dishes.stream().filter(dish -> dish.isActive()).forEach(dish ->
             g.drawImage(dish.getIcon(),
                     (int) (dish.getPosition().getX() * widthRatio),
                     (int) (dish.getPosition().getY() * heightRatio),
