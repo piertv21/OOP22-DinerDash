@@ -182,7 +182,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                         .ifPresent(table -> controller.callWaitress(tables.indexOf(table), "t", null));
 
                 dishes.stream()
-                        .filter(dish -> inside(mouseX, mouseY, dish))
+                        .filter(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
                         .findFirst()
                         .ifPresent(dish -> controller.callWaitress(dishes.indexOf(dish), "d", dish.getPosition()));
             }
