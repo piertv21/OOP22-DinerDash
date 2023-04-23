@@ -372,7 +372,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.customers.get(index).update(coordinates, active);
         var client = ((NumberDecoratorImpl) this.customers.get(index).getDecorated());
 
-        if (client.getNumber() != patience) {
+        if (client.getNumber() != patience && patience != -1) {
             var img = this.imageCacher.getCachedImage("heart" + patience).getImage();
             this.customers.get(index).setState(Optional.of(img));
             client.setNumber(patience);
