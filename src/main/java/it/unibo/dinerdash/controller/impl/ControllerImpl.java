@@ -41,7 +41,7 @@ public class ControllerImpl implements Controller {
         this.gameView = gameView;
         this.model.start();
 
-        this.gameLoop = new GameLoopImpl(this.model, this);
+        this.gameLoop = new GameLoopImpl(this);
         this.gameLoop.start();
 
         this.gameTimer = new GameTimerImpl(this.model);
@@ -79,6 +79,12 @@ public class ControllerImpl implements Controller {
         this.model.clear();
         this.gameView.clear();
         this.quitWithoutPlaying();
+    }
+
+    @Override
+    public void updateGame() {
+        this.model.update();
+        this.updateView();
     }
 
     @Override
@@ -227,6 +233,11 @@ public class ControllerImpl implements Controller {
         IntStream.range(0, prices.length)
             .filter(i -> prices[i] <= this.model.getCoins())
             .forEach(i -> this.gameView.updatePowerUpButton(i, true));
+    }
+
+    @Override
+    public GameState getGameState() {
+        return this.model.getGameState();
     }
 
 }

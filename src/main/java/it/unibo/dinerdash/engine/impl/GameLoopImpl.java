@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
-import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.States.GameState;
 
 public class GameLoopImpl implements GameLoop, Runnable {
@@ -13,7 +12,6 @@ public class GameLoopImpl implements GameLoop, Runnable {
     private static final int TARGET_FPS = 60;
     private static final long TARGET_FRAME_TIME = TimeUnit.SECONDS.toNanos(1) / TARGET_FPS;
 
-    private final Model model;
     private final Controller controller;
 
     private volatile boolean running = false;
@@ -22,8 +20,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
 
     private Thread thread;
 
-    public GameLoopImpl(Model model, Controller controller) {
-        this.model = model;
+    public GameLoopImpl(Controller controller) {
         this.controller = controller;
     }
 
@@ -55,14 +52,10 @@ public class GameLoopImpl implements GameLoop, Runnable {
             lastTime = currentTime;
             delta += elapsedTime / (double) TARGET_FRAME_TIME;
 
-            if (delta >= 1.0 && model.getGameState() == GameState.RUNNING) {
-
-                synchronized (model) {
-                    this.model.update();
-                }
+            if (delta >= 1.0 && this.controller.getGameState() == GameState.RUNNING) {
 
                 synchronized (controller) {
-                    this.controller.updateView();
+                    this.controller.updateGame();
                 }
 
                 delta--;
