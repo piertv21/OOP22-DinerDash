@@ -25,7 +25,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 /*
  * Solo metodi getter e setter sulle entità model
  */
-public class ModelImpl implements Model{
+public class ModelImpl implements Model {
 
     private static final int RESTAURANT_WIDTH = 1280;
     private static final int RESTAURANT_HEIGHT = 720;
@@ -48,19 +48,19 @@ public class ModelImpl implements Model{
     private static final int TABLE_REL_WIDTH = 150;
     private static final int TABLE_REL_HEIGHT = 150;
 
-    private static final int CUSTOMER_REL_WIDTH = 100; 
-    private static final int CUSTOMER_REL_HEIGHT = 150; 
+    private static final int CUSTOMER_REL_WIDTH = 100;
+    private static final int CUSTOMER_REL_HEIGHT = 150;
     private static final int CUSTOMER_IN_LINE_PADDING = 100;
     private static final double CUSTOMER_FIRST_LINE_REL_X = 0.04 * RESTAURANT_WIDTH;
     private static final double CUSTOMER_FIRST_LINE_REL_Y = 0.67 * RESTAURANT_HEIGHT;
     private static final int CUSTOMERS_CREATION_TIME = 6;
     private static final int CUSTOMER_START_X = 0;
-    private static final int  CUSTOMER_START_Y = 330;
+    private static final int CUSTOMER_START_Y = 330;
 
-    private static final int WAITRESS_STARTING_X = 40;
-    private static final int WAITRESS_STARTING_Y = 120;
-    private static final int WAITRESS_REL_WIDTH = 120;
-    private static final int WAITRESS_REL_HEIGH = 180;
+    private static final int WAITRESS_STARTING_X = (int) (RESTAURANT_WIDTH * 0.53);
+    private static final int WAITRESS_STARTING_Y = (int) (RESTAURANT_HEIGHT * 0.20);
+    private static final int WAITRESS_REL_WIDTH = 90;
+    private static final int WAITRESS_REL_HEIGH = 150;
     private static final int WAITRESS_MAX_DISHES = 2;
 
     private static final int CHEF_REL_X = (int) (RESTAURANT_WIDTH * 0.65);
@@ -68,7 +68,7 @@ public class ModelImpl implements Model{
     private static final int CHEF_REL_WIDTH = 150;
     private static final int CHEF_REL_HEIGHT = 120;
 
-    private static final int[] POWER_UP_PRICES = {100, 150, 220, 310};
+    private static final int[] POWER_UP_PRICES = { 100, 150, 220, 310 };
 
     private int coins;
     private int enabledCoinsMultipliers;
@@ -179,9 +179,9 @@ public class ModelImpl implements Model{
     }
 
     @Override
-	public int getCustomersWhoLeft() {
-		return this.customersWhoLeft;
-	}
+    public int getCustomersWhoLeft() {
+        return this.customersWhoLeft;
+    }
 
     @Override
     public void sendOrder(int tableNumber) {
@@ -263,7 +263,7 @@ public class ModelImpl implements Model{
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))) {
             final Customer tempCustomerToDelete = this.customers.stream()
                     .filter(p -> p.getState() // Get frist angry customer
-                    .equals(CustomerState.ANGRY))
+                            .equals(CustomerState.ANGRY))
                     .findFirst()
                     .get();
 
@@ -456,7 +456,7 @@ public class ModelImpl implements Model{
 
     @Override
     public void reduceDishPreparationTime() {
-        if(this.canAfford(POWER_UP_PRICES[0])) {
+        if (this.canAfford(POWER_UP_PRICES[0])) {
             this.chef.reducePreparationTime();
             this.setCoins(this.coins - POWER_UP_PRICES[0]);
         }
@@ -464,15 +464,15 @@ public class ModelImpl implements Model{
 
     @Override
     public void increaseWaitressSpeed() {
-        if(this.canAfford(POWER_UP_PRICES[1])) {
-            this.waitress.incrementSpeed();     
+        if (this.canAfford(POWER_UP_PRICES[1])) {
+            this.waitress.incrementSpeed();
             this.setCoins(this.coins - POWER_UP_PRICES[1]);
         }
     }
 
     @Override
     public void increaseMaxCustomerThatCanLeave() {
-        if(this.canAfford(POWER_UP_PRICES[2])) {
+        if (this.canAfford(POWER_UP_PRICES[2])) {
             this.addMaxCustomerThatCanLeave(ADDITIONAL_CUSTOMERS_POWERUP);
             this.setCoins(this.coins - POWER_UP_PRICES[2]);
         }
@@ -480,7 +480,7 @@ public class ModelImpl implements Model{
 
     @Override
     public void increaseGainMultiplier() {
-        if(this.canAfford(POWER_UP_PRICES[3])) {
+        if (this.canAfford(POWER_UP_PRICES[3])) {
             this.increaseGainMultiplier();
             this.setCoins(this.coins - POWER_UP_PRICES[3]);
         }
