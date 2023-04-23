@@ -252,7 +252,6 @@ public class ModelImpl implements Model{
             });
 
             this.controller.updatePowerUpsButtonsInView();
-            if(remainingTime < 295){this.coins = 300;}
         } else {
             this.stop();
         }
@@ -465,7 +464,6 @@ public class ModelImpl implements Model{
     @Override
     public void increaseWaitressSpeed() {
         if(this.canAfford(POWER_UP_PRICES[1])) {
-            System.out.println("sono qui "+POWER_UP_PRICES[1]);
             this.waitress.incrementSpeed();     
             this.setCoins(this.coins - POWER_UP_PRICES[1]);
         }
