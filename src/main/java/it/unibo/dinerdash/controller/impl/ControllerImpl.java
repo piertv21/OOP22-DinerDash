@@ -208,10 +208,10 @@ public class ControllerImpl implements Controller {
     @Override
     public void enablePowerUp(int index) {
         switch (index) {
-            case 1 -> this.model.reduceDishPreparationTime();
-            case 2 -> this.model.increaseWaitressSpeed();
-            case 3 -> this.model.increaseMaxCustomerThatCanLeave();
-            case 4 -> this.model.increaseGainMultiplier();
+            case 0 -> this.model.reduceDishPreparationTime();
+            case 1 -> this.model.increaseWaitressSpeed();
+            case 2 -> this.model.increaseMaxCustomerThatCanLeave();
+            case 3 -> this.model.increaseGainMultiplier();
             default -> throw new UnsupportedOperationException("Invalid PowerUp Index");
         }
     }
