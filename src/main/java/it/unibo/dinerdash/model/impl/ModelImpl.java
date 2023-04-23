@@ -399,7 +399,7 @@ public class ModelImpl implements Model {
                         this.waitress.collectMoney(tables.get(indexL).getPosition());
                         break;
                     case WAITING_MEAL:
-                        this.waitress.serveOrder(pos);
+                        this.waitress.serveOrder(tables.get(indexL).getPosition());
                         break;
                     default:
                         break;

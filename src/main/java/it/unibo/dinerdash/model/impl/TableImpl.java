@@ -83,7 +83,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
             case ORDERING:
                 return "wantToOrder";
             case WANTING_TO_PAY:
-                return "wantTOPay";
+                return "wantToPay";
             case EATING:
                 return "eating";
             default:
