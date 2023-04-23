@@ -45,9 +45,10 @@ import it.unibo.dinerdash.view.api.ImageDecoratorImpl;
  */
 public class GameViewImpl extends GamePanel implements GameView {
 
-    private static int HEAD_PATTEN = -20;
+    private static int CUSTOMER_PATIENCE_REL_POSITION = -20;
     private static int MAX_PATIECE = 7;
-    private static Pair<Integer, Integer> CLIENT_PATIENCE_IMG_SIZE = new Pair<Integer, Integer>(100, 30);
+    private static Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
+    private static Pair<Integer, Integer> TABLE_STATE_IMG_POSITION = new Pair<>(60, 40);
     
     private JLabel timeLabel;
     private JLabel customerWhoLeftLabel;
@@ -276,8 +277,12 @@ public class GameViewImpl extends GamePanel implements GameView {
                             this);
 
                     if (e.getState().isPresent()) {
-                        g.drawImage(e.getState().get(), (int) (e.getPosition().getX() * widthRatio),
-                                (int) (e.getPosition().getY() * heightRatio), 50, 30, this);
+                        g.drawImage(e.getState().get(), 
+                            (int) (e.getPosition().getX() * widthRatio),
+                            (int) (e.getPosition().getY() * heightRatio),
+                            TABLE_STATE_IMG_POSITION.getX(),
+                            TABLE_STATE_IMG_POSITION.getY(),
+                        this);
                     }
                 });
 
@@ -308,10 +313,10 @@ public class GameViewImpl extends GamePanel implements GameView {
                     this);
 
             g.drawImage(c.getState().get(),
-                    (int) ((c.getPosition().getX() - HEAD_PATTEN) * widthRatio),
-                    (int) ((c.getPosition().getY() + HEAD_PATTEN) * heightRatio),
-                    (int) (CLIENT_PATIENCE_IMG_SIZE.getX() * widthRatio),
-                    (int) (CLIENT_PATIENCE_IMG_SIZE.getY() * heightRatio),
+                    (int) ((c.getPosition().getX() - CUSTOMER_PATIENCE_REL_POSITION) * widthRatio),
+                    (int) ((c.getPosition().getY() + CUSTOMER_PATIENCE_REL_POSITION) * heightRatio),
+                    (int) (CUSTOMER_PATIENCE_IMG_SIZE.getX() * widthRatio),
+                    (int) (CUSTOMER_PATIENCE_IMG_SIZE.getY() * heightRatio),
                     this);
         });
 
