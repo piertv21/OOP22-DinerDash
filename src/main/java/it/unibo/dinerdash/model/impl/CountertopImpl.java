@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.model.api.Countertop;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
@@ -15,11 +16,11 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 public class CountertopImpl implements Countertop {
 
-    private static final double START_DISH_REL_X = 0.37;
-    private static final double START_DISH_REL_Y = 0.2;
-    private static final int DISHES_X_PADDING = 80;
-    private static final int DISH_REL_WIDTH = 50;
-    private static final int DISH_REL_HEIGHT = 50;
+    private static final int START_DISH_REL_X = (int) (0.37 * Constants.RESTAURANT_WIDTH);
+    private static final int START_DISH_REL_Y = (int) (0.20 * Constants.RESTAURANT_HEIGHT);
+    private static final int DISHES_X_PADDING = (int) (0.06 * Constants.RESTAURANT_WIDTH);
+    private static final int DISH_REL_WIDTH = (int) (0.04 * Constants.RESTAURANT_WIDTH);
+    private static final int DISH_REL_HEIGHT = (int) (0.07 * Constants.RESTAURANT_HEIGHT);
     private static final int MAX_COUNTERTOP_DISHES = 4;
     private GameEntityFactory factory;
 
@@ -37,7 +38,7 @@ public class CountertopImpl implements Countertop {
         if(this.dishes.size() < MAX_COUNTERTOP_DISHES) {
 
             var coordX = this.getFirstFreeX();
-            var coordY = (int)(START_DISH_REL_Y * this.model.getHeight());
+            var coordY = START_DISH_REL_Y;
             var dishPosition = new Pair<>(coordX, coordY);
             var dishSize = new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT);
             var dish = this.factory.createDish(dishPosition, dishSize, tableNumber);
@@ -49,7 +50,7 @@ public class CountertopImpl implements Countertop {
 
     private int getFirstFreeX() {
         // Punto iniziale
-        int startPoint = (int)(START_DISH_REL_X * this.model.getWidth());
+        int startPoint = START_DISH_REL_X;
     
         // Creo una lista ordinata delle coordinate X dei piatti presenti nella lista
         List<Integer> xCoordinates = dishes.stream()
