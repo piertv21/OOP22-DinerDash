@@ -19,7 +19,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     private TableState state;
     private int SeatedPeople;
 
-    private final int TIME_FOR_EATING = 4;
+    private final int TIME_FOR_EATING = 4;  //TODO Genera casuale
     private Optional<Long> startEatingTime;
 
     public TableImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {

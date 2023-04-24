@@ -16,7 +16,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public class WaitressImpl extends AbstractGameEntityMovable implements Waitress {
 
-    private static int SPEED = 2;
+    private static final int STARTING_SPEED = 2;
     private static final double WAITRESS_SPEED_MULTIPLIER = 1.5;
 
     private WaitressState state;
@@ -27,7 +27,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     private int serveTable;
 
     public WaitressImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model) {
-        super(coordinates, size, SPEED);
+        super(coordinates, size, STARTING_SPEED);
         this.state = WaitressState.WAITING;
         this.orderList = new LinkedList<>();
         this.model = model;

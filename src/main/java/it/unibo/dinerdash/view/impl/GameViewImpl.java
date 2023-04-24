@@ -80,8 +80,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         this.init();
         this.backgroundImage = this.imageCacher.getCachedImage("background").getImage();
-
-        // top panel
+        
         topPanel = new JPanel();
         topPanel.setOpaque(false);
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
@@ -101,8 +100,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         topPanel.add(Box.createHorizontalGlue());
         topPanel.add(customerWhoLeftLabel);
         topPanel.add(Box.createHorizontalGlue());
-
-        // TODO Add image coin
+        
         coinLabel = new OutlinedLabel("Coins: " + controller.getCoins(), Color.BLACK);
         coinLabel.setFont(new Font("Arial", Font.BOLD, 25));
         coinLabel.setForeground(Color.WHITE);
@@ -110,8 +108,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         topPanel.add(coinLabel);
 
         add(topPanel, BorderLayout.NORTH);
-
-        // bottom panel
+        
         bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         bottomPanel.setOpaque(false);
         bottomPanel.setPreferredSize(new Dimension(0, 30));
@@ -124,8 +121,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         bottomPanel.add(pauseButton, BorderLayout.EAST);
 
         add(bottomPanel, BorderLayout.SOUTH);
-
-        // right panel
+        
         rightPanel = new JPanel(new GridBagLayout());
         rightPanel.setOpaque(false);
 
@@ -138,16 +134,16 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         var prices = controller.getPowerUpsPrices();
         IntStream.range(0, prices.length)
-                .forEach(i -> {
-                    JButton button = new JButton(String.valueOf(prices[i]), this.imageCacher.getCachedImage("powerUp" + (i + 1)));
-                    button.setHorizontalTextPosition(JButton.CENTER);
-                    button.setVerticalTextPosition(JButton.BOTTOM);
-                    button.addActionListener(e -> controller.enablePowerUp(i));
-                    button.setEnabled(false);
-                    rightPanel.add(button, c);
-                    this.powerupButtons.add(button);
-                    c.gridy++;
-                });
+            .forEach(i -> {
+                JButton button = new JButton(String.valueOf(prices[i]), this.imageCacher.getCachedImage("powerUp" + (i + 1)));
+                button.setHorizontalTextPosition(JButton.CENTER);
+                button.setVerticalTextPosition(JButton.BOTTOM);
+                button.addActionListener(e -> controller.enablePowerUp(i));
+                button.setEnabled(false);
+                rightPanel.add(button, c);
+                this.powerupButtons.add(button);
+                c.gridy++;
+            });
 
         add(rightPanel, BorderLayout.EAST);
 

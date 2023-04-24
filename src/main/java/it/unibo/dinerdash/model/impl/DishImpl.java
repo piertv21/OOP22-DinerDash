@@ -9,7 +9,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public class DishImpl extends AbstractGameEntity implements Dish {
 
-    private int dishNumber; // = numeroTavolo
+    private int dishNumber;
 
     public DishImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int dishNumber) {
         super(coordinates, size);
