@@ -1,13 +1,15 @@
 package it.unibo.dinerdash.view.impl;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
 import javax.swing.*;
 
 import it.unibo.dinerdash.view.api.GamePanel;
 
 /*
  * Starting Game Menu with 2 buttons
- * TODO: Aggiungi eventuale immagine di sfondo
  */
 public class StartView extends GamePanel {
     
@@ -34,14 +36,27 @@ public class StartView extends GamePanel {
         gridBagConstraints.gridy = 1;
         startButton = new JButton(START);
         startButton.addActionListener((e) -> this.getMainFrame().showGameView());
-        startButton.setPreferredSize(new Dimension(300, 40));
         add(startButton, gridBagConstraints);
 
         gridBagConstraints.gridy = 2;
         exitButton = new JButton(EXIT);        
         exitButton.addActionListener((e) -> this.getMainFrame().getController().quitWithoutPlaying());
-        exitButton.setPreferredSize(new Dimension(300, 40));
         add(exitButton, gridBagConstraints);
-    }
+        
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int height = getHeight();
+                int width = getWidth();
 
+                titleLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.15)));
+
+                int buttonWidth = (int)(width * 0.3);
+                int buttonHeight = (int)(height * 0.08);
+
+                startButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+                exitButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+            }
+        });
+    }
 }
