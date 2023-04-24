@@ -68,7 +68,7 @@ public class ModelImpl implements Model {
     private static final int CHEF_REL_WIDTH = 150;
     private static final int CHEF_REL_HEIGHT = 120;
 
-    private static final int[] POWER_UP_PRICES = { 100, 150, 220, 310 };
+    private static final int[] POWER_UP_PRICES = {100, 150, 220, 310};
 
     private int coins;
     private int enabledCoinsMultipliers;
@@ -100,6 +100,7 @@ public class ModelImpl implements Model {
         this.remainingTime = MAX_PLAYTIME;
         this.customersWhoLeft = 0;
         this.maxCustomerThatCanLeave = MAX_CUSTOMERS_THAT_CAN_LEAVE;
+        this.lastCustomerTimeCreation = 0;
         this.clear();
         this.generateTables();
 
@@ -499,7 +500,7 @@ public class ModelImpl implements Model {
     @Override
     public void increaseGainMultiplier() {
         if (this.canAfford(POWER_UP_PRICES[3])) {
-            this.increaseGainMultiplier();
+            this.increaseCoinsMultiplier();
             this.handlePowerUpActivation(POWER_UP_PRICES[3]);
         }
     }
