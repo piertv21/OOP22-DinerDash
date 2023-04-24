@@ -110,8 +110,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-	public int getCustomersWhoLeft() {
-		return this.model.getCustomersWhoLeft();
+	public String getCustomersWhoLeft() {
+		return this.model.getCustomersWhoLeft() + "/" + this.model.getCustomerWhoCanLeft();
 	}
 
     @Override

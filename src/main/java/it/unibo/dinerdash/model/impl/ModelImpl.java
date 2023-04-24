@@ -33,7 +33,7 @@ public class ModelImpl implements Model {
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final int ADDITIONAL_CUSTOMERS_POWERUP = 2;
     private static final int MAX_CUSTOMERS_THAT_CAN_STAY = 8;
-    private static final int MAX_CUSTOMERS_THAT_CAN_ENTER = 4;
+    private static final int MAX_CUSTOMERS_THAT_MULTIPLICITY = 4;
 
     private static final int PROFIT_PER_TABLE_MIN = 80;
     private static final int PROFIT_PER_TABLE_MAX = 150;
@@ -168,8 +168,8 @@ public class ModelImpl implements Model {
 
     @Override
     public boolean gameOver() {
-        return this.remainingTime == 0 ||
-                this.customersWhoLeft == MAX_CUSTOMERS_THAT_CAN_LEAVE;
+        return this.remainingTime <= 0 ||
+                this.customersWhoLeft >= this.maxCustomerThatCanLeave;
     }
 
     @Override
@@ -184,6 +184,11 @@ public class ModelImpl implements Model {
     }
 
     @Override
+    public int getCustomerWhoCanLeft() {
+        return this.maxCustomerThatCanLeave;
+    }
+
+    @Override
     public void sendOrder(int tableNumber) {
         this.counterTop.addOrder(tableNumber);
         this.setTableState(TableState.WAITING_MEAL, tableNumber);
@@ -195,7 +200,7 @@ public class ModelImpl implements Model {
             this.stop();
         }
         final var position = new Pair<>(CUSTOMER_START_X, CUSTOMER_START_Y);
-        final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_THAT_CAN_ENTER)) + 1;
+        final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_THAT_MULTIPLICITY)) + 1;
         var tempClient = this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity);
         this.customers.add(tempClient);

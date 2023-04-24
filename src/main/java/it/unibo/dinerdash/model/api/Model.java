@@ -31,6 +31,8 @@ public interface Model {
 
     int getCustomersWhoLeft();
 
+    int getCustomerWhoCanLeft();
+
     /**
      * used to create a new Customer
      */
@@ -100,8 +102,6 @@ public interface Model {
     Optional<Dish> getDishToPrepare();
 
     void completeDishPreparation(Dish dish);
-
-    // TODO Aggiungi funzioni dish (pronto preso)
 
     void earnMoneyFromTable();
 

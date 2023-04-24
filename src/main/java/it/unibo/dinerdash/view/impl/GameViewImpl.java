@@ -350,11 +350,12 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addCustomerViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active,
-            int multiplicity,
-            int patience) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int multiplicity,
+        int patience
+    ) {
         var client = new ImageDecoratorImpl(
                 new NumberDecoratorImpl(
                         new GameEntityViewableImpl(coordinates, size, active,
@@ -365,10 +366,11 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void updateCustomersViewable(
-            int index,
-            Pair<Integer, Integer> coordinates,
-            boolean active,
-            int patience) {
+        int index,
+        Pair<Integer, Integer> coordinates,
+        boolean active,
+        int patience
+    ) {
         this.customers.get(index).update(coordinates, active);
         var client = ((NumberDecoratorImpl) this.customers.get(index).getDecorated());
 
@@ -386,9 +388,10 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addChefViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active
+    ) {
         this.chef = new GameEntityViewableImpl(
                 coordinates, size, active, this.imageCacher.getCachedImage("chef").getImage());
     }
@@ -400,10 +403,11 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addWaitressViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active,
-            int numDishes) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int numDishes
+    ) {
         this.waitress = new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active,
                         this.imageCacher.getCachedImage("waitress" + numDishes).getImage()));
@@ -423,10 +427,11 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addDishViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active,
-            int numTable) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int numTable
+    ) {
         var img = this.imageCacher.getCachedImage("dish" + numTable).getImage();
         var dish = new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active, img));
@@ -447,10 +452,11 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addTableViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            int peopleNumer,
-            String state) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        int peopleNumer,
+        String state
+    ) {
         var img = this.imageCacher.getCachedImage("table" + peopleNumer).getImage();
         var table = new ImageDecoratorImpl(new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, true, img)));
@@ -482,7 +488,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void updatePowerUpButton(int index, boolean active) {
-        powerupButtons.stream()
+        this.powerupButtons.stream()
             .skip(index)
             .findFirst()
             .ifPresent(button -> button.setEnabled(button.isEnabled() != active ? active : button.isEnabled()));
