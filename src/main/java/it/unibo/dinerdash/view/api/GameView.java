@@ -47,7 +47,7 @@ public interface GameView {
 
     void deleteDishViewable(int index);
     
-    void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int peopleNumer, String state);
+    void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int peopleNumer, String state);
 
     void updateTablesViewable(int index, int peopleNumber, String state);
 

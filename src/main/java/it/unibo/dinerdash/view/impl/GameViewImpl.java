@@ -454,12 +454,13 @@ public class GameViewImpl extends GamePanel implements GameView {
     public void addTableViewable(
         Pair<Integer, Integer> coordinates,
         Pair<Integer, Integer> size,
+        boolean active,
         int peopleNumer,
         String state
     ) {
         var img = this.imageCacher.getCachedImage("table" + peopleNumer).getImage();
         var table = new ImageDecoratorImpl(new NumberDecoratorImpl(
-                new GameEntityViewableImpl(coordinates, size, true, img)));
+                new GameEntityViewableImpl(coordinates, size, active, img)));
         ((NumberDecoratorImpl) table.getDecorated()).setNumber(peopleNumer);
         table.setState(Optional.empty());
         this.tables.add(table);
@@ -470,14 +471,14 @@ public class GameViewImpl extends GamePanel implements GameView {
         var tempTable = (NumberDecoratorImpl) tables.get(index).getDecorated();
         if (tempTable.getNumber() != peopleNumber) {
             tempTable.setNumber(peopleNumber);
-            Image img = this.imageCacher.getCachedImage("table" + peopleNumber).getImage();
+            var img = this.imageCacher.getCachedImage("table" + peopleNumber).getImage();
             tempTable.setIcon(img);
         }
-        if (!state.isBlank()) {
+        if (!state.isEmpty()) {
             if (state.equals("eating")) {
                 tempTable.setIcon(this.imageCacher.getCachedImage("tableWithDish" + peopleNumber).getImage());
             } else {
-                Image imgState = this.imageCacher.getCachedImage(state).getImage();
+                var imgState = this.imageCacher.getCachedImage(state).getImage();
                 tables.get(index).setState(Optional.of(imgState));
             }
         } else if (tables.get(index).getState().isPresent()) {

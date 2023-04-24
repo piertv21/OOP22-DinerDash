@@ -203,7 +203,7 @@ public class ControllerImpl implements Controller {
 
     @Override
     public void addTableToView(Table table) {
-        this.gameView.addTableViewable(table.getPosition(), table.getSize(), table.getPeopleSeatedNumber(), "");
+        this.gameView.addTableViewable(table.getPosition(), table.getSize(), table.isActive(), table.getPeopleSeatedNumber(), "");
     }
 
     @Override
@@ -230,9 +230,9 @@ public class ControllerImpl implements Controller {
     @Override
     public void updatePowerUpsButtonsInView() {
         var prices = this.model.getPowerUpsPrices();
+        var coins = this.model.getCoins();
         IntStream.range(0, prices.length)
-            .filter(i -> prices[i] <= this.model.getCoins())
-            .forEach(i -> this.gameView.updatePowerUpButton(i, true));
+            .forEach(i -> this.gameView.updatePowerUpButton(i, prices[i] <= coins ? true : false));
     }
 
     @Override
