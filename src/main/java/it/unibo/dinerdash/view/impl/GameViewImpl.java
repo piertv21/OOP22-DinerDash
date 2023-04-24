@@ -139,7 +139,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         var prices = controller.getPowerUpsPrices();
         IntStream.range(0, prices.length)
                 .forEach(i -> {
-                    JButton button = new JButton(prices[i] + "", this.imageCacher.getCachedImage("powerUp" + (i + 1)));
+                    JButton button = new JButton(String.valueOf(prices[i]), this.imageCacher.getCachedImage("powerUp" + (i + 1)));
                     button.setHorizontalTextPosition(JButton.CENTER);
                     button.setVerticalTextPosition(JButton.BOTTOM);
                     button.addActionListener(e -> controller.enablePowerUp(i));
@@ -482,10 +482,10 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void updatePowerUpButton(int index, boolean active) {
-        var button = powerupButtons.get(index);
-        if (button.isEnabled() != active) {
-            button.setEnabled(active);
-        }
-    }
+        powerupButtons.stream()
+            .skip(index)
+            .findFirst()
+            .ifPresent(button -> button.setEnabled(button.isEnabled() != active ? active : button.isEnabled()));
+    }    
 
 }

@@ -232,8 +232,6 @@ public class ModelImpl implements Model {
             this.chef.update();
             this.controller.updateChefInView(this.chef);
 
-            // TODO Piatti
-
             // Update Waitress
             this.waitress.handleMovement();
             this.controller.updateWaitressInView(this.waitress);
@@ -253,6 +251,7 @@ public class ModelImpl implements Model {
                 controller.updateTablesInView(tables.indexOf(t), t);
             });
 
+            // Update PowerUp buttons state
             this.controller.updatePowerUpsButtonsInView();
         } else {
             this.stop();
@@ -463,11 +462,16 @@ public class ModelImpl implements Model {
         return this.coins >= price;
     }
 
+    private void handlePowerUpActivation(int cost) {
+        this.setCoins(this.coins - cost);
+        this.controller.updatePowerUpsButtonsInView();
+    }
+
     @Override
     public void reduceDishPreparationTime() {
         if (this.canAfford(POWER_UP_PRICES[0])) {
             this.chef.reducePreparationTime();
-            this.setCoins(this.coins - POWER_UP_PRICES[0]);
+            this.handlePowerUpActivation(POWER_UP_PRICES[0]);
         }
     }
 
@@ -475,7 +479,7 @@ public class ModelImpl implements Model {
     public void increaseWaitressSpeed() {
         if (this.canAfford(POWER_UP_PRICES[1])) {
             this.waitress.incrementSpeed();
-            this.setCoins(this.coins - POWER_UP_PRICES[1]);
+            this.handlePowerUpActivation(POWER_UP_PRICES[1]);
         }
     }
 
@@ -483,7 +487,7 @@ public class ModelImpl implements Model {
     public void increaseMaxCustomerThatCanLeave() {
         if (this.canAfford(POWER_UP_PRICES[2])) {
             this.addMaxCustomerThatCanLeave(ADDITIONAL_CUSTOMERS_POWERUP);
-            this.setCoins(this.coins - POWER_UP_PRICES[2]);
+            this.handlePowerUpActivation(POWER_UP_PRICES[2]);
         }
     }
 
@@ -491,7 +495,7 @@ public class ModelImpl implements Model {
     public void increaseGainMultiplier() {
         if (this.canAfford(POWER_UP_PRICES[3])) {
             this.increaseGainMultiplier();
-            this.setCoins(this.coins - POWER_UP_PRICES[3]);
+            this.handlePowerUpActivation(POWER_UP_PRICES[3]);
         }
     }
 
