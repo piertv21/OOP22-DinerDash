@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import it.unibo.dinerdash.controller.api.Controller;
+import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.model.api.Countertop;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.GameEntities.Chef;
@@ -27,9 +28,6 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public class ModelImpl implements Model {
 
-    private static final int RESTAURANT_WIDTH = 1280;
-    private static final int RESTAURANT_HEIGHT = 720;
-
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final int ADDITIONAL_CUSTOMERS_POWERUP = 2;
     private static final int MAX_CUSTOMERS_THAT_CAN_STAY = 8;
@@ -40,32 +38,32 @@ public class ModelImpl implements Model {
     private static final int MAX_PLAYTIME = 5 * 60;
 
     private static final int TABLES = 4;
-    private static final int TABLE_STARTING_REL_X = (int) (0.35 * RESTAURANT_WIDTH);
-    private static final int TABLE_STARTING_REL_Y = (int) (0.40 * RESTAURANT_HEIGHT);
-    private static final int TABLES_HORIZONTAL_PADDING = (int) (0.31 * RESTAURANT_WIDTH);
-    private static final int TABLES_VERTICAL_PADDING = (int) (0.27 * RESTAURANT_HEIGHT);
-    private static final int TABLE_REL_WIDTH = (int) (0.12 * RESTAURANT_WIDTH);
-    private static final int TABLE_REL_HEIGHT = (int) (0.21 * RESTAURANT_HEIGHT);
+    private static final int TABLE_STARTING_REL_X = (int) (0.35 * Constants.RESTAURANT_WIDTH);
+    private static final int TABLE_STARTING_REL_Y = (int) (0.40 * Constants.RESTAURANT_HEIGHT);
+    private static final int TABLES_HORIZONTAL_PADDING = (int) (0.31 * Constants.RESTAURANT_WIDTH);
+    private static final int TABLES_VERTICAL_PADDING = (int) (0.27 * Constants.RESTAURANT_HEIGHT);
+    private static final int TABLE_REL_WIDTH = (int) (0.12 * Constants.RESTAURANT_WIDTH);
+    private static final int TABLE_REL_HEIGHT = (int) (0.21 * Constants.RESTAURANT_HEIGHT);
 
-    private static final int CUSTOMER_REL_WIDTH = (int) (0.08 * RESTAURANT_WIDTH);
-    private static final int CUSTOMER_REL_HEIGHT = (int) (0.21 * RESTAURANT_HEIGHT);
-    private static final int CUSTOMER_IN_LINE_PADDING = (int) (0.14 * RESTAURANT_HEIGHT);
-    private static final int CUSTOMER_FIRST_LINE_REL_X = (int) (0.04 * RESTAURANT_WIDTH);
-    private static final int CUSTOMER_FIRST_LINE_REL_Y = (int) (0.67 * RESTAURANT_HEIGHT);
+    private static final int CUSTOMER_REL_WIDTH = (int) (0.08 * Constants.RESTAURANT_WIDTH);
+    private static final int CUSTOMER_REL_HEIGHT = (int) (0.21 * Constants.RESTAURANT_HEIGHT);
+    private static final int CUSTOMER_IN_LINE_PADDING = (int) (0.14 * Constants.RESTAURANT_HEIGHT);
+    private static final int CUSTOMER_FIRST_LINE_REL_X = (int) (0.04 * Constants.RESTAURANT_WIDTH);
+    private static final int CUSTOMER_FIRST_LINE_REL_Y = (int) (0.67 * Constants.RESTAURANT_HEIGHT);
     private static final int CUSTOMERS_CREATION_TIME = 7;
     private static final int CUSTOMER_START_X = 0;
-    private static final int CUSTOMER_START_Y = (int)(0.46 * RESTAURANT_HEIGHT);
+    private static final int CUSTOMER_START_Y = (int)(0.46 * Constants.RESTAURANT_HEIGHT);
 
-    private static final int WAITRESS_STARTING_X = (int) (0.53 * RESTAURANT_WIDTH);
-    private static final int WAITRESS_STARTING_Y = (int) (0.20 * RESTAURANT_HEIGHT);
-    private static final int WAITRESS_REL_WIDTH = (int) (0.06 * RESTAURANT_WIDTH);
-    private static final int WAITRESS_REL_HEIGH = (int) (0.21 * RESTAURANT_HEIGHT);
+    private static final int WAITRESS_STARTING_X = (int) (0.53 * Constants.RESTAURANT_WIDTH);
+    private static final int WAITRESS_STARTING_Y = (int) (0.20 * Constants.RESTAURANT_HEIGHT);
+    private static final int WAITRESS_REL_WIDTH = (int) (0.06 * Constants.RESTAURANT_WIDTH);
+    private static final int WAITRESS_REL_HEIGH = (int) (0.21 * Constants.RESTAURANT_HEIGHT);
     private static final int WAITRESS_MAX_DISHES = 2;
 
-    private static final int CHEF_REL_X = (int) (0.65 * RESTAURANT_WIDTH);
-    private static final int CHEF_REL_Y = (int) (0.05 * RESTAURANT_WIDTH);
-    private static final int CHEF_REL_WIDTH = (int) (0.12 * RESTAURANT_WIDTH);;
-    private static final int CHEF_REL_HEIGHT = (int) (0.17 * RESTAURANT_HEIGHT);
+    private static final int CHEF_REL_X = (int) (0.65 * Constants.RESTAURANT_WIDTH);
+    private static final int CHEF_REL_Y = (int) (0.05 * Constants.RESTAURANT_WIDTH);
+    private static final int CHEF_REL_WIDTH = (int) (0.12 * Constants.RESTAURANT_WIDTH);;
+    private static final int CHEF_REL_HEIGHT = (int) (0.17 * Constants.RESTAURANT_HEIGHT);
 
     private static final int[] POWER_UP_PRICES = {100, 150, 220, 310};
 
@@ -141,12 +139,12 @@ public class ModelImpl implements Model {
 
     @Override
     public int getWidth() {
-        return RESTAURANT_WIDTH;
+        return Constants.RESTAURANT_WIDTH;
     }
 
     @Override
     public int getHeight() {
-        return RESTAURANT_HEIGHT;
+        return Constants.RESTAURANT_HEIGHT;
     }
 
     @Override
