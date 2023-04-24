@@ -33,40 +33,39 @@ public class ModelImpl implements Model {
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final int ADDITIONAL_CUSTOMERS_POWERUP = 2;
     private static final int MAX_CUSTOMERS_THAT_CAN_STAY = 8;
-    private static final int MAX_CUSTOMERS_THAT_MULTIPLICITY = 4;
-
+    private static final int MAX_CUSTOMERS_MULTIPLICITY = 4;
     private static final int PROFIT_PER_TABLE_MIN = 80;
     private static final int PROFIT_PER_TABLE_MAX = 150;
     private static final double PROFIT_MULTIPLIER = 1.5;
     private static final int MAX_PLAYTIME = 5 * 60;
 
     private static final int TABLES = 4;
-    private static final double TABLE_STARTING_REL_X = 0.35 * RESTAURANT_WIDTH;
-    private static final double TABLE_STARTING_REL_Y = 0.40 * RESTAURANT_HEIGHT;
-    private static final int TABLES_HORIZONTAL_PADDING = 400;
-    private static final int TABLES_VERTICAL_PADDING = 200;
-    private static final int TABLE_REL_WIDTH = (int)(0.12 * RESTAURANT_WIDTH);
-    private static final int TABLE_REL_HEIGHT = (int)(0.21 *RESTAURANT_HEIGHT);
+    private static final int TABLE_STARTING_REL_X = (int) (0.35 * RESTAURANT_WIDTH);
+    private static final int TABLE_STARTING_REL_Y = (int) (0.40 * RESTAURANT_HEIGHT);
+    private static final int TABLES_HORIZONTAL_PADDING = (int) (0.31 * RESTAURANT_WIDTH);
+    private static final int TABLES_VERTICAL_PADDING = (int) (0.27 * RESTAURANT_HEIGHT);
+    private static final int TABLE_REL_WIDTH = (int) (0.12 * RESTAURANT_WIDTH);
+    private static final int TABLE_REL_HEIGHT = (int) (0.21 * RESTAURANT_HEIGHT);
 
-    private static final int CUSTOMER_REL_WIDTH = (int)(0.08 * RESTAURANT_WIDTH);
-    private static final int CUSTOMER_REL_HEIGHT = (int)(0.21 *RESTAURANT_HEIGHT);
-    private static final int CUSTOMER_IN_LINE_PADDING = (int)(0.14 *RESTAURANT_HEIGHT);
-    private static final double CUSTOMER_FIRST_LINE_REL_X = 0.04 * RESTAURANT_WIDTH;
-    private static final double CUSTOMER_FIRST_LINE_REL_Y = 0.67 * RESTAURANT_HEIGHT;
+    private static final int CUSTOMER_REL_WIDTH = (int) (0.08 * RESTAURANT_WIDTH);
+    private static final int CUSTOMER_REL_HEIGHT = (int) (0.21 * RESTAURANT_HEIGHT);
+    private static final int CUSTOMER_IN_LINE_PADDING = (int) (0.14 * RESTAURANT_HEIGHT);
+    private static final int CUSTOMER_FIRST_LINE_REL_X = (int) (0.04 * RESTAURANT_WIDTH);
+    private static final int CUSTOMER_FIRST_LINE_REL_Y = (int) (0.67 * RESTAURANT_HEIGHT);
     private static final int CUSTOMERS_CREATION_TIME = 7;
     private static final int CUSTOMER_START_X = 0;
-    private static final int CUSTOMER_START_Y = (int)(0.46 *RESTAURANT_HEIGHT);
+    private static final int CUSTOMER_START_Y = (int)(0.46 * RESTAURANT_HEIGHT);
 
-    private static final int WAITRESS_STARTING_X = (int) (RESTAURANT_WIDTH * 0.53);
-    private static final int WAITRESS_STARTING_Y = (int) (RESTAURANT_HEIGHT * 0.20);
-    private static final int WAITRESS_REL_WIDTH = (int)(0.06 * RESTAURANT_WIDTH);
-    private static final int WAITRESS_REL_HEIGH = (int)(0.21 *RESTAURANT_HEIGHT);
+    private static final int WAITRESS_STARTING_X = (int) (0.53 * RESTAURANT_WIDTH);
+    private static final int WAITRESS_STARTING_Y = (int) (0.20 * RESTAURANT_HEIGHT);
+    private static final int WAITRESS_REL_WIDTH = (int) (0.06 * RESTAURANT_WIDTH);
+    private static final int WAITRESS_REL_HEIGH = (int) (0.21 * RESTAURANT_HEIGHT);
     private static final int WAITRESS_MAX_DISHES = 2;
 
-    private static final int CHEF_REL_X = (int) (RESTAURANT_WIDTH * 0.65);
-    private static final int CHEF_REL_Y = (int) (RESTAURANT_WIDTH * 0.05);
-    private static final int CHEF_REL_WIDTH = (int)(0.12 * RESTAURANT_WIDTH);;
-    private static final int CHEF_REL_HEIGHT = (int)(0.17 *RESTAURANT_HEIGHT);
+    private static final int CHEF_REL_X = (int) (0.65 * RESTAURANT_WIDTH);
+    private static final int CHEF_REL_Y = (int) (0.05 * RESTAURANT_WIDTH);
+    private static final int CHEF_REL_WIDTH = (int) (0.12 * RESTAURANT_WIDTH);;
+    private static final int CHEF_REL_HEIGHT = (int) (0.17 * RESTAURANT_HEIGHT);
 
     private static final int[] POWER_UP_PRICES = {100, 150, 220, 310};
 
@@ -201,7 +200,7 @@ public class ModelImpl implements Model {
             this.stop();
         }
         final var position = new Pair<>(CUSTOMER_START_X, CUSTOMER_START_Y);
-        final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_THAT_MULTIPLICITY)) + 1;
+        final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_MULTIPLICITY)) + 1;
         var tempClient = this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity);
         this.customers.add(tempClient);
