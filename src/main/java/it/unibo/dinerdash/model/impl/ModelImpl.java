@@ -53,7 +53,7 @@ public class ModelImpl implements Model {
     private static final int CUSTOMER_IN_LINE_PADDING = 100;
     private static final double CUSTOMER_FIRST_LINE_REL_X = 0.04 * RESTAURANT_WIDTH;
     private static final double CUSTOMER_FIRST_LINE_REL_Y = 0.67 * RESTAURANT_HEIGHT;
-    private static final int CUSTOMERS_CREATION_TIME = 6;
+    private static final int CUSTOMERS_CREATION_TIME = 7;
     private static final int CUSTOMER_START_X = 0;
     private static final int CUSTOMER_START_Y = 330;
 
@@ -250,6 +250,7 @@ public class ModelImpl implements Model {
                         controller.updateCustomersInView(customers.indexOf(client), client);
                     });
             this.removeAngryCustomers();
+            this.checkChangePositionLine();
 
             // Update tables
             this.tables.forEach(t -> {
@@ -287,6 +288,22 @@ public class ModelImpl implements Model {
         }
     }
 
+    public void checkChangePositionLine() {
+        if (( this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE))) 
+        && (this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
+            (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y))))){
+
+                this.customers.stream() // fix line positions
+                    .filter(p -> p.getState()
+                            .equals(CustomerState.LINE))
+                    .forEach((p) -> {
+                        p.setPosition(
+                                new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
+                    });
+
+        } 
+    }
+
     public int getCoins() {
         return this.coins;
     }
@@ -320,10 +337,10 @@ public class ModelImpl implements Model {
 
     @Override
     public void linePositionAssignament(final Customer client) {
-        final int inLineCustm = (int) customers.stream().filter(p -> p.getState().equals(CustomerState.LINE)).count();
-        if (inLineCustm != 1) {
+        final int inLineCustomers = (int) customers.stream().filter(p -> p.getState().equals(CustomerState.LINE)).count();
+        if (inLineCustomers != 1) {
             client.setPosition(new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X,
-                    (int) (CUSTOMER_FIRST_LINE_REL_Y - ((inLineCustm - 1) * CUSTOMER_IN_LINE_PADDING))));
+                    (int) (CUSTOMER_FIRST_LINE_REL_Y - ((inLineCustomers - 1) * CUSTOMER_IN_LINE_PADDING))));
         } else {
             client.setPosition(new Pair<Integer, Integer>(
                     (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y));
