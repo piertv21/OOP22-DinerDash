@@ -59,14 +59,14 @@ public class ModelImpl implements Model {
 
     private static final int WAITRESS_STARTING_X = (int) (RESTAURANT_WIDTH * 0.53);
     private static final int WAITRESS_STARTING_Y = (int) (RESTAURANT_HEIGHT * 0.20);
-    private static final int WAITRESS_REL_WIDTH = 80;
-    private static final int WAITRESS_REL_HEIGH = 150;
+    private static final int WAITRESS_REL_WIDTH = (int)(0.06 * RESTAURANT_WIDTH);
+    private static final int WAITRESS_REL_HEIGH = (int)(0.21 *RESTAURANT_HEIGHT);
     private static final int WAITRESS_MAX_DISHES = 2;
 
     private static final int CHEF_REL_X = (int) (RESTAURANT_WIDTH * 0.65);
     private static final int CHEF_REL_Y = (int) (RESTAURANT_WIDTH * 0.05);
-    private static final int CHEF_REL_WIDTH = 150;
-    private static final int CHEF_REL_HEIGHT = 120;
+    private static final int CHEF_REL_WIDTH = (int)(0.12 * RESTAURANT_WIDTH);;
+    private static final int CHEF_REL_HEIGHT = (int)(0.17 *RESTAURANT_HEIGHT);
 
     private static final int[] POWER_UP_PRICES = {100, 150, 220, 310};
 
