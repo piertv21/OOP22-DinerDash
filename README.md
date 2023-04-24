@@ -10,7 +10,7 @@ This program recreates a game very similar to the iconic Diner Dash 2004.
 - Matteo Donati
 - Federico Benzi
 
-![Diner Dash Example](https://user-images.githubusercontent.com/116550787/233856823-f05943de-0b2a-4bf6-84fc-658f155d17ed.png)
+![Diner Dash Example](https://user-images.githubusercontent.com/116550787/234021949-2e0a3af7-7ebd-4d34-a0d4-9d514b75ecc0.png)
 
 **INSTRUCTIONS:**\
 The application allows the player to control a waitress within a restaurant. The player's goal is to serve as many customers as possible by seating them, taking orders and serving them. When the meal is finished, a customer or group of customers pays, and the player's total earnings increase. Some PowerUp can be activated during the game to modify in-game certain game dynamics.
