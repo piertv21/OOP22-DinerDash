@@ -52,6 +52,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     private static int MAX_PATIECE = 7;
     private static Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
     private static Pair<Integer, Integer> TABLE_STATE_IMG_POSITION = new Pair<>(60, 40);
+    private static Integer setValue = 45;
 
     private JLabel timeLabel;
     private JLabel customerWhoLeftLabel;
@@ -82,27 +83,29 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         this.init();
         this.backgroundImage = this.imageCacher.getCachedImage("background").getImage();
-        
+
         topPanel = new JPanel();
         topPanel.setOpaque(false);
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
         topPanel.setPreferredSize(new Dimension(0, 60));
 
         var controller = this.getMainFrame().getController();
-        timeLabel = new OutlinedLabel("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()), Color.BLACK);
+        timeLabel = new OutlinedLabel("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()),
+                Color.BLACK);
         timeLabel.setFont(new Font("Arial", Font.BOLD, 25));
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(25, 25, 0, 0));
         topPanel.add(timeLabel);
 
-        customerWhoLeftLabel = new OutlinedLabel("Customers who left: " + controller.getCustomersWhoLeft(), Color.BLACK);
+        customerWhoLeftLabel = new OutlinedLabel("Customers who left: " + controller.getCustomersWhoLeft(),
+                Color.BLACK);
         customerWhoLeftLabel.setFont(new Font("Arial", Font.BOLD, 25));
         customerWhoLeftLabel.setForeground(Color.WHITE);
         customerWhoLeftLabel.setBorder(BorderFactory.createEmptyBorder(25, 10, 0, 0));
         topPanel.add(Box.createHorizontalGlue());
         topPanel.add(customerWhoLeftLabel);
         topPanel.add(Box.createHorizontalGlue());
-        
+
         coinLabel = new OutlinedLabel("Coins: " + controller.getCoins(), Color.BLACK);
         coinLabel.setFont(new Font("Arial", Font.BOLD, 25));
         coinLabel.setForeground(Color.WHITE);
@@ -110,7 +113,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         topPanel.add(coinLabel);
 
         add(topPanel, BorderLayout.NORTH);
-        
+
         bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         bottomPanel.setOpaque(false);
         bottomPanel.setPreferredSize(new Dimension(0, 30));
@@ -123,7 +126,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         bottomPanel.add(pauseButton, BorderLayout.EAST);
 
         add(bottomPanel, BorderLayout.SOUTH);
-        
+
         rightPanel = new JPanel(new GridBagLayout());
         rightPanel.setOpaque(false);
 
@@ -136,16 +139,17 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         var prices = controller.getPowerUpsPrices();
         IntStream.range(0, prices.length)
-            .forEach(i -> {
-                JButton button = new JButton(String.valueOf(prices[i]), this.imageCacher.getCachedImage("powerUp" + (i + 1)));
-                button.setHorizontalTextPosition(JButton.CENTER);
-                button.setVerticalTextPosition(JButton.BOTTOM);
-                button.addActionListener(e -> controller.enablePowerUp(i));
-                button.setEnabled(false);
-                rightPanel.add(button, c);
-                this.powerupButtons.add(button);
-                c.gridy++;
-            });
+                .forEach(i -> {
+                    JButton button = new JButton(String.valueOf(prices[i]),
+                            this.imageCacher.getCachedImage("powerUp" + (i + 1)));
+                    button.setHorizontalTextPosition(JButton.CENTER);
+                    button.setVerticalTextPosition(JButton.BOTTOM);
+                    button.addActionListener(e -> controller.enablePowerUp(i));
+                    button.setEnabled(false);
+                    rightPanel.add(button, c);
+                    this.powerupButtons.add(button);
+                    c.gridy++;
+                });
 
         add(rightPanel, BorderLayout.EAST);
 
@@ -163,7 +167,8 @@ public class GameViewImpl extends GamePanel implements GameView {
 
                 setCursor(
                         tables.stream().anyMatch(table -> inside(mouseX, mouseY, table)) ||
-                                dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish) && dish.isActive()) ? handCursor
+                                dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
+                                        ? handCursor
                                         : defaultCursor);
             }
         });
@@ -191,9 +196,9 @@ public class GameViewImpl extends GamePanel implements GameView {
             public void componentResized(ComponentEvent e) {
                 int height = getHeight();
 
-                timeLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.04)));
-                customerWhoLeftLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.04)));
-                coinLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.04)));
+                timeLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * 0.04)));
+                customerWhoLeftLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * 0.04)));
+                coinLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * 0.04)));
             }
         });
 
@@ -279,10 +284,10 @@ public class GameViewImpl extends GamePanel implements GameView {
         // Tables
         this.tables.stream().filter(t -> t.getPosition() != null)
                 .forEach(e -> {
-                    g.drawImage(e.getIcon(), (int) (e.getPosition().getX() * widthRatio),
+                    g.drawImage(e.getIcon(), (int) ((e.getPosition().getX() + setValue) * widthRatio),
                             (int) (e.getPosition().getY() * heightRatio),
-                            (int) (e.getSize().getX() * widthRatio),
-                            (int) (e.getSize().getY() * heightRatio),
+                            (int) (TABLE_STATE_IMG_POSITION.getX() * widthRatio),
+                            (int) (TABLE_STATE_IMG_POSITION.getY() * heightRatio),
                             this);
 
                     if (e.getState().isPresent()) {
@@ -359,12 +364,11 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addCustomerViewable(
-        Pair<Integer, Integer> coordinates,
-        Pair<Integer, Integer> size,
-        boolean active,
-        int multiplicity,
-        int patience
-    ) {
+            Pair<Integer, Integer> coordinates,
+            Pair<Integer, Integer> size,
+            boolean active,
+            int multiplicity,
+            int patience) {
         var client = new ImageDecoratorImpl(
                 new NumberDecoratorImpl(
                         new GameEntityViewableImpl(coordinates, size, active,
@@ -375,11 +379,10 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void updateCustomersViewable(
-        int index,
-        Pair<Integer, Integer> coordinates,
-        boolean active,
-        int patience
-    ) {
+            int index,
+            Pair<Integer, Integer> coordinates,
+            boolean active,
+            int patience) {
         this.customers.get(index).update(coordinates, active);
         var client = ((NumberDecoratorImpl) this.customers.get(index).getDecorated());
 
@@ -397,10 +400,9 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addChefViewable(
-        Pair<Integer, Integer> coordinates,
-        Pair<Integer, Integer> size,
-        boolean active
-    ) {
+            Pair<Integer, Integer> coordinates,
+            Pair<Integer, Integer> size,
+            boolean active) {
         this.chef = new GameEntityViewableImpl(
                 coordinates, size, active, this.imageCacher.getCachedImage("chef").getImage());
     }
@@ -412,11 +414,10 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addWaitressViewable(
-        Pair<Integer, Integer> coordinates,
-        Pair<Integer, Integer> size,
-        boolean active,
-        int numDishes
-    ) {
+            Pair<Integer, Integer> coordinates,
+            Pair<Integer, Integer> size,
+            boolean active,
+            int numDishes) {
         this.waitress = new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active,
                         this.imageCacher.getCachedImage("waitress" + numDishes).getImage()));
@@ -436,11 +437,10 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addDishViewable(
-        Pair<Integer, Integer> coordinates,
-        Pair<Integer, Integer> size,
-        boolean active,
-        int numTable
-    ) {
+            Pair<Integer, Integer> coordinates,
+            Pair<Integer, Integer> size,
+            boolean active,
+            int numTable) {
         var img = this.imageCacher.getCachedImage("dish" + numTable).getImage();
         var dish = new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active, img));
@@ -461,12 +461,11 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addTableViewable(
-        Pair<Integer, Integer> coordinates,
-        Pair<Integer, Integer> size,
-        boolean active,
-        int peopleNumer,
-        String state
-    ) {
+            Pair<Integer, Integer> coordinates,
+            Pair<Integer, Integer> size,
+            boolean active,
+            int peopleNumer,
+            String state) {
         var img = this.imageCacher.getCachedImage("table" + peopleNumer).getImage();
         var table = new ImageDecoratorImpl(new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active, img)));
@@ -499,9 +498,9 @@ public class GameViewImpl extends GamePanel implements GameView {
     @Override
     public void updatePowerUpButton(int index, boolean active) {
         this.powerupButtons.stream()
-            .skip(index)
-            .findFirst()
-            .ifPresent(button -> button.setEnabled(button.isEnabled() != active ? active : button.isEnabled()));
-    }    
+                .skip(index)
+                .findFirst()
+                .ifPresent(button -> button.setEnabled(button.isEnabled() != active ? active : button.isEnabled()));
+    }
 
 }

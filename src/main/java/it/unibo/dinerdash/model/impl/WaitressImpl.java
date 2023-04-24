@@ -48,11 +48,11 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
             if ((getPosition().getX() >= this.getDestination().get().getX() - 4) &&
                     ((getPosition().getX()) <= this.getDestination().get().getX() + 4) &&
                     ((getPosition().getY() <= this.getDestination().get().getY() + 4) &&
-                            ((getPosition().getY() >= this.getDestination().get().getY() - 4)))) {
+                            ((getPosition().getY() >= this.getDestination().get().getY() - 60)))) {
                 if (state.equals(WaitressState.CALLING)) {
                     this.setPosition(this.getDestination().get());
                     state = WaitressState.WAITING;
-                    model.sendOrder(model.getTablefromPositon(getPosition()).getTableNumber());
+                    model.sendOrder(model.getTablefromPositon(getDestination().get()).getTableNumber());
 
                 } else if (state.equals(WaitressState.TAKING_DISH)) { // cameriere è arrivata al bancone a prendere il
                                                                       // piatto
@@ -60,7 +60,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
                     state = WaitressState.WAITING;
                 } else if (state.equals(WaitressState.SERVING)) {
                     this.setPosition(this.getDestination().get());
-                    serveTable = model.getTablefromPositon(getPosition()).getTableNumber();
+                    serveTable = model.getTablefromPositon(getDestination().get()).getTableNumber();
                     if (this.checkRightTable(serveTable)) {
                         this.model.setTableState(TableState.EATING, serveTable);
 
