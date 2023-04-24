@@ -45,17 +45,17 @@ public class ModelImpl implements Model {
     private static final double TABLE_STARTING_REL_Y = 0.40 * RESTAURANT_HEIGHT;
     private static final int TABLES_HORIZONTAL_PADDING = 400;
     private static final int TABLES_VERTICAL_PADDING = 200;
-    private static final int TABLE_REL_WIDTH = 150;
-    private static final int TABLE_REL_HEIGHT = 150;
+    private static final int TABLE_REL_WIDTH = (int)(0.12 * RESTAURANT_WIDTH);
+    private static final int TABLE_REL_HEIGHT = (int)(0.21 *RESTAURANT_HEIGHT);
 
-    private static final int CUSTOMER_REL_WIDTH = 100;
-    private static final int CUSTOMER_REL_HEIGHT = 150;
-    private static final int CUSTOMER_IN_LINE_PADDING = 100;
+    private static final int CUSTOMER_REL_WIDTH = (int)(0.08 * RESTAURANT_WIDTH);
+    private static final int CUSTOMER_REL_HEIGHT = (int)(0.21 *RESTAURANT_HEIGHT);
+    private static final int CUSTOMER_IN_LINE_PADDING = (int)(0.14 *RESTAURANT_HEIGHT);
     private static final double CUSTOMER_FIRST_LINE_REL_X = 0.04 * RESTAURANT_WIDTH;
     private static final double CUSTOMER_FIRST_LINE_REL_Y = 0.67 * RESTAURANT_HEIGHT;
     private static final int CUSTOMERS_CREATION_TIME = 7;
     private static final int CUSTOMER_START_X = 0;
-    private static final int CUSTOMER_START_Y = 330;
+    private static final int CUSTOMER_START_Y = (int)(0.46 *RESTAURANT_HEIGHT);
 
     private static final int WAITRESS_STARTING_X = (int) (RESTAURANT_WIDTH * 0.53);
     private static final int WAITRESS_STARTING_Y = (int) (RESTAURANT_HEIGHT * 0.20);
