@@ -3,6 +3,8 @@ package it.unibo.dinerdash.view.impl;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -181,6 +183,17 @@ public class GameViewImpl extends GamePanel implements GameView {
                         .filter(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
                         .findFirst()
                         .ifPresent(dish -> controller.callWaitress(dishes.indexOf(dish), "d", dish.getPosition()));
+            }
+        });
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int height = getHeight();
+
+                timeLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.04)));
+                customerWhoLeftLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.04)));
+                coinLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.04)));
             }
         });
 
