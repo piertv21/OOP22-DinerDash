@@ -20,7 +20,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     /**
      * seconds used to decrease a customer's patience
      */
-    private static final int TIME_BEFORE_LOOSEPATIENCE = 2;
+    private static final int TIME_BEFORE_LOOSEPATIENCE = 4;
     private static final int MAX_PATIECE = 7;
     private static final int SPEED = 5;
     private static final int HITBOX_SPACE = 4;
