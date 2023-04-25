@@ -236,7 +236,7 @@ public class ModelImpl implements Model {
             this.controller.updateChefInView(this.chef);
 
             // Update Waitress
-            this.waitress.handleMovement();
+            this.waitress.update();
             this.controller.updateWaitressInView(this.waitress);
 
             // Update Customers

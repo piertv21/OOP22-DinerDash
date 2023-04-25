@@ -75,13 +75,8 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     @Override
     public void update() { 
         if (state.equals(CustomerState.WALKING)) {
-            if (getPosition().getX() < this.getDestination().get().getX() + HITBOX_SPACE) {
-                this.moveRight();
-            } else if (getPosition().getY() > this.getDestination().get().getY() + 3) {
-                this.moveUp();
-            } else if (getPosition().getY() < this.getDestination().get().getY()) {
-                this.moveDown();
-            }
+            this.handleMovement(HITBOX_SPACE);
+
             if (getPosition().getX() >= this.getDestination().get().getX() - HITBOX_SPACE
                     && getPosition().getY() <= this.getDestination().get().getY() + HITBOX_SPACE
                     && getPosition().getY() >= this.getDestination().get().getY() - HITBOX_SPACE) { // create hitbox

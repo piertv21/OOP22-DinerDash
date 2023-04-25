@@ -34,28 +34,19 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public void handleMovement() {
+    public void update() {
         if (!state.equals(WaitressState.WAITING)) {
-            if (getPosition().getX() < this.getDestination().get().getX())
-                this.moveRight();
-            else if (getPosition().getX() > this.getDestination().get().getX() + 3)
-                this.moveLeft();
-            else if (getPosition().getY() > this.getDestination().get().getY() + 3)
-                this.moveUp();
-            else if (getPosition().getY() < this.getDestination().get().getY())
-                this.moveDown();
+            this.handleMovement(4);
 
             if ((getPosition().getX() >= this.getDestination().get().getX() - 4) &&
                     ((getPosition().getX()) <= this.getDestination().get().getX() + 4) &&
                     ((getPosition().getY() <= this.getDestination().get().getY() + 4) &&
-                            ((getPosition().getY() >= this.getDestination().get().getY() - 60)))) {
+                            ((getPosition().getY() >= this.getDestination().get().getY() - 4)))) {
                 if (state.equals(WaitressState.CALLING)) {
                     this.setPosition(this.getDestination().get());
                     state = WaitressState.WAITING;
                     model.sendOrder(model.getTablefromPositon(getDestination().get()).getTableNumber());
-
-                } else if (state.equals(WaitressState.TAKING_DISH)) { // cameriere è arrivata al bancone a prendere il
-                                                                      // piatto
+                } else if (state.equals(WaitressState.TAKING_DISH)) {
                     orderList.add(model.takeDishFromPosition(getDestination().get()).get());
                     state = WaitressState.WAITING;
                 } else if (state.equals(WaitressState.SERVING)) {

@@ -35,33 +35,41 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
     public void setMovementSpeed(final int speed) {
         this.speed = speed;
     }
-
-    @Override
-    public void moveUp() {
+    
+    private void moveUp() {
         final var oldPosition = this.getPosition();
         final var newPosition = new Pair<>(oldPosition.getX() + Direction.UP.getX() * this.speed, oldPosition.getY() + Direction.UP.getY() * this.speed);
         this.setPosition(newPosition);
     }
-
-    @Override
-    public void moveDown() {
+    
+    private void moveDown() {
         final var oldPosition = this.getPosition();
         final var newPosition = new Pair<>(oldPosition.getX() + Direction.DOWN.getX() * this.speed, oldPosition.getY() + Direction.DOWN.getY() * this.speed);
         this.setPosition(newPosition);
     }
-
-    @Override
-    public void moveRight() {
+    
+    private void moveRight() {
         final var oldPosition = this.getPosition();
         final var newPosition = new Pair<>(oldPosition.getX() + Direction.RIGHT.getX() * this.speed, oldPosition.getY() + Direction.RIGHT.getY() * this.speed);
         this.setPosition(newPosition);
     }
-
-    @Override
-    public void moveLeft() {
+    
+    private void moveLeft() {
         final var oldPosition = this.getPosition();
         final var newPosition = new Pair<>(oldPosition.getX() + Direction.LEFT.getX() * this.speed, oldPosition.getY() + Direction.LEFT.getY() * this.speed);
         this.setPosition(newPosition);
+    }
+
+    @Override
+    public void handleMovement(int range) {
+        if (getPosition().getX() < this.getDestination().get().getX())
+            this.moveRight();
+        else if (getPosition().getX() > this.getDestination().get().getX() + range)
+            this.moveLeft();
+        else if (getPosition().getY() > this.getDestination().get().getY() + range)
+            this.moveUp();
+        else if (getPosition().getY() < this.getDestination().get().getY())
+            this.moveDown();
     }
     
 }
