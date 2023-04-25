@@ -230,9 +230,9 @@ public class ControllerImpl implements Controller {
     @Override
     public void updatePowerUpsButtonsInView() {
         var prices = this.model.getPowerUpsPrices();
-        var coins = this.model.getCoins();
         IntStream.range(0, prices.length)
-            .forEach(i -> this.gameView.updatePowerUpButton(i, prices[i] <= coins ? true : false));
+            .forEach(i -> this.gameView.updatePowerUpButton(i, 
+           this.model.canActivatePowerUp(prices[i]) ? true : false));
     }
 
     @Override

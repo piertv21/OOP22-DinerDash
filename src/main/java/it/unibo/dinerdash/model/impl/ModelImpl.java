@@ -1,5 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -65,6 +67,7 @@ public class ModelImpl implements Model {
     private static final int CHEF_REL_WIDTH = (int) (0.12 * Constants.RESTAURANT_WIDTH);;
     private static final int CHEF_REL_HEIGHT = (int) (0.17 * Constants.RESTAURANT_HEIGHT);
 
+    private static final int MAX_POWERUP_PER_TYPE = 3;
     private static final int[] POWER_UP_PRICES = {100, 150, 220, 310};
 
     private int coins;
@@ -79,6 +82,7 @@ public class ModelImpl implements Model {
 
     private LinkedList<Customer> customers;
     private LinkedList<Table> tables;
+    private HashMap<Integer, Integer> powerUps;
     private Countertop counterTop;
     private Chef chef;
     private Waitress waitress;
@@ -87,6 +91,7 @@ public class ModelImpl implements Model {
         this.controller = controller;
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
+        this.powerUps = new HashMap<>();
         this.counterTop = new CountertopImpl(this);
         this.factory = new GameEntityFactoryImpl();
     }
@@ -100,6 +105,9 @@ public class ModelImpl implements Model {
         this.lastCustomerTimeCreation = 0;
         this.clear();
         this.generateTables();
+
+        Arrays.stream(POWER_UP_PRICES)
+            .forEach(price -> powerUps.put(price, MAX_POWERUP_PER_TYPE));
 
         var chefPosition = new Pair<>(CHEF_REL_X, CHEF_REL_Y);
         var chefSize = new Pair<>(CHEF_REL_WIDTH, CHEF_REL_HEIGHT);
@@ -134,6 +142,7 @@ public class ModelImpl implements Model {
     public void clear() {
         this.customers.clear();
         this.tables.clear();
+        this.powerUps.clear();
         this.counterTop.clear();
     }
 
@@ -484,12 +493,15 @@ public class ModelImpl implements Model {
 
     private void handlePowerUpActivation(int cost) {
         this.setCoins(this.coins - cost);
+        var remainingActivations = this.powerUps.get(cost);
+        remainingActivations--;
+        this.powerUps.put(cost, remainingActivations);
         this.controller.updatePowerUpsButtonsInView();
     }
 
     @Override
     public void reduceDishPreparationTime() {
-        if (this.canAfford(POWER_UP_PRICES[0])) {
+        if (this.canActivatePowerUp(POWER_UP_PRICES[0])) {
             this.chef.reducePreparationTime();
             this.handlePowerUpActivation(POWER_UP_PRICES[0]);
         }
@@ -497,7 +509,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void increaseWaitressSpeed() {
-        if (this.canAfford(POWER_UP_PRICES[1])) {
+        if (this.canActivatePowerUp(POWER_UP_PRICES[1])) {
             this.waitress.incrementSpeed();
             this.handlePowerUpActivation(POWER_UP_PRICES[1]);
         }
@@ -505,7 +517,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void increaseMaxCustomerThatCanLeave() {
-        if (this.canAfford(POWER_UP_PRICES[2])) {
+        if (this.canActivatePowerUp(POWER_UP_PRICES[2])) {
             this.addMaxCustomerThatCanLeave(ADDITIONAL_CUSTOMERS_POWERUP);
             this.handlePowerUpActivation(POWER_UP_PRICES[2]);
         }
@@ -513,7 +525,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void increaseGainMultiplier() {
-        if (this.canAfford(POWER_UP_PRICES[3])) {
+        if (this.canActivatePowerUp(POWER_UP_PRICES[3])) {
             this.increaseCoinsMultiplier();
             this.handlePowerUpActivation(POWER_UP_PRICES[3]);
         }
@@ -537,6 +549,14 @@ public class ModelImpl implements Model {
     @Override
     public void updateDishInView(int index, Dish dish) {
         this.controller.updateDishesInView(index, dish);
+    }
+    private boolean isPowerUpAvailable(int price){
+        return this.powerUps.get(price) > 0;
+    }
+
+    @Override
+    public boolean canActivatePowerUp(int price) {
+       return this.canAfford(price) && this.isPowerUpAvailable(price);
     }
 
 }

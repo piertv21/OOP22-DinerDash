@@ -135,4 +135,6 @@ public interface Model {
     void updateDishInView(int index, Dish dish);
 
     Optional<Dish> takeDishFromPosition(Pair<Integer, Integer> pos);
+
+    boolean canActivatePowerUp(int price);
 }
