@@ -201,6 +201,7 @@ public class GameViewImpl extends GamePanel implements GameView {
             }
         });
 
+        this.getMainFrame().setGameStarted(true);
         this.render();
         this.start();
     }

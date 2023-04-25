@@ -11,6 +11,10 @@ public interface View {
 
     void showGameOverView();
 
+    void showExitDialog();
+
+    void setGameStarted(boolean started);
+
     void playAgain();
 
     void quit();

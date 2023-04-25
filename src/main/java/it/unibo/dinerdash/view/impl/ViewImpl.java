@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.view.impl;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
@@ -34,6 +35,7 @@ public class ViewImpl extends JFrame implements View {
     private Controller controller;
     private GamePanel currentView;
     private ImageReaderWithCache imageCacher;
+    private boolean gameStarted;
 
     private double widthRatio;
     private double heightRatio;
@@ -45,12 +47,13 @@ public class ViewImpl extends JFrame implements View {
         
         this.widthRatio = 0;
         this.heightRatio = 0;
+        this.gameStarted = false;
         
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(final WindowEvent e) {
-                controller.quitWithoutPlaying();
+                showExitDialog();
             }
         });
         this.setLocationByPlatform(true);
@@ -88,6 +91,28 @@ public class ViewImpl extends JFrame implements View {
     public void showGameOverView() {
         this.currentView = new GameOverView(this);
         this.refreshView();
+    }
+
+    @Override
+    public void showExitDialog() {
+        if(this.gameStarted) {
+            this.controller.pause();
+        }
+
+        final int result = JOptionPane.showConfirmDialog(this, "Do you really want to exit?",
+            "Exit", JOptionPane.YES_NO_OPTION);
+
+        if(this.gameStarted) {
+            if (result == JOptionPane.YES_OPTION) {
+                controller.quit();
+            } else {
+                this.controller.resume();
+            }
+        } else {
+            if (result == JOptionPane.YES_OPTION) {
+                controller.quitWithoutPlaying();
+            }
+        }
     }
 
     private void refreshView() {
@@ -151,6 +176,11 @@ public class ViewImpl extends JFrame implements View {
     @Override
     public ImageReaderWithCache getImageCacher() {
         return this.imageCacher;
+    }
+
+    @Override
+    public void setGameStarted(boolean started) {
+        this.gameStarted = started;
     }
 
 }
