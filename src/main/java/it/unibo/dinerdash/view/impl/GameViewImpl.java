@@ -230,7 +230,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         dialogPanel.setLayout(new BoxLayout(dialogPanel, BoxLayout.Y_AXIS));
         dialogPanel.add(messageLabel);
 
-        String[] options = { "Resume", "Restart", "Exit" };
+        String[] options = {"Resume", "Restart", "Exit"};
         int result = JOptionPane.showOptionDialog(this, dialogPanel, "Pause", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
@@ -263,6 +263,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.customers.clear();
         this.tables.clear();
         this.dishes.clear();
+        this.powerupButtons.clear();
     }
 
     @Override

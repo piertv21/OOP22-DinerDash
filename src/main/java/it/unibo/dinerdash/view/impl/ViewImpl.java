@@ -157,7 +157,7 @@ public class ViewImpl extends JFrame implements View {
         assetsPath.forEach(this.imageCacher::readImage);
     }
     
-    private List<String> searchAssets(String path) {
+    private List<String> searchAssets(final String path) {
         return Optional.ofNullable(new File(path).listFiles())
             .map(Arrays::stream)
             .orElse(Stream.empty())
@@ -167,7 +167,7 @@ public class ViewImpl extends JFrame implements View {
             .collect(Collectors.toList());
     }
 
-    private Stream<File> getFilesRecursively(File file, String basePath) {
+    private Stream<File> getFilesRecursively(final File file, final String basePath) {
         String filePath = file.getPath();
         String relativePath = filePath.substring(basePath.length());
         return file.isDirectory() ? Optional.ofNullable(file.listFiles())
@@ -183,7 +183,7 @@ public class ViewImpl extends JFrame implements View {
     }
 
     @Override
-    public void setGameStarted(boolean started) {
+    public void setGameStarted(final boolean started) {
         this.gameStarted = started;
     }
 
