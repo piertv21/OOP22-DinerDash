@@ -9,25 +9,22 @@ import it.unibo.dinerdash.model.api.GameEntities.Table;
 import it.unibo.dinerdash.model.api.States.TableState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/*
- * Table is not a thread
- */
 public class TableImpl extends AbstractGameEntity implements Table {
+
+    private final int MIN_TIME_FOR_EATING = 4;
+    private final int MAX_TIME_FOR_EATING = 6;
+    private Optional<Long> timeFinishEating;
 
     private int tableNumber;
     private Optional<Customer> customer;
     private TableState state;
     private int SeatedPeople;
 
-    private final int TIME_FOR_EATING = 4;  //TODO Genera casuale
-    private Optional<Long> startEatingTime;
-
     public TableImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
         super(coordinates, size);
         this.tableNumber = i;
-        this.SeatedPeople = 0;
         this.customer = Optional.empty();
-        this.startEatingTime = Optional.empty();
+        this.timeFinishEating = Optional.empty();
         this.state = TableState.EMPTY;
     }
 
@@ -68,32 +65,29 @@ public class TableImpl extends AbstractGameEntity implements Table {
 
     @Override
     public void startEating() {
-        this.startEatingTime = Optional.of(System.nanoTime());
-
+        var currentTime = System.nanoTime();
+        var eatingTime = (int) (Math.random() * (MAX_TIME_FOR_EATING - MIN_TIME_FOR_EATING + 1)) + MIN_TIME_FOR_EATING;
+        this.timeFinishEating = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(eatingTime));
     }
 
     @Override
     public void update() {
-        if (this.startEatingTime.isPresent()) {
-            if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_FOR_EATING) + this.startEatingTime.get()) {
+        if (this.timeFinishEating.isPresent()) {
+            if (System.nanoTime() >= this.timeFinishEating.get()) {
                 state = TableState.WANTING_TO_PAY;
-                this.startEatingTime = Optional.empty();
+                this.timeFinishEating = Optional.empty();
             }
         }
     }
 
     @Override
     public String getStateInText() {
-        switch (this.state) {
-            case ORDERING:
-                return "wantToOrder";
-            case WANTING_TO_PAY:
-                return "wantToPay";
-            case EATING:
-                return "eating";
-            default:
-                return "";
-        }
+        return switch (this.state) {
+            case ORDERING -> "wantToOrder";
+            case WANTING_TO_PAY -> "wantToPay";
+            case EATING -> "eating";
+            default -> "";
+        };
     }
 
 }
