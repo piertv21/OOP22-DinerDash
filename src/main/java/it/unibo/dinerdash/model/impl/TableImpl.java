@@ -76,7 +76,6 @@ public class TableImpl extends AbstractGameEntity implements Table {
     public void update() {
         if (this.startEatingTime.isPresent()) {
             if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(TIME_FOR_EATING) + this.startEatingTime.get()) {
-                System.out.println("hanno finito");
                 state = TableState.WANTING_TO_PAY;
                 this.startEatingTime = Optional.empty();
             }

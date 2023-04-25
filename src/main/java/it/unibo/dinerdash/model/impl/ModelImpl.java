@@ -410,7 +410,7 @@ public class ModelImpl implements Model {
 
     public void setWaiterssInfo(int indexL, String s, Pair<Integer, Integer> pos) {
         if (this.waitress.getState().equals(WaitressState.WAITING)) {
-            if (s.equals("t")) {
+            if (s.equals("table")) {
                 switch (this.tables.get(indexL).getState()) {
                     case ORDERING:
                         this.waitress.takeTableOrder(tables.get(indexL).getPosition());

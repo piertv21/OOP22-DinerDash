@@ -11,9 +11,6 @@ import it.unibo.dinerdash.model.api.States.TableState;
 import it.unibo.dinerdash.model.api.States.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/*
- * TODO Usare un metodo update generale
- */
 public class WaitressImpl extends AbstractGameEntityMovable implements Waitress {
 
     private static final int STARTING_SPEED = 2;

@@ -1,10 +1,14 @@
 package it.unibo.dinerdash.view.impl;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,9 +21,9 @@ import it.unibo.dinerdash.view.api.View;
 
 public class GameOverView extends GamePanel {
 
-    private JButton rigiocaButton;
-    private JButton esciButton;
-    private JLabel gameoverLabel;
+    private JButton playAgainButton;
+    private JButton exitButton;
+    private JLabel gameOverLabel;
     private JLabel coinLabel;
 
     public GameOverView(View mainFrame) {
@@ -32,14 +36,14 @@ public class GameOverView extends GamePanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new Insets(10, 0, 10, 0);
 
-        gameoverLabel = new JLabel("Game Over");
-        gameoverLabel.setFont(new Font("Arial", Font.BOLD, 48));
-        gameoverLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(gameoverLabel, gridBagConstraints);
+        gameOverLabel = new JLabel("Game Over");
+        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 48));
+        gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(gameOverLabel, gridBagConstraints);
 
         var controller = this.getMainFrame().getController();
         gridBagConstraints.gridy = 1;
-        coinLabel = new JLabel("Your coins: " + controller.getCoins());
+        coinLabel = new JLabel("Total coins: " + controller.getCoins());
         coinLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         coinLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(coinLabel, gridBagConstraints);
@@ -48,22 +52,39 @@ public class GameOverView extends GamePanel {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-        rigiocaButton = new JButton("Play again");
-        rigiocaButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        rigiocaButton.addActionListener(e -> {
+        playAgainButton = new JButton("Play again");
+        playAgainButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playAgainButton.addActionListener(e -> {
             this.getMainFrame().playAgain();
         });
-        buttonPanel.add(rigiocaButton);
-        buttonPanel.add(Box.createVerticalStrut(10)); //TODO Magic number
+        buttonPanel.add(playAgainButton);
+        buttonPanel.add(Box.createVerticalStrut(10));
 
-        esciButton = new JButton("Exit");
-        esciButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        esciButton.addActionListener(e -> {
+        exitButton = new JButton("Exit");
+        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        exitButton.addActionListener(e -> {
             controller.quit();
         });
-        buttonPanel.add(esciButton);
+        buttonPanel.add(exitButton);
 
         add(buttonPanel, gridBagConstraints);
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int height = getHeight();
+                int width = getWidth();
+
+                gameOverLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.15)));
+                coinLabel.setFont(new Font("Arial", Font.PLAIN, (int)(height * 0.07)));
+
+                int buttonWidth = (int) (width * 0.6);
+                int buttonHeight = (int) (height * 0.2);
+
+                playAgainButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+                exitButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+            }
+        });
     }
 
 }

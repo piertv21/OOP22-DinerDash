@@ -88,16 +88,16 @@ public class GameViewImpl extends GamePanel implements GameView {
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
         topPanel.setPreferredSize(new Dimension(0, 60));
 
-        var controller = this.getMainFrame().getController();
-        timeLabel = new OutlinedLabel("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()),
-                Color.BLACK);
+        var controller = mainFrame.getController();
+        timeLabel = new OutlinedLabel(
+            "Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()), Color.BLACK);
         timeLabel.setFont(new Font("Arial", Font.BOLD, 25));
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(25, 25, 0, 0));
         topPanel.add(timeLabel);
 
-        customerWhoLeftLabel = new OutlinedLabel("Customers who left: " + controller.getCustomersWhoLeft(),
-                Color.BLACK);
+        customerWhoLeftLabel = new OutlinedLabel(
+            "Customers who left: " + controller.getCustomersWhoLeft(), Color.BLACK);
         customerWhoLeftLabel.setFont(new Font("Arial", Font.BOLD, 25));
         customerWhoLeftLabel.setForeground(Color.WHITE);
         customerWhoLeftLabel.setBorder(BorderFactory.createEmptyBorder(25, 10, 0, 0));
@@ -105,7 +105,8 @@ public class GameViewImpl extends GamePanel implements GameView {
         topPanel.add(customerWhoLeftLabel);
         topPanel.add(Box.createHorizontalGlue());
 
-        coinLabel = new OutlinedLabel("Coins: " + controller.getCoins(), Color.BLACK);
+        coinLabel = new OutlinedLabel(
+            "Coins: " + controller.getCoins(), Color.BLACK);
         coinLabel.setFont(new Font("Arial", Font.BOLD, 25));
         coinLabel.setForeground(Color.WHITE);
         coinLabel.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 25));
@@ -138,25 +139,25 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         var prices = controller.getPowerUpsPrices();
         IntStream.range(0, prices.length)
-                .forEach(i -> {
-                    JButton button = new JButton(String.valueOf(prices[i]),
-                            this.imageCacher.getCachedImage("powerUp" + (i + 1)));
-                    button.setHorizontalTextPosition(JButton.CENTER);
-                    button.setVerticalTextPosition(JButton.BOTTOM);
-                    button.addActionListener(e -> controller.enablePowerUp(i));
-                    button.setEnabled(false);
-                    rightPanel.add(button, c);
-                    this.powerupButtons.add(button);
-                    c.gridy++;
-                });
+            .forEach(i -> {
+                JButton button = new JButton(String.valueOf(prices[i]),
+                    this.imageCacher.getCachedImage("powerUp" + (i + 1)));
+                button.setHorizontalTextPosition(JButton.CENTER);
+                button.setVerticalTextPosition(JButton.BOTTOM);
+                button.addActionListener(e -> controller.enablePowerUp(i));
+                button.setEnabled(false);
+                rightPanel.add(button, c);
+                this.powerupButtons.add(button);
+                c.gridy++;
+            });
 
         add(rightPanel, BorderLayout.EAST);
 
         var point = new Point(0, 0);
         this.defaultCursor = Toolkit.getDefaultToolkit().createCustomCursor(
                 this.imageCacher.getCachedImage("defaultCursor").getImage(), point, "Default Cursor");
-        this.handCursor = Toolkit.getDefaultToolkit()
-                .createCustomCursor(this.imageCacher.getCachedImage("handCursor").getImage(), point, "Hand Cursor");
+        this.handCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+                this.imageCacher.getCachedImage("handCursor").getImage(), point, "Hand Cursor");
 
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
@@ -181,12 +182,12 @@ public class GameViewImpl extends GamePanel implements GameView {
                 tables.stream()
                         .filter(table -> inside(mouseX, mouseY, table))
                         .findFirst()
-                        .ifPresent(table -> controller.callWaitress(tables.indexOf(table), "t", null));
+                        .ifPresent(table -> controller.callWaitress(tables.indexOf(table), "table", null));
 
                 dishes.stream()
                         .filter(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
                         .findFirst()
-                        .ifPresent(dish -> controller.callWaitress(dishes.indexOf(dish), "d", dish.getPosition()));
+                        .ifPresent(dish -> controller.callWaitress(dishes.indexOf(dish), "dish", dish.getPosition()));
             }
         });
 
@@ -201,7 +202,7 @@ public class GameViewImpl extends GamePanel implements GameView {
             }
         });
 
-        this.getMainFrame().setGameStarted(true);
+        mainFrame.setGameStarted(true);
         this.render();
         this.start();
     }
@@ -252,8 +253,8 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.dishes = new LinkedList<>();
-        this.imageCacher = this.getMainFrame().getImageCacher();
         this.powerupButtons = new ArrayList<>();
+        this.imageCacher = this.getMainFrame().getImageCacher();
     }
 
     @Override
@@ -269,11 +270,9 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         final var heightRatio = this.getMainFrame().getHeightRatio();
         final var widthRatio = this.getMainFrame().getWidthRatio();
-
-        // Background
+        
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
-
-        // Waitress
+        
         g.drawImage(waitress.getIcon(),
                 (int) (waitress.getPosition().getX() * widthRatio),
                 (int) (waitress.getPosition().getY() * heightRatio),
@@ -281,7 +280,6 @@ public class GameViewImpl extends GamePanel implements GameView {
                 (int) (waitress.getSize().getY() * heightRatio),
                 this);
 
-        // Tables
         this.tables.stream().filter(t -> t.getPosition() != null)
                 .forEach(e -> {
                     g.drawImage(e.getIcon(),
@@ -300,8 +298,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                                 this);
                     }
                 });
-
-        // Customers che vanno ai tavoli
+                
         this.customers.stream().filter(cus -> cus.isActive()
                 && ((NumberDecoratorImpl) cus.getDecorated()).getNumber() == MAX_PATIECE)
                 .forEach(c -> {
@@ -311,8 +308,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                             (int) (c.getSize().getY() * heightRatio),
                             this);
                 });
-
-        // Customers in fila
+                
         var streamLineCustomer = this.customers.stream()
                 .filter(cus -> cus.isActive()
                         && ((NumberDecoratorImpl) cus.getDecorated()).getNumber() != MAX_PATIECE);
@@ -334,24 +330,24 @@ public class GameViewImpl extends GamePanel implements GameView {
                     (int) (CUSTOMER_PATIENCE_IMG_SIZE.getY() * heightRatio),
                     this);
         });
-
-        // Chef
+        
         if (this.chef.isActive()) {
             g.drawImage(chef.getIcon(),
                     (int) (chef.getPosition().getX() * widthRatio),
                     (int) (chef.getPosition().getY() * heightRatio),
                     (int) (chef.getSize().getX() * widthRatio),
                     (int) (chef.getSize().getY() * heightRatio),
-                    this);
+            this);
         }
 
-        this.dishes.stream().filter(dish -> dish.isActive()).forEach(dish -> g.drawImage(dish.getIcon(),
-                (int) (dish.getPosition().getX() * widthRatio),
-                (int) (dish.getPosition().getY() * heightRatio),
-                (int) (dish.getSize().getX() * widthRatio),
-                (int) (dish.getSize().getY() * heightRatio),
-                this));
-
+        this.dishes.stream().filter(dish -> dish.isActive()).forEach(dish ->
+            g.drawImage(dish.getIcon(),
+                    (int) (dish.getPosition().getX() * widthRatio),
+                    (int) (dish.getPosition().getY() * heightRatio),
+                    (int) (dish.getSize().getX() * widthRatio),
+                    (int) (dish.getSize().getY() * heightRatio),
+            this)
+        );
     }
 
     @Override

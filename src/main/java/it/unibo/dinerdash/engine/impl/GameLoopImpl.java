@@ -7,8 +7,7 @@ import it.unibo.dinerdash.engine.api.GameLoop;
 import it.unibo.dinerdash.model.api.States.GameState;
 
 public class GameLoopImpl implements GameLoop, Runnable {
-
-    private static final boolean DEBUG = true;
+    
     private static final int TARGET_FPS = 60;
     private static final long TARGET_FRAME_TIME = TimeUnit.SECONDS.toNanos(1) / TARGET_FPS;
 
@@ -42,8 +41,6 @@ public class GameLoopImpl implements GameLoop, Runnable {
 
     @Override
     public void run() {
-        int fps = 0;
-        long fpsTimer = System.nanoTime();
         long frameTimer = System.nanoTime();
 
         while (running) {
@@ -59,17 +56,8 @@ public class GameLoopImpl implements GameLoop, Runnable {
                 }
 
                 delta--;
-                fps++;
             }
-
-            // Mostra gli fps nella console ogni secondo
-            if (currentTime - fpsTimer >= TimeUnit.SECONDS.toNanos(1) && DEBUG) {
-                System.out.println("FPS: " + fps);
-                fps = 0;
-                fpsTimer += TimeUnit.SECONDS.toNanos(1);
-            }
-
-            // Pausa il thread solo se necessario per risparmiare risorse della CPU
+            
             long sleepTime = TimeUnit.NANOSECONDS.toMillis(frameTimer + TARGET_FRAME_TIME - System.nanoTime());
             if (sleepTime > 0) {
                 try {

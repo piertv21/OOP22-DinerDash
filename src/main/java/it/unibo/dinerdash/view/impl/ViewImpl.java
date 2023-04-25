@@ -59,12 +59,16 @@ public class ViewImpl extends JFrame implements View {
         this.setLocationByPlatform(true);
         this.setResizable(true);
         
-        this.setSize(1280, 720); //TODO DEBUG 720p
+        var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = (int) screenSize.getWidth();
+        int screenHeight = (int) screenSize.getHeight();
+        
+        this.setSize(screenWidth / 2, screenHeight / 2);
         this.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
 
         this.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-                var screenSize = e.getComponent().getSize(getSize());
+                var screenSize = e.getComponent().getSize();
                 widthRatio = screenSize.getWidth() / controller.getRestaurantWidth();
                 heightRatio = screenSize.getHeight() / controller.getRestaurantHeight();     
             }
@@ -155,22 +159,22 @@ public class ViewImpl extends JFrame implements View {
     
     private List<String> searchAssets(String path) {
         return Optional.ofNullable(new File(path).listFiles())
-                .map(Arrays::stream)
-                .orElse(Stream.empty())
-                .flatMap(file -> getFilesRecursively(file, path))
-                .filter(file -> file.getName().toLowerCase().matches(".+\\.(jpg|jpeg|png|gif)$"))
-                .map(File::getPath)
-                .collect(Collectors.toList());
+            .map(Arrays::stream)
+            .orElse(Stream.empty())
+            .flatMap(file -> getFilesRecursively(file, path))
+            .filter(file -> file.getName().toLowerCase().matches(".+\\.(jpg|jpeg|png|gif)$"))
+            .map(File::getPath)
+            .collect(Collectors.toList());
     }
 
     private Stream<File> getFilesRecursively(File file, String basePath) {
         String filePath = file.getPath();
         String relativePath = filePath.substring(basePath.length());
         return file.isDirectory() ? Optional.ofNullable(file.listFiles())
-                .map(Arrays::stream)
-                .orElse(Stream.empty())
-                .flatMap(f -> getFilesRecursively(f, basePath))
-                : Stream.of(new File(relativePath));
+            .map(Arrays::stream)
+            .orElse(Stream.empty())
+            .flatMap(f -> getFilesRecursively(f, basePath))
+            : Stream.of(new File(relativePath));
     }
 
     @Override

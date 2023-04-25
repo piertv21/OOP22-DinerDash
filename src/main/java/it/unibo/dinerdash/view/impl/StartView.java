@@ -32,15 +32,15 @@ public class StartView extends GamePanel {
         titleLabel = new JLabel(ViewImpl.FRAME_NAME);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 60));
         add(titleLabel, gridBagConstraints);
-
+        
         gridBagConstraints.gridy = 1;
         startButton = new JButton(START);
-        startButton.addActionListener((e) -> this.getMainFrame().showGameView());
+        startButton.addActionListener((e) -> mainFrame.showGameView());
         add(startButton, gridBagConstraints);
 
         gridBagConstraints.gridy = 2;
         exitButton = new JButton(EXIT);        
-        exitButton.addActionListener((e) -> this.getMainFrame().showExitDialog());
+        exitButton.addActionListener((e) -> mainFrame.showExitDialog());
         add(exitButton, gridBagConstraints);
         
         addComponentListener(new ComponentAdapter() {
@@ -51,8 +51,8 @@ public class StartView extends GamePanel {
 
                 titleLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.15)));
 
-                int buttonWidth = (int)(width * 0.3);
-                int buttonHeight = (int)(height * 0.08);
+                int buttonWidth = (int) (width * 0.3);
+                int buttonHeight = (int) (height * 0.08);
 
                 startButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
                 exitButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
