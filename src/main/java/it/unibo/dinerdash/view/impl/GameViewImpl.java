@@ -49,9 +49,10 @@ import it.unibo.dinerdash.view.api.ImageDecoratorImpl;
 public class GameViewImpl extends GamePanel implements GameView {
 
     private static int CUSTOMER_PATIENCE_REL_POSITION = -20;
+    private int TABLE_STATE_PATTER;
     private static int MAX_PATIECE = 7;
     private static Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
-    private static Pair<Integer, Integer> TABLE_STATE_IMG_POSITION = new Pair<>(60, 40);
+    private static Pair<Integer, Integer> TABLE_STATE_IMG_SIZE = new Pair<>(80, 56);
     
     private JLabel timeLabel;
     private JLabel customerWhoLeftLabel;
@@ -111,7 +112,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         coinLabel.setForeground(Color.WHITE);
         coinLabel.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 25));
         topPanel.add(coinLabel);
-
+       
         add(topPanel, BorderLayout.NORTH);
 
         bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
@@ -291,10 +292,10 @@ public class GameViewImpl extends GamePanel implements GameView {
 
                     if (e.getState().isPresent()) {
                         g.drawImage(e.getState().get(),
-                                (int) (e.getPosition().getX() * widthRatio),
+                                (int) ((e.getPosition().getX() + (TABLE_STATE_PATTER *widthRatio)) * widthRatio),
                                 (int) (e.getPosition().getY() * heightRatio),
-                                TABLE_STATE_IMG_POSITION.getX(),
-                                TABLE_STATE_IMG_POSITION.getY(),
+                                (int) (TABLE_STATE_IMG_SIZE.getX() * widthRatio),
+                                (int) (TABLE_STATE_IMG_SIZE.getY() * heightRatio),
                                 this);
                     }
                 });
@@ -356,7 +357,9 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.timeLabel.setText("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
         this.customerWhoLeftLabel.setText("Customers who left: " + controller.getCustomersWhoLeft());
         this.coinLabel.setText("Coins: " + controller.getCoins());
+        TABLE_STATE_PATTER= (int)( controller.getRestaurantWidth() * 0.03);
         this.repaint();
+        
     }
 
     @Override

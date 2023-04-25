@@ -62,7 +62,7 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
 
     @Override
     public void handleMovement(int range) {
-        if (getPosition().getX() < this.getDestination().get().getX())
+        if (getPosition().getX() < this.getDestination().get().getX() - range)
             this.moveRight();
         else if (getPosition().getX() > this.getDestination().get().getX() + range)
             this.moveLeft();
