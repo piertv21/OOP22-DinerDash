@@ -52,8 +52,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     private static int MAX_PATIECE = 7;
     private static Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
     private static Pair<Integer, Integer> TABLE_STATE_IMG_POSITION = new Pair<>(60, 40);
-    private static Integer setValue = 45;
-
+    
     private JLabel timeLabel;
     private JLabel customerWhoLeftLabel;
     private JLabel coinLabel;
@@ -166,10 +165,10 @@ public class GameViewImpl extends GamePanel implements GameView {
                 int mouseY = e.getY();
 
                 setCursor(
-                        tables.stream().anyMatch(table -> inside(mouseX, mouseY, table)) ||
-                                dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
-                                        ? handCursor
-                                        : defaultCursor);
+                    tables.stream().anyMatch(table -> inside(mouseX, mouseY, table)) ||
+                    dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
+                    ? handCursor : defaultCursor
+                );
             }
         });
 
@@ -284,11 +283,12 @@ public class GameViewImpl extends GamePanel implements GameView {
         // Tables
         this.tables.stream().filter(t -> t.getPosition() != null)
                 .forEach(e -> {
-                    g.drawImage(e.getIcon(), (int) ((e.getPosition().getX() + setValue) * widthRatio),
-                            (int) (e.getPosition().getY() * heightRatio),
-                            (int) (TABLE_STATE_IMG_POSITION.getX() * widthRatio),
-                            (int) (TABLE_STATE_IMG_POSITION.getY() * heightRatio),
-                            this);
+                    g.drawImage(e.getIcon(),
+                        (int) (e.getPosition().getX() * widthRatio),
+                        (int) (e.getPosition().getY() * heightRatio),
+                        (int) (e.getSize().getX() * widthRatio),
+                        (int) (e.getSize().getY() * heightRatio),
+                    this);
 
                     if (e.getState().isPresent()) {
                         g.drawImage(e.getState().get(),
@@ -364,11 +364,12 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addCustomerViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active,
-            int multiplicity,
-            int patience) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int multiplicity,
+        int patience
+    ) {
         var client = new ImageDecoratorImpl(
                 new NumberDecoratorImpl(
                         new GameEntityViewableImpl(coordinates, size, active,
@@ -379,10 +380,11 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void updateCustomersViewable(
-            int index,
-            Pair<Integer, Integer> coordinates,
-            boolean active,
-            int patience) {
+        int index,
+        Pair<Integer, Integer> coordinates,
+        boolean active,
+        int patience
+    ) {
         this.customers.get(index).update(coordinates, active);
         var client = ((NumberDecoratorImpl) this.customers.get(index).getDecorated());
 
@@ -400,9 +402,10 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addChefViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active
+    ) {
         this.chef = new GameEntityViewableImpl(
                 coordinates, size, active, this.imageCacher.getCachedImage("chef").getImage());
     }
@@ -414,10 +417,11 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addWaitressViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active,
-            int numDishes) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int numDishes
+    ) {
         this.waitress = new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active,
                         this.imageCacher.getCachedImage("waitress" + numDishes).getImage()));
@@ -437,10 +441,11 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addDishViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active,
-            int numTable) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int numTable
+    ) {
         var img = this.imageCacher.getCachedImage("dish" + numTable).getImage();
         var dish = new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active, img));
@@ -461,11 +466,12 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void addTableViewable(
-            Pair<Integer, Integer> coordinates,
-            Pair<Integer, Integer> size,
-            boolean active,
-            int peopleNumer,
-            String state) {
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active,
+        int peopleNumer,
+        String state
+    ) {
         var img = this.imageCacher.getCachedImage("table" + peopleNumer).getImage();
         var table = new ImageDecoratorImpl(new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active, img)));
