@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.model;
+package it.unibo.dinerdash.GameEntities;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
