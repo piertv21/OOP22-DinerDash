@@ -7,6 +7,8 @@ public interface GameView {
     void clear();
 
     void render();
+
+    void restart();
     
     /**
      * add new customer in view list.

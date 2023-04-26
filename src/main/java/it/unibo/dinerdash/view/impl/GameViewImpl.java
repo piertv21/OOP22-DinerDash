@@ -260,9 +260,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     @Override
     public void clear() {
-        this.customers.clear();
-        this.tables.clear();
-        this.dishes.clear();
+        this.clearForRestarting();
         this.powerupButtons.clear();
     }
 
@@ -360,7 +358,22 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.coinLabel.setText("Coins: " + controller.getCoins());
         TABLE_STATE_PATTER= (int)( controller.getRestaurantWidth() * 0.03);
         this.repaint();
-        
+    }
+
+    private void resetPowerUpsButtons() {
+        this.powerupButtons.forEach(e -> e.setEnabled(false));
+    }
+
+    private void clearForRestarting() {
+        this.customers.clear();
+        this.tables.clear();
+        this.dishes.clear();
+    }
+
+    @Override
+    public void restart() {
+        this.clearForRestarting();
+        this.resetPowerUpsButtons();
     }
 
     @Override
