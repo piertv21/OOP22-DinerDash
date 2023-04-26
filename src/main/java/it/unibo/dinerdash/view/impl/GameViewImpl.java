@@ -34,6 +34,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.GameView;
+import it.unibo.dinerdash.view.api.ImageDecorator;
 import it.unibo.dinerdash.view.api.View;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -42,6 +43,7 @@ import it.unibo.dinerdash.view.api.GameEntityViewableImpl;
 import it.unibo.dinerdash.view.api.NumberDecoratorImpl;
 import it.unibo.dinerdash.view.api.OutlinedLabel;
 import it.unibo.dinerdash.view.api.ImageDecoratorImpl;
+import it.unibo.dinerdash.view.api.NumberDecorator;
 
 /*
  * Main Game View Panel
@@ -65,10 +67,10 @@ public class GameViewImpl extends GamePanel implements GameView {
     private Image backgroundImage;
     private ImageReaderWithCache imageCacher;
 
-    private LinkedList<ImageDecoratorImpl> customers;
-    private LinkedList<ImageDecoratorImpl> tables;
-    private LinkedList<NumberDecoratorImpl> dishes;
-    private NumberDecoratorImpl waitress;
+    private LinkedList<ImageDecorator> customers;
+    private LinkedList<ImageDecorator> tables;
+    private LinkedList<NumberDecorator> dishes;
+    private NumberDecorator waitress;
     private GameEntityViewable chef;
 
     private Cursor defaultCursor;
@@ -300,7 +302,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                 });
                 
         this.customers.stream().filter(cus -> cus.isActive()
-                && ((NumberDecoratorImpl) cus.getDecorated()).getNumber() == MAX_PATIECE)
+                && ((NumberDecorator) cus.getDecorated()).getNumber() == MAX_PATIECE)
                 .forEach(c -> {
                     g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
                             (int) (c.getPosition().getY() * heightRatio),
@@ -311,7 +313,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                 
         var streamLineCustomer = this.customers.stream()
                 .filter(cus -> cus.isActive()
-                        && ((NumberDecoratorImpl) cus.getDecorated()).getNumber() != MAX_PATIECE);
+                        && ((NumberDecorator) cus.getDecorated()).getNumber() != MAX_PATIECE);
         var list = streamLineCustomer.collect(Collectors.toList());
 
         Collections.reverse(list);
@@ -388,7 +390,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                 new NumberDecoratorImpl(
                         new GameEntityViewableImpl(coordinates, size, active,
                                 this.imageCacher.getCachedImage("customer" + multiplicity).getImage())));
-        ((NumberDecoratorImpl) client.getDecorated()).setNumber(patience);
+        ((NumberDecorator) client.getDecorated()).setNumber(patience);
         this.customers.add(client);
     }
 
@@ -400,7 +402,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         int patience
     ) {
         this.customers.get(index).update(coordinates, active);
-        var client = ((NumberDecoratorImpl) this.customers.get(index).getDecorated());
+        var client = ((NumberDecorator) this.customers.get(index).getDecorated());
 
         if (client.getNumber() != patience && patience != -1) {
             var img = this.imageCacher.getCachedImage("heart" + patience).getImage();
@@ -489,14 +491,14 @@ public class GameViewImpl extends GamePanel implements GameView {
         var img = this.imageCacher.getCachedImage("table" + peopleNumer).getImage();
         var table = new ImageDecoratorImpl(new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active, img)));
-        ((NumberDecoratorImpl) table.getDecorated()).setNumber(peopleNumer);
+        ((NumberDecorator) table.getDecorated()).setNumber(peopleNumer);
         table.setState(Optional.empty());
         this.tables.add(table);
     }
 
     @Override
     public void updateTablesViewable(int index, int peopleNumber, String state) {
-        var tempTable = (NumberDecoratorImpl) tables.get(index).getDecorated();
+        var tempTable = (NumberDecorator) tables.get(index).getDecorated();
         if (tempTable.getNumber() != peopleNumber) {
             tempTable.setNumber(peopleNumber);
             var img = this.imageCacher.getCachedImage("table" + peopleNumber).getImage();

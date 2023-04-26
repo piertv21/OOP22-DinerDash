@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import it.unibo.dinerdash.controller.api.Controller;
+import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.View;
@@ -28,7 +29,6 @@ public class ViewImpl extends JFrame implements View {
     private static final String SEP = System.getProperty("file.separator");
     private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
 
-    public static final String FRAME_NAME = "Diner Dash";
     public static final int MIN_WIDTH = 800;
     public static final int MIN_HEIGHT = 600;
 
@@ -41,7 +41,7 @@ public class ViewImpl extends JFrame implements View {
     private double heightRatio;
 
     public ViewImpl(Controller controller) {
-        super(FRAME_NAME);
+        super(Constants.GAME_NAME);
         this.controller = controller;
         this.imageCacher = new ImageReaderWithCache(ROOT);
         

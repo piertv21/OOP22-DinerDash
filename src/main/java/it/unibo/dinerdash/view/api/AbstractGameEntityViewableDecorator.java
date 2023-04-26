@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public abstract class AbstractGameEntityViewableDecorator implements GameEntityViewable {
+public abstract class AbstractGameEntityViewableDecorator implements GameEntityViewableDecorator {
 
     protected final GameEntityViewable decorated;
 
@@ -12,6 +12,7 @@ public abstract class AbstractGameEntityViewableDecorator implements GameEntityV
         this.decorated = decorated;
     }
 
+    @Override
     public GameEntityViewable getDecorated() {
         return this.decorated;
     }

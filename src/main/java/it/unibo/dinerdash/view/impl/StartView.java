@@ -6,7 +6,9 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.*;
 
+import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.view.api.GamePanel;
+import it.unibo.dinerdash.view.api.View;
 
 /*
  * Starting Game Menu with 2 buttons
@@ -20,7 +22,7 @@ public class StartView extends GamePanel {
     private JButton startButton;
     private JButton exitButton;
 
-    public StartView(ViewImpl mainFrame) {        
+    public StartView(View mainFrame) {        
         super(mainFrame);
         setLayout(new GridBagLayout());
 
@@ -29,7 +31,7 @@ public class StartView extends GamePanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new Insets(10, 0, 10, 0);
         
-        titleLabel = new JLabel(ViewImpl.FRAME_NAME);
+        titleLabel = new JLabel(Constants.GAME_NAME);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 60));
         add(titleLabel, gridBagConstraints);
         

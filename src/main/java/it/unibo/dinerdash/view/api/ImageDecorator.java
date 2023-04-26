@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import java.awt.Image;
 
-public interface ImageDecorator {
+public interface ImageDecorator extends GameEntityViewableDecorator {
 
     void setState(Optional<Image> icon);
 
