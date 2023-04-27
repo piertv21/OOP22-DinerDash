@@ -9,8 +9,10 @@ import it.unibo.dinerdash.model.api.GameEntities.Chef;
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/*
- * Chef
+/**
+ * {@inheritDoc}
+ *
+ * Implementation of the Chef interface.
  */
 public class ChefImpl extends AbstractGameEntity implements Chef {
     
@@ -23,6 +25,13 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     private int enabledPowerUps;
     private Model model;
 
+    /**
+     * Class constructor.
+     * 
+     * @param coordinates are the coordinates of the chef in the restaurant
+     * @param size is the chef size in the restaurant
+     * @param model is the reference to the Model
+     */
     public ChefImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model) {
         super(coordinates, size);
         this.setActive(false);
@@ -32,6 +41,9 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
         this.model = model;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         if (this.currentDish.isPresent()) {
@@ -55,8 +67,15 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void startPreparingDish(Dish dish) {
+    public void reducePreparationTime() {
+        this.enabledPowerUps++;
+    }
+    
+    private void startPreparingDish(Dish dish) {
         this.currentDish = Optional.of(dish);
 
         int preparationTimeInSeconds = (int) (Math.random() * (MAX_PREPARATION_TIME - MIN_PREPARATION_TIME + 1)) + MIN_PREPARATION_TIME;
@@ -64,18 +83,12 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
         var currentTime = System.nanoTime();
         this.timeDishReady = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(preparationTimeInSeconds - bonusTime));
     }
-
-    @Override
-    public void completeCurrentDish() {
+    
+    private void completeCurrentDish() {
         this.model.completeDishPreparation(this.currentDish.get());
 
         this.currentDish = Optional.empty();
         this.timeDishReady = Optional.empty();
-    }
-
-    @Override
-    public void reducePreparationTime() {
-        this.enabledPowerUps++;
     }
     
 }

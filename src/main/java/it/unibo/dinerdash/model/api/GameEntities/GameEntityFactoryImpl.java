@@ -8,16 +8,28 @@ import it.unibo.dinerdash.model.impl.TableImpl;
 import it.unibo.dinerdash.model.impl.WaitressImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/*
- * Factory method for game entities
+/**
+ * {@inheritDoc}
+ *
+ * Implementation of the Game Entity Factory.
  */
 public class GameEntityFactoryImpl implements GameEntityFactory {
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Chef createChef(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model) {
+    public Chef createChef(
+        final Pair<Integer, Integer> coordinates,
+        final Pair<Integer, Integer> size,
+        final Model model
+    ) {
         return new ChefImpl(coordinates, size, model);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Customer createCustomer(
         final Pair<Integer, Integer> coordinates,
@@ -28,18 +40,39 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
        return new CustomerImpl(coordinates, size, model, numCust);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Dish createDish(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int dishNumber) {
+    public Dish createDish(
+        final Pair<Integer, Integer> coordinates,
+        final Pair<Integer, Integer> size,
+        final int dishNumber
+    ) {
         return new DishImpl(coordinates, size, dishNumber);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Table createTable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
+    public Table createTable(
+        final Pair<Integer, Integer> coordinates,
+        final Pair<Integer, Integer> size,
+        final int i
+    ) {
         return new TableImpl(coordinates, size, i);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Waitress createWaitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model) {
+    public Waitress createWaitress(
+        final Pair<Integer, Integer> coordinates,
+        final Pair<Integer, Integer> size,
+        final Model model
+    ) {
         return new WaitressImpl(coordinates, size, model);
     }
     

@@ -2,12 +2,12 @@ package it.unibo.dinerdash.model.api.GameEntities;
 
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/*
+/**
  * This interface defines a Game Entity
  */
 public interface GameEntity {
 
-    /*
+    /**
      * Returns the GameEntity position.
      * 
      * @return A pair of Integer
@@ -15,7 +15,7 @@ public interface GameEntity {
      */
     Pair<Integer, Integer> getPosition();
 
-    /*
+    /**
      * Set the the GameEntity location.
      * 
      * @param position are the coordinates
@@ -23,7 +23,7 @@ public interface GameEntity {
      */
     void setPosition(Pair<Integer, Integer> position);
 
-    /*
+    /**
      * Returns the GameEntity size.
      * 
      * @return a pair of Integers
@@ -31,7 +31,7 @@ public interface GameEntity {
      */
     Pair<Integer, Integer> getSize();
 
-    /*
+    /**
      * Set the GameEntity size.
      * 
      * @param size are the dimensions
@@ -39,7 +39,7 @@ public interface GameEntity {
      */
     void setSize(Pair<Integer, Integer> size);
 
-    /*
+    /**
      * Tells if the GameEntity is currently active
      * and will need to appear in the game.
      * 
@@ -47,8 +47,8 @@ public interface GameEntity {
      */
     boolean isActive();
 
-    /*
-     * Set the GameEntity active state
+    /**
+     * Set the GameEntity active state.
      * 
      * @param active is the active state to be set
      */

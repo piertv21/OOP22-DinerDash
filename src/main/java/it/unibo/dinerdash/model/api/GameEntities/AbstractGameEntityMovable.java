@@ -5,32 +5,56 @@ import java.util.Optional;
 import it.unibo.dinerdash.utility.impl.Direction;
 import it.unibo.dinerdash.utility.impl.Pair;
 
+/**
+ * {@inheritDoc}
+ *
+ * Implementation of the GameEntityMovable.
+ */
 public class AbstractGameEntityMovable extends AbstractGameEntity implements GameEntityMovable {
 
     private Optional<Pair<Integer, Integer>> destination;
     private int speed;
-
-    public AbstractGameEntityMovable(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,final int speed) {
+    
+    /**
+     * {@inheritDoc}
+     * 
+     * Class constructor.
+     * 
+     * @param speed is the entity movement speed in the restaurant
+     */
+    public AbstractGameEntityMovable(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, final int speed) {
         super(coordinates, size);
         this.destination = Optional.empty();
         this.setMovementSpeed(speed);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Pair<Integer, Integer>> getDestination() {
         return this.destination;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setDestination(final Optional<Pair<Integer, Integer>> destination) {
         this.destination = destination;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getMovementSpeed() {
         return this.speed;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setMovementSpeed(final int speed) {
         this.speed = speed;
@@ -60,8 +84,11 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
         this.setPosition(newPosition);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void handleMovement(int range) {
+    public void handleMovement(final int range) {
         if (getPosition().getX() < this.getDestination().get().getX() - range)
             this.moveRight();
         else if (getPosition().getX() > this.getDestination().get().getX() + range)
