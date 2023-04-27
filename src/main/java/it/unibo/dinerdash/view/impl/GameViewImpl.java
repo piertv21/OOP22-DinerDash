@@ -36,6 +36,7 @@ import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.ImageDecorator;
 import it.unibo.dinerdash.view.api.View;
+import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameEntityViewable;
@@ -50,11 +51,11 @@ import it.unibo.dinerdash.view.api.NumberDecorator;
  */
 public class GameViewImpl extends GamePanel implements GameView {
 
-    private static int CUSTOMER_PATIENCE_REL_POSITION;
-    private int TABLE_STATE_PATTER;
-    private static int MAX_PATIECE = 7;
-    private static Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
-    private static Pair<Integer, Integer> TABLE_STATE_IMG_SIZE = new Pair<>(80, 56);
+    private static final int CUSTOMER_PATIENCE_REL_POSITION = (int) (Constants.RESTAURANT_WIDTH * -0.01);
+    private static final int TABLE_STATE_PATTER = (int) (Constants.RESTAURANT_WIDTH * 0.03);
+    private static final int MAX_PATIECE = 7;
+    private static final Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
+    private static final Pair<Integer, Integer> TABLE_STATE_IMG_SIZE = new Pair<>(80, 56);
     
     private JLabel timeLabel;
     private JLabel customerWhoLeftLabel;
@@ -293,7 +294,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
                     if (e.getState().isPresent()) {
                         g.drawImage(e.getState().get(),
-                                (int) ((e.getPosition().getX() + (TABLE_STATE_PATTER *widthRatio)) * widthRatio),
+                                (int) ((e.getPosition().getX() + (TABLE_STATE_PATTER * widthRatio)) * widthRatio),
                                 (int) (e.getPosition().getY() * heightRatio),
                                 (int) (TABLE_STATE_IMG_SIZE.getX() * widthRatio),
                                 (int) (TABLE_STATE_IMG_SIZE.getY() * heightRatio),
@@ -358,8 +359,6 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.timeLabel.setText("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
         this.customerWhoLeftLabel.setText("Customers who left: " + controller.getCustomersWhoLeft());
         this.coinLabel.setText("Coins: " + controller.getCoins());
-        TABLE_STATE_PATTER= (int)( controller.getRestaurantWidth() * 0.03);
-        CUSTOMER_PATIENCE_REL_POSITION = (int)( controller.getRestaurantWidth() * -0.01);
         this.repaint();
     }
 
