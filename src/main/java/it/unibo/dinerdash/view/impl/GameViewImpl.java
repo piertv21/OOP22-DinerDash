@@ -50,7 +50,7 @@ import it.unibo.dinerdash.view.api.NumberDecorator;
  */
 public class GameViewImpl extends GamePanel implements GameView {
 
-    private static int CUSTOMER_PATIENCE_REL_POSITION = -20;
+    private static int CUSTOMER_PATIENCE_REL_POSITION;
     private int TABLE_STATE_PATTER;
     private static int MAX_PATIECE = 7;
     private static Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
@@ -359,6 +359,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.customerWhoLeftLabel.setText("Customers who left: " + controller.getCustomersWhoLeft());
         this.coinLabel.setText("Coins: " + controller.getCoins());
         TABLE_STATE_PATTER= (int)( controller.getRestaurantWidth() * 0.03);
+        CUSTOMER_PATIENCE_REL_POSITION = (int)( controller.getRestaurantWidth() * -0.01);
         this.repaint();
     }
 
