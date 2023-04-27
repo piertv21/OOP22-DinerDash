@@ -29,24 +29,31 @@ public interface View {
     double getWidthRatio();
 
     /**
-     * getter for HeightRatio.
+     * Getter for HeightRatio.
+     * 
      * @return ratio between model's height
      * and main window's height
      */
     double getHeightRatio();
 
     /**
-     * getter for main window's Width.
+     * Getter for main window's Width.
+     * 
      * @return Width of the main window
      */
     int getWidth();
 
     /**
-     * getter for main window's Height.
+     * Getter for main window's Height.
      * @return height of the main window
      */
     int getHeight();
 
+    /**
+     * Getter for Game's Image Storage.
+     * 
+     * @return ImageCacher with all Images saved
+     */
     ImageReaderWithCache getImageCacher();
     
 }

@@ -59,6 +59,8 @@ public interface Model {
     void setWaitressTableDestination(Pair<Integer, Integer> destination);
 
     /**
+     * Check if client is the first in line and there is a free table.
+     * 
      * @param client client in line looking for a free table
      * @return true if there is a free table to sit,and
      *         client is the fist in line waiting
@@ -66,26 +68,30 @@ public interface Model {
     boolean checkFreeTables(Customer client);
 
     /**
-     * @param client to whom i will assign a place in line
-     *               assign the first free spot in line queue
+     * Assign the first free spot in line queue.
+     * 
+     * @param client to whom i will assign a place in line           
      */
     void linePositionAssignament(Customer client);
 
     /**
+     * Assign a free table to a client.
+     * 
      * @param client to whom i will assign a free table
-     *               assign the first free table to a customer
      */
     void tableAssignament(Customer client);
 
     /**
-     * remove a client whom waited in line
-     * for too much
+     * Remove a client whom waited in line
+     * for too much.
      */
     void removeAngryCustomers();
 
     /**
+     * Check if there are free tables to sit down.
+     * 
      * @return true if there is a free table
-     *         check if there is a free table to sit
+     *         false if not.
      */
     boolean thereAreAvaibleTables();
 
@@ -106,11 +112,11 @@ public interface Model {
     void earnMoneyFromTable();
 
     /**
-     * @param numberOfClienty number of clients whom are sitted
-     *                        at the table
+     *  Set the number of clients sitted at the table number
+     *  "numberOfTable".
+     * 
+     * @param numberOfClienty number of clients 
      * @param numberOfTable   number of the table
-     *                        set the number of clients sitted at the table number
-     *                        "numberOfTable"
      */
     void setNumberOfClientsAtTable(int numberOfClienty, int numberOfTable);
 
@@ -128,6 +134,11 @@ public interface Model {
 
     int[] getPowerUpsPrices();
 
+    /**
+     * Set  max Customer who can leaver before loose a game.
+     * 
+     * @param number Cax Customer' Number
+     */
     void addMaxCustomerThatCanLeave(int number);
 
     void increaseCoinsMultiplier();

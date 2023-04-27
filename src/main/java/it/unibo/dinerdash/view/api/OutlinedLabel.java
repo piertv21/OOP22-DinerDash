@@ -11,7 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 /*
- * Simple Class for drawing Outlined Labels
+ * Simple Class for drawing Outlined Labels.
  */
 public class OutlinedLabel extends JLabel {
 

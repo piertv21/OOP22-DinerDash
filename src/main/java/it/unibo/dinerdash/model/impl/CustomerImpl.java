@@ -11,14 +11,14 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 /**
  * Create a new element "Customer" who will move in the restaurant, Or will 
- * wait in Line for a free table
+ * wait in Line for a free table.
  */
 public class CustomerImpl extends AbstractGameEntityMovable implements Customer {
 
     private static final int ZERO = 0;
     private static final int MAX_ORDERING_TIME = 4;
-    /**
-     * seconds used to decrease a customer's patience
+    /*
+     * seconds used to decrease a customer's patience.
      */
     private static final int TIME_BEFORE_LOOSEPATIENCE = 4;
     private static final int MAX_PATIECE = 7;
@@ -29,17 +29,19 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     private final int numberClients;
     private long startThinkTime;
     /**
-     * The last time when a customer reduced his 
+     * The last time when a customer reduced his
      * patience level.
      */
     private Optional<Long> lastPatienceReduce;
     private int patience;
-    /**
-     * random Time in seconds before make a order
+    /*
+     * random Time in seconds before make a order.
      */
     private final int timeBeforeOrder;
 
     /**
+     * Create a new Customer.
+     * 
      * @param coordinates starting customer's position
      * @param size customer's image size (height, width)
      * @param model reference to modeImpl
@@ -94,6 +96,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 final int sittedTable = this.model.getTablefromPositon(getPosition()).getTableNumber();
                 this.model.setTableState(TableState.ORDERING, sittedTable);
             }
+            // actions executed only by Customers in line
         } else if (state.equals(CustomerState.LINE)) {
             if (this.lastPatienceReduce.isPresent()) {
                 if (model.checkFreeTables(this)) {

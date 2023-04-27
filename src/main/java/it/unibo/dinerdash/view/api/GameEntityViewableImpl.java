@@ -6,7 +6,7 @@ import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*
- * GameEntity viewable for GUI representation (Chef - Waitress - Dishes)
+ * GameEntity viewable for GUI representation (Chef - Waitress - Dishes).
  */
 public class GameEntityViewableImpl extends AbstractGameEntity implements GameEntityViewable {
 
