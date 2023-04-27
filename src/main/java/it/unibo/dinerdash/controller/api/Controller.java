@@ -85,7 +85,7 @@ public interface Controller {
      * formatted in mm:ss
      */
     String getRemainingTime();
-    
+
     /**
      * Returns the number of clients who left.
      * 
@@ -108,7 +108,7 @@ public interface Controller {
      */
     int getRestaurantHeight();
 
-    /*
+    /**
      * Call the update on the Game View.
      */
     void updateView();
@@ -146,7 +146,7 @@ public interface Controller {
      * @param index of the customer whom need to delete
      */
     void removeCustomerInView(int index);
-    
+
     /**
      * Adds the chef to the view.
      * 
@@ -160,7 +160,7 @@ public interface Controller {
      * @param chef is the Chef from Model
      */
     void updateChefInView(Chef chef);
-    
+
     /**
      * Adds the waitress to the view.
      * 
@@ -174,7 +174,7 @@ public interface Controller {
      * @param waitress is the waitress from Model
      */
     void updateWaitressInView(Waitress waitress);
-    
+
     /**
      * Adds a dish to the view.
      * 

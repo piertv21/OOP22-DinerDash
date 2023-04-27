@@ -12,7 +12,7 @@ import it.unibo.dinerdash.model.api.States.GameState;
  * Implementation of the GameLoop interface.
  */
 public class GameLoopImpl implements GameLoop, Runnable {
-    
+
     private static final int TARGET_FPS = 60;
     private static final long TARGET_FRAME_TIME = TimeUnit.SECONDS.toNanos(1) / TARGET_FPS;
 
@@ -29,7 +29,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
      * 
      * @param controller is the game controller
      */
-    public GameLoopImpl(Controller controller) {
+    public GameLoopImpl(final Controller controller) {
         this.controller = controller;
     }
 
@@ -80,7 +80,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
 
                 delta--;
             }
-            
+
             long sleepTime = TimeUnit.NANOSECONDS.toMillis(frameTimer + TARGET_FRAME_TIME - System.nanoTime());
             if (sleepTime > 0) {
                 try {

@@ -34,7 +34,7 @@ public class ControllerImpl implements Controller {
 
     /**
      * Class constructor, instantiates the Model
-     * by passing this instance
+     * by passing this instance.
      */
     public ControllerImpl() {
         this.model = new ModelImpl(this);
@@ -44,7 +44,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void setView(View view) {
+    public void setView(final View view) {
         this.view = view;
     }
 
@@ -154,8 +154,8 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-	public String getCustomersWhoLeft() {
-		return this.model.getCustomersWhoLeft() + "/" + this.model.getCustomerWhoCanLeft();
+    public String getCustomersWhoLeft() {
+        return this.model.getCustomersWhoLeft() + "/" + this.model.getCustomerWhoCanLeft();
 	}
 
     /**
@@ -186,7 +186,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void callWaitress(int indexList, String s, Pair<Integer, Integer> position) {
+    public void callWaitress(final int indexList, final String s, final Pair<Integer, Integer> position) {
         model.setWaiterssInfo(indexList, s, position);
     }
 
@@ -194,7 +194,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void addCustomerToView(Customer customer) {
+    public void addCustomerToView(final Customer customer) {
         this.gameView.addCustomerViewable(customer.getPosition(), customer.getSize(),
                 customer.isActive(), customer.getCustomerCount(), customer.getCustomerPatience());
     }
@@ -203,7 +203,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void updateCustomersInView(int index, Customer customer) {
+    public void updateCustomersInView(final int index, final Customer customer) {
         this.gameView.updateCustomersViewable(index, customer.getPosition(),
                 customer.isActive(), customer.getCustomerPatience());
     }
@@ -212,7 +212,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void removeCustomerInView(int index) {
+    public void removeCustomerInView(final int index) {
         this.gameView.removeCustomerViewable(index);
     }
 
@@ -220,7 +220,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void addChefToView(Chef chef) {
+    public void addChefToView(final Chef chef) {
         this.gameView.addChefViewable(chef.getPosition(), chef.getSize(), chef.isActive());
     }
 
@@ -228,7 +228,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void updateChefInView(Chef chef) {
+    public void updateChefInView(final Chef chef) {
         this.gameView.updateChefViewable(chef.isActive());
     }
 
@@ -236,7 +236,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void addWaitressToView(Waitress waitress) {
+    public void addWaitressToView(final Waitress waitress) {
         this.gameView.addWaitressViewable(waitress.getPosition(), waitress.getSize(), waitress.isActive(),
                 waitress.getOrdersNumber());
 
@@ -246,7 +246,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void updateWaitressInView(Waitress waitress) {
+    public void updateWaitressInView(final Waitress waitress) {
         this.gameView.updateWaitressViewable(waitress.getPosition(), waitress.getOrdersNumber());
     }
 
@@ -254,7 +254,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void addDishToView(Dish dish) {
+    public void addDishToView(final Dish dish) {
         this.gameView.addDishViewable(dish.getPosition(), dish.getSize(), dish.isActive(), dish.getDishNumber());
     }
 
@@ -262,7 +262,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void updateDishesInView(int index, Dish dish) {
+    public void updateDishesInView(final int index, final Dish dish) {
         this.gameView.updateDishesViewable(index, dish.isActive());
     }
 
@@ -270,7 +270,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void deleteDishInView(int index) {
+    public void deleteDishInView(final int index) {
         this.gameView.deleteDishViewable(index);
     }
 
@@ -278,7 +278,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void addTableToView(Table table) {
+    public void addTableToView(final Table table) {
         this.gameView.addTableViewable(table.getPosition(), table.getSize(), table.isActive(), table.getPeopleSeatedNumber(), "");
     }
 
@@ -286,7 +286,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void updateTablesInView(int index, Table table) {
+    public void updateTablesInView(final int index, final Table table) {
         this.gameView.updateTablesViewable(index, table.getPeopleSeatedNumber(), table.getStateInText());
     }
 
@@ -294,7 +294,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void enablePowerUp(int index) {
+    public void enablePowerUp(final int index) {
         switch (index) {
             case 0 -> this.model.reduceDishPreparationTime();
             case 1 -> this.model.increaseWaitressSpeed();

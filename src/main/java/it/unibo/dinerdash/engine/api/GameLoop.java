@@ -6,12 +6,12 @@ package it.unibo.dinerdash.engine.api;
 public interface GameLoop {
 
     /**
-     * Start the GameLoop thread
+     * Start the GameLoop thread.
      */
     void start();
 
     /**
-     * Stop the GameLoop thread
+     * Stop the GameLoop thread.
      */
     void stop();
 
