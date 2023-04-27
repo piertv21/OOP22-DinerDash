@@ -6,14 +6,14 @@ import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.utility.api.ImageReader;
 
-/*
+/**
  * Implementation of the {@link it.unibo.dinerdash.utility.api.ImageReader} interface
  */
 public class ImageReaderImpl implements ImageReader {
 
     private String root;
 
-    /*
+    /**
      * Class constructor
      * 
      * @param root Defines the root path
@@ -22,7 +22,7 @@ public class ImageReaderImpl implements ImageReader {
         this.setRoot(root);
     }
 
-    /*
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -30,7 +30,7 @@ public class ImageReaderImpl implements ImageReader {
         this.root = root;
     }
 
-    /*
+    /**
      * {@inheritDoc}
      */
     @Override

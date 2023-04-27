@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-/*
+/**
  * Implementation of an Image Reader with Cache
  */
 public class ImageReaderWithCache implements ImageReader {
@@ -17,7 +17,7 @@ public class ImageReaderWithCache implements ImageReader {
     private ImageReader imageReader;
     private Map<String, ImageIcon> cachedImages;
 
-    /*
+    /**
      * Class constructor
      * 
      * @param root Defines the root path
@@ -27,7 +27,7 @@ public class ImageReaderWithCache implements ImageReader {
         cachedImages = new HashMap<>();
     }
 
-    /*
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -35,7 +35,7 @@ public class ImageReaderWithCache implements ImageReader {
         imageReader.setRoot(root);
     }
 
-    /*
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -52,7 +52,7 @@ public class ImageReaderWithCache implements ImageReader {
             .orElse(path);
     }    
 
-    /*
+    /**
      * Returns an image from the cache
      * 
      * @param name Represents the image name without extension and relative path
@@ -61,7 +61,7 @@ public class ImageReaderWithCache implements ImageReader {
         return cachedImages.get(name);
     }
 
-    /*
+    /**
      * Clears cache of stored images
      */
     public void clearCache() {

@@ -94,7 +94,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         var controller = mainFrame.getController();
         timeLabel = new OutlinedLabel(
-            "Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()), Color.BLACK);
+            "Time: " + controller.getRemainingTime(), Color.BLACK);
         timeLabel.setFont(new Font("Arial", Font.BOLD, 25));
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(25, 25, 0, 0));
@@ -356,7 +356,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     @Override
     public void render() {
         var controller = this.getMainFrame().getController();
-        this.timeLabel.setText("Time: " + controller.convertToMinutesAndSeconds(controller.getRemainingTime()));
+        this.timeLabel.setText("Time: " + controller.getRemainingTime());
         this.customerWhoLeftLabel.setText("Customers who left: " + controller.getCustomersWhoLeft());
         this.coinLabel.setText("Coins: " + controller.getCoins());
         this.repaint();

@@ -100,13 +100,12 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public int getRemainingTime() {
-        return this.model.getRemainingTime();
-    }
-
-    @Override
-    public boolean gameOver() {
-        return this.model.gameOver();
+    public String getRemainingTime() {
+        var time = this.model.getRemainingTime();
+        int minutes = time / 60;
+        int remainingSeconds = time % 60;
+        String formattedTime = String.format("%d:%02d", minutes, remainingSeconds);
+        return formattedTime;
     }
 
     @Override
@@ -127,19 +126,6 @@ public class ControllerImpl implements Controller {
     @Override
     public void updateView() {
         this.gameView.render();
-    }
-
-    @Override
-    public String convertToMinutesAndSeconds(int seconds) {
-        int minutes = seconds / 60;
-        int remainingSeconds = seconds % 60;
-        String formattedTime = String.format("%d:%02d", minutes, remainingSeconds);
-        return formattedTime;
-    }
-
-    @Override
-    public void setWaitressDestination(Pair<Integer, Integer> dest) {
-        this.model.setWaitressTableDestination(dest);
     }
 
     @Override

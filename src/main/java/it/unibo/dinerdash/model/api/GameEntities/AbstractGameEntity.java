@@ -2,6 +2,11 @@ package it.unibo.dinerdash.model.api.GameEntities;
 
 import it.unibo.dinerdash.utility.impl.Pair;
 
+/*
+ * Abstract class that implements a GameEntity
+ * 
+ * @see 
+ */
 public abstract class AbstractGameEntity implements GameEntity {
 
     private Pair<Integer, Integer> position;

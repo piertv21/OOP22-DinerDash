@@ -24,14 +24,14 @@ public class Pair<X,Y> {
 		this.y = y;
 	}
 
-	/*
+	/**
 	 * @return first value of Pair
 	 */
 	public X getX() {
 		return x;
 	}
 
-	/*
+	/**
 	 * @return second value of Pair
 	 */
 	public Y getY() {

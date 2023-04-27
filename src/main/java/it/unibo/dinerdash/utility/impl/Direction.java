@@ -1,6 +1,6 @@
 package it.unibo.dinerdash.utility.impl;
 
-/*
+/**
  * This Enum contains 4 directions for entity movement management
  */
 public enum Direction {
