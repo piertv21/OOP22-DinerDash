@@ -6,6 +6,11 @@ import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
 import it.unibo.dinerdash.model.api.States.GameState;
 
+/**
+ * {@inheritDoc}
+ *
+ * Implementation of the GameLoop interface.
+ */
 public class GameLoopImpl implements GameLoop, Runnable {
     
     private static final int TARGET_FPS = 60;
@@ -19,10 +24,19 @@ public class GameLoopImpl implements GameLoop, Runnable {
 
     private Thread thread;
 
+    /**
+     * Class constructor.
+     * 
+     * @param controller is the game controller
+     */
     public GameLoopImpl(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public synchronized void start() {
         if (!this.running) {
             running = true;
@@ -32,6 +46,10 @@ public class GameLoopImpl implements GameLoop, Runnable {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public synchronized void stop() {
         if (this.running) {
             running = false;
@@ -39,6 +57,11 @@ public class GameLoopImpl implements GameLoop, Runnable {
         }
     }
 
+    /**
+     * GameLoop main thread. Until execution is finished
+     * it calls a method on the controller based on the Target FPS
+     * and eventually waits via Thread.sleep()
+     */
     @Override
     public void run() {
         long frameTimer = System.nanoTime();
@@ -69,4 +92,5 @@ public class GameLoopImpl implements GameLoop, Runnable {
             frameTimer = System.nanoTime();
         }
     }
+
 }

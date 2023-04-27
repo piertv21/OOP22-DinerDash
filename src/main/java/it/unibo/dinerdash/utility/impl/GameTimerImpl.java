@@ -9,7 +9,9 @@ import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.api.GameTimer;
 
 /**
- * Implementation of the {@link it.unibo.dinerdash.utility.api.GameTimer} interface
+ * {@inheritDoc}
+ *
+ * Implementation of the GameTimer interface
  */
 public class GameTimerImpl implements GameTimer {
 

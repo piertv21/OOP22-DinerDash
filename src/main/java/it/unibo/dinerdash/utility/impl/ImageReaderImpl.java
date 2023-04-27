@@ -7,7 +7,9 @@ import javax.swing.ImageIcon;
 import it.unibo.dinerdash.utility.api.ImageReader;
 
 /**
- * Implementation of the {@link it.unibo.dinerdash.utility.api.ImageReader} interface
+ * {@inheritDoc}
+ *
+ * Implementation of the ImageReader interface
  */
 public class ImageReaderImpl implements ImageReader {
 
