@@ -54,7 +54,7 @@ public class ModelImpl implements Model {
     private static final int CUSTOMER_FIRST_LINE_REL_Y = (int) (0.67 * Constants.RESTAURANT_HEIGHT);
     private static final int CUSTOMERS_CREATION_TIME = 7;
     private static final int CUSTOMER_START_X = 0;
-    private static final int CUSTOMER_START_Y = (int)(0.46 * Constants.RESTAURANT_HEIGHT);
+    private static final int CUSTOMER_START_Y = (int) (0.46 * Constants.RESTAURANT_HEIGHT);
 
     private static final int WAITRESS_STARTING_X = (int) (0.53 * Constants.RESTAURANT_WIDTH);
     private static final int WAITRESS_STARTING_Y = (int) (0.20 * Constants.RESTAURANT_HEIGHT);
@@ -68,7 +68,7 @@ public class ModelImpl implements Model {
     private static final int CHEF_REL_HEIGHT = (int) (0.17 * Constants.RESTAURANT_HEIGHT);
 
     private static final int MAX_POWERUP_PER_TYPE = 3;
-    private static final int[] POWER_UP_PRICES = {100, 150, 220, 310};
+    private static final int[] POWER_UP_PRICES = { 100, 150, 220, 310 };
 
     private int coins;
     private int enabledCoinsMultipliers;
@@ -107,7 +107,7 @@ public class ModelImpl implements Model {
         this.generateTables();
 
         Arrays.stream(POWER_UP_PRICES)
-            .forEach(price -> powerUps.put(price, MAX_POWERUP_PER_TYPE));
+                .forEach(price -> powerUps.put(price, MAX_POWERUP_PER_TYPE));
 
         var chefPosition = new Pair<>(CHEF_REL_X, CHEF_REL_Y);
         var chefSize = new Pair<>(CHEF_REL_WIDTH, CHEF_REL_HEIGHT);
@@ -295,11 +295,11 @@ public class ModelImpl implements Model {
     }
 
     public void checkChangePositionLine() {
-        if (( this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE))) 
-        && (this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
-            (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y))))){
+        if ((this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE)))
+                && (this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
+                        (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y))))) {
 
-                this.customers.stream() // fix line positions
+            this.customers.stream() // fix line positions
                     .filter(p -> p.getState()
                             .equals(CustomerState.LINE))
                     .forEach((p) -> {
@@ -307,7 +307,7 @@ public class ModelImpl implements Model {
                                 new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
                     });
 
-        } 
+        }
     }
 
     public int getCoins() {
@@ -343,7 +343,8 @@ public class ModelImpl implements Model {
 
     @Override
     public void linePositionAssignament(final Customer client) {
-        final int inLineCustomers = (int) customers.stream().filter(p -> p.getState().equals(CustomerState.LINE)).count();
+        final int inLineCustomers = (int) customers.stream().filter(p -> p.getState().equals(CustomerState.LINE))
+                .count();
         if (inLineCustomers != 1) {
             client.setPosition(new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X,
                     (int) (CUSTOMER_FIRST_LINE_REL_Y - ((inLineCustomers - 1) * CUSTOMER_IN_LINE_PADDING))));
@@ -398,7 +399,7 @@ public class ModelImpl implements Model {
                                                                    // il numero di clienti
         this.tables.get(numberTable - 1).setState(state);
         if (state.equals(TableState.EMPTY)) {
-            this.tables.get(numberTable - 1).setSeatedPeople(0);
+            this.tables.get(numberTable - 1).setseatedPeople(0);
             int indiceCustomerInList = this.customers.indexOf(tables.get(numberTable - 1).getCustomer().get()); // da
                                                                                                                 // usare
                                                                                                                 // per
@@ -474,7 +475,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void setNumberOfClientsAtTable(int numberOfClient, int numberOfTable) { // set sitted clients at table
-        this.tables.get(numberOfTable - 1).setSeatedPeople(numberOfClient);
+        this.tables.get(numberOfTable - 1).setseatedPeople(numberOfClient);
     }
 
     @Override
@@ -550,13 +551,14 @@ public class ModelImpl implements Model {
     public void updateDishInView(int index, Dish dish) {
         this.controller.updateDishesInView(index, dish);
     }
-    private boolean isPowerUpAvailable(int price){
+
+    private boolean isPowerUpAvailable(int price) {
         return this.powerUps.get(price) > 0;
     }
 
     @Override
     public boolean canActivatePowerUp(int price) {
-       return this.canAfford(price) && this.isPowerUpAvailable(price);
+        return this.canAfford(price) && this.isPowerUpAvailable(price);
     }
 
 }

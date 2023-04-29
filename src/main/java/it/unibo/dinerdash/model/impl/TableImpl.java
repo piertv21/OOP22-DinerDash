@@ -11,16 +11,16 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 public class TableImpl extends AbstractGameEntity implements Table {
 
-    private final int MIN_TIME_FOR_EATING = 4;
-    private final int MAX_TIME_FOR_EATING = 6;
+    private final int mintimeforeating = 4;
+    private final int maxtimeforeating = 6;
     private Optional<Long> timeFinishEating;
 
     private int tableNumber;
     private Optional<Customer> customer;
     private TableState state;
-    private int SeatedPeople;
+    private int seatedPeople;
 
-    public TableImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i) {
+    public TableImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, final int i) {
         super(coordinates, size);
         this.tableNumber = i;
         this.customer = Optional.empty();
@@ -29,8 +29,8 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public void setState(TableState TableState) {
-        this.state = TableState;
+    public void setState(final TableState tableState) {
+        this.state = tableState;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public void setCustom(Optional<Customer> cs) {
+    public void setCustom(final Optional<Customer> cs) {
         this.customer = cs;
     }
 
@@ -54,19 +54,19 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public int setSeatedPeople(int sppl) {
-        return this.SeatedPeople = sppl;
+    public int setseatedPeople(int sppl) {
+        return this.seatedPeople = sppl;
     }
 
     @Override
     public int getPeopleSeatedNumber() {
-        return this.SeatedPeople;
+        return this.seatedPeople;
     }
 
     @Override
     public void startEating() {
         var currentTime = System.nanoTime();
-        var eatingTime = (int) (Math.random() * (MAX_TIME_FOR_EATING - MIN_TIME_FOR_EATING + 1)) + MIN_TIME_FOR_EATING;
+        var eatingTime = (int) (Math.random() * (maxtimeforeating - mintimeforeating + 1)) + mintimeforeating;
         this.timeFinishEating = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(eatingTime));
     }
 

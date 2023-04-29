@@ -17,7 +17,7 @@ public interface Table extends GameEntity {
 
     int getTableNumber();
 
-    int setSeatedPeople(int sppl);
+    int setseatedPeople(int sppl);
 
     int getPeopleSeatedNumber();
 
