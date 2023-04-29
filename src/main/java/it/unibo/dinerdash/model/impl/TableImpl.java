@@ -54,7 +54,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public int setseatedPeople(int sppl) {
+    public int setseatedPeople(final int sppl) {
         return this.seatedPeople = sppl;
     }
 
