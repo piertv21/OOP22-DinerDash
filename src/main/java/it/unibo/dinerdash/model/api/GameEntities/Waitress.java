@@ -1,36 +1,92 @@
 package it.unibo.dinerdash.model.api.GameEntities;
 
 import java.util.LinkedList;
-
 import it.unibo.dinerdash.model.api.States.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
+/**
+  * 
+  * 
+  */
 public interface Waitress extends GameEntityMovable {
 
-    void update();
+  /**
+   * Move waitress and modify his state.
+   */
+  void update();
 
-    void setState(WaitressState state);
+  /**
+   * Set state for waitress.
+   * 
+   * @param state
+   */
+  void setState(WaitressState state);
 
-    WaitressState getState();
+  /**
+   * Returns the state of the waitress.
+   * 
+   * @return The state of the waitress
+   */
+  WaitressState getState();
 
-    void takeTableOrder(Pair<Integer, Integer> position);
+  /**
+   * Set waitress destination and send order.
+   * 
+   * @param position
+   */
+  void takeTableOrder(Pair<Integer, Integer> position);
 
-    void serveOrder(Pair<Integer, Integer> position);
+  /**
+   * Set waitress destination and send serve order.
+   * 
+   * @param position
+   */
+  void serveOrder(Pair<Integer, Integer> position);
 
-    void collectMoney(Pair<Integer, Integer> position);
+  /**
+   * Set waitress destination and take money.
+   * 
+   * @param position
+   */
+  void collectMoney(Pair<Integer, Integer> position);
 
-    int getOrdersNumber();
+  /**
+   * Returns the number of orders.
+   * 
+   * @return The number of orders
+   */
+  int getOrdersNumber();
 
-    void addOrderForWaitress(Dish dishReady);
+  /**
+   * @param dishReady
+   */
+  void addOrderForWaitress(Dish dishReady);
 
-    LinkedList<Dish> getOrderList();
+  /**
+   * Returns the list of orders.
+   * 
+   * @return The list of orders
+   */
+  LinkedList<Dish> getOrderList();
 
-    boolean checkRightTable(int tableNumber);
+  /**
+   * Checks if the table number is correct.
+   * 
+   * @param tableNumber The table number to check
+   * @return True if the table number is correct, false otherwise
+   */
+  boolean checkRightTable(int tableNumber);
 
-    void setPosition(Pair<Integer, Integer> position);
+  /**
+   * Adjust waitress speed movement.
+   */
+  void incrementSpeed();
 
-    void incrementSpeed();
-
-    void goGetDish(Pair<Integer, Integer> dishReady);
+  /**
+   * Teaking dish form order.
+   * 
+   * @param dishReady
+   */
+  void goGetDish(Pair<Integer, Integer> dishReady);
 
 }
