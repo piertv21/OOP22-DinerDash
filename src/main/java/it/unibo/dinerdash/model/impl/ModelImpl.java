@@ -294,7 +294,7 @@ public class ModelImpl implements Model {
         }
     }
 
-    public void checkChangePositionLine() {
+    public void checkChangePositionLine() {  //if there is at least a client in line and it's not in first position
         if ((this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE)))
                 && (this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
                         (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y))))) {
