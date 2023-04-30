@@ -1,5 +1,8 @@
 package it.unibo.dinerdash.model.api.States;
 
+/**
+ * Waitress state
+ */
 public enum WaitressState {
     /**
      * Waitress waiting for custumer order.
