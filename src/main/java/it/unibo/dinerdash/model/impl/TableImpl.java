@@ -2,13 +2,16 @@ package it.unibo.dinerdash.model.impl;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-
 import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntity;
 import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.GameEntities.Table;
 import it.unibo.dinerdash.model.api.States.TableState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
+/**
+ * 
+ * 
+ */
 public class TableImpl extends AbstractGameEntity implements Table {
 
     private final int mintimeforeating = 4;
@@ -20,6 +23,11 @@ public class TableImpl extends AbstractGameEntity implements Table {
     private TableState state;
     private int seatedPeople;
 
+    /**
+     * @param coordinates
+     * @param size
+     * @param i
+     */
     public TableImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, final int i) {
         super(coordinates, size);
         this.tableNumber = i;
@@ -29,49 +37,50 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public void setState(final TableState tableState) {
+    public final void setState(final TableState tableState) {
         this.state = tableState;
     }
 
     @Override
-    public TableState getState() {
+    public final TableState getState() {
         return this.state;
     }
 
     @Override
-    public void setCustom(final Optional<Customer> cs) {
+    public final void setCustom(final Optional<Customer> cs) {
         this.customer = cs;
     }
 
     @Override
-    public Optional<Customer> getCustomer() {
+    public final Optional<Customer> getCustomer() {
         return this.customer;
     }
 
     @Override
-    public int getTableNumber() {
+    public final int getTableNumber() {
         return this.tableNumber;
     }
 
     @Override
-    public int setseatedPeople(final int sppl) {
-        return this.seatedPeople = sppl;
-    }
-
-    @Override
-    public int getPeopleSeatedNumber() {
+    public final int setseatedPeople(final int sppl) {
+        this.seatedPeople = sppl;
         return this.seatedPeople;
     }
 
     @Override
-    public void startEating() {
+    public final int getPeopleSeatedNumber() {
+        return this.seatedPeople;
+    }
+
+    @Override
+    public final void startEating() {
         var currentTime = System.nanoTime();
         var eatingTime = (int) (Math.random() * (maxtimeforeating - mintimeforeating + 1)) + mintimeforeating;
         this.timeFinishEating = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(eatingTime));
     }
 
     @Override
-    public void update() {
+    public final void update() {
         if (this.timeFinishEating.isPresent()) {
             if (System.nanoTime() >= this.timeFinishEating.get()) {
                 state = TableState.WANTING_TO_PAY;
@@ -81,7 +90,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public String getStateInText() {
+    public final String getStateInText() {
         return switch (this.state) {
             case ORDERING -> "wantToOrder";
             case WANTING_TO_PAY -> "wantToPay";
