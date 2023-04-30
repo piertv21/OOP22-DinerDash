@@ -1,8 +1,19 @@
 package it.unibo.dinerdash.model.impl;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.dinerdash.model.api.Model;
+
 public class ModelTest {
+
+    private Model model;
+
+    @BeforeEach
+	void init() {
+		this.model =new ModelImpl(null);
+	}
+    
     @Test
     void testAddCustomer() {
 
