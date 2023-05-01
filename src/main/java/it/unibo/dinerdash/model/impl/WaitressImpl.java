@@ -42,7 +42,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public final void update() {
+    public void update() {
         if (!state.equals(WaitressState.WAITING)) {
             this.handleMovement(4);
 
@@ -83,61 +83,61 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     @Override
-    public final void setState(final WaitressState state) {
+    public void setState(final WaitressState state) {
         this.state = state;
     }
 
     @Override
-    public final WaitressState getState() {
+    public WaitressState getState() {
         return this.state;
     }
 
     @Override
-    public final void goGetDish(final Pair<Integer, Integer> dishReady) {
+    public void goGetDish(final Pair<Integer, Integer> dishReady) {
         this.setDestination(Optional.of(dishReady));
         this.state = WaitressState.TAKING_DISH;
     }
 
     @Override
-    public final void takeTableOrder(final Pair<Integer, Integer> position) {
+    public void takeTableOrder(final Pair<Integer, Integer> position) {
         this.setDestination(Optional.of(position));
         this.state = WaitressState.CALLING;
     }
 
     @Override
-    public final void serveOrder(final Pair<Integer, Integer> position) {
+    public void serveOrder(final Pair<Integer, Integer> position) {
         this.setDestination(Optional.of(position));
         state = WaitressState.SERVING;
     }
 
     @Override
-    public final void collectMoney(final Pair<Integer, Integer> position) {
+    public void collectMoney(final Pair<Integer, Integer> position) {
         this.setDestination(Optional.of(position));
         state = WaitressState.TAKING_MONEY;
     }
 
     @Override
-    public final int getOrdersNumber() {
+    public int getOrdersNumber() {
         return this.orderList.size();
     }
 
     @Override
-    public final void addOrderForWaitress(final Dish dishReady) {
+    public void addOrderForWaitress(final Dish dishReady) {
         orderList.add(dishReady);
     }
 
     @Override
-    public final LinkedList<Dish> getOrderList() {
+    public LinkedList<Dish> getOrderList() {
         return this.orderList;
     }
 
     @Override
-    public final boolean checkRightTable(final int tableNumber) {
+    public boolean checkRightTable(final int tableNumber) {
         return this.orderList.stream().anyMatch(e -> e.getDishNumber() == tableNumber);
     }
 
     @Override
-    public final void incrementSpeed() {
+    public void incrementSpeed() {
         this.setMovementSpeed((int) (this.getMovementSpeed() * WAITRESS_SPEED_MULTIPLIER));
     }
 

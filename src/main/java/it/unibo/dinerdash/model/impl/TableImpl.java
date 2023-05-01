@@ -37,50 +37,50 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public final void setState(final TableState tableState) {
+    public void setState(final TableState tableState) {
         this.state = tableState;
     }
 
     @Override
-    public final TableState getState() {
+    public TableState getState() {
         return this.state;
     }
 
     @Override
-    public final void setCustom(final Optional<Customer> cs) {
+    public void setCustom(final Optional<Customer> cs) {
         this.customer = cs;
     }
 
     @Override
-    public final Optional<Customer> getCustomer() {
+    public Optional<Customer> getCustomer() {
         return this.customer;
     }
 
     @Override
-    public final int getTableNumber() {
+    public int getTableNumber() {
         return this.tableNumber;
     }
 
     @Override
-    public final int setseatedPeople(final int peopleAreSeated) {
+    public int setseatedPeople(final int peopleAreSeated) {
         this.seatedPeople = peopleAreSeated;
         return this.seatedPeople;
     }
 
     @Override
-    public final int getPeopleSeatedNumber() {
+    public int getPeopleSeatedNumber() {
         return this.seatedPeople;
     }
 
     @Override
-    public final void startEating() {
+    public void startEating() {
         var currentTime = System.nanoTime();
         var eatingTime = (int) (Math.random() * (MAX_TIME_FOR_EATING - MIN_TIME_FOR_EATING + 1)) + MIN_TIME_FOR_EATING;
         this.timeFinishEating = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(eatingTime));
     }
 
     @Override
-    public final void update() {
+    public void update() {
         if (this.timeFinishEating.isPresent()) {
             if (System.nanoTime() >= this.timeFinishEating.get()) {
                 state = TableState.WANTING_TO_PAY;
@@ -90,7 +90,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public final String getStateInText() {
+    public String getStateInText() {
         return switch (this.state) {
             case ORDERING -> "wantToOrder";
             case WANTING_TO_PAY -> "wantToPay";
@@ -101,7 +101,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public final Optional<Long> getTimeFinishEating() {
+    public Optional<Long> getTimeFinishEating() {
         return this.timeFinishEating;
     }
 
