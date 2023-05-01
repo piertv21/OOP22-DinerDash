@@ -16,7 +16,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
 
     private final int MIN_TIME_FOR_EATING = 4;
     private final int MAX_TIME_FOR_EATING = 6;
-    final Optional<Long> timeFinishEating;
+    private Optional<Long> timeFinishEating;
 
     private int tableNumber;
     private Optional<Customer> customer;
@@ -98,6 +98,11 @@ public class TableImpl extends AbstractGameEntity implements Table {
             default -> "";
 
         };
+    }
+
+    @Override
+    public final Optional<Long> getTimeFinishEating() {
+        return this.timeFinishEating;
     }
 
 }

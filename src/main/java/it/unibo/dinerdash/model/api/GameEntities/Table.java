@@ -74,4 +74,11 @@ public interface Table extends GameEntity {
    */
   String getStateInText();
 
+  /**
+   * Return the time for finish eating.
+   * 
+   * @return the time for finish eating
+   */
+  Optional<Long> getTimeFinishEating();
+
 }
