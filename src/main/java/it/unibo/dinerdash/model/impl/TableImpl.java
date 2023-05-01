@@ -16,7 +16,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
 
     private final int mintimeforeating = 4;
     private final int maxtimeforeating = 6;
-    Optional<Long> timeFinishEating;
+    protected Optional<Long> timeFinishEating;
 
     private int tableNumber;
     private Optional<Customer> customer;
@@ -62,8 +62,8 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public final int setseatedPeople(final int sppl) {
-        this.seatedPeople = sppl;
+    public final int setseatedPeople(final int peopleAreSeated) {
+        this.seatedPeople = peopleAreSeated;
         return this.seatedPeople;
     }
 
