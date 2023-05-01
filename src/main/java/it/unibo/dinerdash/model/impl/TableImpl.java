@@ -16,7 +16,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
 
     private final int mintimeforeating = 4;
     private final int maxtimeforeating = 6;
-    protected Optional<Long> timeFinishEating;
+    private Optional<Long> timeFinishEating;
 
     private int tableNumber;
     private Optional<Customer> customer;
@@ -95,13 +95,8 @@ public class TableImpl extends AbstractGameEntity implements Table {
             case ORDERING -> "wantToOrder";
             case WANTING_TO_PAY -> "wantToPay";
             case EATING -> "eating";
-            default -> {
-                if (this.state == null) {
-                    yield "null";
-                } else {
-                    yield "";
-                }
-            }
+            default -> "";
+
         };
     }
 
