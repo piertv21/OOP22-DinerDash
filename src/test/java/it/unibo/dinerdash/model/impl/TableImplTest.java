@@ -45,7 +45,7 @@ public class TableImplTest {
 
     @Test
     void testSetAndGetSeatedPeople() {
-        table.setseatedPeople(2);
+        table.setSeatedPeople(2);
         assertEquals(2, table.getPeopleSeatedNumber());
     }
 

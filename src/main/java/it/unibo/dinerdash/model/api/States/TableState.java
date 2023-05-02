@@ -4,6 +4,7 @@ package it.unibo.dinerdash.model.api.States;
  * Table state
  */
 public enum TableState {
+
     /**
      * Custumer just seated and thinking on what order.
      */
@@ -33,4 +34,5 @@ public enum TableState {
      * Custumer left the table.
      */
     EMPTY
+    
 }

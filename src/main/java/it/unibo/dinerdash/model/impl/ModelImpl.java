@@ -399,7 +399,7 @@ public class ModelImpl implements Model {
                                                                    // il numero di clienti
         this.tables.get(numberTable - 1).setState(state);
         if (state.equals(TableState.EMPTY)) {
-            this.tables.get(numberTable - 1).setseatedPeople(0);
+            this.tables.get(numberTable - 1).setSeatedPeople(0);
             int indiceCustomerInList = this.customers.indexOf(tables.get(numberTable - 1).getCustomer().get()); // da
                                                                                                                 // usare
                                                                                                                 // per
@@ -475,7 +475,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void setNumberOfClientsAtTable(int numberOfClient, int numberOfTable) { // set sitted clients at table
-        this.tables.get(numberOfTable - 1).setseatedPeople(numberOfClient);
+        this.tables.get(numberOfTable - 1).setSeatedPeople(numberOfClient);
     }
 
     @Override

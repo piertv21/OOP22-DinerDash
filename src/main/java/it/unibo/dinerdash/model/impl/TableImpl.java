@@ -62,7 +62,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     }
 
     @Override
-    public int setseatedPeople(final int peopleAreSeated) {
+    public int setSeatedPeople(final int peopleAreSeated) {
         this.seatedPeople = peopleAreSeated;
         return this.seatedPeople;
     }
@@ -96,7 +96,6 @@ public class TableImpl extends AbstractGameEntity implements Table {
             case WANTING_TO_PAY -> "wantToPay";
             case EATING -> "eating";
             default -> "";
-
         };
     }
 

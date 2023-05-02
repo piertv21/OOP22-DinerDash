@@ -48,7 +48,7 @@ public interface Table extends GameEntity {
    * @param peopleAreSeated The number of people seated at the table
    * @return The number of people seated at the table
    */
-  int setseatedPeople(int peopleAreSeated);
+  int setSeatedPeople(int peopleAreSeated);
 
   /**
    * Returns the number of people seated at the table.

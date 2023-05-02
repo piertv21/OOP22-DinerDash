@@ -148,4 +148,5 @@ public interface Model {
     Optional<Dish> takeDishFromPosition(Pair<Integer, Integer> pos);
 
     boolean canActivatePowerUp(int price);
+
 }
