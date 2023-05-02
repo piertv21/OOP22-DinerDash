@@ -36,42 +36,74 @@ public class TableImpl extends AbstractGameEntity implements Table {
         this.state = TableState.EMPTY;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void setState(final TableState tableState) {
         this.state = tableState;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public TableState getState() {
         return this.state;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void setCustom(final Optional<Customer> cs) {
         this.customer = cs;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public Optional<Customer> getCustomer() {
         return this.customer;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public int getTableNumber() {
         return this.tableNumber;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public int setSeatedPeople(final int peopleAreSeated) {
         this.seatedPeople = peopleAreSeated;
         return this.seatedPeople;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public int getPeopleSeatedNumber() {
         return this.seatedPeople;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void startEating() {
         var currentTime = System.nanoTime();
@@ -79,6 +111,10 @@ public class TableImpl extends AbstractGameEntity implements Table {
         this.timeFinishEating = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(eatingTime));
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void update() {
         if (this.timeFinishEating.isPresent()) {
@@ -89,6 +125,10 @@ public class TableImpl extends AbstractGameEntity implements Table {
         }
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public String getStateInText() {
         return switch (this.state) {
@@ -99,6 +139,10 @@ public class TableImpl extends AbstractGameEntity implements Table {
         };
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public Optional<Long> getTimeFinishEating() {
         return this.timeFinishEating;

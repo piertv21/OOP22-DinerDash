@@ -41,6 +41,10 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
         this.model = model;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void update() {
         if (!state.equals(WaitressState.WAITING)) {
@@ -82,60 +86,104 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
 
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void setState(final WaitressState state) {
         this.state = state;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public WaitressState getState() {
         return this.state;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void goGetDish(final Pair<Integer, Integer> dishReady) {
         this.setDestination(Optional.of(dishReady));
         this.state = WaitressState.TAKING_DISH;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void takeTableOrder(final Pair<Integer, Integer> position) {
         this.setDestination(Optional.of(position));
         this.state = WaitressState.CALLING;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void serveOrder(final Pair<Integer, Integer> position) {
         this.setDestination(Optional.of(position));
         state = WaitressState.SERVING;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void collectMoney(final Pair<Integer, Integer> position) {
         this.setDestination(Optional.of(position));
         state = WaitressState.TAKING_MONEY;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public int getOrdersNumber() {
         return this.orderList.size();
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void addOrderForWaitress(final Dish dishReady) {
         orderList.add(dishReady);
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public LinkedList<Dish> getOrderList() {
         return this.orderList;
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public boolean checkRightTable(final int tableNumber) {
         return this.orderList.stream().anyMatch(e -> e.getDishNumber() == tableNumber);
     }
 
+    /**
+    * 
+    * 
+    */
     @Override
     public void incrementSpeed() {
         this.setMovementSpeed((int) (this.getMovementSpeed() * WAITRESS_SPEED_MULTIPLIER));
