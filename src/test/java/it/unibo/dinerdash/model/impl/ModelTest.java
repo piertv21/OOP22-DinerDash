@@ -15,11 +15,6 @@ public class ModelTest {
 	}
     
     @Test
-    void testAddCustomer() {
-
-    }
-
-    @Test
     void testAddDishToView() {
 
     }

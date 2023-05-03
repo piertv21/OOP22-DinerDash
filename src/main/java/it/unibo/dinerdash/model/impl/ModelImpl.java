@@ -201,8 +201,11 @@ public class ModelImpl implements Model {
         this.setTableState(TableState.WAITING_MEAL, tableNumber);
     }
 
-    @Override
-    public void addCustomer() {
+    
+     /**
+     * Used to create a new Customer.
+     */
+    private void addCustomer() {
         if (this.gameOver()) {
             this.stop();
         }

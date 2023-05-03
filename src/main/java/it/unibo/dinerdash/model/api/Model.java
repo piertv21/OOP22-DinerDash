@@ -11,8 +11,14 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Model {
 
+    /**
+     * Getter for Logic-Window's Width.
+     */
     int getWidth();
 
+    /**
+     * Getter for Logic-Window's Height.
+     */
     int getHeight();
 
     void clear();
@@ -29,17 +35,16 @@ public interface Model {
 
     void restart();
 
+    /**
+     * Getter for number of Angry customers 
+     * who left.
+     */
     int getCustomersWhoLeft();
 
     int getCustomerWhoCanLeft();
 
     /**
-     * used to create a new Customer
-     */
-    void addCustomer();
-
-    /**
-     * reduce a counter of Customers who left,cause
+     * Reduce a counter of Customers who left,cause
      * they have finished to eat ,or they are too angry
      */
     void customerLeft();
@@ -135,7 +140,7 @@ public interface Model {
     int[] getPowerUpsPrices();
 
     /**
-     * Set  max Customer who can leaver before loose a game.
+     * Set max Customer who can leaver before loose a game.
      * 
      * @param number Cax Customer' Number
      */
