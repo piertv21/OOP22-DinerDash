@@ -73,24 +73,11 @@ public interface Model {
     boolean checkFreeTables(Customer client);
 
     /**
-     * Assign the first free spot in line queue.
-     * 
-     * @param client to whom i will assign a place in line           
-     */
-    void linePositionAssignament(Customer client);
-
-    /**
      * Assign a free table to a client.
      * 
      * @param client to whom i will assign a free table
      */
     void tableAssignament(Customer client);
-
-    /**
-     * Remove a client whom waited in line
-     * for too much.
-     */
-    void removeAngryCustomers();
 
     /**
      * Check if there are free tables to sit down.

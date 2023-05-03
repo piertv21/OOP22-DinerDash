@@ -16,6 +16,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public class CustomerImpl extends AbstractGameEntityMovable implements Customer {
 
     private static final int ZERO = 0;
+    private static final int ONE = 1;
     private static final int MAX_ORDERING_TIME = 4;
     /*
      * seconds used to decrease a customer's patience.
@@ -55,7 +56,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
         this.numberClients = numCusters;
         this.lastPatienceReduce = Optional.empty();
         this.patience = MAX_PATIECE;
-        this.timeBeforeOrder = (int) ((Math.random() * (MAX_ORDERING_TIME)) + 1);
+        this.timeBeforeOrder = (int) ((Math.random() * (MAX_ORDERING_TIME)) + ONE);
         this.setActive(true);
     }
 
@@ -102,7 +103,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
                 if (model.checkFreeTables(this)) {
                     // go to sit at table
                     this.model.tableAssignament(this);
-                    this.patience = -1;
+                    this.patience = -ONE;
                     this.state = CustomerState.WALKING;
                 } else if (this.patience == ZERO) { // client get angry
                     this.state = CustomerState.ANGRY;
