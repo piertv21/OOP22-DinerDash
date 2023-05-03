@@ -1,9 +1,10 @@
-package it.unibo.dinerdash.model.impl;
+package it.unibo.dinerdash;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.impl.ModelImpl;
 
 public class ModelTest {
 
