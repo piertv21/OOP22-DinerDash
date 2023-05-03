@@ -93,6 +93,7 @@ public class ModelImpl implements Model {
         this.powerUps = new HashMap<>();
         this.counterTop = new CountertopImpl(this);
         this.factory = new GameEntityFactoryImpl();
+        this.controller = Optional.empty();
     }
 
     @Override
@@ -124,8 +125,7 @@ public class ModelImpl implements Model {
         this.controller.ifPresent(c -> c.addWaitressToView(waitress));
         this.lastCustomerTimeCreation = System.nanoTime();
     }
-
-    // Tavoli
+    
     private void generateTables() {
         var tables = IntStream.range(0, TABLES)
                 .boxed()
@@ -204,11 +204,7 @@ public class ModelImpl implements Model {
         this.counterTop.addOrder(tableNumber);
         this.setTableState(TableState.WAITING_MEAL, tableNumber);
     }
-
     
-     /**
-     * Used to create a new Customer.
-     */
     private void addCustomer() {
         if (this.gameOver()) {
             this.stop();
@@ -239,23 +235,20 @@ public class ModelImpl implements Model {
 
     public void update() {
         if (!this.gameOver()) {
-            // Aggiunta clienti
+
             if (System.nanoTime() >= this.lastCustomerTimeCreation
                     + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)
                     && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_STAY) {
                 this.addCustomer();
                 this.lastCustomerTimeCreation = System.nanoTime();
             }
-
-            // Update chef
+            
             this.chef.update();
             this.controller.ifPresent(c -> c.updateChefInView(this.chef));
-
-            // Update Waitress
+            
             this.waitress.update();
             this.controller.ifPresent(c -> c.updateWaitressInView(this.waitress));
-
-            // Update Customers
+            
             this.customers.stream()
                     .filter(c -> !c.getState().equals(CustomerState.ORDERING))
                     .forEach(client -> {
@@ -264,14 +257,12 @@ public class ModelImpl implements Model {
                     });
             this.removeAngryCustomers();
             this.checkChangePositionLine();
-
-            // Update tables
+            
             this.tables.forEach(t -> {
                 t.update();
                 this.controller.ifPresent(c -> c.updateTablesInView(tables.indexOf(t), t));
             });
-
-            // Update PowerUp buttons state
+            
             this.controller.ifPresent(c -> c.updatePowerUpsButtonsInView());
         } else {
             this.stop();
@@ -282,18 +273,18 @@ public class ModelImpl implements Model {
     private void removeAngryCustomers() {
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))) {
             final Customer tempCustomerToDelete = this.customers.stream()
-                    .filter(p -> p.getState() // Get frist angry customer
-                            .equals(CustomerState.ANGRY))
+                    .filter(p -> p.getState()
+                    .equals(CustomerState.ANGRY))
                     .findFirst()
                     .get();
 
-            final int indexToDelete = this.customers.indexOf(tempCustomerToDelete); // get his index
+            final int indexToDelete = this.customers.indexOf(tempCustomerToDelete);
             this.customers.remove(tempCustomerToDelete);
             this.controller.ifPresent(c -> c.removeCustomerInView(indexToDelete));
             this.customerLeft();
-            this.customers.stream() // fix line positions
+            this.customers.stream()
                     .filter(p -> p.getState()
-                            .equals(CustomerState.LINE))
+                    .equals(CustomerState.LINE))
                     .forEach((p) -> {
                         p.setPosition(
                                 new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
@@ -301,14 +292,14 @@ public class ModelImpl implements Model {
         }
     }
 
-    private void checkChangePositionLine() {  //if there is at least a client in line and it's not in first position
+    private void checkChangePositionLine() {
         if ((this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE)))
                 && (this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
                         (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y))))) {
 
-            this.customers.stream() // fix line positions
+            this.customers.stream()
                     .filter(p -> p.getState()
-                            .equals(CustomerState.LINE))
+                    .equals(CustomerState.LINE))
                     .forEach((p) -> {
                         p.setPosition(
                                 new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
@@ -334,7 +325,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void tableAssignament(final Customer client) { // assign a table to client
+    public void tableAssignament(final Customer client) {
         client.setDestination(Optional.ofNullable(
                 this.tables.stream()
                         .filter(tav -> tav.getCustomer().isEmpty())
@@ -366,8 +357,8 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public boolean checkFreeTables(final Customer client) { // check for a free table
-        if (this.customers.stream() // check if client is the first in line
+    public boolean checkFreeTables(final Customer client) {
+        if (this.customers.stream()
                 .filter(p -> p.getState().equals(CustomerState.LINE))
                 .findFirst()
                 .get()
@@ -396,27 +387,19 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Table getTablefromPositon(Pair<Integer, Integer> pos) { // ottengo il tavolo data la posizione
+    public Table getTablefromPositon(Pair<Integer, Integer> pos) {
         return this.tables.stream().filter(t -> t.getPosition().equals(pos)).findFirst().get();
     }
 
     @Override
-    public void setTableState(TableState state, int numberTable) { // pongo il tavolo in modalito ordering a gli assegno
-                                                                   // il numero di clienti
+    public void setTableState(TableState state, int numberTable) {
         this.tables.get(numberTable - 1).setState(state);
         if (state.equals(TableState.EMPTY)) {
             this.tables.get(numberTable - 1).setSeatedPeople(0);
-            int indiceCustomerInList = this.customers.indexOf(tables.get(numberTable - 1).getCustomer().get()); // da
-                                                                                                                // usare
-                                                                                                                // per
-                                                                                                                // cancellare
-                                                                                                                // elem
-                                                                                                                // in
-                                                                                                                // lista
-                                                                                                                // view
+            int customerListIndex = this.customers.indexOf(tables.get(numberTable - 1).getCustomer().get());
             this.customers.remove(this.tables.get(numberTable - 1).getCustomer().get());
             this.tables.get(numberTable - 1).setCustom(Optional.empty());
-            this.controller.ifPresent(c -> c.removeCustomerInView(indiceCustomerInList));
+            this.controller.ifPresent(c -> c.removeCustomerInView(customerListIndex));
         }
 
         if (state.equals(TableState.EATING)) {
@@ -456,7 +439,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void earnMoneyFromTable() { // Chiamato da waitress
+    public void earnMoneyFromTable() {
         var coinsEarned = (int) (Math.random() * (PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1))
                 + PROFIT_PER_TABLE_MIN;
         var coinsEarnedWithBonus = (int) (coinsEarned
@@ -480,7 +463,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void setNumberOfClientsAtTable(int numberOfClient, int numberOfTable) { // set sitted clients at table
+    public void setNumberOfClientsAtTable(int numberOfClient, int numberOfTable) {
         this.tables.get(numberOfTable - 1).setSeatedPeople(numberOfClient);
     }
 
