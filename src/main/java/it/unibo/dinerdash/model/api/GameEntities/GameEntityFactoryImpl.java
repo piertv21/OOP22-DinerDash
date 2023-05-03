@@ -1,5 +1,7 @@
 package it.unibo.dinerdash.model.api.GameEntities;
 
+import java.util.Optional;
+
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.impl.ChefImpl;
 import it.unibo.dinerdash.model.impl.CustomerImpl;
@@ -24,7 +26,7 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
         final Pair<Integer, Integer> size,
         final Model model
     ) {
-        return new ChefImpl(coordinates, size, model);
+        return new ChefImpl(coordinates, size, Optional.of(model));
     }
 
     /**

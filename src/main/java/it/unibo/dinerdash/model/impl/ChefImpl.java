@@ -23,7 +23,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     private Optional<Dish> currentDish;
     private Optional<Long> timeDishReady;
     private int enabledPowerUps;
-    private Model model;
+    private Optional<Model> model;
 
     /**
      * Class constructor.
@@ -32,7 +32,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
      * @param size is the chef size in the restaurant
      * @param model is the reference to the Model
      */
-    public ChefImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model) {
+    public ChefImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Optional<Model> model) {
         super(coordinates, size);
         this.setActive(false);
         this.currentDish = Optional.empty();
@@ -51,13 +51,13 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
                 this.completeCurrentDish();
             }
         } else {
-            if (this.model.thereAreDishesToPrepare()) {
+            if (this.model.get().thereAreDishesToPrepare()) {
                 
                 if (!this.isActive()) {
                     this.setActive(true);
                 }
                 
-                currentDish = this.model.getDishToPrepare();
+                currentDish = this.model.get().getDishToPrepare();
 
                 this.startPreparingDish(currentDish.get());
             } else {
@@ -75,7 +75,11 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
         this.enabledPowerUps++;
     }
     
-    private void startPreparingDish(Dish dish) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void startPreparingDish(Dish dish) {
         this.currentDish = Optional.of(dish);
 
         int preparationTimeInSeconds = (int) (Math.random() * (MAX_PREPARATION_TIME - MIN_PREPARATION_TIME + 1)) + MIN_PREPARATION_TIME;
@@ -84,11 +88,39 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
         this.timeDishReady = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(preparationTimeInSeconds - bonusTime));
     }
     
-    private void completeCurrentDish() {
-        this.model.completeDishPreparation(this.currentDish.get());
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void completeCurrentDish() {
+        this.model.ifPresent(m -> m.completeDishPreparation(this.currentDish.get()));
 
         this.currentDish = Optional.empty();
         this.timeDishReady = Optional.empty();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Dish> getCurrentDish() {
+        return this.currentDish;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Long> getTimeDishReady() {
+        return this.timeDishReady;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getEnabledPowerUps() {
+        return this.enabledPowerUps;
     }
     
 }

@@ -1,14 +1,17 @@
 package it.unibo.dinerdash.GameEntities;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.dinerdash.controller.api.Controller;
-import it.unibo.dinerdash.controller.impl.ControllerImpl;
-import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.GameEntities.Chef;
+import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactory;
+import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.impl.ChefImpl;
-import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class ChefTest {
@@ -18,28 +21,56 @@ public class ChefTest {
     private static final int CHEF_WIDTH = 100;
     private static final int CHEF_HEIGHT = 20;
 
-    private Chef chef;
-    private Model model;
-    private Controller controller;
+    private static Chef chef;
+    private static GameEntityFactory gameEntityFactory;
 
     @BeforeAll
-    void init() {
-        this.controller = new ControllerImpl();
-        this.model = new ModelImpl();
+    static void init() {
+        gameEntityFactory = new GameEntityFactoryImpl();
 
         final var position = new Pair<>(CHEF_X, CHEF_Y);
         final var size = new Pair<>(CHEF_WIDTH, CHEF_HEIGHT);
-        this.chef = new ChefImpl(position, size, this.model);
+
+        chef = new ChefImpl(position, size, Optional.empty());
     }
 
     @Test
-    void testReducePreparationTime() {
-
+    void test1() {
+        assertEquals(chef.getCurrentDish(), Optional.empty());
+        assertEquals(chef.getTimeDishReady(), Optional.empty());
+        assertEquals(chef.getEnabledPowerUps(), 0);
     }
 
     @Test
-    void testUpdate() {
+    void test2() {
+        final var dish = gameEntityFactory.createDish(
+            new Pair<>(10, 10),
+            new Pair<>(10, 10),
+            1
+        );
 
+        chef.startPreparingDish(dish);
+        
+        assertEquals(chef.getCurrentDish(), Optional.of(dish));
+        assertNotEquals(chef.getTimeDishReady(), Optional.empty());
+        assertEquals(chef.getEnabledPowerUps(), 0);
+    }
+
+    @Test
+    void test3() {
+        chef.completeCurrentDish();
+        
+        assertEquals(chef.getCurrentDish(), Optional.empty());
+        assertEquals(chef.getTimeDishReady(), Optional.empty());
+    }
+
+    @Test
+    void test4() {
+        chef.reducePreparationTime();        
+        assertEquals(chef.getEnabledPowerUps(), 1);
+
+        chef.reducePreparationTime();        
+        assertEquals(chef.getEnabledPowerUps(), 2);
     }
 
 }
