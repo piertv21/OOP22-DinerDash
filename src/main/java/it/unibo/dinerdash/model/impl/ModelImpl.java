@@ -384,7 +384,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void setWaitressTableDestination(Pair<Integer, Integer> dest) {
+    public void setWaitressTableDestination(final Pair<Integer, Integer> dest) {
         if (!(this.waitress.getState().equals(WaitressState.CALLING))) {
             this.waitress.setDestination(Optional.of(dest));
             this.waitress.setState(WaitressState.CALLING);
@@ -392,16 +392,16 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Table getTablefromPositon(Pair<Integer, Integer> pos) {
+    public Table getTablefromPositon(final Pair<Integer, Integer> pos) {
         return this.tables.stream().filter(t -> t.getPosition().equals(pos)).findFirst().get();
     }
 
     @Override
-    public void setTableState(TableState state, int numberTable) {
+    public void setTableState(final TableState state, final int numberTable) {
         this.tables.get(numberTable - 1).setState(state);
         if (state.equals(TableState.EMPTY)) {
             this.tables.get(numberTable - 1).setSeatedPeople(0);
-            int customerListIndex = this.customers.indexOf(tables.get(numberTable - 1).getCustomer().get());
+            final int customerListIndex = this.customers.indexOf(tables.get(numberTable - 1).getCustomer().get());
             this.customers.remove(this.tables.get(numberTable - 1).getCustomer().get());
             this.tables.get(numberTable - 1).setCustom(Optional.empty());
             this.controller.ifPresent(c -> c.removeCustomerInView(customerListIndex));
@@ -412,7 +412,8 @@ public class ModelImpl implements Model {
         }
     }
 
-    public void setWaiterssInfo(int indexL, String s, Pair<Integer, Integer> pos) {
+    @Override
+    public void setWaiterssInfo(final int indexL, final String s, final Pair<Integer, Integer> pos) {
         if (this.waitress.getState().equals(WaitressState.WAITING)) {
             if (s.equals("table")) {
                 switch (this.tables.get(indexL).getState()) {
@@ -438,16 +439,15 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public Optional<Dish> takeDishFromPosition(Pair<Integer, Integer> pos) {
+    public Optional<Dish> takeDishFromPosition(final Pair<Integer, Integer> pos) {
         return this.counterTop.takeDish(pos);
-
     }
 
     @Override
     public void earnMoneyFromTable() {
-        var coinsEarned = (int) (Math.random() * (PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1))
+        final var coinsEarned = (int) (Math.random() * (PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1))
                 + PROFIT_PER_TABLE_MIN;
-        var coinsEarnedWithBonus = (int) (coinsEarned
+        final var coinsEarnedWithBonus = (int) (coinsEarned
                 + (coinsEarned * PROFIT_MULTIPLIER * this.enabledCoinsMultipliers));
         this.setCoins(this.coins + coinsEarnedWithBonus);
     }
@@ -463,30 +463,30 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void completeDishPreparation(Dish dish) {
+    public void completeDishPreparation(final Dish dish) {
         this.counterTop.setDishReady(dish);
     }
 
     @Override
-    public void setNumberOfClientsAtTable(int numberOfClient, int numberOfTable) {
+    public void setNumberOfClientsAtTable(final int numberOfClient, final int numberOfTable) {
         this.tables.get(numberOfTable - 1).setSeatedPeople(numberOfClient);
     }
 
     @Override
-    public void addDishToView(Dish dish) {
+    public void addDishToView(final Dish dish) {
         this.controller.ifPresent(c -> c.addDishToView(dish));
     }
 
     @Override
-    public void removeDishInView(int dishIndex) {
+    public void removeDishInView(final int dishIndex) {
         this.controller.ifPresent(c -> c.deleteDishInView(dishIndex));
     }
 
-    private boolean canAfford(int price) {
+    private boolean canAfford(final int price) {
         return this.coins >= price;
     }
 
-    private void handlePowerUpActivation(int cost) {
+    private void handlePowerUpActivation(final int cost) {
         this.setCoins(this.coins - cost);
         var remainingActivations = this.powerUps.get(cost);
         remainingActivations--;
@@ -532,7 +532,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void addMaxCustomerThatCanLeave(int number) {
+    public void addMaxCustomerThatCanLeave(final int number) {
         this.maxCustomerThatCanLeave = this.maxCustomerThatCanLeave + number;
     }
 
@@ -542,16 +542,16 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void updateDishInView(int index, Dish dish) {
+    public void updateDishInView(final int index, final Dish dish) {
         this.controller.ifPresent(c -> c.updateDishesInView(index, dish));
     }
 
-    private boolean isPowerUpAvailable(int price) {
+    private boolean isPowerUpAvailable(final int price) {
         return this.powerUps.get(price) > 0;
     }
 
     @Override
-    public boolean canActivatePowerUp(int price) {
+    public boolean canActivatePowerUp(final int price) {
         return this.canAfford(price) && this.isPowerUpAvailable(price);
     }
 

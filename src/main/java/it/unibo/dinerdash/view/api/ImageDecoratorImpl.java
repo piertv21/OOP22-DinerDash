@@ -8,12 +8,12 @@ public class ImageDecoratorImpl extends AbstractGameEntityViewableDecorator impl
 
     private Optional<Image> state;
 
-    public ImageDecoratorImpl(GameEntityViewable decorated) {
+    public ImageDecoratorImpl(final GameEntityViewable decorated) {
         super(decorated);
     }
 
     @Override
-    public void setState(Optional<Image> icon) {
+    public void setState(final Optional<Image> icon) {
         this.state = icon;
     }
 

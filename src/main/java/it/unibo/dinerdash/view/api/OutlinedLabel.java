@@ -18,7 +18,7 @@ public class OutlinedLabel extends JLabel {
     private Color outlineColor;
     private int outlineWidth;
 
-    public OutlinedLabel(String text, Color outlineColor) {
+    public OutlinedLabel(final String text, final Color outlineColor) {
         super(text);
         this.outlineColor = outlineColor;
         this.outlineWidth = 2;
@@ -26,17 +26,17 @@ public class OutlinedLabel extends JLabel {
         setFont(new Font("Arial", Font.BOLD, 14));
     }
 
-    public void setOutlineColor(Color color) {
+    public void setOutlineColor(final Color color) {
         this.outlineColor = color;
     }
 
-    public void setOutlineWidth(int width) {
+    public void setOutlineWidth(final int width) {
         this.outlineWidth = width;
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
+    protected void paintComponent(final Graphics g) {
+        final Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         
         g2.setColor(outlineColor);

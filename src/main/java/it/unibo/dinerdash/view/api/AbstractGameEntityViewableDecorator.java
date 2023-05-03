@@ -8,7 +8,7 @@ public abstract class AbstractGameEntityViewableDecorator implements GameEntityV
 
     protected final GameEntityViewable decorated;
 
-    protected AbstractGameEntityViewableDecorator(GameEntityViewable decorated) {
+    protected AbstractGameEntityViewableDecorator(final GameEntityViewable decorated) {
         this.decorated = decorated;
     }
 
@@ -23,12 +23,12 @@ public abstract class AbstractGameEntityViewableDecorator implements GameEntityV
     }
 
     @Override
-    public void setIcon(Image icon) {
+    public void setIcon(final Image icon) {
         this.decorated.setIcon(icon);
     }
 
     @Override
-    public void update(Pair<Integer, Integer> coordinates, boolean active) {
+    public void update(final Pair<Integer, Integer> coordinates, final boolean active) {
         this.decorated.update(coordinates, active);
     }
 
@@ -48,17 +48,17 @@ public abstract class AbstractGameEntityViewableDecorator implements GameEntityV
     }
 
     @Override
-    public void setPosition(Pair<Integer, Integer> position) {
+    public void setPosition(final Pair<Integer, Integer> position) {
         this.decorated.setPosition(position);
     }
 
     @Override
-    public void setSize(Pair<Integer, Integer> size) {
+    public void setSize(final Pair<Integer, Integer> size) {
         this.decorated.setSize(size);
     }
 
     @Override
-    public void setActive(boolean active) {
+    public void setActive(final boolean active) {
         this.decorated.setActive(active);
     }
     

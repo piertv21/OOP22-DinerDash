@@ -20,14 +20,14 @@ public class GameTimerImpl implements GameTimer {
 
     private Optional<ScheduledExecutorService> executorService;
     private Runnable updateTask;
-    private Model model;
+    private final Model model;
 
     /**
      * Class constructor
      * 
      * @param model is the Model from which a method is called
      */
-    public GameTimerImpl(Model model) {
+    public GameTimerImpl(final Model model) {
         this.model = model;
         this.executorService = Optional.empty();
     }

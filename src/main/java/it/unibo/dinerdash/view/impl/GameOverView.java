@@ -21,17 +21,17 @@ import it.unibo.dinerdash.view.api.View;
 
 public class GameOverView extends GamePanel {
 
-    private JButton playAgainButton;
-    private JButton exitButton;
-    private JLabel gameOverLabel;
-    private JLabel coinLabel;
+    private final JButton playAgainButton;
+    private final JButton exitButton;
+    private final JLabel gameOverLabel;
+    private final JLabel coinLabel;
 
-    public GameOverView(View mainFrame) {
+    public GameOverView(final View mainFrame) {
         super(mainFrame);
 
         setLayout(new GridBagLayout());
 
-        var gridBagConstraints = new GridBagConstraints();
+        final var gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new Insets(10, 0, 10, 0);
@@ -41,7 +41,7 @@ public class GameOverView extends GamePanel {
         gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(gameOverLabel, gridBagConstraints);
 
-        var controller = this.getMainFrame().getController();
+        final var controller = this.getMainFrame().getController();
         gridBagConstraints.gridy = 1;
         coinLabel = new JLabel("Total coins: " + controller.getCoins());
         coinLabel.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -49,7 +49,7 @@ public class GameOverView extends GamePanel {
         add(coinLabel, gridBagConstraints);
 
         gridBagConstraints.gridy = 2;
-        JPanel buttonPanel = new JPanel();
+        final JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
         playAgainButton = new JButton("Play again");
@@ -71,15 +71,15 @@ public class GameOverView extends GamePanel {
 
         addComponentListener(new ComponentAdapter() {
             @Override
-            public void componentResized(ComponentEvent e) {
-                int height = getHeight();
-                int width = getWidth();
+            public void componentResized(final ComponentEvent e) {
+                final int height = getHeight();
+                final int width = getWidth();
 
                 gameOverLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.15)));
                 coinLabel.setFont(new Font("Arial", Font.PLAIN, (int)(height * 0.07)));
 
-                int buttonWidth = (int) (width * 0.6);
-                int buttonHeight = (int) (height * 0.2);
+                final int buttonWidth = (int) (width * 0.6);
+                final int buttonHeight = (int) (height * 0.2);
 
                 playAgainButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
                 exitButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));

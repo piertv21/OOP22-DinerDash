@@ -14,15 +14,15 @@ import java.util.stream.Stream;
  */
 public class ImageReaderWithCache implements ImageReader {
 
-    private ImageReader imageReader;
-    private Map<String, ImageIcon> cachedImages;
+    private final ImageReader imageReader;
+    private final Map<String, ImageIcon> cachedImages;
 
     /**
      * Class constructor.
      * 
      * @param root Defines the root path
      */
-    public ImageReaderWithCache(String root) {
+    public ImageReaderWithCache(final String root) {
         imageReader = new ImageReaderImpl(root);
         cachedImages = new HashMap<>();
     }
@@ -31,7 +31,7 @@ public class ImageReaderWithCache implements ImageReader {
      * {@inheritDoc}
      */
     @Override
-    public void setRoot(String root) {
+    public void setRoot(final String root) {
         imageReader.setRoot(root);
     }
 
@@ -39,12 +39,12 @@ public class ImageReaderWithCache implements ImageReader {
      * {@inheritDoc}
      */
     @Override
-    public ImageIcon readImage(String name) {
-        String imageName = extractImageNameFromPath(name);
+    public ImageIcon readImage(final String name) {
+        final String imageName = extractImageNameFromPath(name);
         return cachedImages.computeIfAbsent(imageName, key -> imageReader.readImage(name));
     }
 
-    private String extractImageNameFromPath(String path) {
+    private String extractImageNameFromPath(final String path) {
         return Stream.of(path.trim())
             .map(p -> p.substring(0, p.lastIndexOf(".")))
             .map(p -> p.substring(p.lastIndexOf(Constants.SEP) + 1))
@@ -57,7 +57,7 @@ public class ImageReaderWithCache implements ImageReader {
      * 
      * @param name Represents the image name without extension and relative path
      */
-    public ImageIcon getCachedImage(String name) {
+    public ImageIcon getCachedImage(final String name) {
         return cachedImages.get(name);
     }
 

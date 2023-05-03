@@ -20,15 +20,7 @@ public class ImageReaderImpl implements ImageReader {
      * 
      * @param root Defines the root path
      */
-    public ImageReaderImpl(String root) {
-        this.setRoot(root);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setRoot(String root) {
+    public ImageReaderImpl(final String root) {
         this.root = root;
     }
 
@@ -36,10 +28,17 @@ public class ImageReaderImpl implements ImageReader {
      * {@inheritDoc}
      */
     @Override
-    public ImageIcon readImage(String name) {
+    public void setRoot(final String root) {
+        this.root = root;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ImageIcon readImage(final String name) {
         final URL imgURL = ClassLoader.getSystemResource(this.root + name);
-        final ImageIcon icon = new ImageIcon(imgURL);
-        return icon;
+        return new ImageIcon(imgURL);
     }
     
 }

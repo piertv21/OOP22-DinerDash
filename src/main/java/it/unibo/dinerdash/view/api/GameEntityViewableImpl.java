@@ -12,10 +12,10 @@ public class GameEntityViewableImpl extends AbstractGameEntity implements GameEn
 
     private Image icon;
 
-    public GameEntityViewableImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, Image icon) {
+    public GameEntityViewableImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, final boolean active, final Image icon) {
         super(coordinates, size);
         this.setActive(active);
-        this.setIcon(icon);
+        this.icon = icon;
     }
 
     @Override
@@ -24,12 +24,12 @@ public class GameEntityViewableImpl extends AbstractGameEntity implements GameEn
     }
 
     @Override
-    public void setIcon(Image icon) {
+    public void setIcon(final Image icon) {
         this.icon = icon;
     }
 
     @Override
-    public void update(Pair<Integer, Integer> coordinates, boolean active) {
+    public void update(final Pair<Integer, Integer> coordinates, final boolean active) {
         this.setPosition(coordinates);
         this.setActive(active);
     }

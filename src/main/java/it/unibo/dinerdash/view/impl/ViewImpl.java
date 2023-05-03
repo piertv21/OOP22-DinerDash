@@ -33,15 +33,15 @@ public class ViewImpl extends JFrame implements View {
     public static final int MIN_WIDTH = 800;
     public static final int MIN_HEIGHT = 600;
 
-    private Controller controller;
+    private final Controller controller;
     private GamePanel currentView;
-    private ImageReaderWithCache imageCacher;
+    private final ImageReaderWithCache imageCacher;
     private boolean gameStarted;
 
     private double widthRatio;
     private double heightRatio;
 
-    public ViewImpl(Controller controller) {
+    public ViewImpl(final Controller controller) {
         super(Constants.GAME_NAME);
         this.controller = controller;
         this.imageCacher = new ImageReaderWithCache(ROOT);
@@ -60,16 +60,17 @@ public class ViewImpl extends JFrame implements View {
         this.setLocationByPlatform(true);
         this.setResizable(true);
         
-        var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = (int) screenSize.getWidth();
-        int screenHeight = (int) screenSize.getHeight();
+        final var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        final int screenWidth = (int) screenSize.getWidth();
+        final int screenHeight = (int) screenSize.getHeight();
         
         this.setSize(screenWidth / 2, screenHeight / 2);
         this.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
 
         this.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                var screenSize = e.getComponent().getSize();
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                final var screenSize = e.getComponent().getSize();
                 widthRatio = screenSize.getWidth() / controller.getRestaurantWidth();
                 heightRatio = screenSize.getHeight() / controller.getRestaurantHeight();     
             }
@@ -153,8 +154,8 @@ public class ViewImpl extends JFrame implements View {
     }
 
     private void loadResources() {
-        var path = "src" + SEP + "main" + SEP + "resources" + SEP + ROOT;
-        var assetsPath = this.searchAssets(path);
+        final var path = "src" + SEP + "main" + SEP + "resources" + SEP + ROOT;
+        final var assetsPath = this.searchAssets(path);
         assetsPath.forEach(this.imageCacher::readImage);
     }
     
@@ -169,8 +170,8 @@ public class ViewImpl extends JFrame implements View {
     }
 
     private Stream<File> getFilesRecursively(final File file, final String basePath) {
-        String filePath = file.getPath();
-        String relativePath = filePath.substring(basePath.length());
+        final String filePath = file.getPath();
+        final String relativePath = filePath.substring(basePath.length());
         return file.isDirectory() ? Optional.ofNullable(file.listFiles())
             .map(Arrays::stream)
             .orElse(Stream.empty())

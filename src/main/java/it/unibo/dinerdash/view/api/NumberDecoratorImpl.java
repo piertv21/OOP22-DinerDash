@@ -4,12 +4,12 @@ public class NumberDecoratorImpl extends AbstractGameEntityViewableDecorator imp
 
     private int number;
 
-    public NumberDecoratorImpl(GameEntityViewable decorated) {
+    public NumberDecoratorImpl(final GameEntityViewable decorated) {
         super(decorated);
     }
     
     @Override
-    public void setNumber(int number) {
+    public void setNumber(final int number) {
         this.number = number;
     }
     

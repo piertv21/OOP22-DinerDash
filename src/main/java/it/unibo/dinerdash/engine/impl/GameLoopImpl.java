@@ -70,8 +70,8 @@ public class GameLoopImpl implements GameLoop, Runnable {
         long frameTimer = System.nanoTime();
 
         while (running) {
-            long currentTime = System.nanoTime();
-            long elapsedTime = currentTime - lastTime;
+            final long currentTime = System.nanoTime();
+            final long elapsedTime = currentTime - lastTime;
             lastTime = currentTime;
             delta += elapsedTime / (double) TARGET_FRAME_TIME;
 
@@ -84,7 +84,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
                 delta--;
             }
 
-            long sleepTime = TimeUnit.NANOSECONDS.toMillis(frameTimer + TARGET_FRAME_TIME - System.nanoTime());
+            final long sleepTime = TimeUnit.NANOSECONDS.toMillis(frameTimer + TARGET_FRAME_TIME - System.nanoTime());
             if (sleepTime > 0) {
                 try {
                     Thread.sleep(sleepTime);

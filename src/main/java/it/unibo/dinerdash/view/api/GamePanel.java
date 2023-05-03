@@ -9,7 +9,7 @@ public class GamePanel extends JPanel {
 
     private final View mainFrame;
 
-    public GamePanel(View mainFrame) {
+    public GamePanel(final View mainFrame) {
         this.mainFrame = mainFrame;
     }
 
