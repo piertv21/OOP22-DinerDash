@@ -19,10 +19,10 @@ public abstract class AbstractGameEntity implements GameEntity {
      * @param coordinates is the entity coordinate pair
      * @param size is the entity size pair
      */
-    public AbstractGameEntity(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size) {
-        this.setPosition(coordinates);
-        this.setSize(size);
-        this.setActive(true);
+    public AbstractGameEntity(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size) {
+        this.position = coordinates;
+        this.size = size;
+        this.active = true;
     }
     
     /**
@@ -37,7 +37,7 @@ public abstract class AbstractGameEntity implements GameEntity {
      * {@inheritDoc}
      */
     @Override
-    public void setPosition(Pair<Integer, Integer> position) {
+    public void setPosition(final Pair<Integer, Integer> position) {
         this.position = position;
     }
 
@@ -53,7 +53,7 @@ public abstract class AbstractGameEntity implements GameEntity {
      * {@inheritDoc}
      */
     @Override
-    public void setSize(Pair<Integer, Integer> size) {
+    public void setSize(final Pair<Integer, Integer> size) {
         this.size = size;
     }
 
@@ -69,7 +69,7 @@ public abstract class AbstractGameEntity implements GameEntity {
      * {@inheritDoc}
      */
     @Override
-    public void setActive(boolean active) {
+    public void setActive(final boolean active) {
         this.active = active;
     }
 

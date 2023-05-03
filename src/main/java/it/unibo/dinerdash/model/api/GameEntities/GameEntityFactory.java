@@ -24,7 +24,7 @@ public interface GameEntityFactory {
      * 
      * @return a Customer instance
      */
-    Customer createCustomer(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, final Model model, final int numCust);
+    Customer createCustomer(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model, int numCust);
 
     /**
      * Create a Dish instance

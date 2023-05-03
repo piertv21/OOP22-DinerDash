@@ -18,9 +18,9 @@ public class GameLoopImpl implements GameLoop, Runnable {
 
     private final Controller controller;
 
-    private volatile boolean running = false;
-    private long lastTime = 0;
-    private double delta = 0;
+    private volatile boolean running;
+    private long lastTime;
+    private double delta;
 
     private Thread thread;
 
@@ -30,6 +30,9 @@ public class GameLoopImpl implements GameLoop, Runnable {
      * @param controller is the game controller
      */
     public GameLoopImpl(final Controller controller) {
+        this.running = false;
+        this.lastTime = 0;
+        this.delta = 0;
         this.controller = controller;
     }
 

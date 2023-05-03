@@ -64,7 +64,7 @@ public class ModelImpl implements Model {
 
     private static final int CHEF_REL_X = (int) (0.65 * Constants.RESTAURANT_WIDTH);
     private static final int CHEF_REL_Y = (int) (0.087 * Constants.RESTAURANT_HEIGHT);
-    private static final int CHEF_REL_WIDTH = (int) (0.12 * Constants.RESTAURANT_WIDTH);;
+    private static final int CHEF_REL_WIDTH = (int) (0.12 * Constants.RESTAURANT_WIDTH);
     private static final int CHEF_REL_HEIGHT = (int) (0.17 * Constants.RESTAURANT_HEIGHT);
 
     private static final int MAX_POWERUP_PER_TYPE = 3;
@@ -78,12 +78,12 @@ public class ModelImpl implements Model {
     private GameState gameState;
     private Optional<Controller> controller;
     private long lastCustomerTimeCreation;
-    private GameEntityFactory factory;
+    private final GameEntityFactory factory;
 
-    private LinkedList<Customer> customers;
-    private LinkedList<Table> tables;
-    private HashMap<Integer, Integer> powerUps;
-    private Countertop counterTop;
+    private final LinkedList<Customer> customers;
+    private final LinkedList<Table> tables;
+    private final HashMap<Integer, Integer> powerUps;
+    private final Countertop counterTop;
     private Chef chef;
     private Waitress waitress;
 
@@ -97,7 +97,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void setController(Controller controller) {
+    public void setController(final Controller controller) {
         this.controller = Optional.of(controller);
     }
 
@@ -114,27 +114,27 @@ public class ModelImpl implements Model {
         Arrays.stream(POWER_UP_PRICES)
                 .forEach(price -> powerUps.put(price, MAX_POWERUP_PER_TYPE));
 
-        var chefPosition = new Pair<>(CHEF_REL_X, CHEF_REL_Y);
-        var chefSize = new Pair<>(CHEF_REL_WIDTH, CHEF_REL_HEIGHT);
+        final var chefPosition = new Pair<>(CHEF_REL_X, CHEF_REL_Y);
+        final var chefSize = new Pair<>(CHEF_REL_WIDTH, CHEF_REL_HEIGHT);
         this.chef = this.factory.createChef(chefPosition, chefSize, this);
         this.controller.ifPresent(c -> c.addChefToView(this.chef));
 
-        var waitressPosition = new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y);
-        var waitressSize = new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH);
+        final var waitressPosition = new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y);
+        final var waitressSize = new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH);
         this.waitress = this.factory.createWaitress(waitressPosition, waitressSize, this);
         this.controller.ifPresent(c -> c.addWaitressToView(waitress));
         this.lastCustomerTimeCreation = System.nanoTime();
     }
     
     private void generateTables() {
-        var tables = IntStream.range(0, TABLES)
+        final var tables = IntStream.range(0, TABLES)
                 .boxed()
                 .map(i -> {
-                    int x = (int) (TABLE_STARTING_REL_X + (i % (TABLES / 2)) * TABLES_HORIZONTAL_PADDING);
-                    int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
-                    Pair<Integer, Integer> coordinates = new Pair<>(x, y);
-                    Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
-                    var tempTable = this.factory.createTable(coordinates, size, i + 1);
+                    final int x = (int) (TABLE_STARTING_REL_X + (i % (TABLES / 2)) * TABLES_HORIZONTAL_PADDING);
+                    final int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
+                    final Pair<Integer, Integer> coordinates = new Pair<>(x, y);
+                    final Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
+                    final var tempTable = this.factory.createTable(coordinates, size, i + 1);
                     this.controller.ifPresent(c -> c.addTableToView(tempTable));
                     return tempTable;
                 })
@@ -200,7 +200,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void sendOrder(int tableNumber) {
+    public void sendOrder(final int tableNumber) {
         this.counterTop.addOrder(tableNumber);
         this.setTableState(TableState.WAITING_MEAL, tableNumber);
     }
@@ -211,7 +211,7 @@ public class ModelImpl implements Model {
         }
         final var position = new Pair<>(CUSTOMER_START_X, CUSTOMER_START_Y);
         final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_MULTIPLICITY)) + 1;
-        var tempClient = this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
+        final var tempClient = this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity);
         this.customers.add(tempClient);
         
@@ -233,6 +233,7 @@ public class ModelImpl implements Model {
         }
     }
 
+    @Override
     public void update() {
         if (!this.gameOver()) {
 
@@ -308,18 +309,22 @@ public class ModelImpl implements Model {
         }
     }
 
+    @Override
     public int getCoins() {
         return this.coins;
     }
 
-    public void setCoins(int coins) {
+    @Override
+    public void setCoins(final int coins) {
         this.coins = coins;
     }
 
+    @Override
     public void decrementRemainingTime() {
         this.remainingTime--;
     }
 
+    @Override
     public int getRemainingTime() {
         return this.remainingTime;
     }
@@ -374,7 +379,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void setGameState(GameState gameState) {
+    public void setGameState(final GameState gameState) {
         this.gameState = gameState;
     }
 

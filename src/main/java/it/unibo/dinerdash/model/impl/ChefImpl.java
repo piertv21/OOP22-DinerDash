@@ -23,7 +23,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     private Optional<Dish> currentDish;
     private Optional<Long> timeDishReady;
     private int enabledPowerUps;
-    private Optional<Model> model;
+    private final Optional<Model> model;
 
     /**
      * Class constructor.
@@ -32,7 +32,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
      * @param size is the chef size in the restaurant
      * @param model is the reference to the Model
      */
-    public ChefImpl(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Optional<Model> model) {
+    public ChefImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, final Optional<Model> model) {
         super(coordinates, size);
         this.setActive(false);
         this.currentDish = Optional.empty();
@@ -79,12 +79,12 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
      * {@inheritDoc}
      */
     @Override
-    public void startPreparingDish(Dish dish) {
+    public void startPreparingDish(final Dish dish) {
         this.currentDish = Optional.of(dish);
 
-        int preparationTimeInSeconds = (int) (Math.random() * (MAX_PREPARATION_TIME - MIN_PREPARATION_TIME + 1)) + MIN_PREPARATION_TIME;
-        int bonusTime = this.enabledPowerUps * CHEF_TIME_SAVING;
-        var currentTime = System.nanoTime();
+        final int preparationTimeInSeconds = (int) (Math.random() * (MAX_PREPARATION_TIME - MIN_PREPARATION_TIME + 1)) + MIN_PREPARATION_TIME;
+        final int bonusTime = this.enabledPowerUps * CHEF_TIME_SAVING;
+        final var currentTime = System.nanoTime();
         this.timeDishReady = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(preparationTimeInSeconds - bonusTime));
     }
     

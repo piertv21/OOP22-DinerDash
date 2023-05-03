@@ -25,7 +25,7 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
     public AbstractGameEntityMovable(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, final int speed) {
         super(coordinates, size);
         this.destination = Optional.empty();
-        this.setMovementSpeed(speed);
+        this.speed = speed;
     }
     
     /**
@@ -89,14 +89,15 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
      */
     @Override
     public void handleMovement(final int range) {
-        if (getPosition().getX() < this.getDestination().get().getX() - range)
+        if (getPosition().getX() < this.getDestination().get().getX() - range) {
             this.moveRight();
-        else if (getPosition().getX() > this.getDestination().get().getX() + range)
+        } else if (getPosition().getX() > this.getDestination().get().getX() + range) {
             this.moveLeft();
-        else if (getPosition().getY() > this.getDestination().get().getY() + range)
+        } else if (getPosition().getY() > this.getDestination().get().getY() + range) {
             this.moveUp();
-        else if (getPosition().getY() < this.getDestination().get().getY())
+        } else if (getPosition().getY() < this.getDestination().get().getY()) {
             this.moveDown();
+        }
     }
     
 }

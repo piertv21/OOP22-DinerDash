@@ -10,7 +10,7 @@ public final class Constants {
     public static final int RESTAURANT_WIDTH = 1280;
     public static final int RESTAURANT_HEIGHT = 720;
 
-    private Constants() throws UnsupportedOperationException {
+    private Constants() {
         throw new UnsupportedOperationException("Cannot instantiate utility class");
     }
     

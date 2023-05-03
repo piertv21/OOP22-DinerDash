@@ -26,7 +26,7 @@ import it.unibo.dinerdash.view.api.View;
  */
 public class ControllerImpl implements Controller {
 
-    private Model model;
+    private final Model model;
     private View view;
     private GameView gameView;
     private GameLoop gameLoop;
@@ -53,7 +53,7 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void start(GameView gameView) {
+    public void start(final GameView gameView) {
         this.gameView = gameView;
         this.model.start();
 
@@ -144,11 +144,10 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public String getRemainingTime() {
-        var time = this.model.getRemainingTime();
-        int minutes = time / 60;
-        int remainingSeconds = time % 60;
-        String formattedTime = String.format("%d:%02d", minutes, remainingSeconds);
-        return formattedTime;
+        final var time = this.model.getRemainingTime();
+        final int minutes = time / 60;
+        final int remainingSeconds = time % 60;
+        return String.format("%d:%02d", minutes, remainingSeconds);
     }
 
     /**
@@ -318,7 +317,7 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public void updatePowerUpsButtonsInView() {
-        var prices = this.model.getPowerUpsPrices();
+        final var prices = this.model.getPowerUpsPrices();
         IntStream.range(0, prices.length)
             .forEach(i -> this.gameView.updatePowerUpButton(i, 
            this.model.canActivatePowerUp(prices[i]) ? true : false));
