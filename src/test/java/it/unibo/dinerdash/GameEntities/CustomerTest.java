@@ -18,18 +18,19 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public class CustomerTest {
 
     private Model model;
+    private Customer testClient1;
 
     @BeforeEach
 	void init() {
-		this.model =new ModelImpl(null);
+		this.model = new ModelImpl(null);
+        testClient1 = new CustomerImpl(new Pair<Integer, Integer>(100, 100), new Pair<Integer, Integer>(100, 100),
+        model, 2);
 	}
 
     
     @Test
     void testGetDestination() {
-        Customer testClient1 = new CustomerImpl(new Pair<Integer,Integer>(100, 100), new Pair<Integer,Integer>(100, 100),
-        model, 2);
-        Optional<Pair<Integer,Integer>> destination=Optional.of(new Pair<Integer,Integer>(200, 300));
+        Optional<Pair<Integer, Integer>> destination = Optional.of(new Pair<Integer,Integer>(200, 300));
         testClient1.setDestination(destination);
         assertTrue(testClient1.getDestination().equals(destination));
 
@@ -37,36 +38,27 @@ public class CustomerTest {
 
     @Test
     void testGetPosition() {
-        Customer testClient1 = new CustomerImpl(new Pair<Integer,Integer>(100, 100), new Pair<Integer,Integer>(100, 100),
-        model, 2);
-       assertEquals(new Pair<Integer,Integer>(100, 100), testClient1.getPosition());
+       assertEquals(new Pair<Integer, Integer>(100, 100), testClient1.getPosition());
     }
 
     @Test
     void testSetDestination() {
-        Customer testClient1 = new CustomerImpl(new Pair<Integer,Integer>(100, 100), new Pair<Integer,Integer>(100, 100),
-        model, 2);
-        Optional<Pair<Integer,Integer>> destination = Optional.of(new Pair<Integer,Integer>(500, 300));
+        Optional<Pair<Integer, Integer>> destination = Optional.of(new Pair<Integer, Integer>(500, 300));
         testClient1.setDestination(destination);
         assertEquals(destination, testClient1.getDestination());
     }
 
     @Test
     void testSetPosition() {
-        Customer testClient1 = new CustomerImpl(new Pair<Integer,Integer>(100, 100), new Pair<Integer,Integer>(100, 100),
-        model, 2);
-        Pair<Integer,Integer> newPosition = new Pair<Integer,Integer>(500, 600);
+        Pair<Integer,Integer> newPosition = new Pair<Integer, Integer>(500, 600);
         testClient1.setPosition(newPosition);
         assertEquals(newPosition, testClient1.getPosition());
     }
 
     @Test
     void testSetState() {
-
-        Customer testClient2 = new CustomerImpl(new Pair<Integer,Integer>(100, 100), new Pair<Integer,Integer>(100, 100),
-        model, 2);
-        testClient2.setState(CustomerState.ORDERING);
-        assertEquals(CustomerState.ORDERING, testClient2.getState());
+        testClient1.setState(CustomerState.ORDERING);
+        assertEquals(CustomerState.ORDERING, testClient1.getState());
     }
 
     @Test
@@ -89,26 +81,21 @@ public class CustomerTest {
 
         Customer testClient4 = new CustomerImpl(new Pair<Integer,Integer>(200, 300), new Pair<Integer,Integer>(100, 100),
         model, 2);
-        Optional<Pair<Integer,Integer>> destination=Optional.of(new Pair<Integer,Integer>(200, 400));
+        Optional<Pair<Integer, Integer>> destination = Optional.of(new Pair<Integer, Integer>(200, 400));
         testClient4.setDestination(destination);
         testClient4.update();
         testClient4.update();
         testClient4.update();
-        Pair<Integer,Integer> newPosition3 = new Pair<Integer,Integer>(200, 315);
-        assertEquals(newPosition3,testClient4.getPosition());
+        Pair<Integer,Integer> newPosition3 = new Pair<Integer, Integer>(200, 315);
+        assertEquals(newPosition3, testClient4.getPosition());
 
     }
 
     @Test
     void testGetCustomerPatience() {
-
-        Customer testClient5 = new CustomerImpl(new Pair<Integer,Integer>(200, 300), new Pair<Integer,Integer>(100, 100),
-        model, 2);
-        testClient5.setState(CustomerState.LINE);
-        assertEquals(7,testClient5.getCustomerPatience());
-        testClient5.update();
-        assertEquals(6,testClient5.getCustomerPatience());
-        
-
+        testClient1.setState(CustomerState.LINE);
+        assertEquals(7, testClient1.getCustomerPatience());
+        testClient1.update();
+        assertEquals(6, testClient1.getCustomerPatience());
     }
 }
