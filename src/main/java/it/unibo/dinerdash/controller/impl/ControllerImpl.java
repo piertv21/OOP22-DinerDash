@@ -37,7 +37,8 @@ public class ControllerImpl implements Controller {
      * by passing this instance.
      */
     public ControllerImpl() {
-        this.model = new ModelImpl(this);
+        this.model = new ModelImpl();
+        this.model.setController(this);
     }
 
     /**

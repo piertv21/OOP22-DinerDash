@@ -22,7 +22,7 @@ public class CustomerTest {
 
     @BeforeEach
 	void init() {
-		this.model = new ModelImpl(null);
+		this.model = new ModelImpl();
         testClient1 = new CustomerImpl(new Pair<Integer, Integer>(100, 100), new Pair<Integer, Integer>(100, 100),
         model, 2);
 	}

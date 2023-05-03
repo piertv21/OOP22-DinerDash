@@ -76,7 +76,7 @@ public class ModelImpl implements Model {
     private int customersWhoLeft;
     private int maxCustomerThatCanLeave;
     private GameState gameState;
-    private Controller controller;
+    private Optional<Controller> controller;
     private long lastCustomerTimeCreation;
     private GameEntityFactory factory;
 
@@ -87,13 +87,17 @@ public class ModelImpl implements Model {
     private Chef chef;
     private Waitress waitress;
 
-    public ModelImpl(Controller controller) {
-        this.controller = controller;
+    public ModelImpl() {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.powerUps = new HashMap<>();
         this.counterTop = new CountertopImpl(this);
         this.factory = new GameEntityFactoryImpl();
+    }
+
+    @Override
+    public void setController(Controller controller) {
+        this.controller = Optional.of(controller);
     }
 
     private void init() {
@@ -112,12 +116,12 @@ public class ModelImpl implements Model {
         var chefPosition = new Pair<>(CHEF_REL_X, CHEF_REL_Y);
         var chefSize = new Pair<>(CHEF_REL_WIDTH, CHEF_REL_HEIGHT);
         this.chef = this.factory.createChef(chefPosition, chefSize, this);
-        this.controller.addChefToView(this.chef);
+        this.controller.ifPresent(c -> c.addChefToView(this.chef));
 
         var waitressPosition = new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y);
         var waitressSize = new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH);
         this.waitress = this.factory.createWaitress(waitressPosition, waitressSize, this);
-        this.controller.addWaitressToView(waitress);
+        this.controller.ifPresent(c -> c.addWaitressToView(waitress));
         this.lastCustomerTimeCreation = System.nanoTime();
     }
 
@@ -131,7 +135,7 @@ public class ModelImpl implements Model {
                     Pair<Integer, Integer> coordinates = new Pair<>(x, y);
                     Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
                     var tempTable = this.factory.createTable(coordinates, size, i + 1);
-                    this.controller.addTableToView(tempTable);
+                    this.controller.ifPresent(c -> c.addTableToView(tempTable));
                     return tempTable;
                 })
                 .collect(Collectors.toList());
@@ -170,7 +174,7 @@ public class ModelImpl implements Model {
     @Override
     public void stop() {
         this.gameState = GameState.ENDED;
-        this.controller.gameIsEnded();
+        this.controller.get().gameIsEnded();
     }
 
     @Override
@@ -214,8 +218,8 @@ public class ModelImpl implements Model {
         var tempClient = this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this, customersMolteplicity);
         this.customers.add(tempClient);
-
-        this.controller.addCustomerToView(tempClient);
+        
+        this.controller.ifPresent(c -> c.addCustomerToView(tempClient));
         if (thereAreAvaibleTables()) {
             tableAssignament(this.customers.getLast());
         } else {
@@ -245,18 +249,18 @@ public class ModelImpl implements Model {
 
             // Update chef
             this.chef.update();
-            this.controller.updateChefInView(this.chef);
+            this.controller.ifPresent(c -> c.updateChefInView(this.chef));
 
             // Update Waitress
             this.waitress.update();
-            this.controller.updateWaitressInView(this.waitress);
+            this.controller.ifPresent(c -> c.updateWaitressInView(this.waitress));
 
             // Update Customers
             this.customers.stream()
                     .filter(c -> !c.getState().equals(CustomerState.ORDERING))
                     .forEach(client -> {
                         client.update();
-                        controller.updateCustomersInView(customers.indexOf(client), client);
+                        this.controller.ifPresent(c -> c.updateCustomersInView(customers.indexOf(client), client));
                     });
             this.removeAngryCustomers();
             this.checkChangePositionLine();
@@ -264,11 +268,11 @@ public class ModelImpl implements Model {
             // Update tables
             this.tables.forEach(t -> {
                 t.update();
-                controller.updateTablesInView(tables.indexOf(t), t);
+                this.controller.ifPresent(c -> c.updateTablesInView(tables.indexOf(t), t));
             });
 
             // Update PowerUp buttons state
-            this.controller.updatePowerUpsButtonsInView();
+            this.controller.ifPresent(c -> c.updatePowerUpsButtonsInView());
         } else {
             this.stop();
         }
@@ -285,7 +289,7 @@ public class ModelImpl implements Model {
 
             final int indexToDelete = this.customers.indexOf(tempCustomerToDelete); // get his index
             this.customers.remove(tempCustomerToDelete);
-            this.controller.removeCustomerInView(indexToDelete); // delete client from lists
+            this.controller.ifPresent(c -> c.removeCustomerInView(indexToDelete));
             this.customerLeft();
             this.customers.stream() // fix line positions
                     .filter(p -> p.getState()
@@ -412,7 +416,7 @@ public class ModelImpl implements Model {
                                                                                                                 // view
             this.customers.remove(this.tables.get(numberTable - 1).getCustomer().get());
             this.tables.get(numberTable - 1).setCustom(Optional.empty());
-            this.controller.removeCustomerInView(indiceCustomerInList);
+            this.controller.ifPresent(c -> c.removeCustomerInView(indiceCustomerInList));
         }
 
         if (state.equals(TableState.EATING)) {
@@ -482,12 +486,12 @@ public class ModelImpl implements Model {
 
     @Override
     public void addDishToView(Dish dish) {
-        this.controller.addDishToView(dish);
+        this.controller.ifPresent(c -> c.addDishToView(dish));
     }
 
     @Override
     public void removeDishInView(int dishIndex) {
-        this.controller.deleteDishInView(dishIndex);
+        this.controller.ifPresent(c -> c.deleteDishInView(dishIndex));
     }
 
     private boolean canAfford(int price) {
@@ -499,7 +503,7 @@ public class ModelImpl implements Model {
         var remainingActivations = this.powerUps.get(cost);
         remainingActivations--;
         this.powerUps.put(cost, remainingActivations);
-        this.controller.updatePowerUpsButtonsInView();
+        this.controller.ifPresent(c -> c.updatePowerUpsButtonsInView());
     }
 
     @Override
@@ -551,7 +555,7 @@ public class ModelImpl implements Model {
 
     @Override
     public void updateDishInView(int index, Dish dish) {
-        this.controller.updateDishesInView(index, dish);
+        this.controller.ifPresent(c -> c.updateDishesInView(index, dish));
     }
 
     private boolean isPowerUpAvailable(int price) {

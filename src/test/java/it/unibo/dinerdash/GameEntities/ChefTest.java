@@ -25,7 +25,7 @@ public class ChefTest {
     @BeforeAll
     void init() {
         this.controller = new ControllerImpl();
-        this.model = new ModelImpl(this.controller);
+        this.model = new ModelImpl();
 
         final var position = new Pair<>(CHEF_X, CHEF_Y);
         final var size = new Pair<>(CHEF_WIDTH, CHEF_HEIGHT);

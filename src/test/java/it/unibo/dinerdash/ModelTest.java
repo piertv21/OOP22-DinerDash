@@ -12,7 +12,7 @@ public class ModelTest {
 
     @BeforeEach
 	void init() {
-		this.model =new ModelImpl(null);
+		this.model = new ModelImpl();
 	}
     
     @Test

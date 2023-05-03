@@ -4,12 +4,15 @@ import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.States.GameState;
 import it.unibo.dinerdash.model.api.States.TableState;
+import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.GameEntities.Customer;
 import it.unibo.dinerdash.model.api.GameEntities.Dish;
 import it.unibo.dinerdash.model.api.GameEntities.Table;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Model {
+
+    void setController(Controller controller);
 
     /**
      * Getter for Logic-Window's Width.
