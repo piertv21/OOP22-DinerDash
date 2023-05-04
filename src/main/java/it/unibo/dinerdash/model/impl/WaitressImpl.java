@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.Model;
@@ -24,7 +25,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     private WaitressState state;
     private final Model model;
 
-    private final LinkedList<Dish> orderList;
+    private final List<Dish> orderList;
 
     private int serveTable;
 
@@ -167,7 +168,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     * 
     */
     @Override
-    public LinkedList<Dish> getOrderList() {
+    public List<Dish> getOrderList() {
         return this.orderList;
     }
 

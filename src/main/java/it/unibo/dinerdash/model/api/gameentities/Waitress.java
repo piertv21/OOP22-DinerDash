@@ -1,6 +1,6 @@
 package it.unibo.dinerdash.model.api.gameentities;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import it.unibo.dinerdash.model.api.states.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
@@ -68,7 +68,7 @@ public interface Waitress extends GameEntityMovable {
    * 
    * @return The list of orders
    */
-  LinkedList<Dish> getOrderList();
+  List<Dish> getOrderList();
 
   /**
    * Checks if the table number is correct.
