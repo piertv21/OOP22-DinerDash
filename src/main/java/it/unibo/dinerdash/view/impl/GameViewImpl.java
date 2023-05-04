@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -61,16 +62,16 @@ public class GameViewImpl extends GamePanel implements GameView {
     private final JLabel customerWhoLeftLabel;
     private final JLabel coinLabel;
     private final JButton pauseButton;
-    private ArrayList<JButton> powerupButtons;
+    private List<JButton> powerupButtons;
     private final JPanel topPanel;
     private final JPanel bottomPanel;
     private final JPanel rightPanel;
     private final Image backgroundImage;
     private ImageReaderWithCache imageCacher;
 
-    private LinkedList<ImageDecorator> customers;
-    private LinkedList<ImageDecorator> tables;
-    private LinkedList<NumberDecorator> dishes;
+    private List<ImageDecorator> customers;
+    private List<ImageDecorator> tables;
+    private List<NumberDecorator> dishes;
     private NumberDecorator waitress;
     private GameEntityViewable chef;
 
@@ -95,14 +96,14 @@ public class GameViewImpl extends GamePanel implements GameView {
         final var controller = mainFrame.getController();
         timeLabel = new OutlinedLabel(
             "Time: " + controller.getRemainingTime(), Color.BLACK);
-        timeLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        timeLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, 25));
         timeLabel.setForeground(Color.WHITE);
         timeLabel.setBorder(BorderFactory.createEmptyBorder(25, 25, 0, 0));
         topPanel.add(timeLabel);
 
         customerWhoLeftLabel = new OutlinedLabel(
             "Customers who left: " + controller.getCustomersWhoLeft(), Color.BLACK);
-        customerWhoLeftLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        customerWhoLeftLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, 25));
         customerWhoLeftLabel.setForeground(Color.WHITE);
         customerWhoLeftLabel.setBorder(BorderFactory.createEmptyBorder(25, 10, 0, 0));
         topPanel.add(Box.createHorizontalGlue());
@@ -111,7 +112,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         coinLabel = new OutlinedLabel(
             "Coins: " + controller.getCoins(), Color.BLACK);
-        coinLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        coinLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, 25));
         coinLabel.setForeground(Color.WHITE);
         coinLabel.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 25));
         topPanel.add(coinLabel);
@@ -200,9 +201,9 @@ public class GameViewImpl extends GamePanel implements GameView {
             public void componentResized(final ComponentEvent e) {
                 final int height = getHeight();
 
-                timeLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * 0.04)));
-                customerWhoLeftLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * 0.04)));
-                coinLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * 0.04)));
+                timeLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * 0.04)));
+                customerWhoLeftLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * 0.04)));
+                coinLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * 0.04)));
             }
         });
 

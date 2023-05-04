@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.View;
 
@@ -37,14 +38,14 @@ public class GameOverView extends GamePanel {
         gridBagConstraints.insets = new Insets(10, 0, 10, 0);
 
         gameOverLabel = new JLabel("Game Over");
-        gameOverLabel.setFont(new Font("Arial", Font.BOLD, 48));
+        gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, 48));
         gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(gameOverLabel, gridBagConstraints);
 
         final var controller = this.getMainFrame().getController();
         gridBagConstraints.gridy = 1;
         coinLabel = new JLabel("Total coins: " + controller.getCoins());
-        coinLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+        coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, 24));
         coinLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(coinLabel, gridBagConstraints);
 
@@ -75,8 +76,8 @@ public class GameOverView extends GamePanel {
                 final int height = getHeight();
                 final int width = getWidth();
 
-                gameOverLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.15)));
-                coinLabel.setFont(new Font("Arial", Font.PLAIN, (int)(height * 0.07)));
+                gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int)(height * 0.15)));
+                coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, (int)(height * 0.07)));
 
                 final int buttonWidth = (int) (width * 0.6);
                 final int buttonHeight = (int) (height * 0.2);

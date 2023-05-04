@@ -14,6 +14,11 @@ public final class Constants {
      * File separator.
      */
     public static final String SEP = System.getProperty("file.separator");
+
+    /**
+     * Game Font.
+     */
+    public static final String GAME_FONT = "Arial";
     
     /**
      * Logical restaurant width.
