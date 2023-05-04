@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.model.api.States;
+package it.unibo.dinerdash.model.api.states;
 /** States that can be used for Customer.
  *  {@link #LINE}
  *  {@link #ANGRY}

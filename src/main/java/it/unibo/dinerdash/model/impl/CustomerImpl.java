@@ -3,10 +3,10 @@ package it.unibo.dinerdash.model.impl;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import it.unibo.dinerdash.model.api.Model;
-import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntityMovable;
-import it.unibo.dinerdash.model.api.GameEntities.Customer;
-import it.unibo.dinerdash.model.api.States.CustomerState;
-import it.unibo.dinerdash.model.api.States.TableState;
+import it.unibo.dinerdash.model.api.gameentities.AbstractGameEntityMovable;
+import it.unibo.dinerdash.model.api.gameentities.Customer;
+import it.unibo.dinerdash.model.api.states.CustomerState;
+import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**

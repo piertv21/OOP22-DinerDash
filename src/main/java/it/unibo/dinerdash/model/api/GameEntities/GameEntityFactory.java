@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.model.api.GameEntities;
+package it.unibo.dinerdash.model.api.gameentities;
 
 import java.util.Optional;
 

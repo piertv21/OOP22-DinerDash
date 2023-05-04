@@ -2,12 +2,12 @@ package it.unibo.dinerdash.model.api;
 
 import java.util.Optional;
 
-import it.unibo.dinerdash.model.api.States.GameState;
-import it.unibo.dinerdash.model.api.States.TableState;
+import it.unibo.dinerdash.model.api.gameentities.Customer;
+import it.unibo.dinerdash.model.api.gameentities.Dish;
+import it.unibo.dinerdash.model.api.gameentities.Table;
+import it.unibo.dinerdash.model.api.states.GameState;
+import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.controller.api.Controller;
-import it.unibo.dinerdash.model.api.GameEntities.Customer;
-import it.unibo.dinerdash.model.api.GameEntities.Dish;
-import it.unibo.dinerdash.model.api.GameEntities.Table;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Model {

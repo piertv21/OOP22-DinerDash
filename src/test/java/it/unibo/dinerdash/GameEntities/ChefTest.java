@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.GameEntities;
+package it.unibo.dinerdash.gameentities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -8,9 +8,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.dinerdash.model.api.GameEntities.Chef;
-import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactory;
-import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactoryImpl;
+import it.unibo.dinerdash.model.api.gameentities.Chef;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class ChefTest {

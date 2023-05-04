@@ -2,7 +2,7 @@ package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
 
-import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntity;
+import it.unibo.dinerdash.model.api.gameentities.AbstractGameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*

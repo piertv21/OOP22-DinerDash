@@ -4,11 +4,11 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.Model;
-import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntityMovable;
-import it.unibo.dinerdash.model.api.GameEntities.Dish;
-import it.unibo.dinerdash.model.api.GameEntities.Waitress;
-import it.unibo.dinerdash.model.api.States.TableState;
-import it.unibo.dinerdash.model.api.States.WaitressState;
+import it.unibo.dinerdash.model.api.gameentities.AbstractGameEntityMovable;
+import it.unibo.dinerdash.model.api.gameentities.Dish;
+import it.unibo.dinerdash.model.api.gameentities.Waitress;
+import it.unibo.dinerdash.model.api.states.TableState;
+import it.unibo.dinerdash.model.api.states.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**

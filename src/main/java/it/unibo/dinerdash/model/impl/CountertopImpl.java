@@ -9,9 +9,9 @@ import java.util.stream.IntStream;
 import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.model.api.Countertop;
 import it.unibo.dinerdash.model.api.Model;
-import it.unibo.dinerdash.model.api.GameEntities.Dish;
-import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactory;
-import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactoryImpl;
+import it.unibo.dinerdash.model.api.gameentities.Dish;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class CountertopImpl implements Countertop {

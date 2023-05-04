@@ -12,17 +12,17 @@ import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.model.api.Countertop;
 import it.unibo.dinerdash.model.api.Model;
-import it.unibo.dinerdash.model.api.GameEntities.Chef;
-import it.unibo.dinerdash.model.api.GameEntities.Customer;
-import it.unibo.dinerdash.model.api.GameEntities.Dish;
-import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactory;
-import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactoryImpl;
-import it.unibo.dinerdash.model.api.GameEntities.Table;
-import it.unibo.dinerdash.model.api.GameEntities.Waitress;
-import it.unibo.dinerdash.model.api.States.CustomerState;
-import it.unibo.dinerdash.model.api.States.GameState;
-import it.unibo.dinerdash.model.api.States.TableState;
-import it.unibo.dinerdash.model.api.States.WaitressState;
+import it.unibo.dinerdash.model.api.gameentities.Chef;
+import it.unibo.dinerdash.model.api.gameentities.Customer;
+import it.unibo.dinerdash.model.api.gameentities.Dish;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
+import it.unibo.dinerdash.model.api.gameentities.Table;
+import it.unibo.dinerdash.model.api.gameentities.Waitress;
+import it.unibo.dinerdash.model.api.states.CustomerState;
+import it.unibo.dinerdash.model.api.states.GameState;
+import it.unibo.dinerdash.model.api.states.TableState;
+import it.unibo.dinerdash.model.api.states.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /*

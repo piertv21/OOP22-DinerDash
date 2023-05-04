@@ -4,9 +4,9 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.model.api.Model;
-import it.unibo.dinerdash.model.api.GameEntities.AbstractGameEntity;
-import it.unibo.dinerdash.model.api.GameEntities.Chef;
-import it.unibo.dinerdash.model.api.GameEntities.Dish;
+import it.unibo.dinerdash.model.api.gameentities.AbstractGameEntity;
+import it.unibo.dinerdash.model.api.gameentities.Chef;
+import it.unibo.dinerdash.model.api.gameentities.Dish;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**

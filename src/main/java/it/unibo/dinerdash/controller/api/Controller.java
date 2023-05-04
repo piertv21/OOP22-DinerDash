@@ -1,11 +1,11 @@
 package it.unibo.dinerdash.controller.api;
 
-import it.unibo.dinerdash.model.api.GameEntities.Chef;
-import it.unibo.dinerdash.model.api.GameEntities.Customer;
-import it.unibo.dinerdash.model.api.GameEntities.Dish;
-import it.unibo.dinerdash.model.api.GameEntities.Table;
-import it.unibo.dinerdash.model.api.GameEntities.Waitress;
-import it.unibo.dinerdash.model.api.States.GameState;
+import it.unibo.dinerdash.model.api.gameentities.Chef;
+import it.unibo.dinerdash.model.api.gameentities.Customer;
+import it.unibo.dinerdash.model.api.gameentities.Dish;
+import it.unibo.dinerdash.model.api.gameentities.Table;
+import it.unibo.dinerdash.model.api.gameentities.Waitress;
+import it.unibo.dinerdash.model.api.states.GameState;
 import it.unibo.dinerdash.utility.impl.Pair;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;

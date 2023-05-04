@@ -1,7 +1,8 @@
-package it.unibo.dinerdash.model.api.GameEntities;
+package it.unibo.dinerdash.model.api.gameentities;
 
 import java.util.Optional;
-import it.unibo.dinerdash.model.api.States.TableState;
+
+import it.unibo.dinerdash.model.api.states.TableState;
 
 /**
   * 

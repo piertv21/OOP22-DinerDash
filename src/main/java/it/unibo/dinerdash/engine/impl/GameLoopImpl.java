@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
-import it.unibo.dinerdash.model.api.States.GameState;
+import it.unibo.dinerdash.model.api.states.GameState;
 
 /**
  * {@inheritDoc}

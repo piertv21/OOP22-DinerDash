@@ -1,7 +1,8 @@
-package it.unibo.dinerdash.model.api.GameEntities;
+package it.unibo.dinerdash.model.api.gameentities;
 
 import java.util.LinkedList;
-import it.unibo.dinerdash.model.api.States.WaitressState;
+
+import it.unibo.dinerdash.model.api.states.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**

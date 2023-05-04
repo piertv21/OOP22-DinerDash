@@ -1,4 +1,4 @@
-package it.unibo.dinerdash.GameEntities;
+package it.unibo.dinerdash.gameentities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -8,9 +8,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.dinerdash.model.api.GameEntities.Customer;
-import it.unibo.dinerdash.model.api.GameEntities.Table;
-import it.unibo.dinerdash.model.api.States.TableState;
+import it.unibo.dinerdash.model.api.gameentities.Customer;
+import it.unibo.dinerdash.model.api.gameentities.Table;
+import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.impl.TableImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
