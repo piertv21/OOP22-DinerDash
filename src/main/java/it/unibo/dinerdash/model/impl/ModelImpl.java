@@ -418,11 +418,26 @@ public final class ModelImpl implements Model {
 
     @Override
     public void setWaiterssInfo(final int indexL, final String s, final Pair<Integer, Integer> pos) {
-        switch (this.tables.get(indexL).getState()) {
-            case ORDERING -> this.waitress.takeTableOrder(tables.get(indexL).getPosition());
-            case WANTING_TO_PAY -> this.waitress.collectMoney(tables.get(indexL).getPosition());
-            case WAITING_MEAL -> this.waitress.serveOrder(tables.get(indexL).getPosition());
-            default -> throw new IllegalArgumentException("Unexpected value: " + this.tables.get(indexL).getState());
+        if (this.waitress.getState().equals(WaitressState.WAITING)) {
+            if ("table".equals(s)) {
+                switch (this.tables.get(indexL).getState()) {
+                    case ORDERING:
+                        this.waitress.takeTableOrder(tables.get(indexL).getPosition());
+                        break;
+                    case WANTING_TO_PAY:
+                        this.waitress.collectMoney(tables.get(indexL).getPosition());
+                        break;
+                    case WAITING_MEAL:
+                        this.waitress.serveOrder(tables.get(indexL).getPosition());
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
+                    this.waitress.goGetDish(pos);
+                }
+            }
         }
 
     }
