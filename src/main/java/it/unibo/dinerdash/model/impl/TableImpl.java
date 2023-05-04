@@ -87,9 +87,8 @@ public class TableImpl extends AbstractGameEntity implements Table {
     * 
     */
     @Override
-    public int setSeatedPeople(final int peopleAreSeated) {
+    public void setSeatedPeople(final int peopleAreSeated) {
         this.seatedPeople = peopleAreSeated;
-        return this.seatedPeople;
     }
 
     /**
@@ -118,11 +117,9 @@ public class TableImpl extends AbstractGameEntity implements Table {
     */
     @Override
     public void update() {
-        if (this.timeFinishEating.isPresent()) {
-            if (System.nanoTime() >= this.timeFinishEating.get()) {
+        if (this.timeFinishEating.isPresent() && System.nanoTime() >= this.timeFinishEating.get()) {
                 state = TableState.WANTING_TO_PAY;
                 this.timeFinishEating = Optional.empty();
-            }
         }
     }
 

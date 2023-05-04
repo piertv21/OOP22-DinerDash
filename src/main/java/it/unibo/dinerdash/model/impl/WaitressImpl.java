@@ -50,10 +50,10 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
         if (!state.equals(WaitressState.WAITING)) {
             this.handleMovement(4);
 
-            if ((getPosition().getX() >= this.getDestination().get().getX() - 4)
-                    && ((getPosition().getX()) <= this.getDestination().get().getX() + 4)
-                    && ((getPosition().getY() <= this.getDestination().get().getY() + 4)
-                            && ((getPosition().getY() >= this.getDestination().get().getY() - ADJUST_POSITION)))) {
+            if (getPosition().getX() >= this.getDestination().get().getX() - 4
+                    && (getPosition().getX() <= this.getDestination().get().getX() + 4)
+                    && (getPosition().getY() <= this.getDestination().get().getY() + 4
+                            && (getPosition().getY() >= this.getDestination().get().getY() - ADJUST_POSITION))) {
                 if (state.equals(WaitressState.CALLING)) {
                     // this.setPosition(this.getDestination().get());
                     state = WaitressState.WAITING;
