@@ -421,17 +421,11 @@ public final class ModelImpl implements Model {
         if (this.waitress.getState().equals(WaitressState.WAITING)) {
             if ("table".equals(s)) {
                 switch (this.tables.get(indexL).getState()) {
-                    case ORDERING:
-                        this.waitress.takeTableOrder(tables.get(indexL).getPosition());
-                        break;
-                    case WANTING_TO_PAY:
-                        this.waitress.collectMoney(tables.get(indexL).getPosition());
-                        break;
-                    case WAITING_MEAL:
-                        this.waitress.serveOrder(tables.get(indexL).getPosition());
-                        break;
-                    default:
-                        break;
+                    case ORDERING -> this.waitress.takeTableOrder(tables.get(indexL).getPosition());
+                    case WANTING_TO_PAY -> this.waitress.collectMoney(tables.get(indexL).getPosition());
+                    case WAITING_MEAL -> this.waitress.serveOrder(tables.get(indexL).getPosition());
+                    default ->
+                        throw new IllegalArgumentException("Unexpected value: " + this.tables.get(indexL).getState());
                 }
             } else {
                 if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
