@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import it.unibo.dinerdash.model.api.GameEntities.Chef;
 import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.GameEntities.GameEntityFactoryImpl;
-import it.unibo.dinerdash.model.impl.ChefImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public class ChefTest {
@@ -31,7 +30,7 @@ public class ChefTest {
         final var position = new Pair<>(CHEF_X, CHEF_Y);
         final var size = new Pair<>(CHEF_WIDTH, CHEF_HEIGHT);
 
-        chef = new ChefImpl(position, size, Optional.empty());
+        chef = gameEntityFactory.createChef(position, size, Optional.empty());
     }
 
     @Test

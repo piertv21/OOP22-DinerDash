@@ -116,7 +116,7 @@ public class ModelImpl implements Model {
 
         final var chefPosition = new Pair<>(CHEF_REL_X, CHEF_REL_Y);
         final var chefSize = new Pair<>(CHEF_REL_WIDTH, CHEF_REL_HEIGHT);
-        this.chef = this.factory.createChef(chefPosition, chefSize, this);
+        this.chef = this.factory.createChef(chefPosition, chefSize, Optional.of(this));
         this.controller.ifPresent(c -> c.addChefToView(this.chef));
 
         final var waitressPosition = new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y);

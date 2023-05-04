@@ -1,5 +1,7 @@
 package it.unibo.dinerdash.model.api.GameEntities;
 
+import java.util.Optional;
+
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.impl.Pair;
 
@@ -15,7 +17,7 @@ public interface GameEntityFactory {
      * 
      * @return a Chef instance
      */
-    Chef createChef(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model);
+    Chef createChef(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Optional<Model> model);
 
     /**
      * Create a Customer instance.

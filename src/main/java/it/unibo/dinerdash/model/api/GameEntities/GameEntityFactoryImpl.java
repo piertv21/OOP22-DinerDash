@@ -24,9 +24,9 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
     public Chef createChef(
         final Pair<Integer, Integer> coordinates,
         final Pair<Integer, Integer> size,
-        final Model model
+        final Optional<Model> model
     ) {
-        return new ChefImpl(coordinates, size, Optional.of(model));
+        return new ChefImpl(coordinates, size, model);
     }
 
     /**
