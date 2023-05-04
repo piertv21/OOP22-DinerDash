@@ -15,11 +15,11 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public class TableImpl extends AbstractGameEntity implements Table {
 
-    private final int MIN_TIME_FOR_EATING = 4;
-    private final int MAX_TIME_FOR_EATING = 6;
+    private static final int MIN_TIME_FOR_EATING = 4;
+    private static final int MAX_TIME_FOR_EATING = 6;
     private Optional<Long> timeFinishEating;
 
-    private int tableNumber;
+    private final int tableNumber;
     private Optional<Customer> customer;
     private TableState state;
     private int seatedPeople;
@@ -106,8 +106,8 @@ public class TableImpl extends AbstractGameEntity implements Table {
     */
     @Override
     public void startEating() {
-        var currentTime = System.nanoTime();
-        var eatingTime = (int) (Math.random() * (MAX_TIME_FOR_EATING - MIN_TIME_FOR_EATING + 1)) + MIN_TIME_FOR_EATING;
+        final var currentTime = System.nanoTime();
+        final var eatingTime = (int) (Math.random() * (MAX_TIME_FOR_EATING - MIN_TIME_FOR_EATING + 1)) + MIN_TIME_FOR_EATING;
         this.timeFinishEating = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(eatingTime));
     }
 
