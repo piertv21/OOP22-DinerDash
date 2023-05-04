@@ -3,6 +3,8 @@ package it.unibo.dinerdash.model.impl;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -80,9 +82,9 @@ public class ModelImpl implements Model {
     private long lastCustomerTimeCreation;
     private final GameEntityFactory factory;
 
-    private final LinkedList<Customer> customers;
-    private final LinkedList<Table> tables;
-    private final HashMap<Integer, Integer> powerUps;
+    private final List<Customer> customers;
+    private final List<Table> tables;
+    private final Map<Integer, Integer> powerUps;
     private final Countertop counterTop;
     private Chef chef;
     private Waitress waitress;
@@ -211,16 +213,20 @@ public class ModelImpl implements Model {
         }
         final var position = new Pair<>(CUSTOMER_START_X, CUSTOMER_START_Y);
         final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_MULTIPLICITY)) + 1;
-        final var tempClient = this.factory.createCustomer(position, new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
-                this, customersMolteplicity);
-        this.customers.add(tempClient);
-        
+        final var tempClient = this.factory.createCustomer(
+            position,
+            new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
+            this,
+            customersMolteplicity
+        );
+        this.customers.add(tempClient);        
         this.controller.ifPresent(c -> c.addCustomerToView(tempClient));
+
         if (thereAreAvaibleTables()) {
-            tableAssignament(this.customers.getLast());
+            tableAssignament(tempClient);
         } else {
-            customers.getLast().setState(CustomerState.LINE);
-            linePositionAssignament(this.customers.getLast());
+            tempClient.setState(CustomerState.LINE);
+            linePositionAssignament(tempClient);
         }
     }
 

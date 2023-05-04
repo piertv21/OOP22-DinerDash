@@ -87,5 +87,5 @@ public interface View {
      * @return ImageCacher with all Images saved
      */
     ImageReaderWithCache getImageCacher();
-    
+
 }
