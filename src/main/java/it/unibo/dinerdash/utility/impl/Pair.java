@@ -7,8 +7,7 @@ package it.unibo.dinerdash.utility.impl;
  * @param <X> type of the first value
  * @param <Y> type of the second value
  */
-public class Pair<X,Y> {
-	
+public class Pair<X, Y> {
 	private final X x;
 	private final Y y;
 	
@@ -89,6 +88,5 @@ public class Pair<X,Y> {
 	@Override
 	public String toString() {
 		return "Pair [x=" + x + ", y=" + y + "]";
-	}
-    
+	} 
 }

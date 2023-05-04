@@ -45,11 +45,9 @@ public class ViewImpl extends JFrame implements View {
         super(Constants.GAME_NAME);
         this.controller = controller;
         this.imageCacher = new ImageReaderWithCache(ROOT);
-        
         this.widthRatio = 0;
         this.heightRatio = 0;
         this.gameStarted = false;
-        
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -101,14 +99,14 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void showExitDialog() {
-        if(this.gameStarted) {
+        if (this.gameStarted) {
             this.controller.pause();
         }
 
         final int result = JOptionPane.showConfirmDialog(this, "Do you really want to exit?",
             "Exit", JOptionPane.YES_NO_OPTION);
 
-        if(this.gameStarted) {
+        if (this.gameStarted) {
             if (result == JOptionPane.YES_OPTION) {
                 controller.quit();
             } else {
@@ -149,7 +147,7 @@ public class ViewImpl extends JFrame implements View {
     }
 
     @Override
-    public double getWidthRatio(){
+    public double getWidthRatio() {
         return this.widthRatio;
     }
 

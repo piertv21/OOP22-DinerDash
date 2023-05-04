@@ -181,8 +181,8 @@ public final class ModelImpl implements Model {
 
     @Override
     public boolean gameOver() {
-        return this.remainingTime <= 0 ||
-                this.customersWhoLeft >= this.maxCustomerThatCanLeave;
+        return this.remainingTime <= 0 
+            || this.customersWhoLeft >= this.maxCustomerThatCanLeave;
     }
 
     @Override
