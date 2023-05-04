@@ -3,7 +3,7 @@ package it.unibo.dinerdash.model.api.gameentities;
 import java.util.Optional;
 
 /**
- * This interface defines a Chef that extends Game Entity
+ * This interface defines a Chef that extends a Game Entity.
  */
 public interface Chef extends GameEntity {
     

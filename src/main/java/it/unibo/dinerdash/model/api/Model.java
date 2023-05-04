@@ -10,8 +10,15 @@ import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.utility.impl.Pair;
 
+/**
+ * This interface defines the game Model.
+ */
 public interface Model {
 
+    /**
+     * It set the controller.
+     * @param controller is the controller to be set
+     */
     void setController(Controller controller);
 
     /**

@@ -2,6 +2,9 @@ package it.unibo.dinerdash.view.api;
 
 import it.unibo.dinerdash.utility.impl.Pair;
 
+/**
+ * 
+ */
 public interface GameView {
 
     void clear();

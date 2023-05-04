@@ -4,6 +4,11 @@ import java.util.Optional;
 
 import java.awt.Image;
 
+/**
+ * {@inheritDoc}
+ *
+ * Implementation of the ImageDecorator interface.
+ */
 public class ImageDecoratorImpl extends AbstractGameEntityViewableDecorator implements ImageDecorator {
 
     private Optional<Image> state;

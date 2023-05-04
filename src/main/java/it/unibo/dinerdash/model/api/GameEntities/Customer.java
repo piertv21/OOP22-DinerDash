@@ -5,9 +5,10 @@ import java.util.Optional;
 import it.unibo.dinerdash.model.api.states.CustomerState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/** interface with the method's to control and update all 
-Customer's instances.
-*/
+/**
+ * Interface with the method's to control and update
+ * all Customer's instances.
+ */
 public interface Customer extends GameEntityMovable {
 
     /** 

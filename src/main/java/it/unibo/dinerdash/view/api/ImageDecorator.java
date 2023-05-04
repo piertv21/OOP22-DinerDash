@@ -4,6 +4,10 @@ import java.util.Optional;
 
 import java.awt.Image;
 
+/**
+ * This interface defines a decorator that
+ * adds a Image field to a GameEntityViewable.
+ */
 public interface ImageDecorator extends GameEntityViewableDecorator {
 
     /**

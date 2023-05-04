@@ -10,14 +10,19 @@ import java.util.stream.IntStream;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
-/*
- * Simple Class for drawing Outlined Labels.
+/**
+ * Simple class for representing Labels with a border.
  */
 public class OutlinedLabel extends JLabel {
 
     private Color outlineColor;
     private int outlineWidth;
 
+    /**
+     * Class constructor.
+     * @param text is the base label text
+     * @param outlineColor is the border color
+     */
     public OutlinedLabel(final String text, final Color outlineColor) {
         super(text);
         this.outlineColor = outlineColor;
@@ -26,10 +31,18 @@ public class OutlinedLabel extends JLabel {
         setFont(new Font("Arial", Font.BOLD, 14));
     }
 
+    /**
+     * Set the border color.
+     * @param color is the border color
+     */
     public void setOutlineColor(final Color color) {
         this.outlineColor = color;
     }
 
+    /**
+     * Set the border width
+     * @param width is the border width
+     */
     public void setOutlineWidth(final int width) {
         this.outlineWidth = width;
     }
@@ -50,7 +63,5 @@ public class OutlinedLabel extends JLabel {
         g2.setColor(getForeground());
         g2.drawString(getText(), getInsets().left - outlineWidth, getHeight() / 2 + g2.getFontMetrics().getAscent() / 2);
     }
-    
-
 
 }

@@ -1,5 +1,9 @@
 package it.unibo.dinerdash.view.api;
 
+/**
+ * This interface defines a decorator that
+ * adds a number field to a GameEntityViewable.
+ */
 public interface NumberDecorator extends GameEntityViewableDecorator {
 
     /**
