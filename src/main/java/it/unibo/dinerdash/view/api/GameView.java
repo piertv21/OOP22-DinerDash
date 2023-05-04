@@ -3,18 +3,29 @@ package it.unibo.dinerdash.view.api;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**
- * 
+ * This interface represents the main game panel in the View.
  */
 public interface GameView {
 
+    /**
+     * Cleans up the graphical game structures.
+     */
     void clear();
 
+    /**
+     * Draw a game frame representing both entities
+     * and labels with game data.
+     */
     void render();
 
+    /**
+     * Sets up game structures for restarting.
+     */
     void restart();
     
     /**
-     * add new customer in view list.
+     * Add new customer in view list.
+     * 
      * @param coordinates Position of the new customer
      * @param size image size of the new customer
      * @param active visibility of the new customer
@@ -24,7 +35,8 @@ public interface GameView {
     void addCustomerViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int multiplicity, int patience);
 
     /**
-     * update a customer's information in view list.
+     * Update a customer's information in view list.
+     * 
      * @param index element of the view list to update 
      * @param coordinates new Position of customer
      * @param active new visibility of customer
@@ -33,13 +45,26 @@ public interface GameView {
     void updateCustomersViewable(int index, Pair<Integer, Integer> coordinates, boolean active, int patience);
 
     /**
-     * remove a customer from the view list.
+     * Remove a customer from the view list.
+     * 
      * @param index of the element to delete
      */
     void removeCustomerViewable(int index);
     
+    /**
+     * Add new Chef in view list.
+     * 
+     * @param coordinates is the Position of the Chef
+     * @param size is the image size of the Chef
+     * @param active is the visibility of the Chef
+     */
     void addChefViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active);
 
+    /**
+     * Update the Chef in the game view.
+     * 
+     * @param active tells if chef must be drawn
+     */
     void updateChefViewable(boolean active);
     
     void addWaitressViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int numDishes);

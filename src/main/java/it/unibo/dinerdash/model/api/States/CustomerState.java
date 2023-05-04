@@ -1,5 +1,8 @@
 package it.unibo.dinerdash.model.api.states;
-/** States that can be used for Customer.
+
+/**
+ * States that can be used for Customer.
+ * 
  *  {@link #LINE}
  *  {@link #ANGRY}
  *  {@link #WALKING}

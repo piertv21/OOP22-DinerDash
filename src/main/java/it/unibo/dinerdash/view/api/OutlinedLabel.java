@@ -20,6 +20,7 @@ public class OutlinedLabel extends JLabel {
 
     /**
      * Class constructor.
+     * 
      * @param text is the base label text
      * @param outlineColor is the border color
      */

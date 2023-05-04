@@ -13,15 +13,26 @@ public class ImageDecoratorImpl extends AbstractGameEntityViewableDecorator impl
 
     private Optional<Image> state;
 
+    /**
+     * Class constructor.
+     * 
+     * @param decorated is the GameEntityViewable to be decorated
+     */
     public ImageDecoratorImpl(final GameEntityViewable decorated) {
         super(decorated);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setState(final Optional<Image> icon) {
         this.state = icon;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Image> getState() {
         return this.state;

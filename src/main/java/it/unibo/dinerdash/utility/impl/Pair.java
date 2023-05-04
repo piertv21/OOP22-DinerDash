@@ -2,7 +2,7 @@ package it.unibo.dinerdash.utility.impl;
 
 /**
  * This is a generic Pair of values with some methods.
- * This code was taken from Professor Viroli.
+ * This code was originally written by Professor Viroli.
  *
  * @param <X> type of the first value
  * @param <Y> type of the second value

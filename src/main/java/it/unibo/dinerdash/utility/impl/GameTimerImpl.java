@@ -11,7 +11,7 @@ import it.unibo.dinerdash.utility.api.GameTimer;
 /**
  * {@inheritDoc}
  *
- * Implementation of the GameTimer interface
+ * Implementation of the GameTimer interface.
  */
 public class GameTimerImpl implements GameTimer {
 
@@ -23,7 +23,7 @@ public class GameTimerImpl implements GameTimer {
     private final Model model;
 
     /**
-     * Class constructor
+     * Class constructor.
      * 
      * @param model is the Model from which a method is called
      */
@@ -35,7 +35,7 @@ public class GameTimerImpl implements GameTimer {
     /**
      * {@inheritDoc}
      * 
-     * Here it should be specified which model method to call
+     * Here it should be specified which model method to call.
      */
     @Override
     public void startTimer() {

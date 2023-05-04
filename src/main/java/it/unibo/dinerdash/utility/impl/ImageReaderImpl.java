@@ -9,14 +9,14 @@ import it.unibo.dinerdash.utility.api.ImageReader;
 /**
  * {@inheritDoc}
  *
- * Implementation of the ImageReader interface
+ * Implementation of the ImageReader interface.
  */
 public class ImageReaderImpl implements ImageReader {
 
     private String root;
 
     /**
-     * Class constructor
+     * Class constructor.
      * 
      * @param root Defines the root path
      */

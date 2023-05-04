@@ -5,6 +5,10 @@ import java.awt.Image;
 import it.unibo.dinerdash.model.api.gameentities.GameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
+/**
+ * This interface defines a GameEntityViewable,
+ * which is a graphical representation of a GameEntity.
+ */
 public interface GameEntityViewable extends GameEntity {
 
     /**

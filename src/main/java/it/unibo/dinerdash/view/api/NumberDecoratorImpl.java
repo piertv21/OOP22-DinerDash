@@ -11,6 +11,7 @@ public class NumberDecoratorImpl extends AbstractGameEntityViewableDecorator imp
 
     /**
      * Class constructor.
+     * 
      * @param decorated is the GameEntityViewable to be decorated
      */
     public NumberDecoratorImpl(final GameEntityViewable decorated) {
