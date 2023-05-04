@@ -127,7 +127,7 @@ public final class ModelImpl implements Model {
         this.controller.ifPresent(c -> c.addWaitressToView(waitress));
         this.lastCustomerTimeCreation = System.nanoTime();
     }
-    
+
     private void generateTables() {
         final var tables = IntStream.range(0, TABLES)
                 .boxed()
@@ -206,7 +206,7 @@ public final class ModelImpl implements Model {
         this.counterTop.addOrder(tableNumber);
         this.setTableState(TableState.WAITING_MEAL, tableNumber);
     }
-    
+
     private void addCustomer() {
         if (this.gameOver()) {
             this.stop();
@@ -214,12 +214,11 @@ public final class ModelImpl implements Model {
         final var position = new Pair<>(CUSTOMER_START_X, CUSTOMER_START_Y);
         final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_MULTIPLICITY)) + 1;
         final var tempClient = this.factory.createCustomer(
-            position,
-            new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
-            this,
-            customersMolteplicity
-        );
-        this.customers.add(tempClient);        
+                position,
+                new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
+                this,
+                customersMolteplicity);
+        this.customers.add(tempClient);
         this.controller.ifPresent(c -> c.addCustomerToView(tempClient));
 
         if (thereAreAvaibleTables()) {
@@ -249,13 +248,13 @@ public final class ModelImpl implements Model {
                 this.addCustomer();
                 this.lastCustomerTimeCreation = System.nanoTime();
             }
-            
+
             this.chef.update();
             this.controller.ifPresent(c -> c.updateChefInView(this.chef));
-            
+
             this.waitress.update();
             this.controller.ifPresent(c -> c.updateWaitressInView(this.waitress));
-            
+
             this.customers.stream()
                     .filter(c -> !c.getState().equals(CustomerState.ORDERING))
                     .forEach(client -> {
@@ -264,24 +263,23 @@ public final class ModelImpl implements Model {
                     });
             this.removeAngryCustomers();
             this.checkChangePositionLine();
-            
+
             this.tables.forEach(t -> {
                 t.update();
                 this.controller.ifPresent(c -> c.updateTablesInView(tables.indexOf(t), t));
             });
-            
+
             this.controller.ifPresent(c -> c.updatePowerUpsButtonsInView());
         } else {
             this.stop();
         }
     }
 
-    
     private void removeAngryCustomers() {
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))) {
             final Customer tempCustomerToDelete = this.customers.stream()
                     .filter(p -> p.getState()
-                    .equals(CustomerState.ANGRY))
+                            .equals(CustomerState.ANGRY))
                     .findFirst()
                     .get();
 
@@ -291,7 +289,7 @@ public final class ModelImpl implements Model {
             this.customerLeft();
             this.customers.stream()
                     .filter(p -> p.getState()
-                    .equals(CustomerState.LINE))
+                            .equals(CustomerState.LINE))
                     .forEach((p) -> {
                         p.setPosition(
                                 new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
@@ -306,7 +304,7 @@ public final class ModelImpl implements Model {
 
             this.customers.stream()
                     .filter(p -> p.getState()
-                    .equals(CustomerState.LINE))
+                            .equals(CustomerState.LINE))
                     .forEach((p) -> {
                         p.setPosition(
                                 new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
@@ -420,26 +418,11 @@ public final class ModelImpl implements Model {
 
     @Override
     public void setWaiterssInfo(final int indexL, final String s, final Pair<Integer, Integer> pos) {
-        if (this.waitress.getState().equals(WaitressState.WAITING)) {
-            if ("table".equals(s)) {
-                switch (this.tables.get(indexL).getState()) {
-                    case ORDERING:
-                        this.waitress.takeTableOrder(tables.get(indexL).getPosition());
-                        break;
-                    case WANTING_TO_PAY:
-                        this.waitress.collectMoney(tables.get(indexL).getPosition());
-                        break;
-                    case WAITING_MEAL:
-                        this.waitress.serveOrder(tables.get(indexL).getPosition());
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
-                    this.waitress.goGetDish(pos);
-                }
-            }
+        switch (this.tables.get(indexL).getState()) {
+            case ORDERING -> this.waitress.takeTableOrder(tables.get(indexL).getPosition());
+            case WANTING_TO_PAY -> this.waitress.collectMoney(tables.get(indexL).getPosition());
+            case WAITING_MEAL -> this.waitress.serveOrder(tables.get(indexL).getPosition());
+            default -> throw new IllegalArgumentException("Unexpected value: " + this.tables.get(indexL).getState());
         }
 
     }
