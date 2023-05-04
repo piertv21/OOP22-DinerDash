@@ -30,7 +30,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 /*
  * Solo metodi getter e setter sulle entità model
  */
-public class ModelImpl implements Model {
+public final class ModelImpl implements Model {
 
     private static final int MAX_CUSTOMERS_THAT_CAN_LEAVE = 10;
     private static final int ADDITIONAL_CUSTOMERS_POWERUP = 2;

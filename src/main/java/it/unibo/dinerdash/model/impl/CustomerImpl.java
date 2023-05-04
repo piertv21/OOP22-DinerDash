@@ -13,7 +13,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
  * Create a new element "Customer" who will move in the restaurant, Or will 
  * wait in Line for a free table.
  */
-public class CustomerImpl extends AbstractGameEntityMovable implements Customer {
+public final class CustomerImpl extends AbstractGameEntityMovable implements Customer {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
@@ -123,5 +123,4 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
     public int getCustomerPatience() {
         return this.patience;
     }
-    
 }
