@@ -402,7 +402,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         final int patience
     ) {
         this.customers.get(index).update(coordinates, active);
-        final var client = ((NumberDecorator) this.customers.get(index).getDecorated());
+        final var client = (NumberDecorator) this.customers.get(index).getDecorated();
 
         if (client.getNumber() != patience && patience != -1) {
             final var img = this.imageCacher.getCachedImage("heart" + patience).getImage();
@@ -505,7 +505,7 @@ public class GameViewImpl extends GamePanel implements GameView {
             tempTable.setIcon(img);
         }
         if (!state.isEmpty()) {
-            if (state.equals("eating")) {
+            if ("eating".equals(state)) {
                 tempTable.setIcon(this.imageCacher.getCachedImage("tableWithDish" + peopleNumber).getImage());
             } else {
                 final var imgState = this.imageCacher.getCachedImage(state).getImage();

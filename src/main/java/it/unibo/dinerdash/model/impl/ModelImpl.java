@@ -300,9 +300,9 @@ public class ModelImpl implements Model {
     }
 
     private void checkChangePositionLine() {
-        if ((this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE)))
-                && (this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
-                        (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y))))) {
+        if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE))
+                && this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
+                        (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y)))) {
 
             this.customers.stream()
                     .filter(p -> p.getState()
@@ -421,7 +421,7 @@ public class ModelImpl implements Model {
     @Override
     public void setWaiterssInfo(final int indexL, final String s, final Pair<Integer, Integer> pos) {
         if (this.waitress.getState().equals(WaitressState.WAITING)) {
-            if (s.equals("table")) {
+            if ("table".equals(s)) {
                 switch (this.tables.get(indexL).getState()) {
                     case ORDERING:
                         this.waitress.takeTableOrder(tables.get(indexL).getPosition());

@@ -56,7 +56,7 @@ public class CustomerImpl extends AbstractGameEntityMovable implements Customer 
         this.numberClients = numCusters;
         this.lastPatienceReduce = Optional.empty();
         this.patience = MAX_PATIECE;
-        this.timeBeforeOrder = (int) ((Math.random() * (MAX_ORDERING_TIME)) + ONE);
+        this.timeBeforeOrder = (int) (Math.random() * (MAX_ORDERING_TIME) + ONE);
         this.setActive(true);
     }
 

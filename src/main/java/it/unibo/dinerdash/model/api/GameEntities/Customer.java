@@ -38,24 +38,28 @@ public interface Customer extends GameEntityMovable {
      * getter for customer Position.
      * @return customer's InGame state 
      */
+    @Override
     Pair<Integer, Integer> getPosition();
 
     /** 
      * setter for customer Destination.
      * @param destination Customer's new destination
      */
+    @Override
     void setDestination(Optional<Pair<Integer, Integer>> destination);
 
     /** 
      * getter for customer Destination.
      * @return customer's destination or null
      */
+    @Override
     Optional<Pair<Integer, Integer>> getDestination();
 
     /** 
      * setter for customer Position.
      * @param position Customer's new position
      */
+    @Override
     void setPosition(Pair<Integer, Integer> position);
 
     /** 
