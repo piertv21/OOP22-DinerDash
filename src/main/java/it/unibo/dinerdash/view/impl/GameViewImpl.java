@@ -78,7 +78,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     private final Cursor defaultCursor;
     private final Cursor handCursor;
 
-    public GameViewImpl(final View mainFrame) {
+    public  GameViewImpl(final View mainFrame) {
         super(mainFrame);
 
         setLayout(new BorderLayout());
@@ -222,8 +222,8 @@ public class GameViewImpl extends GamePanel implements GameView {
         final int entityWindowWidth = (int) (viewableEntity.getSize().getX() * widthRatio);
         final int entityWindowHeight = (int) (viewableEntity.getSize().getY() * heightRatio);
 
-        return mouseX >= viewableEntityWindowX && mouseX <= viewableEntityWindowX + entityWindowWidth &&
-                mouseY >= viewableEntityWindowY && mouseY <= viewableEntityWindowY + entityWindowHeight;
+        return mouseX >= viewableEntityWindowX && mouseX <= viewableEntityWindowX + entityWindowWidth 
+            && mouseY >= viewableEntityWindowY && mouseY <= viewableEntityWindowY + entityWindowHeight;
     }
 
     private void showPauseDialog() {
@@ -274,9 +274,7 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         final var heightRatio = this.getMainFrame().getHeightRatio();
         final var widthRatio = this.getMainFrame().getWidthRatio();
-        
         g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
-        
         g.drawImage(waitress.getIcon(),
                 (int) (waitress.getPosition().getX() * widthRatio),
                 (int) (waitress.getPosition().getY() * heightRatio),
