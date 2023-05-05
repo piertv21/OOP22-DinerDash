@@ -103,8 +103,7 @@ public final class ModelImpl implements Model {
         this.controller = Optional.of(controller);
     }
 
-    @Override
-    public void init() {
+    private void init() {
         this.coins = 0;
         this.enabledCoinsMultipliers = 0;
         this.remainingTime = MAX_PLAYTIME;

@@ -15,7 +15,7 @@ final class ModelTest {
     @BeforeEach
 	void init() {
 		this.model = new ModelImpl();
-        
+        this.model.start();
 	}
     
     @Test

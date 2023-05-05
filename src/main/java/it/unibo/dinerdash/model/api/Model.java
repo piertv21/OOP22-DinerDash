@@ -151,6 +151,4 @@ public interface Model {
 
     boolean canActivatePowerUp(int price);
 
-    void init();
-
 }
