@@ -13,7 +13,9 @@ import it.unibo.dinerdash.model.api.gameentities.Dish;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
-
+/**
+ * This Class implementes the CounterTop. 
+ */
 public class CountertopImpl implements Countertop {
 
     private static final int START_DISH_REL_X = (int) (0.37 * Constants.RESTAURANT_WIDTH);
@@ -26,13 +28,19 @@ public class CountertopImpl implements Countertop {
 
     private final List<Dish> dishes;
     private final Model model;
-
+    /**
+     * Class costructor.
+     * @param model object used for updating the view
+     */
     public CountertopImpl(final Model model) {
         this.model = model;
         this.dishes = new LinkedList<>();
         this.factory = new GameEntityFactoryImpl();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addOrder(final int tableNumber) {
         if (this.dishes.size() < MAX_COUNTERTOP_DISHES) {
@@ -62,6 +70,9 @@ public class CountertopImpl implements Countertop {
                 .orElse(startPoint);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Dish> takeDish(final Pair<Integer, Integer> coordinates) {
         return this.dishes.stream()
@@ -75,18 +86,25 @@ public class CountertopImpl implements Countertop {
                 });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clear() {
         this.dishes.clear();
     }
 
-    //dice se ci son piatti ancora con active = false
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean thereAreDishesToPrepare() {
         return this.dishes.stream().anyMatch(e -> !e.isActive());
     }
 
-    // prossimo dish da preparare (active = false)
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Dish> getNextDishToPrepare() {
         return this.dishes.stream()
@@ -94,7 +112,9 @@ public class CountertopImpl implements Countertop {
             .findFirst();
     }
 
-    // Dato un dish lo imposta a ready, chiamata dallo Chef
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setDishReady(final Dish dish) {
         final var oldDishIndex = this.dishes.indexOf(dish);
