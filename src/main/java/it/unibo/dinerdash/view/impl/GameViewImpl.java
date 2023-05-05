@@ -60,11 +60,8 @@ public class GameViewImpl extends GamePanel implements GameView {
     
     private final JLabel timeLabel;
     private final JLabel customerWhoLeftLabel;
-    private final JLabel coinLabel;
-    private final JButton pauseButton;
+    private final JLabel coinLabel;    
     private List<JButton> powerupButtons;
-    private final JPanel topPanel;
-    private final JPanel bottomPanel;
     private final JPanel rightPanel;
     private final Image backgroundImage;
     private ImageReaderWithCache imageCacher;
@@ -88,7 +85,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.init();
         this.backgroundImage = this.imageCacher.getCachedImage("background").getImage();
 
-        topPanel = new JPanel();
+        final var topPanel = new JPanel();
         topPanel.setOpaque(false);
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
         topPanel.setPreferredSize(new Dimension(0, 60));
@@ -119,11 +116,11 @@ public class GameViewImpl extends GamePanel implements GameView {
        
         add(topPanel, BorderLayout.NORTH);
 
-        bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+        final var bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         bottomPanel.setOpaque(false);
         bottomPanel.setPreferredSize(new Dimension(0, 30));
 
-        pauseButton = new JButton("Pause");
+        final var pauseButton = new JButton("Pause");
         pauseButton.addActionListener((e) -> {
             controller.pause();
             this.showPauseDialog();
