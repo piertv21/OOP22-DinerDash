@@ -13,7 +13,7 @@ import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class ChefTest {
+final class ChefTest {
 
     private static final int CHEF_X = 700;
     private static final int CHEF_Y = 50;

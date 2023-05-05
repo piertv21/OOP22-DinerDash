@@ -15,7 +15,7 @@ import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class CustomerTest {
+final class CustomerTest {
 
     private Model model;
     private Customer testClient1;

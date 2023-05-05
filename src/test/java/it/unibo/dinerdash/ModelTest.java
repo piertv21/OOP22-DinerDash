@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 
-public class ModelTest {
+final class ModelTest {
 
     private Model model;
 

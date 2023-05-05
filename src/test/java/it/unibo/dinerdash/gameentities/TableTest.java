@@ -15,7 +15,7 @@ import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.impl.TableImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class TableTest {
+final class TableTest {
     private Table table = new TableImpl(null, null, 0);
 
     @BeforeEach
