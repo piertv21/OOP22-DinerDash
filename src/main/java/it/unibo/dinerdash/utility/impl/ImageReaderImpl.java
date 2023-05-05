@@ -40,5 +40,5 @@ public class ImageReaderImpl implements ImageReader {
         final URL imgURL = ClassLoader.getSystemResource(this.root + name);
         return new ImageIcon(imgURL);
     }
-    
+
 }

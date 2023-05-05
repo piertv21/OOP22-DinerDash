@@ -60,10 +60,10 @@ public class GameViewImpl extends GamePanel implements GameView {
     private static final Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
     private static final Pair<Integer, Integer> TABLE_STATE_IMG_SIZE = new Pair<>(80, 56);
     private static final int BORDER_SIZE = 25;
-    
+
     private final JLabel timeLabel;
     private final JLabel customerWhoLeftLabel;
-    private final JLabel coinLabel;    
+    private final JLabel coinLabel;
     private List<JButton> powerupButtons;
     private final JPanel rightPanel;
     private final Image backgroundImage;
@@ -116,7 +116,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         coinLabel.setForeground(Color.WHITE);
         coinLabel.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 25));
         topPanel.add(coinLabel);
-       
+
         add(topPanel, BorderLayout.NORTH);
 
         final var bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
@@ -299,7 +299,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                                 this);
                     }
                 });
-                
+
         this.customers.stream().filter(cus -> cus.isActive()
                 && ((NumberDecorator) cus.getDecorated()).getNumber() == MAX_PATIECE)
                 .forEach(c -> {
@@ -309,7 +309,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                             (int) (c.getSize().getY() * heightRatio),
                             this);
                 });
-                
+
         final var streamLineCustomer = this.customers.stream()
                 .filter(cus -> cus.isActive()
                         && ((NumberDecorator) cus.getDecorated()).getNumber() != MAX_PATIECE);
@@ -331,7 +331,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                     (int) (CUSTOMER_PATIENCE_IMG_SIZE.getY() * heightRatio),
                     this);
         });
-        
+
         if (this.chef.isActive()) {
             g.drawImage(chef.getIcon(),
                     (int) (chef.getPosition().getX() * widthRatio),

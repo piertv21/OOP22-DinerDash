@@ -21,5 +21,5 @@ public class DishImpl extends AbstractGameEntity implements Dish {
     public int getDishNumber() {
         return this.dishNumber;
     }
-    
+
 }

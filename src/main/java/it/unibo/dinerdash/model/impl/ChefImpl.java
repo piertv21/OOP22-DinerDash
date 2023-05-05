@@ -15,7 +15,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
  * Implementation of the Chef interface.
  */
 public class ChefImpl extends AbstractGameEntity implements Chef {
-    
+
     private static final int MIN_PREPARATION_TIME = 5;
     private static final int MAX_PREPARATION_TIME = 12;
     private static final int CHEF_TIME_SAVING = 2;
@@ -52,16 +52,13 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
             }
         } else {
             if (this.model.get().thereAreDishesToPrepare()) {
-                
                 if (!this.isActive()) {
                     this.setActive(true);
                 }
-                
-                currentDish = this.model.get().getDishToPrepare();
 
+                currentDish = this.model.get().getDishToPrepare();
                 this.startPreparingDish(currentDish.get());
             } else {
-                
                 this.setActive(false);
             }
         }
@@ -74,7 +71,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     public void reducePreparationTime() {
         this.enabledPowerUps++;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -87,7 +84,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
         final var currentTime = System.nanoTime();
         this.timeDishReady = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(preparationTimeInSeconds - bonusTime));
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -122,5 +119,5 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     public int getEnabledPowerUps() {
         return this.enabledPowerUps;
     }
-    
+
 }

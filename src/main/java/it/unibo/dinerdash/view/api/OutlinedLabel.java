@@ -54,7 +54,7 @@ public class OutlinedLabel extends JLabel {
     protected void paintComponent(final Graphics g) {
         final Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        
+
         g2.setColor(outlineColor);
         IntStream.rangeClosed(1, outlineWidth).forEach(i -> {
             g2.drawString(getText(), i + getInsets().left - outlineWidth, getHeight() / 2 + g2.getFontMetrics().getAscent() / 2 - 1);
@@ -62,7 +62,7 @@ public class OutlinedLabel extends JLabel {
             g2.drawString(getText(), i + 1 + getInsets().left - outlineWidth, getHeight() / 2 + g2.getFontMetrics().getAscent() / 2);
             g2.drawString(getText(), i - 1 + getInsets().left - outlineWidth, getHeight() / 2 + g2.getFontMetrics().getAscent() / 2);
         });
-        
+
         g2.setColor(getForeground());
         g2.drawString(getText(), getInsets().left - outlineWidth, getHeight() / 2 + g2.getFontMetrics().getAscent() / 2);
     }

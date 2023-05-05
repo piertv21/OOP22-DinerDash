@@ -6,7 +6,7 @@ import it.unibo.dinerdash.model.api.gameentities.Dish;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 public interface Countertop {
-    
+
     void addOrder(int tableNumber);
 
     Optional<Dish> takeDish(Pair<Integer, Integer> coordinates);

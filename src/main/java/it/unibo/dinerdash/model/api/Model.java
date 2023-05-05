@@ -55,8 +55,8 @@ public interface Model {
     int getCustomerWhoCanLeft();
 
     /**
-     * Reduce a counter of Customers who left,cause
-     * they have finished to eat ,or they are too angry
+     * Reduce a counter of Customers who left, cause
+     * they have finished to eat ,or they are too angry.
      */
     void customerLeft();
 

@@ -37,5 +37,5 @@ public class ImageDecoratorImpl extends AbstractGameEntityViewableDecorator impl
     public Optional<Image> getState() {
         return this.state;
     }
-    
+
 }

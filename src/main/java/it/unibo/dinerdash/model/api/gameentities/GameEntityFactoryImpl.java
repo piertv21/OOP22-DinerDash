@@ -16,7 +16,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
  * Implementation of the Game Entity Factory.
  */
 public class GameEntityFactoryImpl implements GameEntityFactory {
-    
+
     /**
      * {@inheritDoc}
      */

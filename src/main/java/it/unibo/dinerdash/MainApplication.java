@@ -6,7 +6,7 @@ import it.unibo.dinerdash.view.api.View;
 import it.unibo.dinerdash.view.impl.ViewImpl;
 
 /**
- * Main instance of the game.
+ * Entry point of the game.
  */
 public final class MainApplication {
 
@@ -16,10 +16,15 @@ public final class MainApplication {
      */
     private MainApplication() { }
 
+    /**
+     * Main function.
+     * 
+     * @param args are required by Java
+     */
     public static void main(final String[] args) {
         final Controller controller = new ControllerImpl();
-        final View view = new ViewImpl(controller);        
+        final View view = new ViewImpl(controller);
         controller.setView(view);
     }
-    
+
 }

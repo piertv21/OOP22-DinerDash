@@ -22,7 +22,7 @@ public interface GameView {
      * Sets up game structures for restarting.
      */
     void restart();
-    
+
     /**
      * Add new customer in view list.
      * 
@@ -51,7 +51,7 @@ public interface GameView {
      * @param index of the element to delete
      */
     void removeCustomerViewable(int index);
-    
+
     /**
      * Add new Chef in view list.
      * 
@@ -67,17 +67,17 @@ public interface GameView {
      * @param active tells if chef must be drawn
      */
     void updateChefViewable(boolean active);
-    
+
     void addWaitressViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int numDishes);
 
     void updateWaitressViewable(Pair<Integer, Integer> coordinates, int numDishes);
-    
+
     void addDishViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, boolean active, int numTable);
 
     void updateDishesViewable(int index, boolean active);
 
     void deleteDishViewable(int index);
-    
+
     void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size,
                              boolean active, int peopleNumer, String state);
 

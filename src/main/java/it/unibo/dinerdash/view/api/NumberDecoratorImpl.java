@@ -17,7 +17,7 @@ public class NumberDecoratorImpl extends AbstractGameEntityViewableDecorator imp
     public NumberDecoratorImpl(final GameEntityViewable decorated) {
         super(decorated);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -25,7 +25,7 @@ public class NumberDecoratorImpl extends AbstractGameEntityViewableDecorator imp
     public void setNumber(final int number) {
         this.number = number;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -33,5 +33,5 @@ public class NumberDecoratorImpl extends AbstractGameEntityViewableDecorator imp
     public int getNumber() {
         return this.number;
     }
-    
+
 }

@@ -78,8 +78,8 @@ public class GameOverView extends GamePanel {
                 final int height = getHeight();
                 final int width = getWidth();
 
-                gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int)(height * 0.15)));
-                coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, (int)(height * 0.07)));
+                gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * 0.15)));
+                coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, (int) (height * 0.07)));
 
                 final int buttonWidth = (int) (width * 0.6);
                 final int buttonHeight = (int) (height * 0.2);

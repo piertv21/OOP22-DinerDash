@@ -53,5 +53,5 @@ public interface GameEntity {
      * @param active is the active state to be set
      */
     void setActive(boolean active);
-    
+
 }

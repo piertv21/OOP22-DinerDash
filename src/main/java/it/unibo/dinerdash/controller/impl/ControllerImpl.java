@@ -129,7 +129,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void gameIsEnded() {
         this.gameLoop.stop();
-        this.gameTimer.stopTimer();        
+        this.gameTimer.stopTimer();
         this.view.showGameOverView();
     }
 
@@ -158,7 +158,7 @@ public class ControllerImpl implements Controller {
     @Override
     public String getCustomersWhoLeft() {
         return this.model.getCustomersWhoLeft() + "/" + this.model.getCustomerWhoCanLeft();
-	}
+    }
 
     /**
      * {@inheritDoc}

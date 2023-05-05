@@ -19,7 +19,7 @@ public final class Constants {
      * Game Font.
      */
     public static final String GAME_FONT = "Arial";
-    
+
     /**
      * Logical restaurant width.
      */
@@ -33,5 +33,5 @@ public final class Constants {
     private Constants() {
         throw new UnsupportedOperationException("Cannot instantiate utility class");
     }
-    
+
 }

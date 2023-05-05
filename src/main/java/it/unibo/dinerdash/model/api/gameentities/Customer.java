@@ -28,7 +28,7 @@ public interface Customer extends GameEntityMovable {
      * @return customer's InGame state 
      */
     CustomerState getState();
-    
+
     /** 
      * manage the movement of customers ,or their behaviour.
      */

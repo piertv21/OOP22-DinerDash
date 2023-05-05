@@ -50,12 +50,13 @@ public class ImageReaderWithCache implements ImageReader {
             .map(p -> p.substring(p.lastIndexOf(Constants.SEP) + 1))
             .findFirst()
             .orElse(path);
-    }    
+    }
 
     /**
      * Returns an image from the cache.
      * 
      * @param name Represents the image name without extension and relative path
+     * @return the cached image
      */
     public ImageIcon getCachedImage(final String name) {
         return cachedImages.get(name);

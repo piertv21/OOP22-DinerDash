@@ -11,9 +11,14 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 public abstract class AbstractGameEntityViewableDecorator implements GameEntityViewableDecorator {
 
-    protected final GameEntityViewable decorated;
+    private final GameEntityViewable decorated;
 
-    protected AbstractGameEntityViewableDecorator(final GameEntityViewable decorated) {
+    /**
+     * Class constructor.
+     * 
+     * @param decorated is the GameEntityViewable to be decorated
+     */
+    public AbstractGameEntityViewableDecorator(final GameEntityViewable decorated) {
         this.decorated = decorated;
     }
 
@@ -96,5 +101,5 @@ public abstract class AbstractGameEntityViewableDecorator implements GameEntityV
     public void setActive(final boolean active) {
         this.decorated.setActive(active);
     }
-    
+
 }

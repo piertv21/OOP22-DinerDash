@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 public class ViewImpl extends JFrame implements View {
 
     private static final long serialVersionUID = -6298731756889190906L;
-    
+
     private static final String ROOT = "it" + Constants.SEP + "unibo" + Constants.SEP + "dinerdash" + Constants.SEP;
 
     public static final int MIN_WIDTH = 800;
@@ -58,11 +58,11 @@ public class ViewImpl extends JFrame implements View {
         });
         this.setLocationByPlatform(true);
         this.setResizable(true);
-        
+
         final var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         final int screenWidth = (int) screenSize.getWidth();
         final int screenHeight = (int) screenSize.getHeight();
-        
+
         this.setSize(screenWidth / 2, screenHeight / 2);
         this.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
 
@@ -71,7 +71,7 @@ public class ViewImpl extends JFrame implements View {
             public void componentResized(final ComponentEvent e) {
                 final var screenSize = e.getComponent().getSize();
                 widthRatio = screenSize.getWidth() / controller.getRestaurantWidth();
-                heightRatio = screenSize.getHeight() / controller.getRestaurantHeight();     
+                heightRatio = screenSize.getHeight() / controller.getRestaurantHeight();
             }
         });
 
@@ -140,7 +140,7 @@ public class ViewImpl extends JFrame implements View {
     public void playAgain() {
         this.showGameView();
     }
-    
+
     @Override
     public double getHeightRatio() {
         return this.heightRatio;
@@ -156,7 +156,7 @@ public class ViewImpl extends JFrame implements View {
         final var assetsPath = this.searchAssets(path);
         assetsPath.forEach(this.imageCacher::readImage);
     }
-    
+
     private List<String> searchAssets(final String path) {
         return Optional.ofNullable(new File(path).listFiles())
             .map(Arrays::stream)

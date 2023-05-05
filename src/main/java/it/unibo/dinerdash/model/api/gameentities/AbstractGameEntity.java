@@ -24,7 +24,7 @@ public abstract class AbstractGameEntity implements GameEntity {
         this.size = size;
         this.active = true;
     }
-    
+
     /**
      * {@inheritDoc}
      */

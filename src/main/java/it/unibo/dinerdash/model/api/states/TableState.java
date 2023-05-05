@@ -34,5 +34,5 @@ public enum TableState {
      * Custumer left the table.
      */
     EMPTY
-    
+
 }
