@@ -1,5 +1,7 @@
 package it.unibo.dinerdash;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +15,7 @@ final class ModelTest {
     @BeforeEach
 	void init() {
 		this.model = new ModelImpl();
+        
 	}
     
     @Test
@@ -52,7 +55,9 @@ final class ModelTest {
 
     @Test
     void testCustomerLeft() {
-
+        assertEquals(0, model.getCustomersWhoLeft());
+        model.customerLeft();
+        assertEquals(1, model.getCustomersWhoLeft());
     }
 
     @Test
@@ -77,12 +82,20 @@ final class ModelTest {
 
     @Test
     void testGetCustomerWhoCanLeft() {
+        assertEquals(10, model.getCustomerWhoCanLeft());
+        model.addMaxCustomerThatCanLeave(2);
+        model.addMaxCustomerThatCanLeave(7);
+        assertEquals(19, model.getCustomerWhoCanLeft());
 
     }
 
     @Test
     void testGetCustomersWhoLeft() {
-
+        assertEquals(0, model.getCustomersWhoLeft());
+        model.customerLeft();
+        model.customerLeft();
+        model.customerLeft();
+        assertEquals(3, model.getCustomersWhoLeft());
     }
 
     @Test
@@ -97,7 +110,8 @@ final class ModelTest {
 
     @Test
     void testGetHeight() {
-
+        assertEquals(720, model.getHeight());
+        
     }
 
     @Test
