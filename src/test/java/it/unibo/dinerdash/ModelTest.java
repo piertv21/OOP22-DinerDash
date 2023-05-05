@@ -10,13 +10,12 @@ import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 
 final class ModelTest {
-
-    final int TABLENUMBER = 2; 
+    private static final int TABLE_NUMBER = 2; 
     private Model model;
 
     @BeforeEach
 	void init() {
-		this.model = new ModelImpl();
+	    this.model = new ModelImpl();
         this.model.start();
 	}
     
@@ -84,10 +83,12 @@ final class ModelTest {
 
     @Test
     void testGetCustomerWhoCanLeft() {
+        final int expectLeftCust = 19;
+        final int addCustomerLeave = 7;
         assertEquals(10, model.getCustomerWhoCanLeft());
         model.addMaxCustomerThatCanLeave(2);
-        model.addMaxCustomerThatCanLeave(7);
-        assertEquals(19, model.getCustomerWhoCanLeft());
+        model.addMaxCustomerThatCanLeave(addCustomerLeave);
+        assertEquals(expectLeftCust, model.getCustomerWhoCanLeft());
 
     }
 
@@ -112,7 +113,8 @@ final class ModelTest {
 
     @Test
     void testGetHeight() {
-        assertEquals(720, model.getHeight());
+        final int exeptHeight = 720;
+        assertEquals(exeptHeight, model.getHeight());
     }
 
     @Test
@@ -132,7 +134,8 @@ final class ModelTest {
 
     @Test
     void testGetWidth() {
-        assertEquals(1280, model.getWidth());
+        final int exeptWidth = 1280;
+        assertEquals(exeptWidth, model.getWidth());
     }
 
     @Test
@@ -147,12 +150,14 @@ final class ModelTest {
 
     @Test
     void testIncreaseMaxCustomerThatCanLeave() {
+        final int coin = 600; 
+        final int expectMaxCust = 12;
         assertEquals(10, model.getCustomerWhoCanLeft());
         this.model.increaseMaxCustomerThatCanLeave();
         assertEquals(10, model.getCustomerWhoCanLeft());
-        this.model.setCoins(600);
+        this.model.setCoins(coin);
         this.model.increaseMaxCustomerThatCanLeave();
-        assertEquals(12, model.getCustomerWhoCanLeft());
+        assertEquals(expectMaxCust, model.getCustomerWhoCanLeft());
 
     }
 
@@ -198,16 +203,16 @@ final class ModelTest {
 
     @Test
     void testSetNumberOfClientsAtTable() {
-        assertEquals(0, this.model.getTableList().get(TABLENUMBER).getPeopleSeatedNumber());
-        this.model.setNumberOfClientsAtTable(3, TABLENUMBER + 1 );
-        assertEquals(3, this.model.getTableList().get(TABLENUMBER).getPeopleSeatedNumber());
+        assertEquals(0, this.model.getTableList().get(TABLE_NUMBER).getPeopleSeatedNumber());
+        this.model.setNumberOfClientsAtTable(3, TABLE_NUMBER + 1);
+        assertEquals(3, this.model.getTableList().get(TABLE_NUMBER).getPeopleSeatedNumber());
     }
 
     @Test
     void testSetTableState() {
-        assertEquals(TableState.EMPTY, this.model.getTableList().get(TABLENUMBER).getState());
-        this.model.setTableState(TableState.ORDERING, TABLENUMBER + 1);
-        assertEquals(TableState.ORDERING, this.model.getTableList().get(TABLENUMBER).getState());
+        assertEquals(TableState.EMPTY, this.model.getTableList().get(TABLE_NUMBER).getState());
+        this.model.setTableState(TableState.ORDERING, TABLE_NUMBER + 1);
+        assertEquals(TableState.ORDERING, this.model.getTableList().get(TABLE_NUMBER).getState());
     }
 
     @Test
