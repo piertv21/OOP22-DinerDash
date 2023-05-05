@@ -36,6 +36,7 @@ public class OutlinedLabel extends JLabel {
 
     /**
      * Set the border color.
+     * 
      * @param color is the border color
      */
     public void setOutlineColor(final Color color) {
@@ -43,13 +44,17 @@ public class OutlinedLabel extends JLabel {
     }
 
     /**
-     * Set the border width
+     * Set the border width.
+     * 
      * @param width is the border width
      */
     public void setOutlineWidth(final int width) {
         this.outlineWidth = width;
     }
 
+    /**
+     * Draw a normal label plus an outer border.
+     */
     @Override
     protected void paintComponent(final Graphics g) {
         final Graphics2D g2 = (Graphics2D) g;
@@ -57,10 +62,22 @@ public class OutlinedLabel extends JLabel {
 
         g2.setColor(outlineColor);
         IntStream.rangeClosed(1, outlineWidth).forEach(i -> {
-            g2.drawString(getText(), i + getInsets().left - outlineWidth, getHeight() / 2 + g2.getFontMetrics().getAscent() / 2 - 1);
-            g2.drawString(getText(), i + getInsets().left - outlineWidth, getHeight() / 2 + g2.getFontMetrics().getAscent() / 2 + 1);
-            g2.drawString(getText(), i + 1 + getInsets().left - outlineWidth, getHeight() / 2 + g2.getFontMetrics().getAscent() / 2);
-            g2.drawString(getText(), i - 1 + getInsets().left - outlineWidth, getHeight() / 2 + g2.getFontMetrics().getAscent() / 2);
+            g2.drawString(
+                getText(), i + getInsets().left - outlineWidth,
+                getHeight() / 2 + g2.getFontMetrics().getAscent() / 2 - 1
+            );
+            g2.drawString(
+                getText(), i + getInsets().left - outlineWidth,
+                getHeight() / 2 + g2.getFontMetrics().getAscent() / 2 + 1
+            );
+            g2.drawString(
+                getText(), i + 1 + getInsets().left - outlineWidth,
+                getHeight() / 2 + g2.getFontMetrics().getAscent() / 2
+            );
+            g2.drawString(
+                getText(), i - 1 + getInsets().left - outlineWidth,
+                getHeight() / 2 + g2.getFontMetrics().getAscent() / 2
+            );
         });
 
         g2.setColor(getForeground());

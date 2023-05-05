@@ -3,7 +3,7 @@ package it.unibo.dinerdash.model.api.gameentities;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**
- * This interface defines a Game Entity
+ * This interface defines a Game Entity.
  */
 public interface GameEntity {
 

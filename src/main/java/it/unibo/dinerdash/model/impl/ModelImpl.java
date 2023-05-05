@@ -28,8 +28,10 @@ import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.model.api.states.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/*
- * Solo metodi getter e setter sulle entità model
+/**
+ * {@inheritDoc}
+ *
+ * Implementation of the Model interface.
  */
 public final class ModelImpl implements Model {
 
@@ -90,6 +92,9 @@ public final class ModelImpl implements Model {
     private Chef chef;
     private Waitress waitress;
 
+    /**
+     * Class constructor.
+     */
     public ModelImpl() {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
@@ -99,6 +104,9 @@ public final class ModelImpl implements Model {
         this.controller = Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setController(final Controller controller) {
         this.controller = Optional.of(controller);
@@ -145,6 +153,9 @@ public final class ModelImpl implements Model {
         this.tables.addAll(tables);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clear() {
         this.customers.clear();
@@ -153,55 +164,85 @@ public final class ModelImpl implements Model {
         this.counterTop.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getWidth() {
         return Constants.RESTAURANT_WIDTH;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getHeight() {
         return Constants.RESTAURANT_HEIGHT;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start() {
         this.init();
         this.gameState = GameState.RUNNING;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void pause() {
         this.gameState = GameState.PAUSED;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stop() {
         this.gameState = GameState.ENDED;
         this.controller.get().gameIsEnded();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean gameOver() {
         return this.remainingTime <= 0 
             || this.customersWhoLeft >= this.maxCustomerThatCanLeave;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void restart() {
         this.clear();
         this.start();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCustomersWhoLeft() {
         return this.customersWhoLeft;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCustomerWhoCanLeft() {
         return this.maxCustomerThatCanLeave;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void sendOrder(final int tableNumber) {
         this.counterTop.addOrder(tableNumber);
@@ -230,6 +271,9 @@ public final class ModelImpl implements Model {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void customerLeft() {
         if (!this.gameOver()) {
@@ -239,6 +283,9 @@ public final class ModelImpl implements Model {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         if (!this.gameOver()) {
@@ -314,26 +361,41 @@ public final class ModelImpl implements Model {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCoins() {
         return this.coins;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setCoins(final int coins) {
         this.coins = coins;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void decrementRemainingTime() {
         this.remainingTime--;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getRemainingTime() {
         return this.remainingTime;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void tableAssignament(final Customer client) {
         client.setDestination(Optional.ofNullable(
@@ -361,11 +423,17 @@ public final class ModelImpl implements Model {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean thereAreAvaibleTables() {
         return this.tables.stream().anyMatch(tab -> tab.getCustomer().isEmpty());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean checkFreeTables(final Customer client) {
         if (this.customers.stream()
@@ -378,16 +446,25 @@ public final class ModelImpl implements Model {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameState getGameState() {
         return this.gameState;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameState(final GameState gameState) {
         this.gameState = gameState;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setWaitressTableDestination(final Pair<Integer, Integer> dest) {
         if (!(this.waitress.getState().equals(WaitressState.CALLING))) {
@@ -396,11 +473,17 @@ public final class ModelImpl implements Model {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Table getTablefromPositon(final Pair<Integer, Integer> pos) {
         return this.tables.stream().filter(t -> t.getPosition().equals(pos)).findFirst().get();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setTableState(final TableState state, final int numberTable) {
         this.tables.get(numberTable - 1).setState(state);
@@ -417,6 +500,9 @@ public final class ModelImpl implements Model {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setWaiterssInfo(final int indexL, final String s, final Pair<Integer, Integer> pos) {
         if (this.waitress.getState().equals(WaitressState.WAITING)) {
@@ -436,11 +522,17 @@ public final class ModelImpl implements Model {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Dish> takeDishFromPosition(final Pair<Integer, Integer> pos) {
         return this.counterTop.takeDish(pos);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void earnMoneyFromTable() {
         final var coinsEarned = (int) (Math.random() * (PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1))
@@ -450,31 +542,49 @@ public final class ModelImpl implements Model {
         this.setCoins(this.coins + coinsEarnedWithBonus);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean thereAreDishesToPrepare() {
         return this.counterTop.thereAreDishesToPrepare();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<Dish> getDishToPrepare() {
         return this.counterTop.getNextDishToPrepare();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void completeDishPreparation(final Dish dish) {
         this.counterTop.setDishReady(dish);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setNumberOfClientsAtTable(final int numberOfClient, final int numberOfTable) {
         this.tables.get(numberOfTable - 1).setSeatedPeople(numberOfClient);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addDishToView(final Dish dish) {
         this.controller.ifPresent(c -> c.addDishToView(dish));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeDishInView(final int dishIndex) {
         this.controller.ifPresent(c -> c.deleteDishInView(dishIndex));
@@ -492,6 +602,9 @@ public final class ModelImpl implements Model {
         this.controller.ifPresent(c -> c.updatePowerUpsButtonsInView());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reduceDishPreparationTime() {
         if (this.canActivatePowerUp(POWER_UP_PRICES[0])) {
@@ -500,6 +613,9 @@ public final class ModelImpl implements Model {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void increaseWaitressSpeed() {
         if (this.canActivatePowerUp(POWER_UP_PRICES[1])) {
@@ -508,6 +624,9 @@ public final class ModelImpl implements Model {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void increaseMaxCustomerThatCanLeave() {
         if (this.canActivatePowerUp(POWER_UP_PRICES[2])) {
@@ -516,6 +635,9 @@ public final class ModelImpl implements Model {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void increaseGainMultiplier() {
         if (this.canActivatePowerUp(POWER_UP_PRICES[3])) {
@@ -524,21 +646,33 @@ public final class ModelImpl implements Model {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int[] getPowerUpsPrices() {
         return Arrays.copyOf(POWER_UP_PRICES, POWER_UP_PRICES.length);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addMaxCustomerThatCanLeave(final int number) {
         this.maxCustomerThatCanLeave = this.maxCustomerThatCanLeave + number;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void increaseCoinsMultiplier() {
         this.enabledCoinsMultipliers++;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateDishInView(final int index, final Dish dish) {
         this.controller.ifPresent(c -> c.updateDishesInView(index, dish));
@@ -548,13 +682,20 @@ public final class ModelImpl implements Model {
         return this.powerUps.get(price) > 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canActivatePowerUp(final int price) {
         return this.canAfford(price) && this.isPowerUpAvailable(price);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Table> getTableList() {
         return Collections.unmodifiableList(this.tables);
     }
+    
 }

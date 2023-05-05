@@ -2,7 +2,7 @@ package it.unibo.dinerdash.view.api;
 
 import javax.swing.JPanel;
 
-/*
+/**
  * This class represents a game panel.
  */
 public class GamePanel extends JPanel {

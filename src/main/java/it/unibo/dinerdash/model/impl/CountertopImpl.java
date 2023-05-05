@@ -67,7 +67,7 @@ public class CountertopImpl implements Countertop {
         return this.dishes.stream()
                 .filter(dish -> dish.getPosition().equals(coordinates))
                 .findFirst()
-                .map(dish -> {                    
+                .map(dish -> {
                     final var dishIndex = this.dishes.indexOf(dish);
                     this.model.removeDishInView(dishIndex);
                     dishes.remove(dish);

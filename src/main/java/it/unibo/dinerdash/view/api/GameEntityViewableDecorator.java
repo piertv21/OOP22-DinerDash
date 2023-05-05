@@ -10,5 +10,5 @@ public interface GameEntityViewableDecorator extends GameEntityViewable {
      * @return the decirated GameEntityViewable
      */
     GameEntityViewable getDecorated();
-    
+
 }

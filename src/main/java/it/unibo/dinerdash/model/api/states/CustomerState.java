@@ -2,32 +2,32 @@ package it.unibo.dinerdash.model.api.states;
 
 /**
  * States that can be used for Customer.
- * 
- *  {@link #LINE}
- *  {@link #ANGRY}
- *  {@link #WALKING}
- *  {@link #THINKING}
- *  {@link #ORDERING}
  */
 public enum CustomerState {
-    /*
-     * customer waiting in line.
+
+    /**
+     * Customer waiting in line.
      */
     LINE,
-    /*
-     * customer whom waited too much ,and want to leave.
+
+    /**
+     * Customer whom waited too much ,and want to leave.
      */
     ANGRY,
-    /* 
-     * customer walking to the table.
+
+    /** 
+     * Customer walking to the table.
      */
     WALKING,
-    /*
-     * customer thinking about what to order.
+
+    /**
+     * Customer thinking about what to order.
      */
     THINKING,
-    /*
-     *  customer wanting to order.
+
+    /**
+     * Customer wanting to order.
      */
     ORDERING
+
 }

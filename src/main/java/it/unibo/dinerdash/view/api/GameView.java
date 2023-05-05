@@ -32,8 +32,12 @@ public interface GameView {
      * @param multiplicity number of Customer
      * @param patience level of patience of the new customer
      */
-    void addCustomerViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size,
-                             boolean active, int multiplicity, int patience);
+    void addCustomerViewable(
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active, int multiplicity,
+        int patience
+    );
 
     /**
      * Update a customer's information in view list.
@@ -78,8 +82,12 @@ public interface GameView {
 
     void deleteDishViewable(int index);
 
-    void addTableViewable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size,
-                             boolean active, int peopleNumer, String state);
+    void addTableViewable(
+        Pair<Integer, Integer> coordinates,
+        Pair<Integer, Integer> size,
+        boolean active, int peopleNumer,
+        String state
+    );
 
     void updateTablesViewable(int index, int peopleNumber, String state);
 
