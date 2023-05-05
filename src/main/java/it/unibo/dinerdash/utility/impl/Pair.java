@@ -10,7 +10,7 @@ package it.unibo.dinerdash.utility.impl;
 public class Pair<X, Y> {
 	private final X x;
 	private final Y y;
-	
+
 	/**
      * Class constructor.
      *
@@ -88,5 +88,6 @@ public class Pair<X, Y> {
 	@Override
 	public String toString() {
 		return "Pair [x=" + x + ", y=" + y + "]";
-	} 
+	}
+	
 }

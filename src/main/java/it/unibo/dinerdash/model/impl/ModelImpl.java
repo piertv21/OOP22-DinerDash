@@ -661,12 +661,8 @@ public final class ModelImpl implements Model {
     public void addMaxCustomerThatCanLeave(final int number) {
         this.maxCustomerThatCanLeave = this.maxCustomerThatCanLeave + number;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void increaseCoinsMultiplier() {
+    
+    private void increaseCoinsMultiplier() {
         this.enabledCoinsMultipliers++;
     }
 
@@ -697,5 +693,5 @@ public final class ModelImpl implements Model {
     public List<Table> getTableList() {
         return Collections.unmodifiableList(this.tables);
     }
-    
+
 }
