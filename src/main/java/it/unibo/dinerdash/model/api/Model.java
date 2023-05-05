@@ -1,5 +1,6 @@
 package it.unibo.dinerdash.model.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import it.unibo.dinerdash.model.api.gameentities.Customer;
@@ -150,5 +151,7 @@ public interface Model {
     Optional<Dish> takeDishFromPosition(Pair<Integer, Integer> pos);
 
     boolean canActivatePowerUp(int price);
+
+    List<Table> getTableList();
 
 }

@@ -6,10 +6,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 
 final class ModelTest {
 
+    final int TABLENUMBER = 2; 
     private Model model;
 
     @BeforeEach
@@ -111,7 +113,6 @@ final class ModelTest {
     @Test
     void testGetHeight() {
         assertEquals(720, model.getHeight());
-        
     }
 
     @Test
@@ -131,7 +132,7 @@ final class ModelTest {
 
     @Test
     void testGetWidth() {
-
+        assertEquals(1280, model.getWidth());
     }
 
     @Test
@@ -146,16 +147,17 @@ final class ModelTest {
 
     @Test
     void testIncreaseMaxCustomerThatCanLeave() {
+        assertEquals(10, model.getCustomerWhoCanLeft());
+        this.model.increaseMaxCustomerThatCanLeave();
+        assertEquals(10, model.getCustomerWhoCanLeft());
+        this.model.setCoins(600);
+        this.model.increaseMaxCustomerThatCanLeave();
+        assertEquals(12, model.getCustomerWhoCanLeft());
 
     }
 
     @Test
     void testIncreaseWaitressSpeed() {
-
-    }
-
-    @Test
-    void testLinePositionAssignament() {
 
     }
 
@@ -166,11 +168,6 @@ final class ModelTest {
 
     @Test
     void testReduceDishPreparationTime() {
-
-    }
-
-    @Test
-    void testRemoveAngryCustomers() {
 
     }
 
@@ -201,12 +198,16 @@ final class ModelTest {
 
     @Test
     void testSetNumberOfClientsAtTable() {
-
+        assertEquals(0, this.model.getTableList().get(TABLENUMBER).getPeopleSeatedNumber());
+        this.model.setNumberOfClientsAtTable(3, TABLENUMBER + 1 );
+        assertEquals(3, this.model.getTableList().get(TABLENUMBER).getPeopleSeatedNumber());
     }
 
     @Test
     void testSetTableState() {
-
+        assertEquals(TableState.EMPTY, this.model.getTableList().get(TABLENUMBER).getState());
+        this.model.setTableState(TableState.ORDERING, TABLENUMBER + 1);
+        assertEquals(TableState.ORDERING, this.model.getTableList().get(TABLENUMBER).getState());
     }
 
     @Test

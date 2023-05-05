@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -550,5 +551,10 @@ public final class ModelImpl implements Model {
     @Override
     public boolean canActivatePowerUp(final int price) {
         return this.canAfford(price) && this.isPowerUpAvailable(price);
+    }
+
+    @Override
+    public List<Table> getTableList() {
+        return Collections.unmodifiableList(this.tables);
     }
 }
