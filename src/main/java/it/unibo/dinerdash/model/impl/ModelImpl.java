@@ -526,7 +526,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public int[] getPowerUpsPrices() {
-        return POWER_UP_PRICES;
+        return Arrays.copyOf(POWER_UP_PRICES, POWER_UP_PRICES.length);
     }
 
     @Override

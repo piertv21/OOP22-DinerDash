@@ -22,26 +22,26 @@ public class CountertopImpl implements Countertop {
     private static final int DISH_REL_WIDTH = (int) (0.04 * Constants.RESTAURANT_WIDTH);
     private static final int DISH_REL_HEIGHT = (int) (0.07 * Constants.RESTAURANT_HEIGHT);
     private static final int MAX_COUNTERTOP_DISHES = 4;
-    private GameEntityFactory factory;
+    private final GameEntityFactory factory;
 
-    private LinkedList<Dish> dishes;
-    private Model model;
+    private final List<Dish> dishes;
+    private final Model model;
 
-    public CountertopImpl(Model model) {
+    public CountertopImpl(final Model model) {
         this.model = model;
         this.dishes = new LinkedList<>();
         this.factory = new GameEntityFactoryImpl();
     }
 
     @Override
-    public void addOrder(int tableNumber) {
-        if(this.dishes.size() < MAX_COUNTERTOP_DISHES) {
+    public void addOrder(final int tableNumber) {
+        if (this.dishes.size() < MAX_COUNTERTOP_DISHES) {
 
-            var coordX = this.getFirstFreeX();
-            var coordY = START_DISH_REL_Y;
-            var dishPosition = new Pair<>(coordX, coordY);
-            var dishSize = new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT);
-            var dish = this.factory.createDish(dishPosition, dishSize, tableNumber);
+            final var coordX = this.getFirstFreeX();
+            final var coordY = START_DISH_REL_Y;
+            final var dishPosition = new Pair<>(coordX, coordY);
+            final var dishSize = new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT);
+            final var dish = this.factory.createDish(dishPosition, dishSize, tableNumber);
 
             this.dishes.add(dish);
             this.model.addDishToView(dish);
@@ -49,16 +49,13 @@ public class CountertopImpl implements Countertop {
     }
 
     private int getFirstFreeX() {
-        // Punto iniziale
-        int startPoint = START_DISH_REL_X;
-    
-        // Creo una lista ordinata delle coordinate X dei piatti presenti nella lista
-        List<Integer> xCoordinates = dishes.stream()
+        final int startPoint = START_DISH_REL_X;
+
+        final List<Integer> xCoordinates = dishes.stream()
                 .map(dish -> dish.getPosition().getX())
                 .sorted()
                 .collect(Collectors.toList());
-    
-        // Cerco il primo multiplo mancante partendo dal punto iniziale
+
         return IntStream.iterate(startPoint, x -> x + DISHES_X_PADDING)
                 .filter(x -> !xCoordinates.contains(x))
                 .findFirst()
@@ -66,17 +63,16 @@ public class CountertopImpl implements Countertop {
     }
 
     @Override
-    public Optional<Dish> takeDish(Pair<Integer, Integer> coordinates) {
-        Optional<Dish> dishToRemove = this.dishes.stream()
+    public Optional<Dish> takeDish(final Pair<Integer, Integer> coordinates) {
+        return this.dishes.stream()
                 .filter(dish -> dish.getPosition().equals(coordinates))
                 .findFirst()
                 .map(dish -> {                    
-                    var dishIndex = this.dishes.indexOf(dish);
+                    final var dishIndex = this.dishes.indexOf(dish);
                     this.model.removeDishInView(dishIndex);
                     dishes.remove(dish);
                     return dish;
                 });
-        return dishToRemove;
     }
 
     @Override
@@ -99,9 +95,10 @@ public class CountertopImpl implements Countertop {
     }
 
     // Dato un dish lo imposta a ready, chiamata dallo Chef
-    public void setDishReady(Dish dish) {
-        var oldDishIndex = this.dishes.indexOf(dish);
-        var dishInList = this.dishes.get(oldDishIndex);
+    @Override
+    public void setDishReady(final Dish dish) {
+        final var oldDishIndex = this.dishes.indexOf(dish);
+        final var dishInList = this.dishes.get(oldDishIndex);
         dishInList.setActive(true);
         this.model.updateDishInView(oldDishIndex, dishInList);
     }

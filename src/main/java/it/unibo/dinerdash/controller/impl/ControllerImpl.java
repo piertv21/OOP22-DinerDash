@@ -319,8 +319,8 @@ public class ControllerImpl implements Controller {
     public void updatePowerUpsButtonsInView() {
         final var prices = this.model.getPowerUpsPrices();
         IntStream.range(0, prices.length)
-            .forEach(i -> this.gameView.updatePowerUpButton(i, 
-           this.model.canActivatePowerUp(prices[i]) ? true : false));
+            .forEach(i -> this.gameView.updatePowerUpButton(
+                i, this.model.canActivatePowerUp(prices[i])));
     }
 
     /**

@@ -25,30 +25,34 @@ public interface Chef extends GameEntity {
     void reducePreparationTime();
 
     /**
-     * Chef begins the preparation of the passed dish
+     * Chef begins the preparation of the passed dish.
+     * 
      * @param dish is the dish that needs to be prepared
      */
     void startPreparingDish(Dish dish);
 
     /**
-     * Complete the current dish preparation
+     * Complete the current dish preparation.
      */
     void completeCurrentDish();
 
     /**
-     * Get the dish the chef is preparing, if present
+     * Get the dish the chef is preparing, if present.
+     * 
      * @return the current dish
      */
     Optional<Dish> getCurrentDish();
 
     /**
-     * Returns the preparation time of a dish if the chef is preparing one
+     * Returns the preparation time of a dish if the chef is preparing one.
+     * 
      * @return the dish preparation time
      */
     Optional<Long> getTimeDishReady();
 
     /**
-     * Returns the number of powerups activated
+     * Returns the number of powerups activated.
+     * 
      * @return number of powerups
      */
     int getEnabledPowerUps();
