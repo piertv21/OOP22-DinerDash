@@ -103,7 +103,8 @@ public final class ModelImpl implements Model {
         this.controller = Optional.of(controller);
     }
 
-    private void init() {
+    @Override
+    public void init() {
         this.coins = 0;
         this.enabledCoinsMultipliers = 0;
         this.remainingTime = MAX_PLAYTIME;
@@ -551,5 +552,4 @@ public final class ModelImpl implements Model {
     public boolean canActivatePowerUp(final int price) {
         return this.canAfford(price) && this.isPowerUpAvailable(price);
     }
-
 }

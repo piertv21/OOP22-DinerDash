@@ -189,5 +189,4 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     public void incrementSpeed() {
         this.setMovementSpeed((int) (this.getMovementSpeed() * WAITRESS_SPEED_MULTIPLIER));
     }
-
 }
