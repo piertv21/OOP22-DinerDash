@@ -661,7 +661,7 @@ public final class ModelImpl implements Model {
     public void addMaxCustomerThatCanLeave(final int number) {
         this.maxCustomerThatCanLeave = this.maxCustomerThatCanLeave + number;
     }
-    
+
     private void increaseCoinsMultiplier() {
         this.enabledCoinsMultipliers++;
     }

@@ -14,8 +14,10 @@ import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 /**
- * This Class implementes the CounterTop. 
- */
+* {@inheritDoc}.
+*
+* Implementation of the CounterTop Interface
+*/
 public class CountertopImpl implements Countertop {
 
     private static final int START_DISH_REL_X = (int) (0.37 * Constants.RESTAURANT_WIDTH);
