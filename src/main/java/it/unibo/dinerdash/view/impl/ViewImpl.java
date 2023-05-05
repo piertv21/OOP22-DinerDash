@@ -27,8 +27,9 @@ import java.util.stream.Stream;
  */
 public class ViewImpl extends JFrame implements View {
 
-    private static final String SEP = System.getProperty("file.separator");
-    private static final String ROOT = "it" + SEP + "unibo" + SEP + "dinerdash" + SEP;
+    private static final long serialVersionUID = -6298731756889190906L;
+    
+    private static final String ROOT = "it" + Constants.SEP + "unibo" + Constants.SEP + "dinerdash" + Constants.SEP;
 
     public static final int MIN_WIDTH = 800;
     public static final int MIN_HEIGHT = 600;
@@ -79,8 +80,7 @@ public class ViewImpl extends JFrame implements View {
         this.setVisible(true);
     }
 
-    @Override
-    public void showStartView() {
+    private void showStartView() {
         this.currentView = new StartView(this);
         this.refreshView();
     }
@@ -152,7 +152,7 @@ public class ViewImpl extends JFrame implements View {
     }
 
     private void loadResources() {
-        final var path = "src" + SEP + "main" + SEP + "resources" + SEP + ROOT;
+        final var path = "src" + Constants.SEP + "main" + Constants.SEP + "resources" + Constants.SEP + ROOT;
         final var assetsPath = this.searchAssets(path);
         assetsPath.forEach(this.imageCacher::readImage);
     }
@@ -162,7 +162,7 @@ public class ViewImpl extends JFrame implements View {
             .map(Arrays::stream)
             .orElse(Stream.empty())
             .flatMap(file -> getFilesRecursively(file, path))
-            .filter(file -> file.getName().toLowerCase().matches(".+\\.(jpg|jpeg|png|gif)$"))
+            .filter(file -> file.getName().matches("(?i).+\\.(jpg|jpeg|png|gif)$"))
             .map(File::getPath)
             .collect(Collectors.toList());
     }

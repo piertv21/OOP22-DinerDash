@@ -7,6 +7,8 @@ import javax.swing.JPanel;
  */
 public class GamePanel extends JPanel {
 
+    private static final long serialVersionUID = -8037294251925043702L;
+
     private final View mainFrame;
 
     /**

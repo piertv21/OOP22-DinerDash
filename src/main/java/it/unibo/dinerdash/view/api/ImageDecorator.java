@@ -19,7 +19,7 @@ public interface ImageDecorator extends GameEntityViewableDecorator {
 
     /**
      * Getter for Image of Table and Customer states,
-     * that return null if is not present.
+     * that return empty() if is not present.
      * 
      * @return Image of Table and Customer states
      */

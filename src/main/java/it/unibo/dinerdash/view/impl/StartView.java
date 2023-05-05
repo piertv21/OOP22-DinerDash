@@ -19,6 +19,8 @@ import it.unibo.dinerdash.view.api.View;
  * Starting Game Menu with 2 buttons
  */
 public class StartView extends GamePanel {
+
+    private static final long serialVersionUID = -5023222573619161231L;
     
     private static final String START = "Start game";
     private static final String EXIT = "Exit";

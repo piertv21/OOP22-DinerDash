@@ -52,6 +52,8 @@ import it.unibo.dinerdash.view.api.NumberDecorator;
  */
 public class GameViewImpl extends GamePanel implements GameView {
 
+    private static final long serialVersionUID = -2203744497404204918L;
+
     private static final int CUSTOMER_PATIENCE_REL_POSITION = (int) (Constants.RESTAURANT_WIDTH * -0.01);
     private static final int TABLE_STATE_PATTER = (int) (Constants.RESTAURANT_WIDTH * 0.03);
     private static final int MAX_PATIECE = 7;
@@ -205,7 +207,6 @@ public class GameViewImpl extends GamePanel implements GameView {
         });
 
         mainFrame.setGameStarted(true);
-        this.render();
         this.start();
     }
 

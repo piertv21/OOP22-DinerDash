@@ -22,6 +22,8 @@ import it.unibo.dinerdash.view.api.View;
 
 public class GameOverView extends GamePanel {
 
+    private static final long serialVersionUID = -6526284470262030339L;
+
     private final JButton playAgainButton;
     private final JButton exitButton;
     private final JLabel gameOverLabel;

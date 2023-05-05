@@ -10,11 +10,6 @@ import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 public interface View {
 
     /**
-     * Shows the initial panel.
-     */
-    void showStartView();
-
-    /**
      * Shows the main game panel.
      */
     void showGameView();

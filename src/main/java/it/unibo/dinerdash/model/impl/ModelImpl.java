@@ -424,8 +424,7 @@ public final class ModelImpl implements Model {
                     case ORDERING -> this.waitress.takeTableOrder(tables.get(indexL).getPosition());
                     case WANTING_TO_PAY -> this.waitress.collectMoney(tables.get(indexL).getPosition());
                     case WAITING_MEAL -> this.waitress.serveOrder(tables.get(indexL).getPosition());
-                    default ->
-                        throw new IllegalArgumentException("Unexpected value: " + this.tables.get(indexL).getState());
+                    default -> {}
                 }
             } else {
                 if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {

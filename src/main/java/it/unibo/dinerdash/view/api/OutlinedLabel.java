@@ -15,6 +15,8 @@ import javax.swing.JLabel;
  */
 public class OutlinedLabel extends JLabel {
 
+    private static final long serialVersionUID = -2717934030502230363L;
+
     private Color outlineColor;
     private int outlineWidth;
 
