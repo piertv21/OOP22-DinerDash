@@ -20,7 +20,7 @@ final class CustomerTest {
     private static final  Optional<Pair<Integer, Integer>> DESTINATION = Optional.of(new Pair<Integer, Integer>(200, 300));
 
     @BeforeEach
-	void init() {
+    void init() {
 	    this.model = new ModelImpl();
         testClient1 = new CustomerImpl(new Pair<Integer, Integer>(100, 100), new Pair<Integer, Integer>(100, 100),
         model, 2);

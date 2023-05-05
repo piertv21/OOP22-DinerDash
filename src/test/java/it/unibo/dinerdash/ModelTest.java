@@ -18,7 +18,7 @@ final class ModelTest {
 	    this.model = new ModelImpl();
         this.model.start();
 	}
-    
+
     @Test
     void testAddDishToView() {
 

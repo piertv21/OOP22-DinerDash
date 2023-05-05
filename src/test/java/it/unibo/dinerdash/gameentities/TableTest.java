@@ -20,9 +20,9 @@ final class TableTest {
 
     @BeforeEach
     void setUp() {
-        Pair<Integer, Integer> coordinates = new Pair<>(0, 0);
-        Pair<Integer, Integer> size = new Pair<>(1, 1);
-        int tableNumber = 1;
+        final Pair<Integer, Integer> coordinates = new Pair<>(0, 0);
+        final Pair<Integer, Integer> size = new Pair<>(1, 1);
+        final int tableNumber = 1;
         table = new TableImpl(coordinates, size, tableNumber);
     }
 
@@ -34,7 +34,7 @@ final class TableTest {
 
     @Test
     void testSetAndGetCustomer() {
-        Customer customer = new CustomerImpl(null, null, null, 0);
+        final Customer customer = new CustomerImpl(null, null, null, 0);
         table.setCustom(Optional.of(customer));
         assertTrue(table.getCustomer().isPresent());
         assertEquals(customer, table.getCustomer().get());
@@ -53,9 +53,9 @@ final class TableTest {
 
     @Test
     void testStartEating() {
-        Table table = new TableImpl(new Pair<>(0, 0), new Pair<>(2, 2), 1);
+        final Table table = new TableImpl(new Pair<>(0, 0), new Pair<>(2, 2), 1);
         table.startEating();
-        Optional<Long> timeFinishEating = ((TableImpl) table).getTimeFinishEating();
+        final Optional<Long> timeFinishEating = ((TableImpl) table).getTimeFinishEating();
         assertTrue(timeFinishEating.isPresent());
         assertTrue(timeFinishEating.get() > 0);
 
@@ -63,9 +63,9 @@ final class TableTest {
 
     @Test
     void testUpdate() {
-        Table table = new TableImpl(new Pair<>(0, 0), new Pair<>(2, 2), 1);
+        final Table table = new TableImpl(new Pair<>(0, 0), new Pair<>(2, 2), 1);
         table.startEating();
-        Optional<Long> timeFinishEating = ((TableImpl) table).getTimeFinishEating();
+        final Optional<Long> timeFinishEating = ((TableImpl) table).getTimeFinishEating();
         table.update();
         assertEquals(TableState.EMPTY, table.getState());
         assertTrue(timeFinishEating.isPresent());

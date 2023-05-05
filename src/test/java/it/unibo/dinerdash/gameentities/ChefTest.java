@@ -49,7 +49,7 @@ final class ChefTest {
         );
 
         chef.startPreparingDish(dish);
-        
+ 
         assertEquals(chef.getCurrentDish(), Optional.of(dish));
         assertNotEquals(chef.getTimeDishReady(), Optional.empty());
         assertEquals(chef.getEnabledPowerUps(), 0);
@@ -58,17 +58,17 @@ final class ChefTest {
     @Test
     void test3() {
         chef.completeCurrentDish();
-        
+ 
         assertEquals(chef.getCurrentDish(), Optional.empty());
         assertEquals(chef.getTimeDishReady(), Optional.empty());
     }
 
     @Test
     void test4() {
-        chef.reducePreparationTime();        
+        chef.reducePreparationTime();
         assertEquals(chef.getEnabledPowerUps(), 1);
 
-        chef.reducePreparationTime();        
+        chef.reducePreparationTime();
         assertEquals(chef.getEnabledPowerUps(), 2);
     }
 
