@@ -1,7 +1,7 @@
 package it.unibo.dinerdash.model.api.states;
 
 /**
- * Table state
+ * Table state.
  */
 public enum TableState {
 

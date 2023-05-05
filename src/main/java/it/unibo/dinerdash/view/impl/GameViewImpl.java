@@ -59,6 +59,7 @@ public class GameViewImpl extends GamePanel implements GameView {
     private static final int MAX_PATIECE = 7;
     private static final Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
     private static final Pair<Integer, Integer> TABLE_STATE_IMG_SIZE = new Pair<>(80, 56);
+    private static final int BORDER_SIZE = 25;
     
     private final JLabel timeLabel;
     private final JLabel customerWhoLeftLabel;
@@ -95,16 +96,16 @@ public class GameViewImpl extends GamePanel implements GameView {
         final var controller = mainFrame.getController();
         timeLabel = new OutlinedLabel(
             "Time: " + controller.getRemainingTime(), Color.BLACK);
-        timeLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, 25));
+        timeLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, BORDER_SIZE));
         timeLabel.setForeground(Color.WHITE);
-        timeLabel.setBorder(BorderFactory.createEmptyBorder(25, 25, 0, 0));
+        timeLabel.setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, BORDER_SIZE, 0, 0));
         topPanel.add(timeLabel);
 
         customerWhoLeftLabel = new OutlinedLabel(
             "Customers who left: " + controller.getCustomersWhoLeft(), Color.BLACK);
-        customerWhoLeftLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, 25));
+        customerWhoLeftLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, BORDER_SIZE));
         customerWhoLeftLabel.setForeground(Color.WHITE);
-        customerWhoLeftLabel.setBorder(BorderFactory.createEmptyBorder(25, 10, 0, 0));
+        customerWhoLeftLabel.setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, 10, 0, 0));
         topPanel.add(Box.createHorizontalGlue());
         topPanel.add(customerWhoLeftLabel);
         topPanel.add(Box.createHorizontalGlue());
@@ -170,8 +171,8 @@ public class GameViewImpl extends GamePanel implements GameView {
                 final int mouseY = e.getY();
 
                 setCursor(
-                    tables.stream().anyMatch(table -> inside(mouseX, mouseY, table)) ||
-                    dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
+                    tables.stream().anyMatch(table -> inside(mouseX, mouseY, table))
+                    || dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
                     ? handCursor : defaultCursor
                 );
             }

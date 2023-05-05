@@ -6,7 +6,7 @@ import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**
- * This interface defines a Factory for Game Entities
+ * This interface defines a Factory for Game Entities.
  */
 public interface GameEntityFactory {
 
@@ -29,7 +29,7 @@ public interface GameEntityFactory {
     Customer createCustomer(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model, int numCust);
 
     /**
-     * Create a Dish instance
+     * Create a Dish instance.
      * 
      * {@inheritDoc}
      * 
@@ -38,7 +38,7 @@ public interface GameEntityFactory {
     Dish createDish(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int dishNumber);
 
     /**
-     * Create a Table instance
+     * Create a Table instance.
      * 
      * {@inheritDoc}
      * 
@@ -47,12 +47,11 @@ public interface GameEntityFactory {
     Table createTable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i);
 
     /**
-     * Create a Waitress instance
+     * Create a Waitress instance.
      * 
      * {@inheritDoc}
      * 
      * @return a Waitress instance
      */
     Waitress createWaitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model);
-    
 }

@@ -58,7 +58,7 @@ public class StartView extends GamePanel {
                 final int height = getHeight();
                 final int width = getWidth();
 
-                titleLabel.setFont(new Font("Arial", Font.BOLD, (int)(height * 0.15)));
+                titleLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * 0.15)));
 
                 final int buttonWidth = (int) (width * 0.3);
                 final int buttonHeight = (int) (height * 0.08);
