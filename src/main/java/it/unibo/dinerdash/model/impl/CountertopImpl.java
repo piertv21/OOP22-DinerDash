@@ -13,10 +13,11 @@ import it.unibo.dinerdash.model.api.gameentities.Dish;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
+
 /**
 * {@inheritDoc}.
 *
-* Implementation of the CounterTop Interface
+* Implementation of the CounterTop Interface.
 */
 public class CountertopImpl implements Countertop {
 
@@ -30,9 +31,11 @@ public class CountertopImpl implements Countertop {
 
     private final List<Dish> dishes;
     private final Model model;
+
     /**
-     * Class costructor.
-     * @param model object used for updating the view
+     * Class constructor.
+     * 
+     * @param model is the model
      */
     public CountertopImpl(final Model model) {
         this.model = model;
