@@ -9,8 +9,7 @@ import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**
- * Create a new element "Table" for people to sit or whait for it to clear
- * 
+ * Create a new element "Table" for people to sit or whait for it to clear.
  */
 public class TableImpl extends AbstractGameEntity implements Table {
 
