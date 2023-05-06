@@ -39,7 +39,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
         super(coordinates, size, STARTING_SPEED);
         this.state = WaitressState.WAITING;
         this.orderList = new LinkedList<>();
-        this.model = model;
+        this.model = model; // create a defensive copy using the copy constructor??
     }
 
     /**
@@ -54,7 +54,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
             if (getPosition().getX() >= this.getDestination().get().getX() - 4
                     && getPosition().getX() <= this.getDestination().get().getX() + 4
                     && getPosition().getY() <= this.getDestination().get().getY() + 4
-                            && getPosition().getY() >= this.getDestination().get().getY() - ADJUST_POSITION) {
+                    && getPosition().getY() >= this.getDestination().get().getY() - ADJUST_POSITION) {
                 if (state.equals(WaitressState.CALLING)) {
                     // this.setPosition(this.getDestination().get());
                     state = WaitressState.WAITING;
