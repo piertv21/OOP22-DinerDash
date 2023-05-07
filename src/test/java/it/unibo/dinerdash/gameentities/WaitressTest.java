@@ -18,7 +18,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 /**
  * 
  */
-public class WaitressImplTest {
+final class WaitressTest {
 
     private Model model;
     private WaitressImpl waitress;

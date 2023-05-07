@@ -91,7 +91,7 @@ final class TableTest {
         table.startEating();
         final Optional<Long> timeFinishEating = ((TableImpl) table).getTimeFinishEating();
         table.update();
-        assertEquals(TableState.WANTING_TO_PAY, table.getState());
+        assertEquals(TableState.EMPTY, table.getState());
         assertTrue(timeFinishEating.isPresent());
     }
 
