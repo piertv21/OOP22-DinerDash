@@ -6,9 +6,9 @@ import it.unibo.dinerdash.model.api.states.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**
-  * 
-  * 
-  */
+ * Interface with the method's to control and update
+ * all Waitress instances.
+ */
 public interface Waitress extends GameEntityMovable {
 
   /**

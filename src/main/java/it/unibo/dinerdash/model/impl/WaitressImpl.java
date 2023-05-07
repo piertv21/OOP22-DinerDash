@@ -13,9 +13,9 @@ import it.unibo.dinerdash.model.api.states.WaitressState;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**
-  * 
-  * 
-  */
+ * Create a new element "Waitress" for take and server customer orders and thake
+ * their money.
+ */
 public class WaitressImpl extends AbstractGameEntityMovable implements Waitress {
 
     private static final int STARTING_SPEED = 2;
@@ -43,9 +43,8 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public void update() {
         if (!state.equals(WaitressState.WAITING)) {
@@ -88,27 +87,24 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public void setState(final WaitressState state) {
         this.state = state;
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public WaitressState getState() {
         return this.state;
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public void goGetDish(final Pair<Integer, Integer> dishReady) {
         this.setDestination(Optional.of(dishReady));
@@ -116,9 +112,8 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public void takeTableOrder(final Pair<Integer, Integer> position) {
         this.setDestination(Optional.of(position));
@@ -126,9 +121,8 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public void serveOrder(final Pair<Integer, Integer> position) {
         this.setDestination(Optional.of(position));
@@ -136,9 +130,8 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public void collectMoney(final Pair<Integer, Integer> position) {
         this.setDestination(Optional.of(position));
@@ -146,45 +139,40 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public int getOrdersNumber() {
         return this.orderList.size();
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public void addOrderForWaitress(final Dish dishReady) {
         orderList.add(dishReady);
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public List<Dish> getOrderList() {
         return this.orderList;
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public boolean checkRightTable(final int tableNumber) {
         return this.orderList.stream().anyMatch(e -> e.getDishNumber() == tableNumber);
     }
 
     /**
-    * 
-    * 
-    */
+     * {@inheritDoc}
+     */
     @Override
     public void incrementSpeed() {
         this.setMovementSpeed((int) (this.getMovementSpeed() * WAITRESS_SPEED_MULTIPLIER));

@@ -5,9 +5,9 @@ import java.util.Optional;
 import it.unibo.dinerdash.model.api.states.TableState;
 
 /**
-  * 
-  * 
-  */
+ * Interface with the method's to control and update
+ * all Table's instances.
+ */
 public interface Table extends GameEntity {
 
   /**
