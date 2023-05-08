@@ -77,4 +77,5 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
     ) {
         return new WaitressImpl(coordinates, size, model);
     }
+
 }

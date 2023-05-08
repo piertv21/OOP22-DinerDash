@@ -157,7 +157,7 @@ public interface Model {
      * 
      * @param client client in line looking for a free table
      * @return true if there is a free table to sit,and
-     *         client is the fist in line waiting
+     * client is the fist in line waiting
      */
     boolean checkFreeTables(Customer client);
 
@@ -172,7 +172,7 @@ public interface Model {
      * Check if there are free tables to sit down.
      * 
      * @return true if there is a free table
-     *         false if not.
+     * false if not.
      */
     boolean thereAreAvaibleTables();
 

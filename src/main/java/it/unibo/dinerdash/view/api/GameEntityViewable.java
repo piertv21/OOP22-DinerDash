@@ -33,4 +33,5 @@ public interface GameEntityViewable extends GameEntity {
      * @param active new visibility's boolean
      */
     void update(Pair<Integer, Integer> coordinates, boolean active);
+
 }

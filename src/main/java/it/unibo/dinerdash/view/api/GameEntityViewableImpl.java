@@ -22,8 +22,12 @@ public class GameEntityViewableImpl extends AbstractGameEntity implements GameEn
      * @param active is the initial active state of the graphic entity
      * @param icon is the icon of the the graphic entity
      */
-    public GameEntityViewableImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, 
-                                Integer> size, final boolean active, final Image icon) {
+    public GameEntityViewableImpl(
+        final Pair<Integer, Integer> coordinates,
+        final Pair<Integer, Integer> size,
+        final boolean active,
+        final Image icon
+    ) {
         super(coordinates, size);
         this.setActive(active);
         this.icon = icon;

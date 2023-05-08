@@ -7,6 +7,7 @@ public interface GameEntityViewableDecorator extends GameEntityViewable {
 
     /**
      * Gives the decorated object.
+     * 
      * @return the decirated GameEntityViewable
      */
     GameEntityViewable getDecorated();

@@ -61,9 +61,9 @@ public class GameLoopImpl implements GameLoop, Runnable {
     }
 
     /**
-     * GameLoop main thread. Until execution is finished
+     * GameLoop main thread function. Until execution is finished
      * it calls a method on the controller based on the Target FPS
-     * and eventually waits via Thread.sleep()
+     * and eventually waits via Thread.sleep().
      */
     @Override
     public void run() {

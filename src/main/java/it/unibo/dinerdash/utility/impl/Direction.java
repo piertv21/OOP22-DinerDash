@@ -38,6 +38,7 @@ public enum Direction {
         this.x = x;
         this.y = y;
     }
+
     /**
      * Gets the x value of direction.
      *
@@ -46,6 +47,7 @@ public enum Direction {
     public int getX() {
         return this.x;
     }
+
     /**
      * Gets the y value of direction.
      *

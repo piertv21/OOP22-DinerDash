@@ -30,16 +30,18 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     private int serveTable;
 
     /**
-     * @param coordinates
-     * @param size
-     * @param model
+     * Class constructor.
+     * 
+     * @param coordinates are the waitress coordinates
+     * @param size is the waitress size
+     * @param model is the reference to the model
      */
     public WaitressImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,
             final Model model) {
         super(coordinates, size, STARTING_SPEED);
         this.state = WaitressState.WAITING;
         this.orderList = new LinkedList<>();
-        this.model = model; // create a defensive copy using the copy constructor??
+        this.model = model;
     }
 
     /**
@@ -55,14 +57,12 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
                     && getPosition().getY() <= this.getDestination().get().getY() + 4
                     && getPosition().getY() >= this.getDestination().get().getY() - ADJUST_POSITION) {
                 if (state.equals(WaitressState.CALLING)) {
-                    // this.setPosition(this.getDestination().get());
                     state = WaitressState.WAITING;
                     model.sendOrder(model.getTablefromPositon(getDestination().get()).getTableNumber());
                 } else if (state.equals(WaitressState.TAKING_DISH)) {
                     orderList.add(model.takeDishFromPosition(getDestination().get()).get());
                     state = WaitressState.WAITING;
                 } else if (state.equals(WaitressState.SERVING)) {
-                    // this.setPosition(this.getDestination().get());
                     serveTable = model.getTablefromPositon(getDestination().get()).getTableNumber();
                     if (this.checkRightTable(serveTable)) {
                         this.model.setTableState(TableState.EATING, serveTable);
@@ -70,7 +70,6 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
                         orderList.remove(orderList.stream()
                                 .filter(o -> o.getDishNumber() == serveTable)
                                 .findFirst().get());
-
                     }
                     state = WaitressState.WAITING;
                 } else if (state.equals(WaitressState.TAKING_MONEY)) {
@@ -79,11 +78,8 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
                     serveTable = model.getTablefromPositon(getDestination().get()).getTableNumber();
                     this.model.setTableState(TableState.EMPTY, serveTable);
                 }
-
             }
-
         }
-
     }
 
     /**
@@ -177,4 +173,5 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     public void incrementSpeed() {
         this.setMovementSpeed((int) (this.getMovementSpeed() * WAITRESS_SPEED_MULTIPLIER));
     }
+
 }
