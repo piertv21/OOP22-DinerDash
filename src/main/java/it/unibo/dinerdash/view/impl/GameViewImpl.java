@@ -56,12 +56,18 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     private static final long serialVersionUID = -2203744497404204918L;
 
+    private static final int TOP_PANEL_SIZE = 60;
+    private static final int BOTTOM_PANEL_SIZE = TOP_PANEL_SIZE / 2;
+    private static final int FONT_SIZE = 25;
+    private static final int BORDER_SIZE = 25;
+    private static final int INSETS_TOP = 6;
+    private static final double FONT_SIZE_REL = 0.04;
+
     private static final int CUSTOMER_PATIENCE_REL_POSITION = (int) (Constants.RESTAURANT_WIDTH * -0.01);
     private static final int TABLE_STATE_PATTER = (int) (Constants.RESTAURANT_WIDTH * 0.03);
     private static final int MAX_PATIECE = 7;
     private static final Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
     private static final Pair<Integer, Integer> TABLE_STATE_IMG_SIZE = new Pair<>(80, 56);
-    private static final int BORDER_SIZE = 25;
 
     private final JLabel timeLabel;
     private final JLabel customerWhoLeftLabel;
@@ -98,7 +104,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         final var topPanel = new JPanel();
         topPanel.setOpaque(false);
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
-        topPanel.setPreferredSize(new Dimension(0, 60));
+        topPanel.setPreferredSize(new Dimension(0, TOP_PANEL_SIZE));
 
         final var controller = mainFrame.getController();
         timeLabel = new OutlinedLabel(
@@ -119,16 +125,16 @@ public class GameViewImpl extends GamePanel implements GameView {
 
         coinLabel = new OutlinedLabel(
             "Coins: " + controller.getCoins(), Color.BLACK);
-        coinLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, 25));
+        coinLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, FONT_SIZE));
         coinLabel.setForeground(Color.WHITE);
-        coinLabel.setBorder(BorderFactory.createEmptyBorder(25, 0, 0, 25));
+        coinLabel.setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, 0, 0, BORDER_SIZE));
         topPanel.add(coinLabel);
 
         add(topPanel, BorderLayout.NORTH);
 
         final var bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         bottomPanel.setOpaque(false);
-        bottomPanel.setPreferredSize(new Dimension(0, 30));
+        bottomPanel.setPreferredSize(new Dimension(0, BOTTOM_PANEL_SIZE));
 
         final var pauseButton = new JButton("Pause");
         pauseButton.addActionListener((e) -> {
@@ -146,7 +152,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.LINE_END;
-        c.insets.top = 6;
+        c.insets.top = INSETS_TOP;
         c.insets.right = 8;
 
         final var prices = controller.getPowerUpsPrices();
@@ -208,9 +214,9 @@ public class GameViewImpl extends GamePanel implements GameView {
             public void componentResized(final ComponentEvent e) {
                 final int height = getHeight();
 
-                timeLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * 0.04)));
-                customerWhoLeftLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * 0.04)));
-                coinLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * 0.04)));
+                timeLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * FONT_SIZE_REL)));
+                customerWhoLeftLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * FONT_SIZE_REL)));
+                coinLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * FONT_SIZE_REL)));
             }
         });
 
