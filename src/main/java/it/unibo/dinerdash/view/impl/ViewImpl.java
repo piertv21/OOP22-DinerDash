@@ -22,8 +22,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/*
- * Main View.
+/**
+ * {@inheritDoc}
+ *
+ * Implementation of the View interface.
  */
 public class ViewImpl extends JFrame implements View {
 
@@ -31,8 +33,8 @@ public class ViewImpl extends JFrame implements View {
 
     private static final String ROOT = "it" + Constants.SEP + "unibo" + Constants.SEP + "dinerdash" + Constants.SEP;
 
-    public static final int MIN_WIDTH = 800;
-    public static final int MIN_HEIGHT = 600;
+    private static final int MIN_WIDTH = 800;
+    private static final int MIN_HEIGHT = 600;
 
     private final Controller controller;
     private GamePanel currentView;
@@ -42,6 +44,11 @@ public class ViewImpl extends JFrame implements View {
     private double widthRatio;
     private double heightRatio;
 
+    /**
+     * Class constructor.
+     * 
+     * @param controller
+     */
     public ViewImpl(final Controller controller) {
         super(Constants.GAME_NAME);
         this.controller = controller;
@@ -85,18 +92,27 @@ public class ViewImpl extends JFrame implements View {
         this.refreshView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showGameView() {
         this.currentView = new GameViewImpl(this);
         this.refreshView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showGameOverView() {
         this.currentView = new GameOverView(this);
         this.refreshView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showExitDialog() {
         if (this.gameStarted) {
@@ -125,27 +141,42 @@ public class ViewImpl extends JFrame implements View {
         this.repaint();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void quit() {
         this.imageCacher.clearCache();
         this.dispose();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Controller getController() {
         return this.controller;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void playAgain() {
         this.showGameView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getHeightRatio() {
         return this.heightRatio;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public double getWidthRatio() {
         return this.widthRatio;
@@ -177,11 +208,17 @@ public class ViewImpl extends JFrame implements View {
             : Stream.of(new File(relativePath));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ImageReaderWithCache getImageCacher() {
         return this.imageCacher;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameStarted(final boolean started) {
         this.gameStarted = started;

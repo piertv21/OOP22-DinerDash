@@ -20,6 +20,10 @@ import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.View;
 
+/**
+ * Represents the final panel of the program
+ * with the Game Over screen.
+ */
 public class GameOverView extends GamePanel {
 
     private static final long serialVersionUID = -6526284470262030339L;
@@ -29,6 +33,11 @@ public class GameOverView extends GamePanel {
     private final JLabel gameOverLabel;
     private final JLabel coinLabel;
 
+    /**
+     * Class constructor.
+     * 
+     * @param mainFrame is the reference to main View
+     */
     public GameOverView(final View mainFrame) {
         super(mainFrame);
 

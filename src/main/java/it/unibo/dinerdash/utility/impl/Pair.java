@@ -8,6 +8,7 @@ package it.unibo.dinerdash.utility.impl;
  * @param <Y> type of the second value
  */
 public class Pair<X, Y> {
+
 	private final X x;
 	private final Y y;
 

@@ -74,5 +74,5 @@ public class StartView extends GamePanel {
             }
         });
     }
-    
+
 }
