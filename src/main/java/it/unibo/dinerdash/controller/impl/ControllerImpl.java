@@ -26,6 +26,8 @@ import it.unibo.dinerdash.view.api.View;
  */
 public class ControllerImpl implements Controller {
 
+    private static final int SIXTY = 60;
+
     private final Model model;
     private View view;
     private GameView gameView;
@@ -147,8 +149,8 @@ public class ControllerImpl implements Controller {
     @Override
     public String getRemainingTime() {
         final var time = this.model.getRemainingTime();
-        final int minutes = time / 60;
-        final int remainingSeconds = time % 60;
+        final int minutes = time / SIXTY;
+        final int remainingSeconds = time % SIXTY;
         return String.format("%d:%02d", minutes, remainingSeconds);
     }
 

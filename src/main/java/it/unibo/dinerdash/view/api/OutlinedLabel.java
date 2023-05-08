@@ -17,6 +17,9 @@ public class OutlinedLabel extends JLabel {
 
     private static final long serialVersionUID = -2717934030502230363L;
 
+    private static final int BORDER_THICKNESS = 5;
+    private static final int FONT_SIZE = 14;
+
     private Color outlineColor;
     private int outlineWidth;
 
@@ -30,8 +33,8 @@ public class OutlinedLabel extends JLabel {
         super(text);
         this.outlineColor = outlineColor;
         this.outlineWidth = 2;
-        setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
-        setFont(new Font("Arial", Font.BOLD, 14));
+        setBorder(BorderFactory.createEmptyBorder(0, BORDER_THICKNESS, 0, BORDER_THICKNESS));
+        setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
     }
 
     /**
@@ -53,6 +56,8 @@ public class OutlinedLabel extends JLabel {
     }
 
     /**
+     * {@inheritDoc}
+     * 
      * Draw a normal label plus an outer border.
      */
     @Override

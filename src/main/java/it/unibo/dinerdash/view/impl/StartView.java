@@ -26,6 +26,9 @@ public class StartView extends GamePanel {
     private static final String START = "Start game";
     private static final String EXIT = "Exit";
 
+    private static final int FONT_SIZE = 60;
+    private static final double FONT_SIZE_REL = 0.15;
+
     private final JLabel titleLabel;
     private final JButton startButton;
     private final JButton exitButton;
@@ -45,7 +48,7 @@ public class StartView extends GamePanel {
         gridBagConstraints.insets = new Insets(10, 0, 10, 0);
 
         titleLabel = new JLabel(Constants.GAME_NAME);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 60));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
         add(titleLabel, gridBagConstraints);
 
         gridBagConstraints.gridy = 1;
@@ -64,7 +67,7 @@ public class StartView extends GamePanel {
                 final int height = getHeight();
                 final int width = getWidth();
 
-                titleLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * 0.15)));
+                titleLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * FONT_SIZE_REL)));
 
                 final int buttonWidth = (int) (width * 0.3);
                 final int buttonHeight = (int) (height * 0.08);

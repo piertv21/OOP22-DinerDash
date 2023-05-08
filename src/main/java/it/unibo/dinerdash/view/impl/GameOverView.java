@@ -28,6 +28,11 @@ public class GameOverView extends GamePanel {
 
     private static final long serialVersionUID = -6526284470262030339L;
 
+    private static final int BIG_FONT_SIZE = 48;
+    private static final double BIG_FONT_SIZE_REL = 0.15;
+    private static final int MEDIUM_FONT_SIZE = BIG_FONT_SIZE / 2;
+    private static final double MEDIUM_FONT_SIZE_REL = BIG_FONT_SIZE_REL / 2;
+
     private final JButton playAgainButton;
     private final JButton exitButton;
     private final JLabel gameOverLabel;
@@ -49,14 +54,14 @@ public class GameOverView extends GamePanel {
         gridBagConstraints.insets = new Insets(10, 0, 10, 0);
 
         gameOverLabel = new JLabel("Game Over");
-        gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, 48));
+        gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, BIG_FONT_SIZE));
         gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(gameOverLabel, gridBagConstraints);
 
         final var controller = this.getMainFrame().getController();
         gridBagConstraints.gridy = 1;
         coinLabel = new JLabel("Total coins: " + controller.getCoins());
-        coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, 24));
+        coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, MEDIUM_FONT_SIZE));
         coinLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(coinLabel, gridBagConstraints);
 
@@ -87,8 +92,8 @@ public class GameOverView extends GamePanel {
                 final int height = getHeight();
                 final int width = getWidth();
 
-                gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * 0.15)));
-                coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, (int) (height * 0.07)));
+                gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * BIG_FONT_SIZE_REL)));
+                coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, (int) (height * MEDIUM_FONT_SIZE_REL)));
 
                 final int buttonWidth = (int) (width * 0.6);
                 final int buttonHeight = (int) (height * 0.2);
