@@ -15,8 +15,9 @@ import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.View;
 
-/*
- * Starting Game Menu with 2 buttons
+/**
+ * Represents the initial panel of the game
+ * with the startup screen.
  */
 public class StartView extends GamePanel {
 
@@ -29,6 +30,11 @@ public class StartView extends GamePanel {
     private final JButton startButton;
     private final JButton exitButton;
 
+    /**
+     * Class constructor.
+     * 
+     * @param mainFrame is the reference to main View
+     */
     public StartView(final View mainFrame) {
         super(mainFrame);
         setLayout(new GridBagLayout());
@@ -68,4 +74,5 @@ public class StartView extends GamePanel {
             }
         });
     }
+    
 }

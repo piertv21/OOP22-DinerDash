@@ -47,8 +47,10 @@ import it.unibo.dinerdash.view.api.OutlinedLabel;
 import it.unibo.dinerdash.view.api.ImageDecoratorImpl;
 import it.unibo.dinerdash.view.api.NumberDecorator;
 
-/*
- * Main Game View Panel
+/**
+ * {@inheritDoc}
+ *
+ * Implementation of the GameView interface.
  */
 public class GameViewImpl extends GamePanel implements GameView {
 
@@ -78,7 +80,12 @@ public class GameViewImpl extends GamePanel implements GameView {
     private final Cursor defaultCursor;
     private final Cursor handCursor;
 
-    public  GameViewImpl(final View mainFrame) {
+    /**
+     * Class constructor.
+     * 
+     * @param mainFrame is the reference to main View
+     */
+    public GameViewImpl(final View mainFrame) {
         super(mainFrame);
 
         setLayout(new BorderLayout());
@@ -261,12 +268,20 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.imageCacher = this.getMainFrame().getImageCacher();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void clear() {
         this.clearForRestarting();
         this.powerupButtons.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * Draws the background and all viewable entities in the game panel.
+     */
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
@@ -351,6 +366,9 @@ public class GameViewImpl extends GamePanel implements GameView {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void render() {
         final var controller = this.getMainFrame().getController();
@@ -370,12 +388,18 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.dishes.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void restart() {
         this.clearForRestarting();
         this.resetPowerUpsButtons();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addCustomerViewable(
         final Pair<Integer, Integer> coordinates,
@@ -392,6 +416,9 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.customers.add(client);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateCustomersViewable(
         final int index,
@@ -409,11 +436,17 @@ public class GameViewImpl extends GamePanel implements GameView {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeCustomerViewable(final int index) {
         this.customers.remove(index);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addChefViewable(
         final Pair<Integer, Integer> coordinates,
@@ -424,11 +457,17 @@ public class GameViewImpl extends GamePanel implements GameView {
                 coordinates, size, active, this.imageCacher.getCachedImage("chef").getImage());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateChefViewable(final boolean active) {
         this.chef.update(this.chef.getPosition(), active);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addWaitressViewable(
         final Pair<Integer, Integer> coordinates,
@@ -442,6 +481,9 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.waitress.setNumber(numDishes);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateWaitressViewable(final Pair<Integer, Integer> coordinates, final int numDishes) {
         this.waitress.update(coordinates, this.waitress.isActive());
@@ -453,6 +495,9 @@ public class GameViewImpl extends GamePanel implements GameView {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addDishViewable(
         final Pair<Integer, Integer> coordinates,
@@ -467,17 +512,26 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.dishes.add(dish);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateDishesViewable(final int index, final boolean active) {
         final var dish = this.dishes.get(index);
         this.dishes.get(index).update(dish.getPosition(), active);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deleteDishViewable(final int index) {
         this.dishes.remove(index);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addTableViewable(
         final Pair<Integer, Integer> coordinates,
@@ -494,6 +548,9 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.tables.add(table);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateTablesViewable(final int index, final int peopleNumber, final String state) {
         final var tempTable = (NumberDecorator) tables.get(index).getDecorated();
@@ -515,6 +572,9 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updatePowerUpButton(final int index, final boolean active) {
         this.powerupButtons.stream()
