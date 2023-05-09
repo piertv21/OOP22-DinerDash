@@ -34,6 +34,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
         this.lastTime = 0;
         this.delta = 0;
         this.controller = controller;
+        this.thread = new Thread(this);
     }
 
     /**
@@ -42,10 +43,9 @@ public class GameLoopImpl implements GameLoop, Runnable {
     @Override
     public synchronized void start() {
         if (!this.running) {
-            running = true;
-            lastTime = System.nanoTime();
-            thread = new Thread(this);
-            thread.start();
+            this.running = true;
+            this.lastTime = System.nanoTime();
+            this.thread.start();
         }
     }
 
@@ -55,8 +55,8 @@ public class GameLoopImpl implements GameLoop, Runnable {
     @Override
     public synchronized void stop() {
         if (this.running) {
-            running = false;
-            thread.interrupt();
+            this.running = false;
+            this.thread.interrupt();
         }
     }
 

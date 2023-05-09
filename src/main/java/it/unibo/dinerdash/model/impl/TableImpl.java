@@ -1,6 +1,7 @@
 package it.unibo.dinerdash.model.impl;
 
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import it.unibo.dinerdash.model.api.gameentities.AbstractGameEntity;
 import it.unibo.dinerdash.model.api.gameentities.Customer;
@@ -99,10 +100,10 @@ public class TableImpl extends AbstractGameEntity implements Table {
     @Override
     public void startEating() {
         final var currentTime = System.nanoTime();
-        final var eatingTime = (int) (Math.random() * (MAX_TIME_FOR_EATING - MIN_TIME_FOR_EATING + 1))
-                + MIN_TIME_FOR_EATING;
+        final var eatingTime = new Random()
+            .nextInt(MAX_TIME_FOR_EATING - MIN_TIME_FOR_EATING + 1) + MIN_TIME_FOR_EATING;
         this.timeFinishEating = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(eatingTime));
-    }
+    }    
 
     /**
      * {@inheritDoc}
