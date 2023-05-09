@@ -219,9 +219,6 @@ public class GameViewImpl extends GamePanel implements GameView {
                 coinLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * FONT_SIZE_REL)));
             }
         });
-
-        mainFrame.setGameStarted(true);
-        this.start();
     }
 
     private boolean inside(final int mouseX, final int mouseY, final GameEntityViewable viewableEntity) {
@@ -260,10 +257,6 @@ public class GameViewImpl extends GamePanel implements GameView {
                 JOptionPane.getRootFrame().dispose();
             }
         }
-    }
-
-    private void start() {
-        this.getMainFrame().getController().start(this);
     }
 
     private void init() {

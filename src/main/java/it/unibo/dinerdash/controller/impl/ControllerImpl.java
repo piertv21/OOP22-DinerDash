@@ -40,7 +40,6 @@ public class ControllerImpl implements Controller {
      */
     public ControllerImpl() {
         this.model = new ModelImpl();
-        this.model.setController(this);
     }
 
     /**
@@ -56,6 +55,8 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public void start(final GameView gameView) {
+        this.model.setController(this);
+        
         this.gameView = gameView;
         this.model.start();
 

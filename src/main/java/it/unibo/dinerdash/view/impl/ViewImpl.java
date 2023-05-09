@@ -7,6 +7,7 @@ import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
 import it.unibo.dinerdash.view.api.GamePanel;
+import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
 
 import java.awt.Dimension;
@@ -98,6 +99,8 @@ public class ViewImpl extends JFrame implements View {
     @Override
     public void showGameView() {
         this.currentView = new GameViewImpl(this);
+        this.controller.start((GameView) this.currentView);
+        this.gameStarted = true;
         this.refreshView();
     }
 
@@ -214,14 +217,6 @@ public class ViewImpl extends JFrame implements View {
     @Override
     public ImageReaderWithCache getImageCacher() {
         return this.imageCacher;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setGameStarted(final boolean started) {
-        this.gameStarted = started;
     }
 
 }

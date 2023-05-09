@@ -25,13 +25,6 @@ public interface View {
     void showExitDialog();
 
     /**
-     * Set game as started or not.
-     * 
-     * @param started is the boolean for representing if the game is started
-     */
-    void setGameStarted(boolean started);
-
-    /**
      * Start the game over.
      */
     void playAgain();
