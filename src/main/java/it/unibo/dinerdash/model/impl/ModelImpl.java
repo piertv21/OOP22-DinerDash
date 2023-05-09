@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -91,6 +92,7 @@ public final class ModelImpl implements Model {
     private final Countertop counterTop;
     private Chef chef;
     private Waitress waitress;
+    private static final Random random = new Random();
 
     /**
      * Class constructor.
@@ -254,7 +256,7 @@ public final class ModelImpl implements Model {
             this.stop();
         }
         final var position = new Pair<>(CUSTOMER_START_X, CUSTOMER_START_Y);
-        final int customersMolteplicity = (int) (Math.random() * (MAX_CUSTOMERS_MULTIPLICITY)) + 1;
+        final int customersMolteplicity = random.nextInt(MAX_CUSTOMERS_MULTIPLICITY) + 1;
         final var tempClient = this.factory.createCustomer(
                 position,
                 new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
@@ -535,10 +537,10 @@ public final class ModelImpl implements Model {
      */
     @Override
     public void earnMoneyFromTable() {
-        final var coinsEarned = (int) (Math.random() * (PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1))
-                + PROFIT_PER_TABLE_MIN;
+        final var coinsEarned = random
+            .nextInt(PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1) + PROFIT_PER_TABLE_MIN;
         final var coinsEarnedWithBonus = (int) (coinsEarned
-                + (coinsEarned * PROFIT_MULTIPLIER * this.enabledCoinsMultipliers));
+            + (coinsEarned * PROFIT_MULTIPLIER * this.enabledCoinsMultipliers));
         this.setCoins(this.coins + coinsEarnedWithBonus);
     }
 

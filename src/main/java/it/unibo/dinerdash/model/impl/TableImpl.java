@@ -22,6 +22,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     private Optional<Customer> customer;
     private TableState state;
     private int seatedPeople;
+    private static final Random random = new Random();
 
     /**
      * Create a new Table.
@@ -100,7 +101,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     @Override
     public void startEating() {
         final var currentTime = System.nanoTime();
-        final var eatingTime = new Random()
+        final var eatingTime = random
             .nextInt(MAX_TIME_FOR_EATING - MIN_TIME_FOR_EATING + 1) + MIN_TIME_FOR_EATING;
         this.timeFinishEating = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(eatingTime));
     }    

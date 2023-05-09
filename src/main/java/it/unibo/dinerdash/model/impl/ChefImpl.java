@@ -25,6 +25,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     private Optional<Long> timeDishReady;
     private int enabledPowerUps;
     private final Optional<Model> model;
+    private static final Random random = new Random();
 
     /**
      * Class constructor.
@@ -80,7 +81,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     public void startPreparingDish(final Dish dish) {
         this.currentDish = Optional.of(dish);
     
-        final int preparationTimeInSeconds = new Random()
+        final int preparationTimeInSeconds = random
             .nextInt(MAX_PREPARATION_TIME - MIN_PREPARATION_TIME + 1) + MIN_PREPARATION_TIME;
         final int bonusTime = this.enabledPowerUps * CHEF_TIME_SAVING;
         final var currentTime = System.nanoTime();
