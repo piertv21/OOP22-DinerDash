@@ -90,7 +90,6 @@ public class ViewImpl extends JFrame implements View {
 
     private void showStartView() {
         this.currentView = new StartView(this);
-        this.refreshView();
     }
 
     /**
@@ -101,7 +100,6 @@ public class ViewImpl extends JFrame implements View {
         this.currentView = new GameViewImpl(this);
         this.controller.start((GameView) this.currentView);
         this.gameStarted = true;
-        this.refreshView();
     }
 
     /**
@@ -110,7 +108,6 @@ public class ViewImpl extends JFrame implements View {
     @Override
     public void showGameOverView() {
         this.currentView = new GameOverView(this);
-        this.refreshView();
     }
 
     /**
@@ -138,7 +135,8 @@ public class ViewImpl extends JFrame implements View {
         }
     }
 
-    private void refreshView() {
+    @Override
+    public void refreshView() {
         this.setContentPane(this.currentView);
         this.validate();
         this.repaint();

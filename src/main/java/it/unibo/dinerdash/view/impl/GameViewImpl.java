@@ -98,7 +98,12 @@ public class GameViewImpl extends GamePanel implements GameView {
         setFocusable(true);
         setBackground(Color.WHITE);
 
-        this.init();
+        this.customers = new LinkedList<>();
+        this.tables = new LinkedList<>();
+        this.dishes = new LinkedList<>();
+        this.powerupButtons = new ArrayList<>();
+        this.imageCacher = mainFrame.getImageCacher();
+
         this.backgroundImage = this.imageCacher.getCachedImage("background").getImage();
 
         final var topPanel = new JPanel();
@@ -257,14 +262,6 @@ public class GameViewImpl extends GamePanel implements GameView {
                 JOptionPane.getRootFrame().dispose();
             }
         }
-    }
-
-    private void init() {
-        this.customers = new LinkedList<>();
-        this.tables = new LinkedList<>();
-        this.dishes = new LinkedList<>();
-        this.powerupButtons = new ArrayList<>();
-        this.imageCacher = this.getMainFrame().getImageCacher();
     }
 
     /**

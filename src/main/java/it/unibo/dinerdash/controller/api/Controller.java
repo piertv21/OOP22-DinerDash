@@ -109,11 +109,6 @@ public interface Controller {
     int getRestaurantHeight();
 
     /**
-     * Call the update on the Game View.
-     */
-    void updateView();
-
-    /**
      * Call the waitress.
      * 
      * @param indexOf is the index of dishes/tables in the relevant lists

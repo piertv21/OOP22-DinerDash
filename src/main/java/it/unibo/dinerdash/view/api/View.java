@@ -78,4 +78,9 @@ public interface View {
      */
     ImageReaderWithCache getImageCacher();
 
+    /**
+     * Update the view with a new panel and draw it.
+     */
+    void refreshView();
+
 }

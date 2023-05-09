@@ -58,7 +58,7 @@ public class GameOverView extends GamePanel {
         gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(gameOverLabel, gridBagConstraints);
 
-        final var controller = this.getMainFrame().getController();
+        final var controller = mainFrame.getController();
         gridBagConstraints.gridy = 1;
         coinLabel = new JLabel("Total coins: " + controller.getCoins());
         coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, MEDIUM_FONT_SIZE));
@@ -72,7 +72,7 @@ public class GameOverView extends GamePanel {
         playAgainButton = new JButton("Play again");
         playAgainButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         playAgainButton.addActionListener(e -> {
-            this.getMainFrame().playAgain();
+            mainFrame.playAgain();
         });
         buttonPanel.add(playAgainButton);
         buttonPanel.add(Box.createVerticalStrut(10));

@@ -48,6 +48,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void setView(final View view) {
         this.view = view;
+        this.view.refreshView();
     }
 
     /**
@@ -58,6 +59,7 @@ public class ControllerImpl implements Controller {
         this.model.setController(this);
         
         this.gameView = gameView;
+        this.view.refreshView();
         this.model.start();
 
         this.gameLoop = new GameLoopImpl(this);
@@ -77,7 +79,7 @@ public class ControllerImpl implements Controller {
         this.gameView.restart();
         this.model.restart();
         this.gameTimer.restartTimer();
-        this.updateView();
+        this.gameView.render();
     }
 
     /**
@@ -123,7 +125,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void updateGame() {
         this.model.update();
-        this.updateView();
+        this.gameView.render();
     }
 
     /**
@@ -134,6 +136,7 @@ public class ControllerImpl implements Controller {
         this.gameLoop.stop();
         this.gameTimer.stopTimer();
         this.view.showGameOverView();
+        this.view.refreshView();
     }
 
     /**
@@ -177,14 +180,6 @@ public class ControllerImpl implements Controller {
     @Override
     public int getRestaurantHeight() {
         return this.model.getHeight();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void updateView() {
-        this.gameView.render();
     }
 
     /**
