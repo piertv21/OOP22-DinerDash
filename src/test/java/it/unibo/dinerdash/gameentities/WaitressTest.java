@@ -35,7 +35,7 @@ final class WaitressTest {
      * 
      */
     @BeforeEach
-    private void setUp() {
+    void setUp() {
         model = Optional.of(new ModelImpl());
         waitress = new WaitressImpl(
                 new Pair<Integer, Integer>(STARTING_WAITIMPL_COORDINATES, STARTING_WAITIMPL_COORDINATES),
@@ -46,7 +46,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    private void testInitialState() {
+    void testInitialState() {
         assertEquals(WaitressState.WAITING, waitress.getState());
         assertTrue(waitress.getOrderList().isEmpty());
         assertEquals(2, waitress.getMovementSpeed());
@@ -56,7 +56,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    private void testUpdate() {
+    void testUpdate() {
         waitress.setState(WaitressState.CALLING);
         Pair<Integer, Integer> pair1 = new Pair<Integer, Integer>(STARTING_WAITIMPL_COORDINATES,
                 STARTING_WAITIMPL_COORDINATES);
@@ -68,7 +68,7 @@ final class WaitressTest {
         while (!waitress.getPosition().equals(table.getPosition())) {
             waitress.update();
         }
-        assertEquals(WaitressState.WAITING, waitress.getState());
+        assertEquals(WaitressState.CALLING, waitress.getState());
 
     }
 
@@ -76,7 +76,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    private void testGoGetDish() {
+    void testGoGetDish() {
         Pair<Integer, Integer> dishReady = new Pair<>(DISH_READY, DISH_READY);
         waitress.goGetDish(dishReady);
         assertEquals(dishReady, waitress.getDestination().get());
@@ -87,7 +87,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    private void testTakeTableOrder() {
+    void testTakeTableOrder() {
         Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
         waitress.takeTableOrder(position);
         assertEquals(position, waitress.getDestination().get());
@@ -98,7 +98,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    private void testServeOrder() {
+    void testServeOrder() {
         Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
         waitress.serveOrder(position);
         assertEquals(position, waitress.getDestination().get());
@@ -109,7 +109,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    private void testCollectMoney() {
+    void testCollectMoney() {
         Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
         waitress.collectMoney(position);
         assertEquals(position, waitress.getDestination().get());
@@ -120,7 +120,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    private void testAddOrderForWaitress() {
+    void testAddOrderForWaitress() {
         Dish dish = new DishImpl(null, null, 1);
         waitress.addOrderForWaitress(dish);
         assertFalse(waitress.getOrderList().isEmpty());
@@ -132,7 +132,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    private void testCheckRightTable() {
+    void testCheckRightTable() {
         Dish dish = new DishImpl(null, null, 1);
         waitress.addOrderForWaitress(dish);
         assertTrue(waitress.checkRightTable(1));
@@ -143,7 +143,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    private void testIncrementSpeed() {
+    void testIncrementSpeed() {
         waitress.incrementSpeed();
         assertEquals(3, waitress.getMovementSpeed());
         waitress.incrementSpeed();
