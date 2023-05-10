@@ -11,9 +11,11 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.gameentities.Dish;
+import it.unibo.dinerdash.model.api.gameentities.Table;
 import it.unibo.dinerdash.model.api.states.WaitressState;
 import it.unibo.dinerdash.model.impl.DishImpl;
 import it.unibo.dinerdash.model.impl.ModelImpl;
+import it.unibo.dinerdash.model.impl.TableImpl;
 import it.unibo.dinerdash.model.impl.WaitressImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
@@ -55,7 +57,19 @@ final class WaitressTest {
      */
     @Test
     private void testUpdate() {
-        // TODO: Add test cases for the update method
+        waitress.setState(WaitressState.CALLING);
+        Pair<Integer, Integer> pair1 = new Pair<Integer, Integer>(STARTING_WAITIMPL_COORDINATES,
+                STARTING_WAITIMPL_COORDINATES);
+        Pair<Integer, Integer> pair2 = new Pair<Integer, Integer>(STARTING_WAITIMPL_COORDINATES,
+                STARTING_WAITIMPL_COORDINATES);
+        Table table = new TableImpl(pair1, pair2, 1);
+        waitress.setPosition(table.getPosition());
+
+        while (!waitress.getPosition().equals(table.getPosition())) {
+            waitress.update();
+        }
+        assertEquals(WaitressState.WAITING, waitress.getState());
+
     }
 
     /**
