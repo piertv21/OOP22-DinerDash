@@ -22,7 +22,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     private Optional<Customer> customer;
     private TableState state;
     private int seatedPeople;
-    private final Random random = new Random();
+    private static final Random random = new Random();
 
     /**
      * Create a new Table.
