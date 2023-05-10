@@ -12,58 +12,66 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public interface Customer extends GameEntityMovable {
 
     /** 
-     * getter for customer's moltiplicity.
+     * Getter for customer's moltiplicity.
+     * 
      * @return number of customers from 1-4
      */
     int getCustomerCount();
 
     /** 
-     * setter for customers's enum state.
+     * Setter for customers's enum state.
+     * 
      * @param state new Customer's state
      */
     void setState(CustomerState state);
 
     /** 
-     * getter for customers's enum state.
+     * Getter for customers's enum state.
+     * 
      * @return customer's InGame state 
      */
     CustomerState getState();
 
     /** 
-     * manage the movement of customers ,or their behaviour.
+     * Manage the movement of customers ,or their behaviour.
      */
     void update();
 
     /** 
-     * getter for customer Position.
+     * Getter for customer Position.
+     * 
      * @return customer's InGame state 
      */
     @Override
     Pair<Integer, Integer> getPosition();
 
     /** 
-     * setter for customer Destination.
+     * Setter for customer Destination.
+     * 
      * @param destination Customer's new destination
      */
     @Override
     void setDestination(Optional<Pair<Integer, Integer>> destination);
 
     /** 
-     * getter for customer Destination.
+     * Getter for customer Destination.
+     * 
      * @return customer's destination or null
      */
     @Override
     Optional<Pair<Integer, Integer>> getDestination();
 
     /** 
-     * setter for customer Position.
+     * Setter for customer Position.
+     * 
      * @param position Customer's new position
      */
     @Override
     void setPosition(Pair<Integer, Integer> position);
 
     /** 
-     * getter for customers's patience.
+     * Getter for customers's patience.
+     * 
      * @return customers's patience level
      */
     int getCustomerPatience();

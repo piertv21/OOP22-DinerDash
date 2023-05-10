@@ -60,21 +60,33 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
         this.setActive(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCustomerCount() {
         return this.numberClients;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setState(final CustomerState state) {
         this.state = state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CustomerState getState() {
         return this.state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update() { 
         if (state.equals(CustomerState.WALKING)) {
@@ -119,6 +131,9 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getCustomerPatience() {
         return this.patience;
