@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.gameentities.Customer;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.api.states.CustomerState;
 import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.impl.ModelImpl;
@@ -18,12 +20,15 @@ final class CustomerTest {
     private Model model;
     private Customer testClient1;
     private static final  Optional<Pair<Integer, Integer>> DESTINATION = Optional.of(new Pair<Integer, Integer>(200, 300));
+    private final GameEntityFactory factory =  new GameEntityFactoryImpl();
 
     @BeforeEach
     void init() {
 	    this.model = new ModelImpl();
-        testClient1 = new CustomerImpl(new Pair<Integer, Integer>(100, 100), new Pair<Integer, Integer>(100, 100),
-        model, 2);
+        testClient1 = this.factory.createCustomer(
+            new Pair<Integer, Integer>(100, 100),
+             new Pair<Integer, Integer>(100, 100),
+            model, 2);
 	}
 
     @Test
@@ -59,7 +64,7 @@ final class CustomerTest {
     @Test
     void testUpdate() {
 
-        final Customer testClient3 = new CustomerImpl(new Pair<Integer, Integer>(300, 300), new Pair<Integer, Integer>(100, 100),
+        final Customer testClient3 = this.factory.createCustomer(new Pair<Integer, Integer>(300, 300), new Pair<Integer, Integer>(100, 100),
         model, 2);
         final Optional<Pair<Integer, Integer>> destination = Optional.of(new Pair<Integer, Integer>(500, 300));
         testClient3.setDestination(destination);
@@ -73,7 +78,7 @@ final class CustomerTest {
 
     @Test
     void testUpdate2() {
-        final Customer testClient4 = new CustomerImpl(DESTINATION.get(), new Pair<Integer, Integer>(100, 100),
+        final Customer testClient4 = this.factory.createCustomer(DESTINATION.get(), new Pair<Integer, Integer>(100, 100),
         model, 2);
         final Optional<Pair<Integer, Integer>> destination = Optional.of(new Pair<Integer, Integer>(200, 400));
         testClient4.setDestination(destination);
