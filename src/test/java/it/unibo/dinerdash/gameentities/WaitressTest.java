@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +22,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 final class WaitressTest {
 
-    private Model model;
+    private Optional<Model> model;
     private WaitressImpl waitress;
     private static final int STARTING_WAITIMPL_SIZE = 50;
     private static final int STARTING_WAITIMPL_COORDINATES = 0;
@@ -31,8 +33,8 @@ final class WaitressTest {
      * 
      */
     @BeforeEach
-    public void setUp() {
-        model = new ModelImpl();
+    private void setUp() {
+        model = Optional.of(new ModelImpl());
         waitress = new WaitressImpl(
                 new Pair<Integer, Integer>(STARTING_WAITIMPL_COORDINATES, STARTING_WAITIMPL_COORDINATES),
                 new Pair<Integer, Integer>(STARTING_WAITIMPL_SIZE, STARTING_WAITIMPL_SIZE), model);
@@ -42,7 +44,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    public void testInitialState() {
+    private void testInitialState() {
         assertEquals(WaitressState.WAITING, waitress.getState());
         assertTrue(waitress.getOrderList().isEmpty());
         assertEquals(2, waitress.getMovementSpeed());
@@ -52,7 +54,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    public void testUpdate() {
+    private void testUpdate() {
         // TODO: Add test cases for the update method
     }
 
@@ -60,7 +62,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    public void testGoGetDish() {
+    private void testGoGetDish() {
         Pair<Integer, Integer> dishReady = new Pair<>(DISH_READY, DISH_READY);
         waitress.goGetDish(dishReady);
         assertEquals(dishReady, waitress.getDestination().get());
@@ -71,7 +73,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    public void testTakeTableOrder() {
+    private void testTakeTableOrder() {
         Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
         waitress.takeTableOrder(position);
         assertEquals(position, waitress.getDestination().get());
@@ -82,7 +84,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    public void testServeOrder() {
+    private void testServeOrder() {
         Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
         waitress.serveOrder(position);
         assertEquals(position, waitress.getDestination().get());
@@ -93,7 +95,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    public void testCollectMoney() {
+    private void testCollectMoney() {
         Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
         waitress.collectMoney(position);
         assertEquals(position, waitress.getDestination().get());
@@ -104,7 +106,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    public void testAddOrderForWaitress() {
+    private void testAddOrderForWaitress() {
         Dish dish = new DishImpl(null, null, 1);
         waitress.addOrderForWaitress(dish);
         assertFalse(waitress.getOrderList().isEmpty());
@@ -116,7 +118,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    public void testCheckRightTable() {
+    private void testCheckRightTable() {
         Dish dish = new DishImpl(null, null, 1);
         waitress.addOrderForWaitress(dish);
         assertTrue(waitress.checkRightTable(1));
@@ -127,7 +129,7 @@ final class WaitressTest {
      * 
      */
     @Test
-    public void testIncrementSpeed() {
+    private void testIncrementSpeed() {
         waitress.incrementSpeed();
         assertEquals(3, waitress.getMovementSpeed());
         waitress.incrementSpeed();
