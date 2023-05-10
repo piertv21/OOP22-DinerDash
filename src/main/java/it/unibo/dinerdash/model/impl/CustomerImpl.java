@@ -26,7 +26,7 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
     private static final int SPEED = 5;
     private static final int HITBOX_SPACE = 4;
     private CustomerState state;
-    private final Model model;
+    private final Optional<Model> model;
     private final int numberClients;
     private long startThinkTime;
     /**
@@ -49,7 +49,7 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
      * @param numCusters customer's moltiplicity 
      */
     public CustomerImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,
-            final Model model, final int numCusters) {
+            final Optional<Model> model, final int numCusters) {
         super(coordinates, size, SPEED);
         this.model = model;
         this.state = CustomerState.WALKING;
@@ -99,22 +99,22 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
                 state = CustomerState.THINKING;
                 this.setPosition(this.getDestination().get());
                 this.setActive(false); // cliente think,and become invisible
-                final int sittedTable = this.model.getTablefromPositon(getPosition()).getTableNumber();
-                this.model.setTableState(TableState.THINKING, sittedTable);
-                this.model.setNumberOfClientsAtTable(numberClients, sittedTable);
+                final int sittedTable = this.model.get().getTablefromPositon(getPosition()).getTableNumber();
+                this.model.get().setTableState(TableState.THINKING, sittedTable);
+                this.model.get().setNumberOfClientsAtTable(numberClients, sittedTable);
             }
         } else if (state.equals(CustomerState.THINKING)) { // client think what to order
             if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(timeBeforeOrder) + this.startThinkTime) {
                 state = CustomerState.ORDERING;
-                final int sittedTable = this.model.getTablefromPositon(getPosition()).getTableNumber();
-                this.model.setTableState(TableState.ORDERING, sittedTable);
+                final int sittedTable = this.model.get().getTablefromPositon(getPosition()).getTableNumber();
+                this.model.get().setTableState(TableState.ORDERING, sittedTable);
             }
             // actions executed only by Customers in line
         } else if (state.equals(CustomerState.LINE)) {
             if (this.lastPatienceReduce.isPresent()) {
-                if (model.checkFreeTables(this)) {
+                if (model.get().checkFreeTables(this)) {
                     // go to sit at table
-                    this.model.tableAssignament(this);
+                    this.model.get().tableAssignament(this);
                     this.patience = -ONE;
                     this.state = CustomerState.WALKING;
                 } else if (this.patience == ZERO) { // client get angry

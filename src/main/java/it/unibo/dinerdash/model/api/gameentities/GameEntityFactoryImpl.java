@@ -39,7 +39,7 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
         final Model model,
         final int numCust
     ) {
-       return new CustomerImpl(coordinates, size, model, numCust);
+       return new CustomerImpl(coordinates, size, Optional.of(model), numCust);
     }
 
     /**
