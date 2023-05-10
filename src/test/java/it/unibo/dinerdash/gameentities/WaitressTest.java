@@ -30,8 +30,8 @@ final class WaitressTest {
     private static final int STARTING_WAITIMPL_COORDINATES = 0;
     private static final int DISH_READY = 100;
     private static final int PAIR_POSITION = 200;
-    private final Pair<Integer, Integer> pair1 = new Pair<Integer, Integer>(0, 0);
-    private final Pair<Integer, Integer> pair2 = new Pair<Integer, Integer>(0, 0);
+    private final Pair<Integer, Integer> pair1 = new Pair<>(0, 0);
+    private final Pair<Integer, Integer> pair2 = new Pair<>(0, 0);
 
     /**
      * 
