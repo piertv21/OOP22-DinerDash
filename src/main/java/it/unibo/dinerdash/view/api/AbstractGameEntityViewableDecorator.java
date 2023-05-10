@@ -2,6 +2,7 @@ package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 /**
@@ -18,6 +19,8 @@ public abstract class AbstractGameEntityViewableDecorator implements GameEntityV
      * 
      * @param decorated is the GameEntityViewable to be decorated
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "It is necessary to store a GameEntityViewable"
+        + "for the creation of the decorator")
     public AbstractGameEntityViewableDecorator(final GameEntityViewable decorated) {
         this.decorated = decorated;
     }
@@ -26,6 +29,8 @@ public abstract class AbstractGameEntityViewableDecorator implements GameEntityV
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It is necessary to have a reference to the decorated object"
+        + "in order to access it")
     public GameEntityViewable getDecorated() {
         return this.decorated;
     }

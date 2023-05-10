@@ -2,6 +2,7 @@ package it.unibo.dinerdash.view.api;
 
 import java.awt.Image;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.dinerdash.model.api.gameentities.AbstractGameEntity;
 import it.unibo.dinerdash.utility.impl.Pair;
 
@@ -22,6 +23,7 @@ public class GameEntityViewableImpl extends AbstractGameEntity implements GameEn
      * @param active is the initial active state of the graphic entity
      * @param icon is the icon of the the graphic entity
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Image is required and is not externally modified")
     public GameEntityViewableImpl(
         final Pair<Integer, Integer> coordinates,
         final Pair<Integer, Integer> size,
@@ -37,6 +39,7 @@ public class GameEntityViewableImpl extends AbstractGameEntity implements GameEn
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "It is necessary to return the image in order to use it")
     public Image getIcon() {
         return this.icon;
     }
@@ -45,6 +48,8 @@ public class GameEntityViewableImpl extends AbstractGameEntity implements GameEn
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "It is necessary to store the new image in case it needs"
+        + "to be changed during execution")
     public void setIcon(final Image icon) {
         this.icon = icon;
     }

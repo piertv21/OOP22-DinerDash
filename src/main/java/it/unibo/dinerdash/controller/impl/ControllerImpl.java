@@ -2,6 +2,7 @@ package it.unibo.dinerdash.controller.impl;
 
 import java.util.stream.IntStream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.engine.api.GameLoop;
 import it.unibo.dinerdash.engine.impl.GameLoopImpl;
@@ -55,6 +56,8 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "It is necessary to store the game panel"
+        + "in order to call some functions during execution")
     public void start(final GameView gameView) {
         this.model.setController(this);
         
