@@ -102,9 +102,10 @@ public class TableImpl extends AbstractGameEntity implements Table {
     public void startEating() {
         final var currentTime = System.nanoTime();
         final var eatingTime = random
-            .nextInt(MAX_TIME_FOR_EATING - MIN_TIME_FOR_EATING + 1) + MIN_TIME_FOR_EATING;
+                .nextInt(MAX_TIME_FOR_EATING - MIN_TIME_FOR_EATING + 1) + MIN_TIME_FOR_EATING;
         this.timeFinishEating = Optional.of(currentTime + TimeUnit.SECONDS.toNanos(eatingTime));
-    }    
+
+    }
 
     /**
      * {@inheritDoc}
