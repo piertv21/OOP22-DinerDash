@@ -3,6 +3,7 @@ package it.unibo.dinerdash.view.impl;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
@@ -37,7 +38,7 @@ public class ViewImpl extends JFrame implements View {
     private static final int MIN_WIDTH = 800;
     private static final int MIN_HEIGHT = 600;
 
-    private final Controller controller;
+    private final Optional<Controller> controller;
     private GamePanel currentView;
     private final ImageReaderWithCache imageCacher;
     private boolean gameStarted;
@@ -52,7 +53,7 @@ public class ViewImpl extends JFrame implements View {
      */
     public ViewImpl(final Controller controller) {
         super(Constants.GAME_NAME);
-        this.controller = controller;
+        this.controller = Optional.of(controller);
         this.imageCacher = new ImageReaderWithCache(ROOT);
         this.widthRatio = 0;
         this.heightRatio = 0;
@@ -98,7 +99,7 @@ public class ViewImpl extends JFrame implements View {
     @Override
     public void showGameView() {
         this.currentView = new GameViewImpl(this);
-        this.controller.start((GameView) this.currentView);
+        this.controller.get().start((GameView) this.currentView);
         this.gameStarted = true;
     }
 
@@ -116,7 +117,7 @@ public class ViewImpl extends JFrame implements View {
     @Override
     public void showExitDialog() {
         if (this.gameStarted) {
-            this.controller.pause();
+            this.controller.get().pause();
         }
 
         final int result = JOptionPane.showConfirmDialog(this, "Do you really want to exit?",
@@ -124,13 +125,13 @@ public class ViewImpl extends JFrame implements View {
 
         if (this.gameStarted) {
             if (result == JOptionPane.YES_OPTION) {
-                controller.quit();
+                controller.get().quit();
             } else {
-                this.controller.resume();
+                this.controller.get().resume();
             }
         } else {
             if (result == JOptionPane.YES_OPTION) {
-                controller.quitWithoutPlaying();
+                controller.get().quitWithoutPlaying();
             }
         }
     }
@@ -156,7 +157,7 @@ public class ViewImpl extends JFrame implements View {
      */
     @Override
     public Controller getController() {
-        return this.controller;
+        return this.controller.get();
     }
 
     /**
@@ -213,6 +214,8 @@ public class ViewImpl extends JFrame implements View {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This function must provide a reference to the ImageCacher"
+        + "in order to load assets in advance")
     public ImageReaderWithCache getImageCacher() {
         return this.imageCacher;
     }

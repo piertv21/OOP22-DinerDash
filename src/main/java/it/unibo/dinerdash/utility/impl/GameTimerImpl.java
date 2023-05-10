@@ -20,7 +20,7 @@ public class GameTimerImpl implements GameTimer {
 
     private Optional<ScheduledExecutorService> executorService;
     private Runnable updateTask;
-    private final Model model;
+    private final Optional<Model> model;
 
     /**
      * Class constructor.
@@ -28,7 +28,7 @@ public class GameTimerImpl implements GameTimer {
      * @param model is the Model from which a method is called
      */
     public GameTimerImpl(final Model model) {
-        this.model = model;
+        this.model = Optional.of(model);
         this.executorService = Optional.empty();
     }
 
@@ -42,7 +42,7 @@ public class GameTimerImpl implements GameTimer {
         if (executorService.isEmpty() || executorService.get().isShutdown()) {
             executorService = Optional.of(Executors.newSingleThreadScheduledExecutor());
             updateTask = () -> {
-                model.decrementRemainingTime();
+                model.get().decrementRemainingTime();
             };
             executorService.get().scheduleAtFixedRate(updateTask, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
         }

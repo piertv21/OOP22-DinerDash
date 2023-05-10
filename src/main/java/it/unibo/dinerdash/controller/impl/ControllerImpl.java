@@ -106,7 +106,7 @@ public class ControllerImpl implements Controller {
     @Override
     public void quitWithoutPlaying() {
         this.view.quit();
-        System.exit(0);
+        Runtime.getRuntime().exit(0);
     }
 
     /**

@@ -1,5 +1,6 @@
 package it.unibo.dinerdash.engine.impl;
 
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import it.unibo.dinerdash.controller.api.Controller;
@@ -16,7 +17,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
     private static final int TARGET_FPS = 60;
     private static final long TARGET_FRAME_TIME = TimeUnit.SECONDS.toNanos(1) / TARGET_FPS;
 
-    private final Controller controller;
+    private final Optional<Controller> controller;
 
     private volatile boolean running;
     private long lastTime;
@@ -33,7 +34,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
         this.running = false;
         this.lastTime = 0;
         this.delta = 0;
-        this.controller = controller;
+        this.controller = Optional.of(controller);
         this.thread = new Thread(this);
     }
 
@@ -75,10 +76,10 @@ public class GameLoopImpl implements GameLoop, Runnable {
             lastTime = currentTime;
             delta += elapsedTime / (double) TARGET_FRAME_TIME;
 
-            if (delta >= 1.0 && this.controller.getGameState() == GameState.RUNNING) {
+            if (delta >= 1.0 && this.controller.get().getGameState() == GameState.RUNNING) {
 
-                synchronized (controller) {
-                    this.controller.updateGame();
+                synchronized (controller.get()) {
+                    this.controller.get().updateGame();
                 }
 
                 delta--;

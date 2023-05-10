@@ -12,7 +12,6 @@ import it.unibo.dinerdash.model.api.gameentities.Customer;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.api.states.CustomerState;
-import it.unibo.dinerdash.model.impl.CustomerImpl;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
