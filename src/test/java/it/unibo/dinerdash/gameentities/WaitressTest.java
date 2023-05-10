@@ -24,12 +24,14 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 final class WaitressTest {
 
-    private Optional<Model> model;
+    private static Optional<Model> model;
     private WaitressImpl waitress;
     private static final int STARTING_WAITIMPL_SIZE = 50;
     private static final int STARTING_WAITIMPL_COORDINATES = 0;
     private static final int DISH_READY = 100;
     private static final int PAIR_POSITION = 200;
+    private final Pair<Integer, Integer> pair1 = new Pair<Integer, Integer>(0, 0);
+    private final Pair<Integer, Integer> pair2 = new Pair<Integer, Integer>(0, 0);
 
     /**
      * 
@@ -58,11 +60,7 @@ final class WaitressTest {
     @Test
     void testUpdate() {
         waitress.setState(WaitressState.CALLING);
-        Pair<Integer, Integer> pair1 = new Pair<Integer, Integer>(STARTING_WAITIMPL_COORDINATES,
-                STARTING_WAITIMPL_COORDINATES);
-        Pair<Integer, Integer> pair2 = new Pair<Integer, Integer>(STARTING_WAITIMPL_COORDINATES,
-                STARTING_WAITIMPL_COORDINATES);
-        Table table = new TableImpl(pair1, pair2, 1);
+        final Table table = new TableImpl(pair1, pair2, 1);
         waitress.setPosition(table.getPosition());
 
         while (!waitress.getPosition().equals(table.getPosition())) {
@@ -77,7 +75,7 @@ final class WaitressTest {
      */
     @Test
     void testGoGetDish() {
-        Pair<Integer, Integer> dishReady = new Pair<>(DISH_READY, DISH_READY);
+        final Pair<Integer, Integer> dishReady = new Pair<>(DISH_READY, DISH_READY);
         waitress.goGetDish(dishReady);
         assertEquals(dishReady, waitress.getDestination().get());
         assertEquals(WaitressState.TAKING_DISH, waitress.getState());
@@ -88,7 +86,7 @@ final class WaitressTest {
      */
     @Test
     void testTakeTableOrder() {
-        Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
+        final Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
         waitress.takeTableOrder(position);
         assertEquals(position, waitress.getDestination().get());
         assertEquals(WaitressState.CALLING, waitress.getState());
@@ -99,7 +97,7 @@ final class WaitressTest {
      */
     @Test
     void testServeOrder() {
-        Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
+        final Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
         waitress.serveOrder(position);
         assertEquals(position, waitress.getDestination().get());
         assertEquals(WaitressState.SERVING, waitress.getState());
@@ -110,7 +108,7 @@ final class WaitressTest {
      */
     @Test
     void testCollectMoney() {
-        Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
+        final Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
         waitress.collectMoney(position);
         assertEquals(position, waitress.getDestination().get());
         assertEquals(WaitressState.TAKING_MONEY, waitress.getState());
@@ -121,7 +119,7 @@ final class WaitressTest {
      */
     @Test
     void testAddOrderForWaitress() {
-        Dish dish = new DishImpl(null, null, 1);
+        final Dish dish = new DishImpl(null, null, 1);
         waitress.addOrderForWaitress(dish);
         assertFalse(waitress.getOrderList().isEmpty());
         assertEquals(1, waitress.getOrdersNumber());
@@ -133,7 +131,7 @@ final class WaitressTest {
      */
     @Test
     void testCheckRightTable() {
-        Dish dish = new DishImpl(null, null, 1);
+        final Dish dish = new DishImpl(null, null, 1);
         waitress.addOrderForWaitress(dish);
         assertTrue(waitress.checkRightTable(1));
         assertFalse(waitress.checkRightTable(2));
