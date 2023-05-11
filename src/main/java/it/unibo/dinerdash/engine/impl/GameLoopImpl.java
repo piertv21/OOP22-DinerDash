@@ -23,7 +23,7 @@ public class GameLoopImpl implements GameLoop, Runnable {
     private long lastTime;
     private double delta;
 
-    private Thread thread;
+    private final Thread thread;
 
     /**
      * Class constructor.

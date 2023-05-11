@@ -34,8 +34,8 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
      * Class constructor.
      * 
      * @param coordinates are the waitress coordinates
-     * @param size        is the waitress size
-     * @param optional    is the reference to the model
+     * @param size is the waitress size
+     * @param model is the reference to the model
      */
     public WaitressImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,
             final Optional<Model> model) {

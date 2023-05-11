@@ -74,7 +74,7 @@ public final class ModelImpl implements Model {
     private static final int CHEF_REL_HEIGHT = (int) (0.17 * Constants.RESTAURANT_HEIGHT);
 
     private static final int MAX_POWERUP_PER_TYPE = 3;
-    private static final int[] POWER_UP_PRICES = { 100, 150, 220, 310 };
+    private static final int[] POWER_UP_PRICES = {100, 150, 220, 310};
 
     private int coins;
     private int enabledCoinsMultipliers;
@@ -92,7 +92,7 @@ public final class ModelImpl implements Model {
     private final Countertop counterTop;
     private Chef chef;
     private Waitress waitress;
-    private static final Random random = new Random();
+    private final Random random;
 
     /**
      * Class constructor.
@@ -104,6 +104,7 @@ public final class ModelImpl implements Model {
         this.counterTop = new CountertopImpl(this);
         this.factory = new GameEntityFactoryImpl();
         this.controller = Optional.empty();
+        this.random = new Random();
     }
 
     /**

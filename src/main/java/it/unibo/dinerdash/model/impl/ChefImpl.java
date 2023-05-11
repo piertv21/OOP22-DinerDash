@@ -25,7 +25,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     private Optional<Long> timeDishReady;
     private int enabledPowerUps;
     private final Optional<Model> model;
-    private static final Random random = new Random();
+    private final Random random;
 
     /**
      * Class constructor.
@@ -41,6 +41,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
         this.timeDishReady = Optional.empty();
         this.enabledPowerUps = 0;
         this.model = model;
+        this.random = new Random();
     }
 
     /**
@@ -80,7 +81,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
     @Override
     public void startPreparingDish(final Dish dish) {
         this.currentDish = Optional.of(dish);
-    
+
         final int preparationTimeInSeconds = random
             .nextInt(MAX_PREPARATION_TIME - MIN_PREPARATION_TIME + 1) + MIN_PREPARATION_TIME;
         final int bonusTime = this.enabledPowerUps * CHEF_TIME_SAVING;

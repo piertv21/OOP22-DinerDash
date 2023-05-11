@@ -104,6 +104,11 @@ public class GameOverView implements GamePanel<JPanel> {
         });
     }
 
+    /**
+     * Returns the component.
+     * 
+     * @return the GameOver JPanel
+     */
     @Override
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This component is used in a JFrame"
         + "therefore it is necessary to provide a reference to it")
