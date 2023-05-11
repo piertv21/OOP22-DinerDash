@@ -2,13 +2,10 @@ package it.unibo.dinerdash.view.impl;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
-import it.unibo.dinerdash.view.api.GamePanel;
-import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.View;
 
 import java.awt.Dimension;
@@ -29,17 +26,15 @@ import java.util.stream.Stream;
  *
  * Implementation of the View interface.
  */
-public class ViewImpl extends JFrame implements View {
-
-    private static final long serialVersionUID = -6298731756889190906L;
+public class ViewImpl implements View {
 
     private static final String ROOT = "it" + Constants.SEP + "unibo" + Constants.SEP + "dinerdash" + Constants.SEP;
 
     private static final int MIN_WIDTH = 800;
     private static final int MIN_HEIGHT = 600;
 
+    private final JFrame mainFrame;
     private final Optional<Controller> controller;
-    private GamePanel currentView;
     private final ImageReaderWithCache imageCacher;
     private boolean gameStarted;
 
@@ -52,30 +47,31 @@ public class ViewImpl extends JFrame implements View {
      * @param controller
      */
     public ViewImpl(final Controller controller) {
-        super(Constants.GAME_NAME);
+        this.mainFrame = new JFrame(Constants.GAME_NAME);
+
         this.controller = Optional.of(controller);
         this.imageCacher = new ImageReaderWithCache(ROOT);
         this.widthRatio = 0;
         this.heightRatio = 0;
         this.gameStarted = false;
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.addWindowListener(new WindowAdapter() {
+        this.mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.mainFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(final WindowEvent e) {
                 showExitDialog();
             }
         });
-        this.setLocationByPlatform(true);
-        this.setResizable(true);
+        this.mainFrame.setLocationByPlatform(true);
+        this.mainFrame.setResizable(true);
 
         final var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         final int screenWidth = (int) screenSize.getWidth();
         final int screenHeight = (int) screenSize.getHeight();
 
-        this.setSize(screenWidth / 2, screenHeight / 2);
-        this.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
+        this.mainFrame.setSize(screenWidth / 2, screenHeight / 2);
+        this.mainFrame.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
 
-        this.addComponentListener(new ComponentAdapter() {
+        this.mainFrame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
                 final var screenSize = e.getComponent().getSize();
@@ -86,11 +82,12 @@ public class ViewImpl extends JFrame implements View {
 
         this.loadResources();
         this.showStartView();
-        this.setVisible(true);
+        this.mainFrame.setVisible(true);
     }
 
     private void showStartView() {
-        this.currentView = new StartView(this);
+        var startPanel = new StartView(this);
+        this.mainFrame.setContentPane(startPanel.getComponent());
     }
 
     /**
@@ -98,8 +95,9 @@ public class ViewImpl extends JFrame implements View {
      */
     @Override
     public void showGameView() {
-        this.currentView = new GameViewImpl(this);
-        this.controller.get().start((GameView) this.currentView);
+        var gamePanel = new GameViewImpl(this);
+        this.mainFrame.setContentPane(gamePanel.getComponent());
+        this.controller.get().start(gamePanel);
         this.gameStarted = true;
     }
 
@@ -108,7 +106,8 @@ public class ViewImpl extends JFrame implements View {
      */
     @Override
     public void showGameOverView() {
-        this.currentView = new GameOverView(this);
+        var gameOverPanel = new GameOverView(this);
+        this.mainFrame.setContentPane(gameOverPanel.getComponent());
     }
 
     /**
@@ -120,7 +119,7 @@ public class ViewImpl extends JFrame implements View {
             this.controller.get().pause();
         }
 
-        final int result = JOptionPane.showConfirmDialog(this, "Do you really want to exit?",
+        final int result = JOptionPane.showConfirmDialog(this.mainFrame, "Do you really want to exit?",
             "Exit", JOptionPane.YES_NO_OPTION);
 
         if (this.gameStarted) {
@@ -138,9 +137,8 @@ public class ViewImpl extends JFrame implements View {
 
     @Override
     public void refreshView() {
-        this.setContentPane(this.currentView);
-        this.validate();
-        this.repaint();
+        this.mainFrame.validate();
+        this.mainFrame.repaint();
     }
 
     /**
@@ -149,7 +147,7 @@ public class ViewImpl extends JFrame implements View {
     @Override
     public void quit() {
         this.imageCacher.clearCache();
-        this.dispose();
+        this.mainFrame.dispose();
     }
 
     /**
@@ -218,6 +216,16 @@ public class ViewImpl extends JFrame implements View {
         + "in order to load assets in advance")
     public ImageReaderWithCache getImageCacher() {
         return this.imageCacher;
+    }
+
+    @Override
+    public int getWidth() {
+        return this.mainFrame.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return this.mainFrame.getHeight();
     }
 
 }

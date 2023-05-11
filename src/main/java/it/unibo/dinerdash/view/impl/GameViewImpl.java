@@ -33,7 +33,6 @@ import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.GameView;
 import it.unibo.dinerdash.view.api.ImageDecorator;
 import it.unibo.dinerdash.view.api.View;
@@ -44,6 +43,7 @@ import it.unibo.dinerdash.view.api.GameEntityViewable;
 import it.unibo.dinerdash.view.api.GameEntityViewableImpl;
 import it.unibo.dinerdash.view.api.NumberDecoratorImpl;
 import it.unibo.dinerdash.view.api.OutlinedLabel;
+import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.ImageDecoratorImpl;
 import it.unibo.dinerdash.view.api.NumberDecorator;
 
@@ -52,9 +52,7 @@ import it.unibo.dinerdash.view.api.NumberDecorator;
  *
  * Implementation of the GameView interface.
  */
-public class GameViewImpl extends GamePanel implements GameView {
-
-    private static final long serialVersionUID = -2203744497404204918L;
+public class GameViewImpl implements GamePanel<JPanel>, GameView {
 
     private static final int TOP_PANEL_SIZE = 60;
     private static final int BOTTOM_PANEL_SIZE = TOP_PANEL_SIZE / 2;
@@ -69,6 +67,8 @@ public class GameViewImpl extends GamePanel implements GameView {
     private static final Pair<Integer, Integer> CUSTOMER_PATIENCE_IMG_SIZE = new Pair<>(100, 30);
     private static final Pair<Integer, Integer> TABLE_STATE_IMG_SIZE = new Pair<>(80, 56);
 
+    private final View mainFrame;
+    private final JPanel panel;
     private final JLabel timeLabel;
     private final JLabel customerWhoLeftLabel;
     private final JLabel coinLabel;
@@ -92,11 +92,103 @@ public class GameViewImpl extends GamePanel implements GameView {
      * @param mainFrame is the reference to main View
      */
     public GameViewImpl(final View mainFrame) {
-        super(mainFrame);
+        this.mainFrame = mainFrame;
 
-        setLayout(new BorderLayout());
-        setFocusable(true);
-        setBackground(Color.WHITE);
+        this.panel = new JPanel() {
+
+            /**
+             * {@inheritDoc}
+             * 
+             * Draws the background and all viewable entities in the game panel.
+             */
+            @Override
+            protected void paintComponent(final Graphics g) {
+                super.paintComponent(g);
+
+                final var heightRatio = mainFrame.getHeightRatio();
+                final var widthRatio = mainFrame.getWidthRatio();
+                g.drawImage(backgroundImage, 0, 0, mainFrame.getWidth(), mainFrame.getHeight(), this);
+                g.drawImage(waitress.getIcon(),
+                        (int) (waitress.getPosition().getX() * widthRatio),
+                        (int) (waitress.getPosition().getY() * heightRatio),
+                        (int) (waitress.getSize().getX() * widthRatio),
+                        (int) (waitress.getSize().getY() * heightRatio),
+                        this);
+
+                tables.stream().filter(t -> t.getPosition() != null)
+                        .forEach(e -> {
+                            g.drawImage(e.getIcon(),
+                                (int) (e.getPosition().getX() * widthRatio),
+                                (int) (e.getPosition().getY() * heightRatio),
+                                (int) (e.getSize().getX() * widthRatio),
+                                (int) (e.getSize().getY() * heightRatio),
+                            this);
+
+                            if (e.getState().isPresent()) {
+                                g.drawImage(e.getState().get(),
+                                        (int) ((e.getPosition().getX() + (TABLE_STATE_PATTER * widthRatio)) * widthRatio),
+                                        (int) (e.getPosition().getY() * heightRatio),
+                                        (int) (TABLE_STATE_IMG_SIZE.getX() * widthRatio),
+                                        (int) (TABLE_STATE_IMG_SIZE.getY() * heightRatio),
+                                        this);
+                            }
+                        });
+
+                customers.stream().filter(cus -> cus.isActive()
+                        && ((NumberDecorator) cus.getDecorated()).getNumber() == MAX_PATIECE)
+                        .forEach(c -> {
+                            g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
+                                    (int) (c.getPosition().getY() * heightRatio),
+                                    (int) (c.getSize().getX() * widthRatio),
+                                    (int) (c.getSize().getY() * heightRatio),
+                                    this);
+                        });
+
+                final var streamLineCustomer = customers.stream()
+                        .filter(cus -> cus.isActive()
+                                && ((NumberDecorator) cus.getDecorated()).getNumber() != MAX_PATIECE);
+                final var list = streamLineCustomer.collect(Collectors.toList());
+
+                Collections.reverse(list);
+                list.forEach(c -> {
+                    g.drawImage(c.getIcon(),
+                            (int) (c.getPosition().getX() * widthRatio),
+                            (int) (c.getPosition().getY() * heightRatio),
+                            (int) (c.getSize().getX() * widthRatio),
+                            (int) (c.getSize().getY() * heightRatio),
+                            this);
+
+                    g.drawImage(c.getState().get(),
+                            (int) ((c.getPosition().getX() - CUSTOMER_PATIENCE_REL_POSITION) * widthRatio),
+                            (int) ((c.getPosition().getY() + CUSTOMER_PATIENCE_REL_POSITION) * heightRatio),
+                            (int) (CUSTOMER_PATIENCE_IMG_SIZE.getX() * widthRatio),
+                            (int) (CUSTOMER_PATIENCE_IMG_SIZE.getY() * heightRatio),
+                            this);
+                });
+
+                if (chef.isActive()) {
+                    g.drawImage(chef.getIcon(),
+                            (int) (chef.getPosition().getX() * widthRatio),
+                            (int) (chef.getPosition().getY() * heightRatio),
+                            (int) (chef.getSize().getX() * widthRatio),
+                            (int) (chef.getSize().getY() * heightRatio),
+                    this);
+                }
+
+                dishes.stream().filter(dish -> dish.isActive()).forEach(dish ->
+                    g.drawImage(dish.getIcon(),
+                            (int) (dish.getPosition().getX() * widthRatio),
+                            (int) (dish.getPosition().getY() * heightRatio),
+                            (int) (dish.getSize().getX() * widthRatio),
+                            (int) (dish.getSize().getY() * heightRatio),
+                    this)
+                );
+            }
+        };
+
+        this.panel.setLayout(new BorderLayout());
+        this.panel.setFocusable(true);
+        this.panel.setBackground(Color.WHITE);
 
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
@@ -135,7 +227,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         coinLabel.setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, 0, 0, BORDER_SIZE));
         topPanel.add(coinLabel);
 
-        add(topPanel, BorderLayout.NORTH);
+        this.panel.add(topPanel, BorderLayout.NORTH);
 
         final var bottomPanel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         bottomPanel.setOpaque(false);
@@ -148,7 +240,7 @@ public class GameViewImpl extends GamePanel implements GameView {
         });
         bottomPanel.add(pauseButton, BorderLayout.EAST);
 
-        add(bottomPanel, BorderLayout.SOUTH);
+        this.panel.add(bottomPanel, BorderLayout.SOUTH);
 
         rightPanel = new JPanel(new GridBagLayout());
         rightPanel.setOpaque(false);
@@ -174,7 +266,7 @@ public class GameViewImpl extends GamePanel implements GameView {
                 c.gridy++;
             });
 
-        add(rightPanel, BorderLayout.EAST);
+        this.panel.add(rightPanel, BorderLayout.EAST);
 
         final var point = new Point(0, 0);
         this.defaultCursor = Toolkit.getDefaultToolkit().createCustomCursor(
@@ -182,13 +274,13 @@ public class GameViewImpl extends GamePanel implements GameView {
         this.handCursor = Toolkit.getDefaultToolkit().createCustomCursor(
                 this.imageCacher.getCachedImage("handCursor").getImage(), point, "Hand Cursor");
 
-        addMouseMotionListener(new MouseMotionAdapter() {
+        this.panel.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(final MouseEvent e) {
                 final int mouseX = e.getX();
                 final int mouseY = e.getY();
 
-                setCursor(
+                panel.setCursor(
                     tables.stream().anyMatch(table -> inside(mouseX, mouseY, table))
                     || dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
                     ? handCursor : defaultCursor
@@ -196,7 +288,7 @@ public class GameViewImpl extends GamePanel implements GameView {
             }
         });
 
-        addMouseListener(new MouseAdapter() {
+        this.panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(final MouseEvent e) {
                 final int mouseX = e.getX();
@@ -214,10 +306,10 @@ public class GameViewImpl extends GamePanel implements GameView {
             }
         });
 
-        addComponentListener(new ComponentAdapter() {
+        this.panel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
-                final int height = getHeight();
+                final int height = panel.getHeight();
 
                 timeLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * FONT_SIZE_REL)));
                 customerWhoLeftLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * FONT_SIZE_REL)));
@@ -227,8 +319,8 @@ public class GameViewImpl extends GamePanel implements GameView {
     }
 
     private boolean inside(final int mouseX, final int mouseY, final GameEntityViewable viewableEntity) {
-        final var widthRatio = this.getMainFrame().getWidthRatio();
-        final var heightRatio = this.getMainFrame().getHeightRatio();
+        final var widthRatio = this.mainFrame.getWidthRatio();
+        final var heightRatio = this.mainFrame.getHeightRatio();
 
         final int viewableEntityWindowX = (int) (viewableEntity.getPosition().getX() * widthRatio);
         final int viewableEntityWindowY = (int) (viewableEntity.getPosition().getY() * heightRatio);
@@ -249,10 +341,10 @@ public class GameViewImpl extends GamePanel implements GameView {
         dialogPanel.add(messageLabel);
 
         final String[] options = {"Resume", "Restart", "Exit"};
-        final int result = JOptionPane.showOptionDialog(this, dialogPanel, "Pause", JOptionPane.DEFAULT_OPTION,
+        final int result = JOptionPane.showOptionDialog(this.panel, dialogPanel, "Pause", JOptionPane.DEFAULT_OPTION,
                 JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
-        final var controller = this.getMainFrame().getController();
+        final var controller = this.mainFrame.getController();
 
         switch (result) {
             case 1 -> controller.restart();
@@ -275,103 +367,14 @@ public class GameViewImpl extends GamePanel implements GameView {
 
     /**
      * {@inheritDoc}
-     * 
-     * Draws the background and all viewable entities in the game panel.
-     */
-    @Override
-    protected void paintComponent(final Graphics g) {
-        super.paintComponent(g);
-
-        final var heightRatio = this.getMainFrame().getHeightRatio();
-        final var widthRatio = this.getMainFrame().getWidthRatio();
-        g.drawImage(backgroundImage, 0, 0, this.getMainFrame().getWidth(), this.getMainFrame().getHeight(), this);
-        g.drawImage(waitress.getIcon(),
-                (int) (waitress.getPosition().getX() * widthRatio),
-                (int) (waitress.getPosition().getY() * heightRatio),
-                (int) (waitress.getSize().getX() * widthRatio),
-                (int) (waitress.getSize().getY() * heightRatio),
-                this);
-
-        this.tables.stream().filter(t -> t.getPosition() != null)
-                .forEach(e -> {
-                    g.drawImage(e.getIcon(),
-                        (int) (e.getPosition().getX() * widthRatio),
-                        (int) (e.getPosition().getY() * heightRatio),
-                        (int) (e.getSize().getX() * widthRatio),
-                        (int) (e.getSize().getY() * heightRatio),
-                    this);
-
-                    if (e.getState().isPresent()) {
-                        g.drawImage(e.getState().get(),
-                                (int) ((e.getPosition().getX() + (TABLE_STATE_PATTER * widthRatio)) * widthRatio),
-                                (int) (e.getPosition().getY() * heightRatio),
-                                (int) (TABLE_STATE_IMG_SIZE.getX() * widthRatio),
-                                (int) (TABLE_STATE_IMG_SIZE.getY() * heightRatio),
-                                this);
-                    }
-                });
-
-        this.customers.stream().filter(cus -> cus.isActive()
-                && ((NumberDecorator) cus.getDecorated()).getNumber() == MAX_PATIECE)
-                .forEach(c -> {
-                    g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
-                            (int) (c.getPosition().getY() * heightRatio),
-                            (int) (c.getSize().getX() * widthRatio),
-                            (int) (c.getSize().getY() * heightRatio),
-                            this);
-                });
-
-        final var streamLineCustomer = this.customers.stream()
-                .filter(cus -> cus.isActive()
-                        && ((NumberDecorator) cus.getDecorated()).getNumber() != MAX_PATIECE);
-        final var list = streamLineCustomer.collect(Collectors.toList());
-
-        Collections.reverse(list);
-        list.forEach(c -> {
-            g.drawImage(c.getIcon(),
-                    (int) (c.getPosition().getX() * widthRatio),
-                    (int) (c.getPosition().getY() * heightRatio),
-                    (int) (c.getSize().getX() * widthRatio),
-                    (int) (c.getSize().getY() * heightRatio),
-                    this);
-
-            g.drawImage(c.getState().get(),
-                    (int) ((c.getPosition().getX() - CUSTOMER_PATIENCE_REL_POSITION) * widthRatio),
-                    (int) ((c.getPosition().getY() + CUSTOMER_PATIENCE_REL_POSITION) * heightRatio),
-                    (int) (CUSTOMER_PATIENCE_IMG_SIZE.getX() * widthRatio),
-                    (int) (CUSTOMER_PATIENCE_IMG_SIZE.getY() * heightRatio),
-                    this);
-        });
-
-        if (this.chef.isActive()) {
-            g.drawImage(chef.getIcon(),
-                    (int) (chef.getPosition().getX() * widthRatio),
-                    (int) (chef.getPosition().getY() * heightRatio),
-                    (int) (chef.getSize().getX() * widthRatio),
-                    (int) (chef.getSize().getY() * heightRatio),
-            this);
-        }
-
-        this.dishes.stream().filter(dish -> dish.isActive()).forEach(dish ->
-            g.drawImage(dish.getIcon(),
-                    (int) (dish.getPosition().getX() * widthRatio),
-                    (int) (dish.getPosition().getY() * heightRatio),
-                    (int) (dish.getSize().getX() * widthRatio),
-                    (int) (dish.getSize().getY() * heightRatio),
-            this)
-        );
-    }
-
-    /**
-     * {@inheritDoc}
      */
     @Override
     public void render() {
-        final var controller = this.getMainFrame().getController();
+        final var controller = this.mainFrame.getController();
         this.timeLabel.setText("Time: " + controller.getRemainingTime());
         this.customerWhoLeftLabel.setText("Customers who left: " + controller.getCustomersWhoLeft());
         this.coinLabel.setText("Coins: " + controller.getCoins());
-        this.repaint();
+        this.panel.repaint();
     }
 
     private void resetPowerUpsButtons() {
@@ -577,6 +580,16 @@ public class GameViewImpl extends GamePanel implements GameView {
                 .skip(index)
                 .findFirst()
                 .ifPresent(button -> button.setEnabled(button.isEnabled() != active ? active : button.isEnabled()));
+    }
+
+    @Override
+    public View getUserInterface() {
+        return this.mainFrame;
+    }
+
+    @Override
+    public JPanel getComponent() {
+        return this.panel;
     }
 
 }

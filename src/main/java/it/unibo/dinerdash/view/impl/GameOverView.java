@@ -24,15 +24,15 @@ import it.unibo.dinerdash.view.api.View;
  * Represents the final panel of the program
  * with the Game Over screen.
  */
-public class GameOverView extends GamePanel {
-
-    private static final long serialVersionUID = -6526284470262030339L;
+public class GameOverView implements GamePanel<JPanel> {
 
     private static final int BIG_FONT_SIZE = 48;
     private static final double BIG_FONT_SIZE_REL = 0.15;
     private static final int MEDIUM_FONT_SIZE = BIG_FONT_SIZE / 2;
     private static final double MEDIUM_FONT_SIZE_REL = BIG_FONT_SIZE_REL / 2;
 
+    private final View mainFrame;
+    private final JPanel panel;
     private final JButton playAgainButton;
     private final JButton exitButton;
     private final JLabel gameOverLabel;
@@ -44,9 +44,11 @@ public class GameOverView extends GamePanel {
      * @param mainFrame is the reference to main View
      */
     public GameOverView(final View mainFrame) {
-        super(mainFrame);
 
-        setLayout(new GridBagLayout());
+        this.mainFrame = mainFrame;
+        this.panel = new JPanel();
+
+        this.panel.setLayout(new GridBagLayout());
 
         final var gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -56,14 +58,14 @@ public class GameOverView extends GamePanel {
         gameOverLabel = new JLabel("Game Over");
         gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, BIG_FONT_SIZE));
         gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(gameOverLabel, gridBagConstraints);
+        this.panel.add(gameOverLabel, gridBagConstraints);
 
         final var controller = mainFrame.getController();
         gridBagConstraints.gridy = 1;
         coinLabel = new JLabel("Total coins: " + controller.getCoins());
         coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, MEDIUM_FONT_SIZE));
         coinLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(coinLabel, gridBagConstraints);
+        this.panel.add(coinLabel, gridBagConstraints);
 
         gridBagConstraints.gridy = 2;
         final JPanel buttonPanel = new JPanel();
@@ -84,13 +86,13 @@ public class GameOverView extends GamePanel {
         });
         buttonPanel.add(exitButton);
 
-        add(buttonPanel, gridBagConstraints);
+        this.panel.add(buttonPanel, gridBagConstraints);
 
-        addComponentListener(new ComponentAdapter() {
+        this.panel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
-                final int height = getHeight();
-                final int width = getWidth();
+                final int height = panel.getHeight();
+                final int width = panel.getWidth();
 
                 gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * BIG_FONT_SIZE_REL)));
                 coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, (int) (height * MEDIUM_FONT_SIZE_REL)));
@@ -102,6 +104,16 @@ public class GameOverView extends GamePanel {
                 exitButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
             }
         });
+    }
+
+    @Override
+    public View getUserInterface() {
+        return this.mainFrame;
+    }
+
+    @Override
+    public JPanel getComponent() {
+        return this.panel;
     }
 
 }

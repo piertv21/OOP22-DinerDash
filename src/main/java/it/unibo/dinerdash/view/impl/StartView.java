@@ -10,6 +10,7 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.view.api.GamePanel;
@@ -19,9 +20,10 @@ import it.unibo.dinerdash.view.api.View;
  * Represents the initial panel of the game
  * with the startup screen.
  */
-public class StartView extends GamePanel {
+public class StartView implements GamePanel<JPanel> {
 
-    private static final long serialVersionUID = -5023222573619161231L;
+    private final View mainFrame;
+    private final JPanel panel;
 
     private static final String START = "Start game";
     private static final String EXIT = "Exit";
@@ -39,8 +41,10 @@ public class StartView extends GamePanel {
      * @param mainFrame is the reference to main View
      */
     public StartView(final View mainFrame) {
-        super(mainFrame);
-        setLayout(new GridBagLayout());
+        this.mainFrame = mainFrame;
+        this.panel = new JPanel();
+
+        this.panel.setLayout(new GridBagLayout());
 
         final var gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -49,23 +53,23 @@ public class StartView extends GamePanel {
 
         titleLabel = new JLabel(Constants.GAME_NAME);
         titleLabel.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
-        add(titleLabel, gridBagConstraints);
+        this.panel.add(titleLabel, gridBagConstraints);
 
         gridBagConstraints.gridy = 1;
         startButton = new JButton(START);
         startButton.addActionListener((e) -> mainFrame.showGameView());
-        add(startButton, gridBagConstraints);
+        this.panel.add(startButton, gridBagConstraints);
 
         gridBagConstraints.gridy = 2;
         exitButton = new JButton(EXIT);
         exitButton.addActionListener((e) -> mainFrame.showExitDialog());
-        add(exitButton, gridBagConstraints);
+        this.panel.add(exitButton, gridBagConstraints);
 
-        addComponentListener(new ComponentAdapter() {
+        this.panel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
-                final int height = getHeight();
-                final int width = getWidth();
+                final int height = panel.getHeight();
+                final int width = panel.getWidth();
 
                 titleLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * FONT_SIZE_REL)));
 
@@ -76,6 +80,18 @@ public class StartView extends GamePanel {
                 exitButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
             }
         });
+
+        this.panel.setVisible(true);
+    }
+
+    @Override
+    public View getUserInterface() {
+        return this.mainFrame;
+    }
+
+    @Override
+    public JPanel getComponent() {
+        return this.panel;
     }
 
 }
