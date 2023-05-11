@@ -1,19 +1,16 @@
 package it.unibo.dinerdash.view.api;
 
 /**
- * This interface contains a generic game panel.
+ * This interface represents a generic view component.
+ *
+ * @param <X> is the view component type
  */
 public interface GamePanel<X> {
 
     /**
+     * Returns the generic view component.
      * 
-     * @return
-     */
-    View getUserInterface();
-
-    /**
-     * 
-     * @return
+     * @return the view component
      */
     X getComponent();
 

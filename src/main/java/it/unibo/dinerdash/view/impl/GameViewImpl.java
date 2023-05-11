@@ -20,6 +20,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -107,7 +110,7 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
 
                 final var heightRatio = mainFrame.getHeightRatio();
                 final var widthRatio = mainFrame.getWidthRatio();
-                g.drawImage(backgroundImage, 0, 0, mainFrame.getWidth(), mainFrame.getHeight(), this);
+                g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
                 g.drawImage(waitress.getIcon(),
                         (int) (waitress.getPosition().getX() * widthRatio),
                         (int) (waitress.getPosition().getY() * heightRatio),
@@ -583,11 +586,8 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
     }
 
     @Override
-    public View getUserInterface() {
-        return this.mainFrame;
-    }
-
-    @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This component is used in a JFrame"
+        + "therefore it is necessary to provide a reference to it")
     public JPanel getComponent() {
         return this.panel;
     }

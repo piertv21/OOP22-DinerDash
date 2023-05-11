@@ -58,20 +58,6 @@ public interface View {
     double getHeightRatio();
 
     /**
-     * Getter for main window's Width.
-     * 
-     * @return Width of the main window
-     */
-    int getWidth();
-
-    /**
-     * Getter for main window's Height.
-     * 
-     * @return height of the main window
-     */
-    int getHeight();
-
-    /**
      * Getter for Game's Image Storage.
      * 
      * @return ImageCacher with all Images saved

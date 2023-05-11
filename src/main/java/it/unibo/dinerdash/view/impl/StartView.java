@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.View;
@@ -22,7 +23,6 @@ import it.unibo.dinerdash.view.api.View;
  */
 public class StartView implements GamePanel<JPanel> {
 
-    private final View mainFrame;
     private final JPanel panel;
 
     private static final String START = "Start game";
@@ -41,7 +41,6 @@ public class StartView implements GamePanel<JPanel> {
      * @param mainFrame is the reference to main View
      */
     public StartView(final View mainFrame) {
-        this.mainFrame = mainFrame;
         this.panel = new JPanel();
 
         this.panel.setLayout(new GridBagLayout());
@@ -85,11 +84,8 @@ public class StartView implements GamePanel<JPanel> {
     }
 
     @Override
-    public View getUserInterface() {
-        return this.mainFrame;
-    }
-
-    @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This component is used in a JFrame"
+        + "therefore it is necessary to provide a reference to it")
     public JPanel getComponent() {
         return this.panel;
     }

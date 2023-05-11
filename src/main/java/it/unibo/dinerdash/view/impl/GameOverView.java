@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.view.api.GamePanel;
 import it.unibo.dinerdash.view.api.View;
@@ -31,7 +32,6 @@ public class GameOverView implements GamePanel<JPanel> {
     private static final int MEDIUM_FONT_SIZE = BIG_FONT_SIZE / 2;
     private static final double MEDIUM_FONT_SIZE_REL = BIG_FONT_SIZE_REL / 2;
 
-    private final View mainFrame;
     private final JPanel panel;
     private final JButton playAgainButton;
     private final JButton exitButton;
@@ -44,8 +44,6 @@ public class GameOverView implements GamePanel<JPanel> {
      * @param mainFrame is the reference to main View
      */
     public GameOverView(final View mainFrame) {
-
-        this.mainFrame = mainFrame;
         this.panel = new JPanel();
 
         this.panel.setLayout(new GridBagLayout());
@@ -107,11 +105,8 @@ public class GameOverView implements GamePanel<JPanel> {
     }
 
     @Override
-    public View getUserInterface() {
-        return this.mainFrame;
-    }
-
-    @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This component is used in a JFrame"
+        + "therefore it is necessary to provide a reference to it")
     public JPanel getComponent() {
         return this.panel;
     }

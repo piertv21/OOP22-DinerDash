@@ -1,5 +1,6 @@
 package it.unibo.dinerdash.model.impl;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -155,7 +156,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
      */
     @Override
     public List<Dish> getOrderList() {
-        return this.orderList;
+        return Collections.unmodifiableList(this.orderList);
     }
 
     /**

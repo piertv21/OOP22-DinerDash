@@ -60,7 +60,7 @@ public class ControllerImpl implements Controller {
         + "in order to call some functions during execution")
     public void start(final GameView gameView) {
         this.model.setController(this);
-        
+
         this.gameView = gameView;
         this.view.refreshView();
         this.model.start();

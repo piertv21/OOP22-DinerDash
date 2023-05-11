@@ -218,14 +218,4 @@ public class ViewImpl implements View {
         return this.imageCacher;
     }
 
-    @Override
-    public int getWidth() {
-        return this.mainFrame.getWidth();
-    }
-
-    @Override
-    public int getHeight() {
-        return this.mainFrame.getHeight();
-    }
-
 }
