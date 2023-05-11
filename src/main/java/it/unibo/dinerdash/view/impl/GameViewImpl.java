@@ -110,7 +110,9 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
 
                 final var heightRatio = mainFrame.getHeightRatio();
                 final var widthRatio = mainFrame.getWidthRatio();
+
                 g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+
                 g.drawImage(waitress.getIcon(),
                         (int) (waitress.getPosition().getX() * widthRatio),
                         (int) (waitress.getPosition().getY() * heightRatio),

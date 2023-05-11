@@ -22,7 +22,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 public class CountertopImpl implements Countertop {
 
     private static final int START_DISH_REL_X = (int) (0.37 * Constants.RESTAURANT_WIDTH);
-    private static final int START_DISH_REL_Y = (int) (0.20 * Constants.RESTAURANT_HEIGHT);
+    private static final int START_DISH_REL_Y = (int) (0.19 * Constants.RESTAURANT_HEIGHT);
     private static final int DISHES_X_PADDING = (int) (0.06 * Constants.RESTAURANT_WIDTH);
     private static final int DISH_REL_WIDTH = (int) (0.04 * Constants.RESTAURANT_WIDTH);
     private static final int DISH_REL_HEIGHT = (int) (0.07 * Constants.RESTAURANT_HEIGHT);
