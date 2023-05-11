@@ -18,9 +18,7 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
     private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int MAX_ORDERING_TIME = 4;
-    /*
-     * seconds used to decrease a customer's patience.
-     */
+   
     private static final int TIME_BEFORE_LOOSEPATIENCE = 4;
     private static final int MAX_PATIECE = 7;
     private static final int SPEED = 5;
@@ -29,15 +27,8 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
     private final Optional<Model> model;
     private final int numberClients;
     private long startThinkTime;
-    /**
-     * The last time when a customer reduced his
-     * patience level.
-     */
     private Optional<Long> lastPatienceReduce;
     private int patience;
-    /*
-     * random Time in seconds before make a order.
-     */
     private final int timeBeforeOrder;
 
     /**
