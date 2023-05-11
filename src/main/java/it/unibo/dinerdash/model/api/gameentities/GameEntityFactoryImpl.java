@@ -22,10 +22,9 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
      */
     @Override
     public Chef createChef(
-        final Pair<Integer, Integer> coordinates,
-        final Pair<Integer, Integer> size,
-        final Optional<Model> model
-    ) {
+            final Pair<Integer, Integer> coordinates,
+            final Pair<Integer, Integer> size,
+            final Optional<Model> model) {
         return new ChefImpl(coordinates, size, model);
     }
 
@@ -34,11 +33,10 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
      */
     @Override
     public Customer createCustomer(
-        final Pair<Integer, Integer> coordinates,
-        final Pair<Integer, Integer> size,
-        final Model model,
-        final int numCust
-    ) {
+            final Pair<Integer, Integer> coordinates,
+            final Pair<Integer, Integer> size,
+            final Model model,
+            final int numCust) {
         return new CustomerImpl(coordinates, size, Optional.of(model), numCust);
     }
 
@@ -47,10 +45,9 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
      */
     @Override
     public Dish createDish(
-        final Pair<Integer, Integer> coordinates,
-        final Pair<Integer, Integer> size,
-        final int dishNumber
-    ) {
+            final Pair<Integer, Integer> coordinates,
+            final Pair<Integer, Integer> size,
+            final int dishNumber) {
         return new DishImpl(coordinates, size, dishNumber);
     }
 
@@ -59,10 +56,9 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
      */
     @Override
     public Table createTable(
-        final Pair<Integer, Integer> coordinates,
-        final Pair<Integer, Integer> size,
-        final int i
-    ) {
+            final Pair<Integer, Integer> coordinates,
+            final Pair<Integer, Integer> size,
+            final int i) {
         return new TableImpl(coordinates, size, i);
     }
 
@@ -71,11 +67,10 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
      */
     @Override
     public Waitress createWaitress(
-        final Pair<Integer, Integer> coordinates,
-        final Pair<Integer, Integer> size,
-        final Model model
-    ) {
-        return new WaitressImpl(coordinates, size, Optional.of(model));
+            final Pair<Integer, Integer> coordinates,
+            final Pair<Integer, Integer> size,
+            final Optional<Model> model) {
+        return new WaitressImpl(coordinates, size, model);
     }
 
 }

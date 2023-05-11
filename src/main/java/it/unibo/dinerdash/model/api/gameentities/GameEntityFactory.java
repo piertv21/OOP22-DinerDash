@@ -53,6 +53,6 @@ public interface GameEntityFactory {
      * 
      * @return a Waitress instance
      */
-    Waitress createWaitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Model model);
+    Waitress createWaitress(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, Optional<Model> model);
 
 }

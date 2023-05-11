@@ -134,7 +134,7 @@ public final class ModelImpl implements Model {
 
         final var waitressPosition = new Pair<Integer, Integer>(WAITRESS_STARTING_X, WAITRESS_STARTING_Y);
         final var waitressSize = new Pair<Integer, Integer>(WAITRESS_REL_WIDTH, WAITRESS_REL_HEIGH);
-        this.waitress = this.factory.createWaitress(waitressPosition, waitressSize, this);
+        this.waitress = this.factory.createWaitress(waitressPosition, waitressSize, Optional.of(this));
         this.controller.ifPresent(c -> c.addWaitressToView(waitress));
         this.lastCustomerTimeCreation = System.nanoTime();
     }
@@ -213,8 +213,8 @@ public final class ModelImpl implements Model {
      */
     @Override
     public boolean gameOver() {
-        return this.remainingTime <= 0 
-            || this.customersWhoLeft >= this.maxCustomerThatCanLeave;
+        return this.remainingTime <= 0
+                || this.customersWhoLeft >= this.maxCustomerThatCanLeave;
     }
 
     /**
@@ -513,7 +513,8 @@ public final class ModelImpl implements Model {
                     case ORDERING -> this.waitress.takeTableOrder(tables.get(indexL).getPosition());
                     case WANTING_TO_PAY -> this.waitress.collectMoney(tables.get(indexL).getPosition());
                     case WAITING_MEAL -> this.waitress.serveOrder(tables.get(indexL).getPosition());
-                    default -> { }
+                    default -> {
+                    }
                 }
             } else {
                 if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
@@ -538,9 +539,9 @@ public final class ModelImpl implements Model {
     @Override
     public void earnMoneyFromTable() {
         final var coinsEarned = random
-            .nextInt(PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1) + PROFIT_PER_TABLE_MIN;
+                .nextInt(PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1) + PROFIT_PER_TABLE_MIN;
         final var coinsEarnedWithBonus = (int) (coinsEarned
-            + (coinsEarned * PROFIT_MULTIPLIER * this.enabledCoinsMultipliers));
+                + (coinsEarned * PROFIT_MULTIPLIER * this.enabledCoinsMultipliers));
         this.setCoins(this.coins + coinsEarnedWithBonus);
     }
 

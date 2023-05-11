@@ -34,14 +34,14 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
      * 
      * @param coordinates are the waitress coordinates
      * @param size        is the waitress size
-     * @param model       is the reference to the model
+     * @param optional    is the reference to the model
      */
     public WaitressImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,
-            final Optional<Model> model) {
+            final Optional<Model> optional) {
         super(coordinates, size, STARTING_SPEED);
         this.state = WaitressState.WAITING;
         this.orderList = new LinkedList<>();
-        this.model = model;
+        this.model = optional;
     }
 
     /**
