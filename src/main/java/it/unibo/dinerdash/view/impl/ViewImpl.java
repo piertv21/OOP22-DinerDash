@@ -86,7 +86,7 @@ public class ViewImpl implements View {
     }
 
     private void showStartView() {
-        var startPanel = new StartView(this);
+        final var startPanel = new StartView(this);
         this.mainFrame.setContentPane(startPanel.getComponent());
     }
 
@@ -95,7 +95,7 @@ public class ViewImpl implements View {
      */
     @Override
     public void showGameView() {
-        var gamePanel = new GameViewImpl(this);
+        final var gamePanel = new GameViewImpl(this);
         this.mainFrame.setContentPane(gamePanel.getComponent());
         this.controller.get().start(gamePanel);
         this.gameStarted = true;
@@ -106,7 +106,7 @@ public class ViewImpl implements View {
      */
     @Override
     public void showGameOverView() {
-        var gameOverPanel = new GameOverView(this);
+        final var gameOverPanel = new GameOverView(this);
         this.mainFrame.setContentPane(gameOverPanel.getComponent());
     }
 
@@ -135,6 +135,9 @@ public class ViewImpl implements View {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void refreshView() {
         this.mainFrame.validate();

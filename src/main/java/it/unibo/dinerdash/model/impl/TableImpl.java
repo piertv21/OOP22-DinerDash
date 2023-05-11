@@ -22,7 +22,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
     private Optional<Customer> customer;
     private TableState state;
     private int seatedPeople;
-    private static final Random random = new Random();
+    private final Random random;
 
     /**
      * Create a new Table.
@@ -37,6 +37,7 @@ public class TableImpl extends AbstractGameEntity implements Table {
         this.customer = Optional.empty();
         this.timeFinishEating = Optional.empty();
         this.state = TableState.EMPTY;
+        this.random = new Random();
     }
 
     /**

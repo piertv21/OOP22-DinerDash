@@ -75,14 +75,14 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
     private final JLabel timeLabel;
     private final JLabel customerWhoLeftLabel;
     private final JLabel coinLabel;
-    private List<JButton> powerupButtons;
+    private final List<JButton> powerupButtons;
     private final JPanel rightPanel;
     private final Image backgroundImage;
-    private ImageReaderWithCache imageCacher;
+    private final ImageReaderWithCache imageCacher;
 
-    private List<ImageDecorator> customers;
-    private List<ImageDecorator> tables;
-    private List<NumberDecorator> dishes;
+    private final List<ImageDecorator> customers;
+    private final List<ImageDecorator> tables;
+    private final List<NumberDecorator> dishes;
     private NumberDecorator waitress;
     private GameEntityViewable chef;
 
@@ -585,6 +585,11 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
                 .ifPresent(button -> button.setEnabled(button.isEnabled() != active ? active : button.isEnabled()));
     }
 
+    /**
+     * Returns the component.
+     * 
+     * @return the Game view JPanel
+     */
     @Override
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This component is used in a JFrame"
         + "therefore it is necessary to provide a reference to it")

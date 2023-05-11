@@ -83,6 +83,11 @@ public class StartView implements GamePanel<JPanel> {
         this.panel.setVisible(true);
     }
 
+    /**
+     * Returns the component.
+     * 
+     * @return the Starting view JPanel
+     */
     @Override
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This component is used in a JFrame"
         + "therefore it is necessary to provide a reference to it")
