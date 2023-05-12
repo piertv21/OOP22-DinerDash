@@ -1,7 +1,5 @@
 package it.unibo.dinerdash.utility.impl;
 
-import java.net.URL;
-
 import javax.swing.ImageIcon;
 
 import it.unibo.dinerdash.utility.api.ImageReader;
@@ -37,8 +35,15 @@ public class ImageReaderImpl implements ImageReader {
      */
     @Override
     public ImageIcon readImage(final String name) {
-        final URL imgURL = ClassLoader.getSystemResource(this.root + name);
-        return new ImageIcon(imgURL);
+        try (final var inputStream = ClassLoader.getSystemResourceAsStream(this.root + name)) {
+            if (inputStream != null) {
+                return new ImageIcon(inputStream.readAllBytes());
+            }
+        } catch (Exception e) {
+            System.err.println("Error while loading the image: " + name);
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
