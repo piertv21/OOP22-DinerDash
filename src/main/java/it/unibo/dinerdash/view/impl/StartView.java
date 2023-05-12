@@ -79,8 +79,6 @@ public class StartView implements GamePanel<JPanel> {
                 exitButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
             }
         });
-
-        this.panel.setVisible(true);
     }
 
     /**
