@@ -26,7 +26,7 @@ final class CustomerTest {
 	    this.model = new ModelImpl();
         testClient1 = this.factory.createCustomer(
             new Pair<Integer, Integer>(100, 100),
-             new Pair<Integer, Integer>(100, 100),
+            new Pair<Integer, Integer>(100, 100),
             model, 2);
 	}
 
@@ -63,8 +63,10 @@ final class CustomerTest {
     @Test
     void testUpdate() {
 
-        final Customer testClient3 = this.factory.createCustomer(new Pair<Integer, Integer>(300, 300), new Pair<Integer, Integer>(100, 100),
-        model, 2);
+        final Customer testClient3 = this.factory.createCustomer(
+            new Pair<Integer, Integer>(300, 300), 
+            new Pair<Integer, Integer>(100, 100),
+            model, 2);
         final Optional<Pair<Integer, Integer>> destination = Optional.of(new Pair<Integer, Integer>(500, 300));
         testClient3.setDestination(destination);
         testClient3.update();

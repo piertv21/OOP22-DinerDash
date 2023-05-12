@@ -147,7 +147,6 @@ final class WaitressTest {
     void testIncrementSpeed() {
         testWaitress1.incrementSpeed();
         assertEquals(3, testWaitress1.getMovementSpeed());
-        
         testWaitress1.incrementSpeed();
         assertEquals(4, testWaitress1.getMovementSpeed());
     }
