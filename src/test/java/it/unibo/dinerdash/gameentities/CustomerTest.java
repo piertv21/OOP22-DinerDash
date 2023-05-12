@@ -27,7 +27,7 @@ final class CustomerTest {
         testClient1 = this.factory.createCustomer(
             new Pair<Integer, Integer>(100, 100),
             new Pair<Integer, Integer>(100, 100),
-            model, 2);
+            this.model, 2);
 	}
 
     @Test
