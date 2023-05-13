@@ -25,7 +25,7 @@ final class TableTest {
      * 
      */
     @BeforeEach
-    void setUp() {
+    void init() {
         final Pair<Integer, Integer> coordinates = new Pair<>(0, 0);
         final Pair<Integer, Integer> size = new Pair<>(1, 1);
         final int tableNumber = 1;

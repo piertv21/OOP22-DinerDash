@@ -10,6 +10,7 @@ import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 
 final class ModelTest {
+
     private static final int TABLE_NUMBER = 2;
     private Model model;
 

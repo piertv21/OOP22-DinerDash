@@ -15,10 +15,8 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 final class ChefTest {
 
-    private static final int CHEF_X = 700;
-    private static final int CHEF_Y = 50;
-    private static final int CHEF_WIDTH = 100;
-    private static final int CHEF_HEIGHT = 20;
+    private static final Pair<Integer, Integer> CHEF_POSITION = new Pair<>(700, 50);
+    private static final Pair<Integer, Integer> CHEF_SIZE = new Pair<>(100, 20);
 
     private static Chef chef;
     private static GameEntityFactory gameEntityFactory;
@@ -26,22 +24,21 @@ final class ChefTest {
     @BeforeAll
     static void init() {
         gameEntityFactory = new GameEntityFactoryImpl();
-
-        final var position = new Pair<>(CHEF_X, CHEF_Y);
-        final var size = new Pair<>(CHEF_WIDTH, CHEF_HEIGHT);
-
-        chef = gameEntityFactory.createChef(position, size, Optional.empty());
     }
 
     @Test
-    void test1() {
+    void testInitialState() {
+        chef = gameEntityFactory.createChef(CHEF_POSITION, CHEF_SIZE, Optional.empty());
+
         assertEquals(chef.getCurrentDish(), Optional.empty());
         assertEquals(chef.getTimeDishReady(), Optional.empty());
         assertEquals(chef.getEnabledPowerUps(), 0);
     }
 
     @Test
-    void test2() {
+    void testDishPreparation() {
+        chef = gameEntityFactory.createChef(CHEF_POSITION, CHEF_SIZE, Optional.empty());
+
         final var dish = gameEntityFactory.createDish(
             new Pair<>(10, 10),
             new Pair<>(10, 10),
@@ -56,15 +53,26 @@ final class ChefTest {
     }
 
     @Test
-    void test3() {
+    void testDishPreparationEnding() {
+        chef = gameEntityFactory.createChef(CHEF_POSITION, CHEF_SIZE, Optional.empty());
+
+        final var dish = gameEntityFactory.createDish(
+            new Pair<>(10, 10),
+            new Pair<>(10, 10),
+            1
+        );
+        chef.startPreparingDish(dish);
+
         chef.completeCurrentDish();
- 
         assertEquals(chef.getCurrentDish(), Optional.empty());
         assertEquals(chef.getTimeDishReady(), Optional.empty());
     }
 
     @Test
-    void test4() {
+    void testPowerUpEnabling() {
+        chef = gameEntityFactory.createChef(CHEF_POSITION, CHEF_SIZE, Optional.empty());
+        assertEquals(chef.getEnabledPowerUps(), 0);
+
         chef.reducePreparationTime();
         assertEquals(chef.getEnabledPowerUps(), 1);
 
