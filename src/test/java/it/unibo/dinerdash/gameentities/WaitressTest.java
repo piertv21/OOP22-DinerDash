@@ -34,10 +34,9 @@ final class WaitressTest {
     @BeforeEach
     void init() {
         waitress = this.factory.createWaitress(
-            new Pair<Integer, Integer>(STARTING_WAITRESS_COORDINATES, STARTING_WAITRESS_COORDINATES),
-            new Pair<Integer, Integer>(STARTING_WAITRESS_SIZE, STARTING_WAITRESS_SIZE),
-            Optional.of(new ModelImpl())
-        );
+                new Pair<Integer, Integer>(STARTING_WAITRESS_COORDINATES, STARTING_WAITRESS_COORDINATES),
+                new Pair<Integer, Integer>(STARTING_WAITRESS_SIZE, STARTING_WAITRESS_SIZE),
+                Optional.of(new ModelImpl()));
     }
 
     @Test
@@ -50,7 +49,10 @@ final class WaitressTest {
     @Test
     void testUpdate() {
         waitress.setState(WaitressState.CALLING);
-        final Table table = new TableImpl(pair1, pair2, 1);
+        Table table = this.factory.createTable(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                2);
         waitress.setPosition(table.getPosition());
 
         while (!waitress.getPosition().equals(table.getPosition())) {
@@ -94,7 +96,10 @@ final class WaitressTest {
 
     @Test
     void testAddOrderForWaitress() {
-        final Dish dish = new DishImpl(null, null, 1);
+        Dish dish = this.factory.createDish(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                1);
         waitress.addOrderForWaitress(dish);
         assertFalse(waitress.getOrderList().isEmpty());
         assertEquals(1, waitress.getOrdersNumber());
@@ -103,7 +108,10 @@ final class WaitressTest {
 
     @Test
     void testCheckRightTable() {
-        final Dish dish = new DishImpl(null, null, 1);
+        Dish dish = this.factory.createDish(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                1);
         waitress.addOrderForWaitress(dish);
         assertTrue(waitress.checkRightTable(1));
         assertFalse(waitress.checkRightTable(2));
