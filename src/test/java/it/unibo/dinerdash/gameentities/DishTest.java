@@ -33,4 +33,5 @@ final class DishTest {
     void testGetDishNumber() {
         assertEquals(dish.getDishNumber(), 1);
     }
+
 }

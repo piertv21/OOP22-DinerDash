@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.dinerdash.model.api.gameentities.Chef;
@@ -26,10 +27,13 @@ final class ChefTest {
         gameEntityFactory = new GameEntityFactoryImpl();
     }
 
+    @BeforeEach
+    void setUp() {
+        chef = gameEntityFactory.createChef(CHEF_POSITION, CHEF_SIZE, Optional.empty());
+    }
+
     @Test
     void testInitialState() {
-        chef = gameEntityFactory.createChef(CHEF_POSITION, CHEF_SIZE, Optional.empty());
-
         assertEquals(chef.getCurrentDish(), Optional.empty());
         assertEquals(chef.getTimeDishReady(), Optional.empty());
         assertEquals(chef.getEnabledPowerUps(), 0);
@@ -37,8 +41,6 @@ final class ChefTest {
 
     @Test
     void testDishPreparation() {
-        chef = gameEntityFactory.createChef(CHEF_POSITION, CHEF_SIZE, Optional.empty());
-
         final var dish = gameEntityFactory.createDish(
             new Pair<>(10, 10),
             new Pair<>(10, 10),
@@ -54,8 +56,6 @@ final class ChefTest {
 
     @Test
     void testDishPreparationEnding() {
-        chef = gameEntityFactory.createChef(CHEF_POSITION, CHEF_SIZE, Optional.empty());
-
         final var dish = gameEntityFactory.createDish(
             new Pair<>(10, 10),
             new Pair<>(10, 10),
@@ -70,7 +70,6 @@ final class ChefTest {
 
     @Test
     void testPowerUpEnabling() {
-        chef = gameEntityFactory.createChef(CHEF_POSITION, CHEF_SIZE, Optional.empty());
         assertEquals(chef.getEnabledPowerUps(), 0);
 
         chef.reducePreparationTime();

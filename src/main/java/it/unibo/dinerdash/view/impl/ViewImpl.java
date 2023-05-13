@@ -28,8 +28,6 @@ import java.util.stream.Stream;
  */
 public class ViewImpl implements View {
 
-    private static final String ROOT = "it/unibo/dinerdash/";
-
     private static final int MIN_WIDTH = 800;
     private static final int MIN_HEIGHT = 600;
 
@@ -50,7 +48,7 @@ public class ViewImpl implements View {
         this.mainFrame = new JFrame(Constants.GAME_NAME);
 
         this.controller = Optional.of(controller);
-        this.imageCacher = new ImageReaderWithCache(ROOT);
+        this.imageCacher = new ImageReaderWithCache(Constants.ROOT);
         this.widthRatio = 0;
         this.heightRatio = 0;
         this.gameStarted = false;
@@ -187,7 +185,7 @@ public class ViewImpl implements View {
 
     private void loadResources() {
         //final var path = "../../src/main/resources/" + ROOT; TODO DEBUG
-        final var path = "src/main/resources/" + ROOT;
+        final var path = Constants.RESOURCES_PATH + Constants.ROOT;
         final var assetsPath = this.searchAssets(path);
 
         final var transformedList = assetsPath.stream()
