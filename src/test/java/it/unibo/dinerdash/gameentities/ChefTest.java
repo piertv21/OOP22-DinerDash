@@ -18,7 +18,7 @@ final class ChefTest {
     private static final Pair<Integer, Integer> CHEF_POSITION = new Pair<>(700, 50);
     private static final Pair<Integer, Integer> CHEF_SIZE = new Pair<>(100, 20);
 
-    private static Chef chef;
+    private Chef chef;
     private static GameEntityFactory gameEntityFactory;
 
     @BeforeAll
