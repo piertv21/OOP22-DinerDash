@@ -48,17 +48,27 @@ final class CountertopTest {
     }
 
     @Test
-    void testGetNextDishToPrepare() {
-        final var dishPosition = new Pair<>(START_DISH_REL_X, START_DISH_REL_Y);
-        final var dishSize = new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT);
-        final var dish = this.gameEntityFactory.createDish(dishPosition, dishSize, 1);
-        System.out.println(countertop.getNextDishToPrepare().get());
-        //assertEquals(countertop.getNextDishToPrepare(), Optional.of(dish));
+    void test3() {
+        final var dish = gameEntityFactory.createDish(
+            new Pair<>(START_DISH_REL_X, START_DISH_REL_Y),
+            new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT),
+            1
+        );
+        final var dishFromList = countertop.getNextDishToPrepare().get();
+
+        assertEquals(dishFromList.getDishNumber(), dish.getDishNumber());
+        assertEquals(dishFromList.getPosition(), dish.getPosition());
+        assertEquals(dishFromList.getSize(), dish.getSize());
     }
 
     @Test
-    void testSetDishReady() {
-
+    void test4() {
+        final var dish = gameEntityFactory.createDish(
+            new Pair<>(START_DISH_REL_X, START_DISH_REL_Y),
+            new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT),
+            1
+        );
+        assertEquals(countertop.setDishReady(dish), true);
     }
 
     @Test

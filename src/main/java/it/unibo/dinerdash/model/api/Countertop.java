@@ -52,6 +52,6 @@ public interface Countertop {
      * 
      * @param dish indicates the dish to be set as ready
     */
-    void setDishReady(Dish dish);
+    boolean setDishReady(Dish dish);
 
 }
