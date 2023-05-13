@@ -186,7 +186,8 @@ public class ViewImpl implements View {
     }
 
     private void loadResources() {
-        final var path = "../../src/main/resources/" + ROOT;
+        //final var path = "../../src/main/resources/" + ROOT; TODO DEBUG
+        final var path = "src/main/resources/" + ROOT;
         final var assetsPath = this.searchAssets(path);
 
         final var transformedList = assetsPath.stream()

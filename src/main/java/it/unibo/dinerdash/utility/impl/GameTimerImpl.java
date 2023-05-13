@@ -5,7 +5,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.utility.api.GameTimer;
 
 /**
@@ -20,15 +19,15 @@ public class GameTimerImpl implements GameTimer {
 
     private Optional<ScheduledExecutorService> executorService;
     private Runnable updateTask;
-    private final Optional<Model> model;
+    private final Runnable function;
 
     /**
      * Class constructor.
      * 
      * @param model is the Model from which a method is called
      */
-    public GameTimerImpl(final Model model) {
-        this.model = Optional.of(model);
+    public GameTimerImpl(final Runnable function) {
+        this.function = function;
         this.executorService = Optional.empty();
     }
 
@@ -42,7 +41,7 @@ public class GameTimerImpl implements GameTimer {
         if (executorService.isEmpty() || executorService.get().isShutdown()) {
             executorService = Optional.of(Executors.newSingleThreadScheduledExecutor());
             updateTask = () -> {
-                model.get().decrementRemainingTime();
+                function.run();
             };
             executorService.get().scheduleAtFixedRate(updateTask, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
         }

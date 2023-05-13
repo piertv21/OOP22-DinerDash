@@ -68,7 +68,7 @@ public class ControllerImpl implements Controller {
         this.gameLoop = new GameLoopImpl(this);
         this.gameLoop.start();
 
-        this.gameTimer = new GameTimerImpl(this.model);
+        this.gameTimer = new GameTimerImpl(() -> this.model.decrementRemainingTime());
         gameTimer.startTimer();
 
         this.gameView.render();
