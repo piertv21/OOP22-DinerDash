@@ -182,7 +182,7 @@ public interface Model {
      * @param pos is the position
      * @return is the table from the table list
      */
-    Table getTablefromPositon(Pair<Integer, Integer> pos);
+    Table getTablefromPosition(Pair<Integer, Integer> pos);
 
     /**
      * Set new state to a table.

@@ -89,14 +89,14 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
                 state = CustomerState.THINKING;
                 this.setPosition(this.getDestination().get());
                 this.setActive(false); 
-                final int sittedTable = this.model.get().getTablefromPositon(getPosition()).getTableNumber();
+                final int sittedTable = this.model.get().getTablefromPosition(getPosition()).getTableNumber();
                 this.model.get().setTableState(TableState.THINKING, sittedTable);
                 this.model.get().setNumberOfClientsAtTable(numberClients, sittedTable);
             }
         } else if (state.equals(CustomerState.THINKING)) {
             if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(timeBeforeOrder) + this.startThinkTime) {
                 state = CustomerState.ORDERING;
-                final int sittedTable = this.model.get().getTablefromPositon(getPosition()).getTableNumber();
+                final int sittedTable = this.model.get().getTablefromPosition(getPosition()).getTableNumber();
                 this.model.get().setTableState(TableState.ORDERING, sittedTable);
             }
         } else if (state.equals(CustomerState.LINE)) {

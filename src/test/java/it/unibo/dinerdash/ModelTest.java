@@ -1,11 +1,13 @@
 package it.unibo.dinerdash;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.gameentities.Table;
 import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
 
@@ -129,8 +131,12 @@ final class ModelTest {
     }
 
     @Test
-    void testGetTablefromPositon() {
-
+    void testGetTablefromPosition() {
+        Table checkTable =  this.model.getTableList().get(0);
+        Table checkTable2 =  this.model.getTableList().get(1);
+        assertEquals(checkTable, this.model.getTablefromPosition(checkTable.getPosition()));
+        assertEquals(checkTable2, this.model.getTablefromPosition(checkTable2.getPosition()));
+        assertNotEquals(checkTable, this.model.getTablefromPosition(checkTable2.getPosition()));
     }
 
     @Test

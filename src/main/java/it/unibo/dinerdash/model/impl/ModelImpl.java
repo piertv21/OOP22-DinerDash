@@ -485,7 +485,7 @@ public final class ModelImpl implements Model {
      * {@inheritDoc}
      */
     @Override
-    public Table getTablefromPositon(final Pair<Integer, Integer> pos) {
+    public Table getTablefromPosition(final Pair<Integer, Integer> pos) {
         return this.tables.stream().filter(t -> t.getPosition().equals(pos)).findFirst().get();
     }
 

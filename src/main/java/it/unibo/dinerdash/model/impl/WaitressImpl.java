@@ -59,12 +59,12 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
                     && getPosition().getY() >= this.getDestination().get().getY() - ADJUST_POSITION) {
                 if (state.equals(WaitressState.CALLING)) {
                     state = WaitressState.WAITING;
-                    model.get().sendOrder(model.get().getTablefromPositon(getDestination().get()).getTableNumber());
+                    model.get().sendOrder(model.get().getTablefromPosition(getDestination().get()).getTableNumber());
                 } else if (state.equals(WaitressState.TAKING_DISH)) {
                     orderList.add(model.get().takeDishFromPosition(getDestination().get()).get());
                     state = WaitressState.WAITING;
                 } else if (state.equals(WaitressState.SERVING)) {
-                    serveTable = model.get().getTablefromPositon(getDestination().get()).getTableNumber();
+                    serveTable = model.get().getTablefromPosition(getDestination().get()).getTableNumber();
                     if (this.checkRightTable(serveTable)) {
                         this.model.get().setTableState(TableState.EATING, serveTable);
 
@@ -76,7 +76,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
                 } else if (state.equals(WaitressState.TAKING_MONEY)) {
                     this.model.get().earnMoneyFromTable();
                     state = WaitressState.WAITING;
-                    serveTable = model.get().getTablefromPositon(getDestination().get()).getTableNumber();
+                    serveTable = model.get().getTablefromPosition(getDestination().get()).getTableNumber();
                     this.model.get().setTableState(TableState.EMPTY, serveTable);
                 }
             }
