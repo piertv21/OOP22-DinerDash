@@ -1,6 +1,7 @@
 package it.unibo.dinerdash;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,10 @@ final class ImageReaderTest {
 
     @Test
     void testReadImage() {
-        final var image = imageReader.readImage("background.jpg");
-        assertNotEquals(image, null);
+        assertThrows(NullPointerException.class, () -> {
+            imageReader.readImage("randomImageName.jpg");
+        });
+        assertNotNull(imageReader.readImage("background.jpg"));
     }
 
 }
