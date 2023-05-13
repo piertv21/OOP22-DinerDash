@@ -8,10 +8,13 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.gameentities.Customer;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.api.gameentities.Table;
 import it.unibo.dinerdash.model.api.states.TableState;
-import it.unibo.dinerdash.model.impl.CustomerImpl;
+import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.model.impl.TableImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
@@ -20,6 +23,8 @@ import it.unibo.dinerdash.utility.impl.Pair;
  */
 final class TableTest {
     private Table table = new TableImpl(null, null, 0);
+    private final GameEntityFactory factory = new GameEntityFactoryImpl();
+    private Model model;
 
     /**
      * 
@@ -46,7 +51,11 @@ final class TableTest {
      */
     @Test
     void testSetAndGetCustomer() {
-        final Customer customer = new CustomerImpl(null, null, null, 0);
+        this.model = new ModelImpl();
+        Customer customer = this.factory.createCustomer(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                model, 2);
         table.setCustom(Optional.of(customer));
         assertTrue(table.getCustomer().isPresent());
         assertEquals(customer, table.getCustomer().get());
@@ -74,7 +83,10 @@ final class TableTest {
      */
     @Test
     void testStartEating() {
-        final Table table = new TableImpl(new Pair<>(0, 0), new Pair<>(2, 2), 1);
+        Table table = this.factory.createTable(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                2);
         table.startEating();
         final Optional<Long> timeFinishEating = ((TableImpl) table).getTimeFinishEating();
         assertTrue(timeFinishEating.isPresent());
@@ -87,7 +99,10 @@ final class TableTest {
      */
     @Test
     void testUpdate() {
-        final Table table = new TableImpl(new Pair<>(0, 0), new Pair<>(2, 2), 1);
+        Table table = this.factory.createTable(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                2);
         table.startEating();
         final Optional<Long> timeFinishEating = ((TableImpl) table).getTimeFinishEating();
         table.update();
@@ -106,7 +121,5 @@ final class TableTest {
         assertEquals("wantToPay", table.getStateInText());
         table.setState(TableState.EATING);
         assertEquals("eating", table.getStateInText());
-        // table.setState(null);
-        // assertEquals("null", table.getStateInText());
     }
 }
