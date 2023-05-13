@@ -9,7 +9,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.dinerdash.model.api.Model;
 import it.unibo.dinerdash.model.api.gameentities.Dish;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
@@ -21,134 +20,101 @@ import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.model.impl.TableImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/**
- * 
- */
 final class WaitressTest {
 
-    private static Optional<Model> model;
-    private Waitress testWaitress1;
-    private static final int STARTING_WAITIMPL_SIZE = 50;
-    private static final int STARTING_WAITIMPL_COORDINATES = 0;
-    private static final int DISH_READY = 100;
+    private Waitress waitress;
+    private static final int STARTING_WAITRESS_SIZE = 50;
+    private static final int STARTING_WAITRESS_COORDINATES = 0;
+    private static final int DISH_SIZE = 100;
     private static final int PAIR_POSITION = 200;
     private final Pair<Integer, Integer> pair1 = new Pair<>(0, 0);
     private final Pair<Integer, Integer> pair2 = new Pair<>(0, 0);
     private final GameEntityFactory factory = new GameEntityFactoryImpl();
 
-    /**
-     * 
-     */
     @BeforeEach
-    void setUp() {
-        model = Optional.of(new ModelImpl());
-        testWaitress1 = this.factory.createWaitress(
-                new Pair<Integer, Integer>(STARTING_WAITIMPL_COORDINATES, STARTING_WAITIMPL_COORDINATES),
-                new Pair<Integer, Integer>(STARTING_WAITIMPL_SIZE, STARTING_WAITIMPL_SIZE), model);
+    void init() {
+        waitress = this.factory.createWaitress(
+            new Pair<Integer, Integer>(STARTING_WAITRESS_COORDINATES, STARTING_WAITRESS_COORDINATES),
+            new Pair<Integer, Integer>(STARTING_WAITRESS_SIZE, STARTING_WAITRESS_SIZE),
+            Optional.of(new ModelImpl())
+        );
     }
 
-    /**
-     * 
-     */
     @Test
     void testInitialState() {
-        assertEquals(WaitressState.WAITING, testWaitress1.getState());
-        assertTrue(testWaitress1.getOrderList().isEmpty());
-        assertEquals(2, testWaitress1.getMovementSpeed());
+        assertEquals(WaitressState.WAITING, waitress.getState());
+        assertTrue(waitress.getOrderList().isEmpty());
+        assertEquals(2, waitress.getMovementSpeed());
     }
 
-    /**
-     * 
-     */
     @Test
     void testUpdate() {
-        testWaitress1.setState(WaitressState.CALLING);
+        waitress.setState(WaitressState.CALLING);
         final Table table = new TableImpl(pair1, pair2, 1);
-        testWaitress1.setPosition(table.getPosition());
+        waitress.setPosition(table.getPosition());
 
-        while (!testWaitress1.getPosition().equals(table.getPosition())) {
-            testWaitress1.update();
+        while (!waitress.getPosition().equals(table.getPosition())) {
+            waitress.update();
         }
-        assertEquals(WaitressState.CALLING, testWaitress1.getState());
+        assertEquals(WaitressState.CALLING, waitress.getState());
 
     }
 
-    /**
-     * 
-     */
     @Test
     void testGoGetDish() {
-        final Pair<Integer, Integer> dishReady = new Pair<>(DISH_READY, DISH_READY);
-        testWaitress1.goGetDish(dishReady);
-        assertEquals(dishReady, testWaitress1.getDestination().get());
-        assertEquals(WaitressState.TAKING_DISH, testWaitress1.getState());
+        final Pair<Integer, Integer> dishReady = new Pair<>(DISH_SIZE, DISH_SIZE);
+        waitress.goGetDish(dishReady);
+        assertEquals(dishReady, waitress.getDestination().get());
+        assertEquals(WaitressState.TAKING_DISH, waitress.getState());
     }
 
-    /**
-     * 
-     */
     @Test
     void testTakeTableOrder() {
         final Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
-        testWaitress1.takeTableOrder(position);
-        assertEquals(position, testWaitress1.getDestination().get());
-        assertEquals(WaitressState.CALLING, testWaitress1.getState());
+        waitress.takeTableOrder(position);
+        assertEquals(position, waitress.getDestination().get());
+        assertEquals(WaitressState.CALLING, waitress.getState());
     }
 
-    /**
-     * 
-     */
     @Test
     void testServeOrder() {
         final Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
-        testWaitress1.serveOrder(position);
-        assertEquals(position, testWaitress1.getDestination().get());
-        assertEquals(WaitressState.SERVING, testWaitress1.getState());
+        waitress.serveOrder(position);
+        assertEquals(position, waitress.getDestination().get());
+        assertEquals(WaitressState.SERVING, waitress.getState());
     }
 
-    /**
-     * 
-     */
     @Test
     void testCollectMoney() {
         final Pair<Integer, Integer> position = new Pair<>(PAIR_POSITION, PAIR_POSITION);
-        testWaitress1.collectMoney(position);
-        assertEquals(position, testWaitress1.getDestination().get());
-        assertEquals(WaitressState.TAKING_MONEY, testWaitress1.getState());
+        waitress.collectMoney(position);
+        assertEquals(position, waitress.getDestination().get());
+        assertEquals(WaitressState.TAKING_MONEY, waitress.getState());
     }
 
-    /**
-     * 
-     */
     @Test
     void testAddOrderForWaitress() {
         final Dish dish = new DishImpl(null, null, 1);
-        testWaitress1.addOrderForWaitress(dish);
-        assertFalse(testWaitress1.getOrderList().isEmpty());
-        assertEquals(1, testWaitress1.getOrdersNumber());
-        assertTrue(testWaitress1.getOrderList().contains(dish));
+        waitress.addOrderForWaitress(dish);
+        assertFalse(waitress.getOrderList().isEmpty());
+        assertEquals(1, waitress.getOrdersNumber());
+        assertTrue(waitress.getOrderList().contains(dish));
     }
 
-    /**
-     * 
-     */
     @Test
     void testCheckRightTable() {
         final Dish dish = new DishImpl(null, null, 1);
-        testWaitress1.addOrderForWaitress(dish);
-        assertTrue(testWaitress1.checkRightTable(1));
-        assertFalse(testWaitress1.checkRightTable(2));
+        waitress.addOrderForWaitress(dish);
+        assertTrue(waitress.checkRightTable(1));
+        assertFalse(waitress.checkRightTable(2));
     }
 
-    /**
-     * 
-     */
     @Test
     void testIncrementSpeed() {
-        testWaitress1.incrementSpeed();
-        assertEquals(3, testWaitress1.getMovementSpeed());
-        testWaitress1.incrementSpeed();
-        assertEquals(4, testWaitress1.getMovementSpeed());
+        waitress.incrementSpeed();
+        assertEquals(3, waitress.getMovementSpeed());
+        waitress.incrementSpeed();
+        assertEquals(4, waitress.getMovementSpeed());
     }
 
 }

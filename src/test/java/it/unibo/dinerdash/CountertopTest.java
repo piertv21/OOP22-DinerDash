@@ -1,6 +1,8 @@
 package it.unibo.dinerdash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
@@ -33,19 +35,19 @@ final class CountertopTest {
 
     @Test
     void test1() {
-        assertEquals(countertop.thereAreDishesToPrepare(), false);
+        assertFalse(countertop.thereAreDishesToPrepare());
         assertEquals(countertop.getNextDishToPrepare(), Optional.empty());
 
-        assertEquals(countertop.addOrder(1), true);
-        assertEquals(countertop.addOrder(2), true);
-        assertEquals(countertop.addOrder(3), true);
-        assertEquals(countertop.addOrder(4), true);
-        assertEquals(countertop.addOrder(FIVE), false);
+        assertTrue(countertop.addOrder(1));
+        assertTrue(countertop.addOrder(2));
+        assertTrue(countertop.addOrder(3));
+        assertTrue(countertop.addOrder(4));
+        assertFalse(countertop.addOrder(FIVE));
     }
 
     @Test
     void test2() {
-        assertEquals(countertop.thereAreDishesToPrepare(), true);
+        assertTrue(countertop.thereAreDishesToPrepare());
     }
 
     @Test

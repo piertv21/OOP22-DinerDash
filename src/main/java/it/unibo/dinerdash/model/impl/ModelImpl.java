@@ -144,7 +144,8 @@ public final class ModelImpl implements Model {
         final var tables = IntStream.range(0, TABLES)
                 .boxed()
                 .map(i -> {
-                    final int x = (int) (TABLE_STARTING_REL_X + (i % (TABLES / 2)) * TABLES_HORIZONTAL_PADDING);
+                    final int remainder = i % (TABLES / 2);
+                    final int x = (int) (TABLE_STARTING_REL_X + remainder * TABLES_HORIZONTAL_PADDING);
                     final int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
                     final Pair<Integer, Integer> coordinates = new Pair<>(x, y);
                     final Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
