@@ -30,7 +30,7 @@ public class CountertopImpl implements Countertop {
     private final GameEntityFactory factory;
 
     private final List<Dish> dishes;
-    private final Model model;
+    private final Optional<Model> model;
 
     /**
      * Class constructor.
@@ -38,7 +38,7 @@ public class CountertopImpl implements Countertop {
      * @param model is the model
      */
     public CountertopImpl(final Model model) {
-        this.model = model;
+        this.model = Optional.of(model);
         this.dishes = new LinkedList<>();
         this.factory = new GameEntityFactoryImpl();
     }
@@ -57,7 +57,7 @@ public class CountertopImpl implements Countertop {
             final var dish = this.factory.createDish(dishPosition, dishSize, tableNumber);
 
             this.dishes.add(dish);
-            this.model.addDishToView(dish);
+            this.model.get().addDishToView(dish);
         }
     }
 
@@ -85,7 +85,7 @@ public class CountertopImpl implements Countertop {
                 .findFirst()
                 .map(dish -> {
                     final var dishIndex = this.dishes.indexOf(dish);
-                    this.model.removeDishInView(dishIndex);
+                    this.model.get().removeDishInView(dishIndex);
                     dishes.remove(dish);
                     return dish;
                 });
@@ -125,7 +125,7 @@ public class CountertopImpl implements Countertop {
         final var oldDishIndex = this.dishes.indexOf(dish);
         final var dishInList = this.dishes.get(oldDishIndex);
         dishInList.setActive(true);
-        this.model.updateDishInView(oldDishIndex, dishInList);
+        this.model.get().updateDishInView(oldDishIndex, dishInList);
     }
 
 }

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 final class DirectionTest {
 
-    private static Direction direction;
+    private Direction direction;
 
     @Test
     void testUp() {
