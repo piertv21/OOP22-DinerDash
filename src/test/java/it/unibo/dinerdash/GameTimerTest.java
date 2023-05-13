@@ -12,6 +12,9 @@ import it.unibo.dinerdash.utility.impl.GameTimerImpl;
 final class GameTimerTest {
 
     private static final int TOLERANCE = 300;
+    private static final int HALF = 500;
+    private static final int ONE = 1000;
+    private static final int TWO = 2000;
     private static GameTimer gameTimer;
     private static AtomicInteger testValue;
 
@@ -25,7 +28,7 @@ final class GameTimerTest {
     void testStartTimer() throws InterruptedException {
         final var value = testValue.get();
         gameTimer.startTimer();
-        Thread.sleep(1000 + TOLERANCE);
+        Thread.sleep(ONE + TOLERANCE);
         gameTimer.stopTimer();
 
         assertEquals(value - 1, testValue.get());
@@ -36,7 +39,7 @@ final class GameTimerTest {
         final var value = testValue.get();
 
         gameTimer.startTimer();
-        Thread.sleep(2000 + TOLERANCE);
+        Thread.sleep(TWO + TOLERANCE);
         gameTimer.pauseTimer();
 
         assertEquals(value - 2, testValue.get());
@@ -47,7 +50,7 @@ final class GameTimerTest {
         final var value = testValue.get();
 
         gameTimer.restartTimer();
-        Thread.sleep(1000 + TOLERANCE);
+        Thread.sleep(ONE + TOLERANCE);
         gameTimer.stopTimer();
 
         assertEquals(value - 1, testValue.get());
@@ -58,11 +61,11 @@ final class GameTimerTest {
         final var value = testValue.get();
         gameTimer.startTimer();
 
-        Thread.sleep(1000 + TOLERANCE);
+        Thread.sleep(ONE + TOLERANCE);
         gameTimer.pauseTimer();
-        Thread.sleep(500);
+        Thread.sleep(HALF);
         gameTimer.resumeTimer();
-        Thread.sleep(1000 + TOLERANCE);
+        Thread.sleep(ONE + TOLERANCE);
         gameTimer.stopTimer();
 
         assertEquals(value - 2, testValue.get());
