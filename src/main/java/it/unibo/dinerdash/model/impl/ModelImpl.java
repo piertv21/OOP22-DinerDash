@@ -249,7 +249,7 @@ public final class ModelImpl implements Model {
     @Override
     public void sendOrder(final int tableNumber) {
         final var result = this.counterTop.addOrder(tableNumber);
-        if(result) {
+        if (result) {
             this.setTableState(TableState.WAITING_MEAL, tableNumber);
         } else {
             throw new IllegalStateException("Dish cannot be added.");

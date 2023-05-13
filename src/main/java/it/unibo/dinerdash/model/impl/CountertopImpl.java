@@ -123,8 +123,8 @@ public class CountertopImpl implements Countertop {
      * {@inheritDoc}
      */
     @Override
-    public boolean setDishReady(final int dishNumber) {
-        Optional<Dish> dishOptional = dishes.stream()
+    public void setDishReady(final int dishNumber) {
+        final Optional<Dish> dishOptional = dishes.stream()
                 .filter(dish -> dish.getDishNumber() == dishNumber)
                 .findFirst();
 
@@ -133,9 +133,7 @@ public class CountertopImpl implements Countertop {
             final int dishIndex = dishes.indexOf(dish);
             dish.setActive(true);
             model.ifPresent(m -> m.updateDishInView(dishIndex, dish));
-            return true;
         }
-        return false;
     }
 
 }

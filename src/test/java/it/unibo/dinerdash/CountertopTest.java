@@ -1,5 +1,6 @@
 package it.unibo.dinerdash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Optional;
 
@@ -17,7 +18,6 @@ final class CountertopTest {
 
     private static final int START_DISH_REL_X = (int) (0.37 * Constants.RESTAURANT_WIDTH);
     private static final int START_DISH_REL_Y = (int) (0.19 * Constants.RESTAURANT_HEIGHT);
-    private static final int DISHES_X_PADDING = (int) (0.06 * Constants.RESTAURANT_WIDTH);
     private static final int DISH_REL_WIDTH = (int) (0.04 * Constants.RESTAURANT_WIDTH);
     private static final int DISH_REL_HEIGHT = (int) (0.07 * Constants.RESTAURANT_HEIGHT);
 
@@ -63,12 +63,18 @@ final class CountertopTest {
 
     @Test
     void test4() {
-        assertEquals(countertop.setDishReady(1), true);
+        countertop.setDishReady(1);
+        
+        assertEquals(countertop.getNextDishToPrepare().get().getDishNumber(), 2);
     }
 
     @Test
     void test5() {
-
+        var coord = new Pair<>(1, 1);
+        assertEquals(countertop.takeDish(coord), Optional.empty());
+        
+        coord = new Pair<>(START_DISH_REL_X, START_DISH_REL_Y);
+        assertNotEquals(countertop.takeDish(coord), Optional.empty());
     }
 
 }

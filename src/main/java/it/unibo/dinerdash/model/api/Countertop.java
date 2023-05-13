@@ -14,6 +14,7 @@ public interface Countertop {
      * This method adds an order for a given table to the countertop.
      *
      * @param tableNumber the number of the table that placed the order
+     * @return true if the countertop has enough space
      */
     boolean addOrder(int tableNumber);
 
@@ -51,7 +52,7 @@ public interface Countertop {
      * This method sets a dish on the countertop as ready.
      * 
      * @param dishNumber indicates the number of the dish to be set as ready
-    */
-    boolean setDishReady(int dishNumber);
+     */
+    void setDishReady(int dishNumber);
 
 }
