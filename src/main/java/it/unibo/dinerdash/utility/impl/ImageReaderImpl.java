@@ -35,15 +35,8 @@ public class ImageReaderImpl implements ImageReader {
      */
     @Override
     public ImageIcon readImage(final String name) {
-        try (final var inputStream = ClassLoader.getSystemResourceAsStream(this.root + name)) {
-            if (inputStream != null) {
-                return new ImageIcon(inputStream.readAllBytes());
-            }
-        } catch (Exception e) {
-            System.err.println("Error while loading the image: " + name);
-            e.printStackTrace();
-        }
-        return null;
+        final var imgURL = ClassLoader.getSystemResource(this.root + name);
+        return new ImageIcon(imgURL);
     }
 
 }
