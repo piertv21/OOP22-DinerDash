@@ -2,7 +2,6 @@ package it.unibo.dinerdash.utility.impl;
 
 import javax.swing.ImageIcon;
 
-import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.utility.api.ImageReader;
 
 import java.util.HashMap;
@@ -47,7 +46,7 @@ public class ImageReaderWithCache implements ImageReader {
     private String extractImageNameFromPath(final String path) {
         return Stream.of(path.trim())
             .map(p -> p.substring(0, p.lastIndexOf(".")))
-            .map(p -> p.substring(p.lastIndexOf(Constants.SEP) + 1))
+            .map(p -> p.substring(p.lastIndexOf("/") + 1))
             .findFirst()
             .orElse(path);
     }

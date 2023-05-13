@@ -28,7 +28,7 @@ import java.util.stream.Stream;
  */
 public class ViewImpl implements View {
 
-    private static final String ROOT = "it" + Constants.SEP + "unibo" + Constants.SEP + "dinerdash" + Constants.SEP;
+    private static final String ROOT = "it/unibo/dinerdash/";
 
     private static final int MIN_WIDTH = 800;
     private static final int MIN_HEIGHT = 600;
@@ -186,9 +186,14 @@ public class ViewImpl implements View {
     }
 
     private void loadResources() {
-        final var path = "src" + Constants.SEP + "main" + Constants.SEP + "resources" + Constants.SEP + ROOT;
+        final var path = "../../src/main/resources/" + ROOT;
         final var assetsPath = this.searchAssets(path);
-        assetsPath.forEach(this.imageCacher::readImage);
+
+        final var transformedList = assetsPath.stream()
+            .map(s -> s.replace('\\', '/'))
+            .collect(Collectors.toList());
+
+        transformedList.forEach(this.imageCacher::readImage);
     }
 
     private List<String> searchAssets(final String path) {
