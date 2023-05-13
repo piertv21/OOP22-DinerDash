@@ -132,8 +132,8 @@ final class ModelTest {
 
     @Test
     void testGetTablefromPosition() {
-        Table checkTable =  this.model.getTableList().get(0);
-        Table checkTable2 =  this.model.getTableList().get(1);
+        final Table checkTable =  this.model.getTableList().get(0);
+        final Table checkTable2 =  this.model.getTableList().get(1);
         assertEquals(checkTable, this.model.getTablefromPosition(checkTable.getPosition()));
         assertEquals(checkTable2, this.model.getTablefromPosition(checkTable2.getPosition()));
         assertNotEquals(checkTable, this.model.getTablefromPosition(checkTable2.getPosition()));
