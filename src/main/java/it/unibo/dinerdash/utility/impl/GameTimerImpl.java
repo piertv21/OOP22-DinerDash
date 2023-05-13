@@ -24,7 +24,7 @@ public class GameTimerImpl implements GameTimer {
     /**
      * Class constructor.
      * 
-     * @param model is the Model from which a method is called
+     * @param function is the method which is called
      */
     public GameTimerImpl(final Runnable function) {
         this.function = function;
@@ -33,8 +33,6 @@ public class GameTimerImpl implements GameTimer {
 
     /**
      * {@inheritDoc}
-     * 
-     * Here it should be specified which model method to call.
      */
     @Override
     public void startTimer() {
