@@ -101,7 +101,7 @@ public final class ModelImpl implements Model {
         this.customers = new LinkedList<>();
         this.tables = new LinkedList<>();
         this.powerUps = new HashMap<>();
-        this.counterTop = new CountertopImpl(this);
+        this.counterTop = new CountertopImpl(Optional.of(this));
         this.factory = new GameEntityFactoryImpl();
         this.controller = Optional.empty();
         this.random = new Random();
@@ -248,8 +248,12 @@ public final class ModelImpl implements Model {
      */
     @Override
     public void sendOrder(final int tableNumber) {
-        this.counterTop.addOrder(tableNumber);
-        this.setTableState(TableState.WAITING_MEAL, tableNumber);
+        final var result = this.counterTop.addOrder(tableNumber);
+        if(result) {
+            this.setTableState(TableState.WAITING_MEAL, tableNumber);
+        } else {
+            throw new IllegalStateException("Dish cannot be added.");
+        }
     }
 
     private void addCustomer() {

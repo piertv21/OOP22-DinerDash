@@ -37,8 +37,8 @@ public class CountertopImpl implements Countertop {
      * 
      * @param model is the model
      */
-    public CountertopImpl(final Model model) {
-        this.model = Optional.of(model);
+    public CountertopImpl(final Optional<Model> model) {
+        this.model = model;
         this.dishes = new LinkedList<>();
         this.factory = new GameEntityFactoryImpl();
     }
@@ -47,7 +47,7 @@ public class CountertopImpl implements Countertop {
      * {@inheritDoc}
      */
     @Override
-    public void addOrder(final int tableNumber) {
+    public boolean addOrder(final int tableNumber) {
         if (this.dishes.size() < MAX_COUNTERTOP_DISHES) {
 
             final var coordX = this.getFirstFreeX();
@@ -57,8 +57,10 @@ public class CountertopImpl implements Countertop {
             final var dish = this.factory.createDish(dishPosition, dishSize, tableNumber);
 
             this.dishes.add(dish);
-            this.model.get().addDishToView(dish);
+            this.model.ifPresent(m -> m.addDishToView(dish));
+            return true;
         }
+        return false;
     }
 
     private int getFirstFreeX() {
@@ -81,11 +83,11 @@ public class CountertopImpl implements Countertop {
     @Override
     public Optional<Dish> takeDish(final Pair<Integer, Integer> coordinates) {
         return this.dishes.stream()
-                .filter(dish -> dish.getPosition().equals(coordinates))
+                .filter(dish -> dish.getPosition().equals(coordinates) && dish.isActive())
                 .findFirst()
                 .map(dish -> {
                     final var dishIndex = this.dishes.indexOf(dish);
-                    this.model.get().removeDishInView(dishIndex);
+                    this.model.ifPresent(m -> m.removeDishInView(dishIndex));
                     dishes.remove(dish);
                     return dish;
                 });
@@ -125,7 +127,7 @@ public class CountertopImpl implements Countertop {
         final var oldDishIndex = this.dishes.indexOf(dish);
         final var dishInList = this.dishes.get(oldDishIndex);
         dishInList.setActive(true);
-        this.model.get().updateDishInView(oldDishIndex, dishInList);
+        this.model.ifPresent(m -> m.updateDishInView(oldDishIndex, dishInList));
     }
 
 }

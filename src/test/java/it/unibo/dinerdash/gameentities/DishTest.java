@@ -10,7 +10,7 @@ import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-public class DishTest {
+final class DishTest {
 
     private static final int DISH_X = 100;
     private static final int DISH_Y = 150;

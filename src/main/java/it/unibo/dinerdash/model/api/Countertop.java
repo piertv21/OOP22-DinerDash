@@ -15,7 +15,7 @@ public interface Countertop {
      *
      * @param tableNumber the number of the table that placed the order
      */
-    void addOrder(int tableNumber);
+    boolean addOrder(int tableNumber);
 
     /**
      * This method takes a dish from the countertop base on the given pair of coordinates.
