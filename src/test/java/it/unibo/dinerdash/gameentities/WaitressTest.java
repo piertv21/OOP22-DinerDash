@@ -15,9 +15,7 @@ import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.api.gameentities.Table;
 import it.unibo.dinerdash.model.api.gameentities.Waitress;
 import it.unibo.dinerdash.model.api.states.WaitressState;
-import it.unibo.dinerdash.model.impl.DishImpl;
 import it.unibo.dinerdash.model.impl.ModelImpl;
-import it.unibo.dinerdash.model.impl.TableImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
 final class WaitressTest {
@@ -27,8 +25,6 @@ final class WaitressTest {
     private static final int STARTING_WAITRESS_COORDINATES = 0;
     private static final int DISH_SIZE = 100;
     private static final int PAIR_POSITION = 200;
-    private final Pair<Integer, Integer> pair1 = new Pair<>(0, 0);
-    private final Pair<Integer, Integer> pair2 = new Pair<>(0, 0);
     private final GameEntityFactory factory = new GameEntityFactoryImpl();
 
     @BeforeEach
