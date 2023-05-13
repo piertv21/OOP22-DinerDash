@@ -11,11 +11,6 @@ public final class Constants {
     public static final String GAME_NAME = "Diner Dash";
 
     /**
-     * File separator.
-     */
-    public static final String SEP = System.getProperty("file.separator");
-
-    /**
      * Game Font.
      */
     public static final String GAME_FONT = "Arial";
