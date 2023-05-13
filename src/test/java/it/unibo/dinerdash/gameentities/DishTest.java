@@ -26,11 +26,11 @@ final class DishTest {
         final var position = new Pair<>(DISH_X, DISH_Y);
         final var size = new Pair<>(DISH_SIZE, DISH_SIZE);
 
-        dish = gameEntityFactory.createDish(position, size, 21);
+        dish = gameEntityFactory.createDish(position, size, 1);
     }
-    
+
     @Test
     void testGetDishNumber() {
-        assertEquals(dish.getDishNumber(), 21);
+        assertEquals(dish.getDishNumber(), 1);
     }
 }

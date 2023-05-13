@@ -18,17 +18,17 @@ import it.unibo.dinerdash.utility.impl.Pair;
 final class CustomerTest {
     private Model model;
     private Customer testClient1;
-    private static final  Optional<Pair<Integer, Integer>> DESTINATION = Optional.of(new Pair<Integer, Integer>(200, 300));
-    private final GameEntityFactory factory =  new GameEntityFactoryImpl();
+    private static final Optional<Pair<Integer, Integer>> DESTINATION = Optional.of(new Pair<Integer, Integer>(200, 300));
+    private final GameEntityFactory factory = new GameEntityFactoryImpl();
 
     @BeforeEach
     void init() {
-	    this.model = new ModelImpl();
+        this.model = new ModelImpl();
         testClient1 = this.factory.createCustomer(
             new Pair<Integer, Integer>(100, 100),
             new Pair<Integer, Integer>(100, 100),
             this.model, 2);
-	}
+    }
 
     @Test
     void testGetDestination() {
@@ -38,7 +38,7 @@ final class CustomerTest {
 
     @Test
     void testGetPosition() {
-       assertEquals(new Pair<Integer, Integer>(100, 100), testClient1.getPosition());
+        assertEquals(new Pair<Integer, Integer>(100, 100), testClient1.getPosition());
     }
 
     @Test
@@ -64,7 +64,7 @@ final class CustomerTest {
     void testUpdate() {
 
         final Customer testClient3 = this.factory.createCustomer(
-            new Pair<Integer, Integer>(300, 300), 
+            new Pair<Integer, Integer>(300, 300),
             new Pair<Integer, Integer>(100, 100),
             model, 2);
         final Optional<Pair<Integer, Integer>> destination = Optional.of(new Pair<Integer, Integer>(500, 300));
@@ -80,7 +80,7 @@ final class CustomerTest {
     @Test
     void testUpdate2() {
         final Customer testClient4 = this.factory.createCustomer(DESTINATION.get(), new Pair<Integer, Integer>(100, 100),
-        model, 2);
+                model, 2);
         final Optional<Pair<Integer, Integer>> destination = Optional.of(new Pair<Integer, Integer>(200, 400));
         testClient4.setDestination(destination);
         testClient4.update();

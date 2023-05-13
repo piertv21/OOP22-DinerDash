@@ -20,6 +20,7 @@ final class CountertopTest {
     private static final int START_DISH_REL_Y = (int) (0.19 * Constants.RESTAURANT_HEIGHT);
     private static final int DISH_REL_WIDTH = (int) (0.04 * Constants.RESTAURANT_WIDTH);
     private static final int DISH_REL_HEIGHT = (int) (0.07 * Constants.RESTAURANT_HEIGHT);
+    private static final int FIVE = 5;
 
     private static Countertop countertop;
     private static GameEntityFactory gameEntityFactory;
@@ -39,7 +40,7 @@ final class CountertopTest {
         assertEquals(countertop.addOrder(2), true);
         assertEquals(countertop.addOrder(3), true);
         assertEquals(countertop.addOrder(4), true);
-        assertEquals(countertop.addOrder(5), false);
+        assertEquals(countertop.addOrder(FIVE), false);
     }
 
     @Test
@@ -64,7 +65,7 @@ final class CountertopTest {
     @Test
     void test4() {
         countertop.setDishReady(1);
-        
+
         assertEquals(countertop.getNextDishToPrepare().get().getDishNumber(), 2);
     }
 
@@ -72,7 +73,7 @@ final class CountertopTest {
     void test5() {
         var coord = new Pair<>(1, 1);
         assertEquals(countertop.takeDish(coord), Optional.empty());
-        
+
         coord = new Pair<>(START_DISH_REL_X, START_DISH_REL_Y);
         assertNotEquals(countertop.takeDish(coord), Optional.empty());
     }
