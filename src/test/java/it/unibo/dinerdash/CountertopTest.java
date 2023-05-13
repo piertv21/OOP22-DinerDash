@@ -63,16 +63,11 @@ final class CountertopTest {
 
     @Test
     void test4() {
-        final var dish = gameEntityFactory.createDish(
-            new Pair<>(START_DISH_REL_X, START_DISH_REL_Y),
-            new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT),
-            1
-        );
-        assertEquals(countertop.setDishReady(dish), true);
+        assertEquals(countertop.setDishReady(1), true);
     }
 
     @Test
-    void testTakeDish() {
+    void test5() {
 
     }
 

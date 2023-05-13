@@ -569,8 +569,8 @@ public final class ModelImpl implements Model {
      * {@inheritDoc}
      */
     @Override
-    public void completeDishPreparation(final Dish dish) {
-        this.counterTop.setDishReady(dish);
+    public void completeDishPreparation(final int dishNumber) {
+        this.counterTop.setDishReady(dishNumber);
     }
 
     /**

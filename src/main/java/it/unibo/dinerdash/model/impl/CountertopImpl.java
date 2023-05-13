@@ -123,12 +123,16 @@ public class CountertopImpl implements Countertop {
      * {@inheritDoc}
      */
     @Override
-    public boolean setDishReady(final Dish dish) {
-        if (this.dishes.contains(dish)) {
-            final var oldDishIndex = this.dishes.indexOf(dish);
-            final var dishInList = this.dishes.get(oldDishIndex);
-            dishInList.setActive(true);
-            this.model.ifPresent(m -> m.updateDishInView(oldDishIndex, dishInList));
+    public boolean setDishReady(final int dishNumber) {
+        Optional<Dish> dishOptional = dishes.stream()
+                .filter(dish -> dish.getDishNumber() == dishNumber)
+                .findFirst();
+
+        if (dishOptional.isPresent()) {
+            final var dish = dishOptional.get();
+            final int dishIndex = dishes.indexOf(dish);
+            dish.setActive(true);
+            model.ifPresent(m -> m.updateDishInView(dishIndex, dish));
             return true;
         }
         return false;

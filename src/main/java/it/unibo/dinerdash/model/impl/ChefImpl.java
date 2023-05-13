@@ -94,7 +94,7 @@ public class ChefImpl extends AbstractGameEntity implements Chef {
      */
     @Override
     public void completeCurrentDish() {
-        this.model.ifPresent(m -> m.completeDishPreparation(this.currentDish.get()));
+        this.model.ifPresent(m -> m.completeDishPreparation(this.currentDish.get().getDishNumber()));
 
         this.currentDish = Optional.empty();
         this.timeDishReady = Optional.empty();

@@ -50,8 +50,8 @@ public interface Countertop {
     /**
      * This method sets a dish on the countertop as ready.
      * 
-     * @param dish indicates the dish to be set as ready
+     * @param dishNumber indicates the number of the dish to be set as ready
     */
-    boolean setDishReady(Dish dish);
+    boolean setDishReady(int dishNumber);
 
 }

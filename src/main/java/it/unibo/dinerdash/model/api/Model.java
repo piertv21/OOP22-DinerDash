@@ -225,9 +225,9 @@ public interface Model {
     /**
      * Complete the preparation of one dish.
      * 
-     * @param dish is the dish that will be ready
+     * @param dishNumber is the number of the dish that will be ready
      */
-    void completeDishPreparation(Dish dish);
+    void completeDishPreparation(int dishNumber);
 
     /**
      * It handles the earn generation when a table finish eating.
