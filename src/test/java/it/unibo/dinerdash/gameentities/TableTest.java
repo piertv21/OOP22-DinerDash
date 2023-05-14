@@ -25,10 +25,10 @@ final class TableTest {
 
     @BeforeEach
     void init() {
-        final Pair<Integer, Integer> coordinates = new Pair<>(0, 0);
-        final Pair<Integer, Integer> size = new Pair<>(1, 1);
-        final int tableNumber = 1;
-        table = new TableImpl(coordinates, size, tableNumber);
+        table = this.factory.createTable(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                2);
     }
 
     @Test
