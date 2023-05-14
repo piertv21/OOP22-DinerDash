@@ -28,7 +28,7 @@ final class TableTest {
         table = this.factory.createTable(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
-                2);
+                1);
     }
 
     @Test
