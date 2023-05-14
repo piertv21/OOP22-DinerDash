@@ -18,17 +18,11 @@ import it.unibo.dinerdash.model.impl.ModelImpl;
 import it.unibo.dinerdash.model.impl.TableImpl;
 import it.unibo.dinerdash.utility.impl.Pair;
 
-/**
- * 
- */
 final class TableTest {
     private Table table = new TableImpl(null, null, 0);
     private final GameEntityFactory factory = new GameEntityFactoryImpl();
     private Model model;
 
-    /**
-     * 
-     */
     @BeforeEach
     void init() {
         final Pair<Integer, Integer> coordinates = new Pair<>(0, 0);
@@ -37,18 +31,12 @@ final class TableTest {
         table = new TableImpl(coordinates, size, tableNumber);
     }
 
-    /**
-     * 
-     */
     @Test
     void testSetAndGetState() {
         table.setState(TableState.ORDERING);
         assertEquals(TableState.ORDERING, table.getState());
     }
 
-    /**
-     * 
-     */
     @Test
     void testSetAndGetCustomer() {
         this.model = new ModelImpl();
@@ -61,26 +49,17 @@ final class TableTest {
         assertEquals(customer, table.getCustomer().get());
     }
 
-    /**
-     * 
-     */
     @Test
     void testGetTableNumber() {
         assertEquals(1, table.getTableNumber());
     }
 
-    /**
-     * 
-     */
     @Test
     void testSetAndGetSeatedPeople() {
         table.setSeatedPeople(2);
         assertEquals(2, table.getPeopleSeatedNumber());
     }
 
-    /**
-     * 
-     */
     @Test
     void testStartEating() {
         Table table = this.factory.createTable(
@@ -94,9 +73,6 @@ final class TableTest {
 
     }
 
-    /**
-     * 
-     */
     @Test
     void testUpdate() {
         Table table = this.factory.createTable(
@@ -110,9 +86,6 @@ final class TableTest {
         assertTrue(timeFinishEating.isPresent());
     }
 
-    /**
-     * 
-     */
     @Test
     void testGetStateInText() {
         table.setState(TableState.ORDERING);
