@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.dinerdash.model.api.Constants;
@@ -29,12 +30,16 @@ final class CountertopTest {
 
     @BeforeAll
     static void init() {
-        countertop = new CountertopImpl(Optional.empty());
         gameEntityFactory = new GameEntityFactoryImpl();
     }
 
+    @BeforeEach
+    void setUp() {
+        countertop = new CountertopImpl(Optional.empty());
+    }
+
     @Test
-    void test1() {
+    void testInitialState() {
         assertFalse(countertop.thereAreDishesToPrepare());
         assertEquals(countertop.getNextDishToPrepare(), Optional.empty());
 
@@ -46,12 +51,15 @@ final class CountertopTest {
     }
 
     @Test
-    void test2() {
+    void testAddOrder() {
+        assertTrue(countertop.addOrder(1));
         assertTrue(countertop.thereAreDishesToPrepare());
     }
 
     @Test
-    void test3() {
+    void testGetNextDishToPrepare() {
+        assertTrue(countertop.addOrder(1));
+
         final var dish = gameEntityFactory.createDish(
             new Pair<>(START_DISH_REL_X, START_DISH_REL_Y),
             new Pair<>(DISH_REL_WIDTH, DISH_REL_HEIGHT),
@@ -65,14 +73,19 @@ final class CountertopTest {
     }
 
     @Test
-    void test4() {
-        countertop.setDishReady(1);
+    void testSetDishReady() {
+        assertTrue(countertop.addOrder(1));
+        assertTrue(countertop.addOrder(2));
 
+        countertop.setDishReady(1);
         assertEquals(countertop.getNextDishToPrepare().get().getDishNumber(), 2);
     }
 
     @Test
-    void test5() {
+    void testTakeDish() {
+        assertTrue(countertop.addOrder(1));
+        countertop.setDishReady(1);
+
         var coord = new Pair<>(1, 1);
         assertEquals(countertop.takeDish(coord), Optional.empty());
 
