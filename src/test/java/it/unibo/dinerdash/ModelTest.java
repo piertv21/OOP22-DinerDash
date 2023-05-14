@@ -2,19 +2,28 @@ package it.unibo.dinerdash;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
+import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.api.gameentities.Table;
+import it.unibo.dinerdash.model.api.gameentities.Waitress;
 import it.unibo.dinerdash.model.api.states.TableState;
+import it.unibo.dinerdash.model.api.states.WaitressState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
+import it.unibo.dinerdash.utility.impl.Pair;
 
 final class ModelTest {
 
     private static final int TABLE_NUMBER = 2;
     private Model model;
+    private final GameEntityFactory factory = new GameEntityFactoryImpl();
 
     @BeforeEach
     void init() {
@@ -132,8 +141,8 @@ final class ModelTest {
 
     @Test
     void testGetTablefromPosition() {
-        final Table checkTable =  this.model.getTableList().get(0);
-        final Table checkTable2 =  this.model.getTableList().get(1);
+        final Table checkTable = this.model.getTableList().get(0);
+        final Table checkTable2 = this.model.getTableList().get(1);
         assertEquals(checkTable, this.model.getTablefromPosition(checkTable.getPosition()));
         assertEquals(checkTable2, this.model.getTablefromPosition(checkTable2.getPosition()));
         assertNotEquals(checkTable, this.model.getTablefromPosition(checkTable2.getPosition()));
@@ -157,7 +166,7 @@ final class ModelTest {
 
     @Test
     void testIncreaseMaxCustomerThatCanLeave() {
-        final int coin = 600; 
+        final int coin = 600;
         final int expectMaxCust = 12;
         assertEquals(10, model.getCustomerWhoCanLeft());
         this.model.increaseMaxCustomerThatCanLeave();
@@ -195,6 +204,14 @@ final class ModelTest {
 
     @Test
     void testSendOrder() {
+        Table table = this.factory.createTable(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                1);
+        // Add an order for table 1
+        this.model.sendOrder(1);
+        // Verify that the table state is set to WAITING_MEAL
+        assertEquals(TableState.WAITING_MEAL, table.getState());
 
     }
 
@@ -224,12 +241,31 @@ final class ModelTest {
 
     @Test
     void testSetWaiterssInfo() {
+        Table table = this.factory.createTable(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                1);
+
+        Waitress waitress = this.factory.createWaitress(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                Optional.of(model));
+        model.setWaiterssInfo(1, "aaa", new Pair<Integer, Integer>(100, 100));
+        assertEquals(WaitressState.WAITING, waitress.getState());
+        assertEquals(TableState.EMPTY, table.getState());
 
     }
 
     @Test
     void testSetWaitressTableDestination() {
-
+        Waitress waitress = this.factory.createWaitress(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                Optional.of(model));
+        // Add an order for table 1
+        model.setWaitressTableDestination(new Pair<Integer, Integer>(100, 100));
+        // Verify that the table state is set to WAITING_MEAL
+        assertEquals(WaitressState.WAITING, waitress.getState());
     }
 
     @Test
@@ -254,7 +290,7 @@ final class ModelTest {
 
     @Test
     void testThereAreAvaibleTables() {
-
+        assertTrue(model.thereAreAvaibleTables());
     }
 
     @Test
