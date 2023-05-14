@@ -45,7 +45,7 @@ final class WaitressTest {
     @Test
     void testUpdate() {
         waitress.setState(WaitressState.CALLING);
-        Table table = this.factory.createTable(
+        final Table table = this.factory.createTable(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 2);
@@ -92,7 +92,7 @@ final class WaitressTest {
 
     @Test
     void testAddOrderForWaitress() {
-        Dish dish = this.factory.createDish(
+        final Dish dish = this.factory.createDish(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 1);
@@ -104,7 +104,7 @@ final class WaitressTest {
 
     @Test
     void testCheckRightTable() {
-        Dish dish = this.factory.createDish(
+        final Dish dish = this.factory.createDish(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 1);

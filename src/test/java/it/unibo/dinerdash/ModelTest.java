@@ -236,12 +236,12 @@ final class ModelTest {
 
     @Test
     void testSetWaiterssInfo() {
-        Table table = this.factory.createTable(
+        final Table table = this.factory.createTable(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 1);
 
-        Waitress waitress = this.factory.createWaitress(
+        final Waitress waitress = this.factory.createWaitress(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 Optional.of(model));
@@ -253,7 +253,7 @@ final class ModelTest {
 
     @Test
     void testSetWaitressTableDestination() {
-        Waitress waitress = this.factory.createWaitress(
+        final Waitress waitress = this.factory.createWaitress(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 Optional.of(model));

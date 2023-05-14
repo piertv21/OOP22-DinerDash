@@ -40,7 +40,7 @@ final class TableTest {
     @Test
     void testSetAndGetCustomer() {
         this.model = new ModelImpl();
-        Customer customer = this.factory.createCustomer(
+        final Customer customer = this.factory.createCustomer(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 model, 2);
@@ -62,7 +62,7 @@ final class TableTest {
 
     @Test
     void testStartEating() {
-        Table table = this.factory.createTable(
+        final Table table = this.factory.createTable(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 2);
@@ -75,7 +75,7 @@ final class TableTest {
 
     @Test
     void testUpdate() {
-        Table table = this.factory.createTable(
+        final Table table = this.factory.createTable(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 2);
