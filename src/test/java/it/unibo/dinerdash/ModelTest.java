@@ -204,14 +204,9 @@ final class ModelTest {
 
     @Test
     void testSendOrder() {
-        Table table = this.factory.createTable(
-                new Pair<Integer, Integer>(100, 100),
-                new Pair<Integer, Integer>(100, 100),
-                1);
-        // Add an order for table 1
+        this.model.setTableState(TableState.THINKING, 1);
         this.model.sendOrder(1);
-        // Verify that the table state is set to WAITING_MEAL
-        assertEquals(TableState.WAITING_MEAL, table.getState());
+        assertEquals(TableState.WAITING_MEAL, this.model.getTableList().get(0).getState());
 
     }
 
