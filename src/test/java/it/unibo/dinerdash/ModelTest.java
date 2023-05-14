@@ -280,7 +280,11 @@ final class ModelTest {
 
     @Test
     void testTakeDishFromPosition() {
-
+        final Table table = this.factory.createTable(
+                new Pair<Integer, Integer>(100, 100),
+                new Pair<Integer, Integer>(100, 100),
+                1);
+        assertEquals(Optional.empty(), this.model.takeDishFromPosition(table.getPosition()));
     }
 
     @Test
