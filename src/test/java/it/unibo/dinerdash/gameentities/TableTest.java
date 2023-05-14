@@ -29,6 +29,8 @@ final class TableTest {
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 1);
+        this.model = new ModelImpl();
+        this.model.start();
     }
 
     @Test
