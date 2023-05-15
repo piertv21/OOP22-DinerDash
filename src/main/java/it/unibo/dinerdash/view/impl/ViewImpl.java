@@ -1,25 +1,24 @@
 package it.unibo.dinerdash.view.impl;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.dinerdash.controller.api.Controller;
-import it.unibo.dinerdash.model.api.Constants;
-import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
-import it.unibo.dinerdash.view.api.View;
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import it.unibo.dinerdash.controller.api.Controller;
+import it.unibo.dinerdash.model.api.Constants;
+import it.unibo.dinerdash.utility.impl.ImageReaderWithCache;
+import it.unibo.dinerdash.view.api.View;
 
 /**
  * {@inheritDoc}
@@ -78,7 +77,9 @@ public class ViewImpl implements View {
             }
         });
 
-        this.loadResources();
+        final var assets = allAssetsRelativePath();
+        assets.forEach(this.imageCacher::readImage);
+
         this.showStartView();
         this.mainFrame.setVisible(true);
     }
@@ -183,36 +184,37 @@ public class ViewImpl implements View {
         return this.widthRatio;
     }
 
-    private void loadResources() {
-        //final var path = "../../src/main/resources/" + ROOT; TODO DEBUG
-        final var path = Constants.RESOURCES_PATH + Constants.ROOT;
-        final var assetsPath = this.searchAssets(path);
-
-        final var transformedList = assetsPath.stream()
-            .map(s -> s.replace('\\', '/'))
-            .collect(Collectors.toList());
-
-        transformedList.forEach(this.imageCacher::readImage);
+    private List<String> generateAssetPaths(final String pattern, final int starting, final int ending) {
+        return IntStream.rangeClosed(starting, ending)
+                .mapToObj(i -> String.format(pattern, i))
+                .collect(Collectors.toList());
     }
 
-    private List<String> searchAssets(final String path) {
-        return Optional.ofNullable(new File(path).listFiles())
-            .map(Arrays::stream)
-            .orElse(Stream.empty())
-            .flatMap(file -> getFilesRecursively(file, path))
-            .filter(file -> file.getName().matches("(?i).+\\.(jpg|jpeg|png|gif)$"))
-            .map(File::getPath)
-            .collect(Collectors.toList());
-    }
+    private List<String> allAssetsRelativePath() {
+        final List<String> assets = new ArrayList<>();
 
-    private Stream<File> getFilesRecursively(final File file, final String basePath) {
-        final String filePath = file.getPath();
-        final String relativePath = filePath.substring(basePath.length());
-        return file.isDirectory() ? Optional.ofNullable(file.listFiles())
-            .map(Arrays::stream)
-            .orElse(Stream.empty())
-            .flatMap(f -> getFilesRecursively(f, basePath))
-            : Stream.of(new File(relativePath));
+        assets.addAll(
+            generateAssetPaths("customers/customer%d.png", 1, 4));
+        assets.addAll(
+            generateAssetPaths("dishes/dish%d.png", 1, 4));
+        assets.addAll(
+            generateAssetPaths("hearts/heart%d.png", 0, 6));
+        assets.addAll(
+            generateAssetPaths("powerups/powerUp%d.png", 1, 4));
+        assets.addAll(
+            generateAssetPaths("tables/table%d.png", 0, 4));
+        assets.addAll(
+            generateAssetPaths("tables/withDish/tableWithDish%d.png", 1, 4));
+        assets.addAll(
+            generateAssetPaths("waitress/waitress%d.png", 0, 2));
+        assets.add("tables/tableStates/wantToOrder.png");
+        assets.add("tables/tableStates/wantToPay.png");
+        assets.add("cursors/defaultCursor.png");
+        assets.add("cursors/handCursor.png");
+        assets.add("background.jpg");
+        assets.add("chef.gif");
+
+        return assets;
     }
 
     /**

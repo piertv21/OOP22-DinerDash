@@ -69,7 +69,7 @@ public final class ModelImpl implements Model {
     private static final int WAITRESS_MAX_DISHES = 2;
 
     private static final int CHEF_REL_X = (int) (0.65 * Constants.RESTAURANT_WIDTH);
-    private static final int CHEF_REL_Y = (int) (0.0735 * Constants.RESTAURANT_HEIGHT);
+    private static final int CHEF_REL_Y = (int) (0.074 * Constants.RESTAURANT_HEIGHT);
     private static final int CHEF_REL_WIDTH = (int) (0.12 * Constants.RESTAURANT_WIDTH);
     private static final int CHEF_REL_HEIGHT = (int) (0.17 * Constants.RESTAURANT_HEIGHT);
 
