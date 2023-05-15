@@ -63,6 +63,7 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
     private static final int BORDER_SIZE = 25;
     private static final int INSETS_TOP = 6;
     private static final double FONT_SIZE_REL = 0.04;
+    private static final int CURSOR_SIZE = 32;
 
     private static final int CUSTOMER_PATIENCE_REL_POSITION = (int) (Constants.RESTAURANT_WIDTH * -0.01);
     private static final int TABLE_STATE_PATTER = (int) (Constants.RESTAURANT_WIDTH * 0.03);
@@ -114,78 +115,78 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
                 g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
 
                 g.drawImage(waitress.getIcon(),
-                        (int) (waitress.getPosition().getX() * widthRatio),
-                        (int) (waitress.getPosition().getY() * heightRatio),
-                        (int) (waitress.getSize().getX() * widthRatio),
-                        (int) (waitress.getSize().getY() * heightRatio),
-                        this);
+                    (int) (waitress.getPosition().getX() * widthRatio),
+                    (int) (waitress.getPosition().getY() * heightRatio),
+                    (int) (waitress.getSize().getX() * widthRatio),
+                    (int) (waitress.getSize().getY() * heightRatio),
+                this);
 
                 tables.stream().filter(t -> t.getPosition() != null)
-                        .forEach(e -> {
-                            g.drawImage(e.getIcon(),
-                                (int) (e.getPosition().getX() * widthRatio),
-                                (int) (e.getPosition().getY() * heightRatio),
-                                (int) (e.getSize().getX() * widthRatio),
-                                (int) (e.getSize().getY() * heightRatio),
-                            this);
+                    .forEach(e -> {
+                        g.drawImage(e.getIcon(),
+                            (int) (e.getPosition().getX() * widthRatio),
+                            (int) (e.getPosition().getY() * heightRatio),
+                            (int) (e.getSize().getX() * widthRatio),
+                            (int) (e.getSize().getY() * heightRatio),
+                        this);
 
-                            if (e.getState().isPresent()) {
-                                g.drawImage(e.getState().get(),
-                                        (int) ((e.getPosition().getX() + (TABLE_STATE_PATTER * widthRatio)) * widthRatio),
-                                        (int) (e.getPosition().getY() * heightRatio),
-                                        (int) (TABLE_STATE_IMG_SIZE.getX() * widthRatio),
-                                        (int) (TABLE_STATE_IMG_SIZE.getY() * heightRatio),
-                                        this);
-                            }
-                        });
+                        if (e.getState().isPresent()) {
+                            g.drawImage(e.getState().get(),
+                                (int) ((e.getPosition().getX() + (TABLE_STATE_PATTER * widthRatio)) * widthRatio),
+                                (int) (e.getPosition().getY() * heightRatio),
+                                (int) (TABLE_STATE_IMG_SIZE.getX() * widthRatio),
+                                (int) (TABLE_STATE_IMG_SIZE.getY() * heightRatio),
+                            this);
+                        }
+                    });
 
                 customers.stream().filter(cus -> cus.isActive()
-                        && ((NumberDecorator) cus.getDecorated()).getNumber() == MAX_PATIECE)
-                        .forEach(c -> {
-                            g.drawImage(c.getIcon(), (int) (c.getPosition().getX() * widthRatio),
-                                    (int) (c.getPosition().getY() * heightRatio),
-                                    (int) (c.getSize().getX() * widthRatio),
-                                    (int) (c.getSize().getY() * heightRatio),
-                                    this);
-                        });
+                    && ((NumberDecorator) cus.getDecorated()).getNumber() == MAX_PATIECE)
+                    .forEach(c -> {
+                        g.drawImage(c.getIcon(),
+                            (int) (c.getPosition().getX() * widthRatio),
+                            (int) (c.getPosition().getY() * heightRatio),
+                            (int) (c.getSize().getX() * widthRatio),
+                            (int) (c.getSize().getY() * heightRatio),
+                        this);
+                    });
 
                 final var streamLineCustomer = customers.stream()
-                        .filter(cus -> cus.isActive()
-                                && ((NumberDecorator) cus.getDecorated()).getNumber() != MAX_PATIECE);
+                    .filter(cus -> cus.isActive() && ((NumberDecorator) cus.getDecorated()).getNumber() != MAX_PATIECE);
                 final var list = streamLineCustomer.collect(Collectors.toList());
 
                 Collections.reverse(list);
                 list.forEach(c -> {
                     g.drawImage(c.getIcon(),
-                            (int) (c.getPosition().getX() * widthRatio),
-                            (int) (c.getPosition().getY() * heightRatio),
-                            (int) (c.getSize().getX() * widthRatio),
-                            (int) (c.getSize().getY() * heightRatio),
-                            this);
+                        (int) (c.getPosition().getX() * widthRatio),
+                        (int) (c.getPosition().getY() * heightRatio),
+                        (int) (c.getSize().getX() * widthRatio),
+                        (int) (c.getSize().getY() * heightRatio),
+                    this);
 
                     g.drawImage(c.getState().get(),
-                            (int) ((c.getPosition().getX() - CUSTOMER_PATIENCE_REL_POSITION) * widthRatio),
-                            (int) ((c.getPosition().getY() + CUSTOMER_PATIENCE_REL_POSITION) * heightRatio),
-                            (int) (CUSTOMER_PATIENCE_IMG_SIZE.getX() * widthRatio),
-                            (int) (CUSTOMER_PATIENCE_IMG_SIZE.getY() * heightRatio),
-                            this);
+                        (int) ((c.getPosition().getX() - CUSTOMER_PATIENCE_REL_POSITION) * widthRatio),
+                        (int) ((c.getPosition().getY() + CUSTOMER_PATIENCE_REL_POSITION) * heightRatio),
+                        (int) (CUSTOMER_PATIENCE_IMG_SIZE.getX() * widthRatio),
+                        (int) (CUSTOMER_PATIENCE_IMG_SIZE.getY() * heightRatio),
+                    this);
                 });
 
                 if (chef.isActive()) {
                     g.drawImage(chef.getIcon(),
-                            (int) (chef.getPosition().getX() * widthRatio),
-                            (int) (chef.getPosition().getY() * heightRatio),
-                            (int) (chef.getSize().getX() * widthRatio),
-                            (int) (chef.getSize().getY() * heightRatio),
+                        (int) (chef.getPosition().getX() * widthRatio),
+                        (int) (chef.getPosition().getY() * heightRatio),
+                        (int) (chef.getSize().getX() * widthRatio),
+                        (int) (chef.getSize().getY() * heightRatio),
                     this);
                 }
 
                 dishes.stream().filter(dish -> dish.isActive()).forEach(dish ->
                     g.drawImage(dish.getIcon(),
-                            (int) (dish.getPosition().getX() * widthRatio),
-                            (int) (dish.getPosition().getY() * heightRatio),
-                            (int) (dish.getSize().getX() * widthRatio),
-                            (int) (dish.getSize().getY() * heightRatio),
+                        (int) (dish.getPosition().getX() * widthRatio),
+                        (int) (dish.getPosition().getY() * heightRatio),
+                        (int) (dish.getSize().getX() * widthRatio),
+                        (int) (dish.getSize().getY() * heightRatio),
                     this)
                 );
             }
@@ -274,10 +275,14 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
         this.panel.add(rightPanel, BorderLayout.EAST);
 
         final var point = new Point(0, 0);
+        Image defaultCursorImage = this.imageCacher.getCachedImage("defaultCursor").getImage();
+        Image handCursorImage = this.imageCacher.getCachedImage("handCursor").getImage();
+        defaultCursorImage = defaultCursorImage.getScaledInstance(CURSOR_SIZE, CURSOR_SIZE, Image.SCALE_SMOOTH);
+        handCursorImage = handCursorImage.getScaledInstance(CURSOR_SIZE, CURSOR_SIZE, Image.SCALE_SMOOTH);
         this.defaultCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-                this.imageCacher.getCachedImage("defaultCursor").getImage(), point, "Default Cursor");
+                defaultCursorImage, point, "Default Cursor");
         this.handCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-                this.imageCacher.getCachedImage("handCursor").getImage(), point, "Hand Cursor");
+                handCursorImage, point, "Hand Cursor");
 
         this.panel.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
@@ -287,8 +292,8 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
 
                 panel.setCursor(
                     tables.stream().anyMatch(table -> inside(mouseX, mouseY, table))
-                    || dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
-                    ? handCursor : defaultCursor
+                        || dishes.stream().anyMatch(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
+                            ? handCursor : defaultCursor
                 );
             }
         });
@@ -300,14 +305,14 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
                 final int mouseY = e.getY();
 
                 tables.stream()
-                        .filter(table -> inside(mouseX, mouseY, table))
-                        .findFirst()
-                        .ifPresent(table -> controller.callWaitress(tables.indexOf(table), "table", null));
+                    .filter(table -> inside(mouseX, mouseY, table))
+                    .findFirst()
+                    .ifPresent(table -> controller.callWaitress(tables.indexOf(table), "table", null));
 
                 dishes.stream()
-                        .filter(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
-                        .findFirst()
-                        .ifPresent(dish -> controller.callWaitress(dishes.indexOf(dish), "dish", dish.getPosition()));
+                    .filter(dish -> inside(mouseX, mouseY, dish) && dish.isActive())
+                    .findFirst()
+                    .ifPresent(dish -> controller.callWaitress(dishes.indexOf(dish), "dish", dish.getPosition()));
             }
         });
 

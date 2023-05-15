@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +15,7 @@ import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.api.gameentities.Table;
 import it.unibo.dinerdash.model.api.gameentities.Waitress;
+import it.unibo.dinerdash.model.api.states.GameState;
 import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.model.api.states.WaitressState;
 import it.unibo.dinerdash.model.impl.ModelImpl;
@@ -23,10 +25,15 @@ final class ModelTest {
 
     private static final int TABLE_NUMBER = 2;
     private Model model;
-    private final GameEntityFactory factory = new GameEntityFactoryImpl();
+    private static GameEntityFactory factory;
+
+    @BeforeAll
+    static void init() {
+        factory = new GameEntityFactoryImpl();
+    }
 
     @BeforeEach
-    void init() {
+    void setUp() {
         this.model = new ModelImpl();
         this.model.start();
     }
@@ -75,12 +82,19 @@ final class ModelTest {
 
     @Test
     void testDecrementRemainingTime() {
-
+        assertEquals(300, model.getRemainingTime());
+        model.decrementRemainingTime();
+        assertEquals(299, model.getRemainingTime());
+        model.decrementRemainingTime();
+        model.decrementRemainingTime();
+        assertEquals(297, model.getRemainingTime());
     }
 
     @Test
     void testEarnMoneyFromTable() {
-
+        assertEquals(0, model.getCoins());
+        model.earnMoneyFromTable();
+        assertNotEquals(0, model.getCoins());
     }
 
     @Test
@@ -90,7 +104,7 @@ final class ModelTest {
 
     @Test
     void testGetCoins() {
-
+        assertEquals(0, model.getCoins());
     }
 
     @Test
@@ -120,13 +134,15 @@ final class ModelTest {
 
     @Test
     void testGetGameState() {
-
+        assertEquals(GameState.RUNNING, model.getGameState());
+        model.setGameState(GameState.ENDED);
+        assertEquals(GameState.ENDED, model.getGameState());
     }
 
     @Test
     void testGetHeight() {
-        final int exeptHeight = 720;
-        assertEquals(exeptHeight, model.getHeight());
+        final int expectedHeight = 720;
+        assertEquals(expectedHeight, model.getHeight());
     }
 
     @Test
@@ -136,7 +152,7 @@ final class ModelTest {
 
     @Test
     void testGetRemainingTime() {
-
+        assertEquals(300, model.getRemainingTime());
     }
 
     @Test
@@ -150,8 +166,8 @@ final class ModelTest {
 
     @Test
     void testGetWidth() {
-        final int exeptWidth = 1280;
-        assertEquals(exeptWidth, model.getWidth());
+        final int expectedWidth = 1280;
+        assertEquals(expectedWidth, model.getWidth());
     }
 
     @Test
@@ -174,7 +190,6 @@ final class ModelTest {
         this.model.setCoins(coin);
         this.model.increaseMaxCustomerThatCanLeave();
         assertEquals(expectMaxCust, model.getCustomerWhoCanLeft());
-
     }
 
     @Test
@@ -212,7 +227,9 @@ final class ModelTest {
 
     @Test
     void testSetCoins() {
-
+        assertEquals(0, model.getCoins());
+        model.setCoins(200);
+        assertEquals(200, model.getCoins());
     }
 
     @Test
@@ -236,16 +253,16 @@ final class ModelTest {
 
     @Test
     void testSetWaiterssInfo() {
-        final Table table = this.factory.createTable(
+        final Table table = factory.createTable(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 1);
 
-        final Waitress waitress = this.factory.createWaitress(
+        final Waitress waitress = factory.createWaitress(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 Optional.of(model));
-        model.setWaiterssInfo(1, "aaa", new Pair<Integer, Integer>(100, 100));
+        model.setWaiterssInfo(1, "table", new Pair<Integer, Integer>(100, 100));
         assertEquals(WaitressState.WAITING, waitress.getState());
         assertEquals(TableState.EMPTY, table.getState());
 
@@ -253,7 +270,7 @@ final class ModelTest {
 
     @Test
     void testSetWaitressTableDestination() {
-        final Waitress waitress = this.factory.createWaitress(
+        final Waitress waitress = factory.createWaitress(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 Optional.of(model));
@@ -280,7 +297,7 @@ final class ModelTest {
 
     @Test
     void testTakeDishFromPosition() {
-        final Table table = this.factory.createTable(
+        final Table table = factory.createTable(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 1);
@@ -306,4 +323,5 @@ final class ModelTest {
     void testUpdateDishInView() {
 
     }
+
 }
