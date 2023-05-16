@@ -46,15 +46,17 @@ final class ModelTest {
 
     @Test
     void testAddMaxCustomerThatCanLeave() {
-        assertEquals(10, model.getCustomerWhoCanLeft());
+        final var customerThatCanLeave = 10;
+        assertEquals(customerThatCanLeave, model.getCustomerWhoCanLeft());
         model.addMaxCustomerThatCanLeave(2);
-        assertEquals(12, model.getCustomerWhoCanLeft());
+        assertEquals(customerThatCanLeave + 2, model.getCustomerWhoCanLeft());
     }
 
     @Test
     void testCanActivatePowerUp() {
+        final var coins = 150;
         assertFalse(model.canActivatePowerUp(100));
-        model.setCoins(150);
+        model.setCoins(coins);
         assertTrue(model.canActivatePowerUp(100));
     }
 
@@ -82,12 +84,13 @@ final class ModelTest {
 
     @Test
     void testDecrementRemainingTime() {
-        assertEquals(300, model.getRemainingTime());
+        final var initialTime = 300;
+        assertEquals(initialTime, model.getRemainingTime());
         model.decrementRemainingTime();
-        assertEquals(299, model.getRemainingTime());
+        assertEquals(initialTime - 1, model.getRemainingTime());
         model.decrementRemainingTime();
         model.decrementRemainingTime();
-        assertEquals(297, model.getRemainingTime());
+        assertEquals(initialTime - 3, model.getRemainingTime());
     }
 
     @Test
@@ -99,13 +102,14 @@ final class ModelTest {
 
     @Test
     void testGameOver() {
+        final var initialTime = 300;
         IntStream.range(0, 10)
             .forEach(i -> model.customerLeft());
         assertTrue(model.gameOver());
 
         setUp();
 
-        IntStream.range(0, 300)
+        IntStream.range(0, initialTime)
             .forEach(i -> model.decrementRemainingTime());
         assertTrue(model.gameOver());
     }
@@ -154,7 +158,8 @@ final class ModelTest {
 
     @Test
     void testGetRemainingTime() {
-        assertEquals(300, model.getRemainingTime());
+        final var initialTime = 300;
+        assertEquals(initialTime, model.getRemainingTime());
     }
 
     @Test
@@ -174,8 +179,9 @@ final class ModelTest {
 
     @Test
     void testIncreaseGainMultiplier() {
+        final var coins = 310;
         assertEquals(0, model.getEnableCoinMultiplier());
-        model.setCoins(310);
+        model.setCoins(coins);
         model.increaseGainMultiplier();
         assertEquals(1, model.getEnableCoinMultiplier());
     }
@@ -194,9 +200,10 @@ final class ModelTest {
 
     @Test
     void testIncreaseWaitressSpeed() {
+        final var coins = 150;
         final var waitress = model.getWaitress();
         assertEquals(2, waitress.getMovementSpeed());
-        model.setCoins(150);
+        model.setCoins(coins);
         model.increaseWaitressSpeed();
         assertNotEquals(2, waitress.getMovementSpeed());
     }
@@ -225,9 +232,10 @@ final class ModelTest {
 
     @Test
     void testSetCoins() {
+        final var coins = 200;
         assertEquals(0, model.getCoins());
-        model.setCoins(200);
-        assertEquals(200, model.getCoins());
+        model.setCoins(coins);
+        assertEquals(coins, model.getCoins());
     }
 
     @Test
@@ -322,8 +330,9 @@ final class ModelTest {
 
     @Test
     void testUpdate() {
+        final var tablePosition = new Pair<>(50, 50);
         final var waitressPosition = model.getWaitress().getPosition();
-        model.setWaitressTableDestination(new Pair<>(50, 50));
+        model.setWaitressTableDestination(tablePosition);
         model.update();
         assertNotEquals(waitressPosition, model.getWaitress().getPosition());
     }

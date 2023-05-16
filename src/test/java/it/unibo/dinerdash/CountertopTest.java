@@ -25,7 +25,7 @@ final class CountertopTest {
     private static final int DISH_REL_HEIGHT = (int) (0.07 * Constants.RESTAURANT_HEIGHT);
     private static final int FIVE = 5;
 
-    private static Countertop countertop;
+    private Countertop countertop;
     private static GameEntityFactory gameEntityFactory;
 
     @BeforeAll
