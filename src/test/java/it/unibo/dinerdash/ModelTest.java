@@ -284,7 +284,16 @@ final class ModelTest {
 
     @Test
     void testTableAssignament() {
-        //TODO MARCO/FEDE o ELIMINA
+        while (this.model.getCustomersList().size() < 1) {
+            this.model.update();
+        }
+        final var customer = this.model.getCustomersList().get(0);
+        final var tablePosition = customer.getDestination().get();
+        final var assignedTable = this.model.getTableList().stream()
+        .filter(table -> table.getPosition().equals(tablePosition))
+        .findFirst()
+        .get();
+        assertEquals(assignedTable.getPosition(), customer.getDestination().get());
     }
 
     @Test
