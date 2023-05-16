@@ -75,7 +75,7 @@ public final class ModelImpl implements Model {
     private static final int CHEF_REL_HEIGHT = (int) (0.17 * Constants.RESTAURANT_HEIGHT);
 
     private static final int MAX_POWERUP_PER_TYPE = 3;
-    private static final int[] POWER_UP_PRICES = {100, 150, 220, 310};
+    private static final int[] POWER_UP_PRICES = { 100, 150, 220, 310 };
 
     private int coins;
     private int enabledCoinsMultipliers;
@@ -217,7 +217,7 @@ public final class ModelImpl implements Model {
     @Override
     public boolean gameOver() {
         return this.remainingTime <= 0
-            || this.customersWhoLeft >= this.maxCustomerThatCanLeave;
+                || this.customersWhoLeft >= this.maxCustomerThatCanLeave;
     }
 
     /**
@@ -512,18 +512,20 @@ public final class ModelImpl implements Model {
      * {@inheritDoc}
      */
     @Override
-    public void setWaiterssInfo(final int indexL, final String s, final Pair<Integer, Integer> pos) {
+    public void setWaiterssInfo(final int indexDishTable, final String entityType,
+            final Pair<Integer, Integer> entityPos) {
         if (this.waitress.getState().equals(WaitressState.WAITING)) {
-            if ("table".equals(s)) {
-                switch (this.tables.get(indexL).getState()) {
-                    case ORDERING -> this.waitress.takeTableOrder(tables.get(indexL).getPosition());
-                    case WANTING_TO_PAY -> this.waitress.collectMoney(tables.get(indexL).getPosition());
-                    case WAITING_MEAL -> this.waitress.serveOrder(tables.get(indexL).getPosition());
-                    default -> { }
+            if ("table".equals(entityType)) {
+                switch (this.tables.get(indexDishTable).getState()) {
+                    case ORDERING -> this.waitress.takeTableOrder(tables.get(indexDishTable).getPosition());
+                    case WANTING_TO_PAY -> this.waitress.collectMoney(tables.get(indexDishTable).getPosition());
+                    case WAITING_MEAL -> this.waitress.serveOrder(tables.get(indexDishTable).getPosition());
+                    default -> {
+                    }
                 }
             } else {
                 if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
-                    this.waitress.goGetDish(pos);
+                    this.waitress.goGetDish(entityPos);
                 }
             }
         }
@@ -544,9 +546,9 @@ public final class ModelImpl implements Model {
     @Override
     public void earnMoneyFromTable() {
         final var coinsEarned = random
-            .nextInt(PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1) + PROFIT_PER_TABLE_MIN;
+                .nextInt(PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1) + PROFIT_PER_TABLE_MIN;
         final var coinsEarnedWithBonus = (int) (coinsEarned
-            + (coinsEarned * PROFIT_MULTIPLIER * this.enabledCoinsMultipliers));
+                + (coinsEarned * PROFIT_MULTIPLIER * this.enabledCoinsMultipliers));
         this.setCoins(this.coins + coinsEarnedWithBonus);
     }
 

@@ -57,7 +57,7 @@ public class ControllerImpl implements Controller {
      */
     @Override
     @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "It is necessary to store the game panel"
-        + "in order to call some functions during execution")
+            + "in order to call some functions during execution")
     public void start(final GameView gameView) {
         this.model.setController(this);
 
@@ -189,8 +189,9 @@ public class ControllerImpl implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public void callWaitress(final int indexList, final String s, final Pair<Integer, Integer> position) {
-        model.setWaiterssInfo(indexList, s, position);
+    public void callWaitress(final int indexDishTable, final String entityType,
+            final Pair<Integer, Integer> entityPos) {
+        model.setWaiterssInfo(indexDishTable, entityType, entityPos);
     }
 
     /**
@@ -282,7 +283,8 @@ public class ControllerImpl implements Controller {
      */
     @Override
     public void addTableToView(final Table table) {
-        this.gameView.addTableViewable(table.getPosition(), table.getSize(), table.isActive(), table.getPeopleSeatedNumber(), "");
+        this.gameView.addTableViewable(table.getPosition(), table.getSize(), table.isActive(),
+                table.getPeopleSeatedNumber(), "");
     }
 
     /**
@@ -322,8 +324,8 @@ public class ControllerImpl implements Controller {
     public void updatePowerUpsButtonsInView() {
         final var prices = this.model.getPowerUpsPrices();
         IntStream.range(0, prices.length)
-            .forEach(i -> this.gameView.updatePowerUpButton(
-                i, this.model.canActivatePowerUp(prices[i])));
+                .forEach(i -> this.gameView.updatePowerUpButton(
+                        i, this.model.canActivatePowerUp(prices[i])));
     }
 
     /**
