@@ -108,7 +108,7 @@ final class ModelTest {
         IntStream.range(0, 300)
             .forEach(i -> model.decrementRemainingTime());
         assertTrue(model.gameOver());
-    }    
+    }
 
     @Test
     void testGetCoins() {
@@ -123,7 +123,6 @@ final class ModelTest {
         model.addMaxCustomerThatCanLeave(2);
         model.addMaxCustomerThatCanLeave(addCustomerLeave);
         assertEquals(expectLeftCust, model.getCustomerWhoCanLeft());
-
     }
 
     @Test
@@ -256,6 +255,7 @@ final class ModelTest {
 
     @Test
     void testSetWaiterssInfo() {
+        //TODO CORREGGI
         final Table table = factory.createTable(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
@@ -268,7 +268,6 @@ final class ModelTest {
         model.setWaiterssInfo(1, "table", new Pair<Integer, Integer>(100, 100));
         assertEquals(WaitressState.WAITING, waitress.getState());
         assertEquals(TableState.EMPTY, table.getState());
-
     }
 
     @Test
@@ -323,7 +322,10 @@ final class ModelTest {
 
     @Test
     void testUpdate() {
-
+        final var waitressPosition = model.getWaitress().getPosition();
+        model.setWaitressTableDestination(new Pair<>(50, 50));
+        model.update();
+        assertNotEquals(waitressPosition, model.getWaitress().getPosition());
     }
 
 }
