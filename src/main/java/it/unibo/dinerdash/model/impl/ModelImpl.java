@@ -709,4 +709,12 @@ public final class ModelImpl implements Model {
         return Collections.unmodifiableList(this.customers);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getEnableCoinMultiplier() {
+        return this.enabledCoinsMultipliers;
+    }
+
 }

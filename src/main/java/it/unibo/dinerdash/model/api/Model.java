@@ -329,4 +329,12 @@ public interface Model {
      * @return the customers inside.
      */
     List<Customer> getCustomersList();
+
+    /**
+     * Returns the number of Coin Multiplier.
+     * 
+     * @return number of Coin multiplier
+     */
+    int getEnableCoinMultiplier();
+
 }

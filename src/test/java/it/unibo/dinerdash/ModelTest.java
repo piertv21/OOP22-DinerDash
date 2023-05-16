@@ -3,6 +3,7 @@ package it.unibo.dinerdash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
@@ -45,12 +46,16 @@ final class ModelTest {
 
     @Test
     void testAddMaxCustomerThatCanLeave() {
-        //TODO DONA
+        assertEquals(10, model.getCustomerWhoCanLeft());
+        model.addMaxCustomerThatCanLeave(2);
+        assertEquals(12, model.getCustomerWhoCanLeft());
     }
 
     @Test
     void testCanActivatePowerUp() {
-        //TODO DONA
+        assertFalse(model.canActivatePowerUp(100));
+        model.setCoins(150);
+        assertTrue(model.canActivatePowerUp(100));
     }
 
     @Test
@@ -145,7 +150,7 @@ final class ModelTest {
 
     @Test
     void testGetPowerUpsPrices() {
-        //TODO DONA
+        assertNotNull(model.getPowerUpsPrices());
     }
 
     @Test
@@ -170,7 +175,10 @@ final class ModelTest {
 
     @Test
     void testIncreaseCoinsMultiplier() {
-        //TODO DONA
+        assertEquals(0, model.getEnableCoinMultiplier());
+        model.setCoins(220);
+        model.increaseGainMultiplier();
+        assertEquals(1, model.getEnableCoinMultiplier());
     }
 
     @Test
