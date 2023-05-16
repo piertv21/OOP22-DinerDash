@@ -262,16 +262,10 @@ final class ModelTest {
 
     @Test
     void testSetWaiterssInfo() {
-        // TODO CORREGGI
-        final Table table = factory.createTable(
-                new Pair<Integer, Integer>(100, 100),
-                new Pair<Integer, Integer>(100, 100),
-                1);
-
+        model.getTableList().get(1).setState(TableState.ORDERING);
         final var waitress = model.getWaitress();
-        model.setWaiterssInfo(1, "table", new Pair<Integer, Integer>(100, 100));
-        assertEquals(WaitressState.WAITING, waitress.getState());
-        assertEquals(TableState.EMPTY, table.getState());
+        model.setWaiterssInfo(1,"table", new Pair<Integer,Integer>(100, 100));
+        assertEquals(WaitressState.CALLING, waitress.getState());
     }
 
     @Test
