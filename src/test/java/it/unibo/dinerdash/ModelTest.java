@@ -18,7 +18,6 @@ import it.unibo.dinerdash.model.api.gameentities.Customer;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.api.gameentities.Table;
-import it.unibo.dinerdash.model.api.gameentities.Waitress;
 import it.unibo.dinerdash.model.api.states.CustomerState;
 import it.unibo.dinerdash.model.api.states.GameState;
 import it.unibo.dinerdash.model.api.states.TableState;
@@ -68,11 +67,11 @@ final class ModelTest {
         while (this.model.getCustomersList().size() < CUSTOMER_INSIDE) {
             this.model.update();
         }
-       final Customer firstClientLine = this.model.getCustomersList().stream()
-       .filter(p -> p.getState().equals(CustomerState.LINE))
-       .findFirst()
-       .get();
-       assertFalse(this.model.checkFreeTables(firstClientLine));
+        final Customer firstClientLine = this.model.getCustomersList().stream()
+                .filter(p -> p.getState().equals(CustomerState.LINE))
+                .findFirst()
+                .get();
+        assertFalse(this.model.checkFreeTables(firstClientLine));
     }
 
     @Test
@@ -104,13 +103,13 @@ final class ModelTest {
     void testGameOver() {
         final var initialTime = 300;
         IntStream.range(0, 10)
-            .forEach(i -> model.customerLeft());
+                .forEach(i -> model.customerLeft());
         assertTrue(model.gameOver());
 
         setUp();
 
         IntStream.range(0, initialTime)
-            .forEach(i -> model.decrementRemainingTime());
+                .forEach(i -> model.decrementRemainingTime());
         assertTrue(model.gameOver());
     }
 
@@ -263,16 +262,13 @@ final class ModelTest {
 
     @Test
     void testSetWaiterssInfo() {
-        //TODO CORREGGI
+        // TODO CORREGGI
         final Table table = factory.createTable(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 1);
 
-        final Waitress waitress = factory.createWaitress(
-                new Pair<Integer, Integer>(100, 100),
-                new Pair<Integer, Integer>(100, 100),
-                Optional.of(model));
+        final var waitress = model.getWaitress();
         model.setWaiterssInfo(1, "table", new Pair<Integer, Integer>(100, 100));
         assertEquals(WaitressState.WAITING, waitress.getState());
         assertEquals(TableState.EMPTY, table.getState());
@@ -280,13 +276,9 @@ final class ModelTest {
 
     @Test
     void testSetWaitressTableDestination() {
-        //TODO NO! La Waitress interna ha stato CALLING
-        final Waitress waitress = factory.createWaitress(
-                new Pair<Integer, Integer>(100, 100),
-                new Pair<Integer, Integer>(100, 100),
-                Optional.of(model));
+        final var waitress = model.getWaitress();
         model.setWaitressTableDestination(new Pair<Integer, Integer>(100, 100));
-        assertEquals(WaitressState.WAITING, waitress.getState());
+        assertEquals(WaitressState.CALLING, waitress.getState());
     }
 
     @Test
@@ -308,9 +300,9 @@ final class ModelTest {
         final var customer = this.model.getCustomersList().get(0);
         final var tablePosition = customer.getDestination().get();
         final var assignedTable = this.model.getTableList().stream()
-        .filter(table -> table.getPosition().equals(tablePosition))
-        .findFirst()
-        .get();
+                .filter(table -> table.getPosition().equals(tablePosition))
+                .findFirst()
+                .get();
         assertEquals(assignedTable.getPosition(), customer.getDestination().get());
     }
 
