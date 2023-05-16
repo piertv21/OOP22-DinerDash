@@ -148,13 +148,6 @@ public interface Model {
     int getRemainingTime();
 
     /**
-     * Set new destination to waitress.
-     * 
-     * @param destination is the new waitress destination
-     */
-    void setWaitressTableDestination(Pair<Integer, Integer> destination);
-
-    /**
      * Check if client is the first in line and there is a free table.
      * 
      * @param client client in line looking for a free table

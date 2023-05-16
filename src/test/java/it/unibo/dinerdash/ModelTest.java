@@ -264,14 +264,7 @@ final class ModelTest {
     void testSetWaiterssInfo() {
         model.getTableList().get(1).setState(TableState.ORDERING);
         final var waitress = model.getWaitress();
-        model.setWaiterssInfo(1,"table", new Pair<Integer,Integer>(100, 100));
-        assertEquals(WaitressState.CALLING, waitress.getState());
-    }
-
-    @Test
-    void testSetWaitressTableDestination() {
-        final var waitress = model.getWaitress();
-        model.setWaitressTableDestination(new Pair<Integer, Integer>(100, 100));
+        model.setWaiterssInfo(1, "table", new Pair<Integer, Integer>(100, 100));
         assertEquals(WaitressState.CALLING, waitress.getState());
     }
 
@@ -318,7 +311,8 @@ final class ModelTest {
     void testUpdate() {
         final var tablePosition = new Pair<>(50, 50);
         final var waitressPosition = model.getWaitress().getPosition();
-        model.setWaitressTableDestination(tablePosition);
+        model.getWaitress().setDestination(Optional.of(tablePosition));
+        model.getWaitress().setState(WaitressState.CALLING);
         model.update();
         assertNotEquals(waitressPosition, model.getWaitress().getPosition());
     }

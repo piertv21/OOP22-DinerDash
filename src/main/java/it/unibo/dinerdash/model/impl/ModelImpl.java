@@ -474,17 +474,6 @@ public final class ModelImpl implements Model {
      * {@inheritDoc}
      */
     @Override
-    public void setWaitressTableDestination(final Pair<Integer, Integer> dest) {
-        if (!(this.waitress.getState().equals(WaitressState.CALLING))) {
-            this.waitress.setDestination(Optional.of(dest));
-            this.waitress.setState(WaitressState.CALLING);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Table getTablefromPosition(final Pair<Integer, Integer> pos) {
         return this.tables.stream().filter(t -> t.getPosition().equals(pos)).findFirst().get();
     }
