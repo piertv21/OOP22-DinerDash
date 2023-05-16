@@ -407,15 +407,15 @@ public final class ModelImpl implements Model {
     public void tableAssignament(final Customer client) {
         client.setDestination(Optional.ofNullable(
                 this.tables.stream()
-                        .filter(tav -> tav.getCustomer().isEmpty())
+                        .filter(table -> table.getCustomer().isEmpty())
                         .findFirst()
                         .get()
                         .getPosition()));
-        final var tab = tables.stream()
+        final var selectedTable = tables.stream()
                 .filter(entry -> entry.getPosition().equals(client.getDestination().get()))
                 .findFirst()
                 .orElse(null);
-        tab.setCustom(Optional.of(client));
+        selectedTable.setCustom(Optional.of(client));
     }
 
     private void linePositionAssignament(final Customer client) {
@@ -699,6 +699,14 @@ public final class ModelImpl implements Model {
     @Override
     public List<Table> getTableList() {
         return Collections.unmodifiableList(this.tables);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Customer> getCustomersList() {
+        return Collections.unmodifiableList(this.customers);
     }
 
 }

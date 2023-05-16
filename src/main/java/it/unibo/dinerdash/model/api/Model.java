@@ -323,4 +323,10 @@ public interface Model {
      */
     List<Table> getTableList();
 
+    /**
+     * Returns the list of cutomers.
+     * 
+     * @return the customers inside.
+     */
+    List<Customer> getCustomersList();
 }

@@ -1,6 +1,7 @@
 package it.unibo.dinerdash;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,10 +13,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.dinerdash.model.api.Model;
+import it.unibo.dinerdash.model.api.gameentities.Customer;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.api.gameentities.Table;
 import it.unibo.dinerdash.model.api.gameentities.Waitress;
+import it.unibo.dinerdash.model.api.states.CustomerState;
 import it.unibo.dinerdash.model.api.states.GameState;
 import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.model.api.states.WaitressState;
@@ -25,6 +28,7 @@ import it.unibo.dinerdash.utility.impl.Pair;
 final class ModelTest {
 
     private static final int TABLE_NUMBER = 2;
+    private static final int CUSTOMER_INSIDE = 5;
     private Model model;
     private static GameEntityFactory factory;
 
@@ -50,13 +54,18 @@ final class ModelTest {
     }
 
     @Test
-    void testCheckChangePositionLine() {
-        //TODO MARCO/FEDE
-    }
-
-    @Test
     void testCheckFreeTables() {
-        //TODO MARCO/FEDE
+        while (this.model.thereAreAvaibleTables()) {
+            this.model.update();
+        }
+        while (this.model.getCustomersList().size() < CUSTOMER_INSIDE) {
+            this.model.update();
+        }
+       final Customer firstClientLine = this.model.getCustomersList().stream()
+       .filter(p -> p.getState().equals(CustomerState.LINE))
+       .findFirst()
+       .get();
+       assertFalse(this.model.checkFreeTables(firstClientLine));
     }
 
     @Test
