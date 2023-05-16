@@ -174,16 +174,11 @@ final class ModelTest {
     }
 
     @Test
-    void testIncreaseCoinsMultiplier() {
+    void testIncreaseGainMultiplier() {
         assertEquals(0, model.getEnableCoinMultiplier());
-        model.setCoins(220);
+        model.setCoins(310);
         model.increaseGainMultiplier();
         assertEquals(1, model.getEnableCoinMultiplier());
-    }
-
-    @Test
-    void testIncreaseGainMultiplier() {
-        //TODO DONA
     }
 
     @Test
@@ -200,7 +195,11 @@ final class ModelTest {
 
     @Test
     void testIncreaseWaitressSpeed() {
-        //TODO DONA
+        final var waitress = model.getWaitress();
+        assertEquals(2, waitress.getMovementSpeed());
+        model.setCoins(150);
+        model.increaseWaitressSpeed();
+        assertNotEquals(2, waitress.getMovementSpeed());
     }
 
     @Test
@@ -211,7 +210,11 @@ final class ModelTest {
 
     @Test
     void testReduceDishPreparationTime() {
-        //TODO DONA
+        final var chef = model.getChef();
+        assertEquals(0, chef.getEnabledPowerUps());
+        model.setCoins(100);
+        model.reduceDishPreparationTime();
+        assertEquals(1, chef.getEnabledPowerUps());
     }
 
     @Test

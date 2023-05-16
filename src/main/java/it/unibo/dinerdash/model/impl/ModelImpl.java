@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.dinerdash.controller.api.Controller;
 import it.unibo.dinerdash.model.api.Constants;
 import it.unibo.dinerdash.model.api.Countertop;
@@ -715,6 +716,23 @@ public final class ModelImpl implements Model {
     @Override
     public int getEnableCoinMultiplier() {
         return this.enabledCoinsMultipliers;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Reference to waitress it is necessary to run tests")
+    public Waitress getWaitress() {
+        return this.waitress;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Chef getChef() {
+        return this.chef;
     }
 
 }

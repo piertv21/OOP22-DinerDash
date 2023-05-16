@@ -3,9 +3,11 @@ package it.unibo.dinerdash.model.api;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.dinerdash.model.api.gameentities.Chef;
 import it.unibo.dinerdash.model.api.gameentities.Customer;
 import it.unibo.dinerdash.model.api.gameentities.Dish;
 import it.unibo.dinerdash.model.api.gameentities.Table;
+import it.unibo.dinerdash.model.api.gameentities.Waitress;
 import it.unibo.dinerdash.model.api.states.GameState;
 import it.unibo.dinerdash.model.api.states.TableState;
 import it.unibo.dinerdash.controller.api.Controller;
@@ -336,5 +338,19 @@ public interface Model {
      * @return number of Coin multiplier
      */
     int getEnableCoinMultiplier();
+
+    /**
+     * Returns game waitress for testing purposes.
+     * 
+     * @return game waitress
+     */
+    Waitress getWaitress();
+
+    /**
+     * Returns game chef for testing purposes.
+     * 
+     * @return game chef
+     */
+    Chef getChef();
 
 }
