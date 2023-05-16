@@ -207,7 +207,7 @@ public final class ModelImpl implements Model {
     @Override
     public void stop() {
         this.gameState = GameState.ENDED;
-        this.controller.get().gameIsEnded();
+        this.controller.ifPresent(c -> c.gameIsEnded());
     }
 
     /**
@@ -297,7 +297,6 @@ public final class ModelImpl implements Model {
     @Override
     public void update() {
         if (!this.gameOver()) {
-
             if (System.nanoTime() >= this.lastCustomerTimeCreation
                     + TimeUnit.SECONDS.toNanos(CUSTOMERS_CREATION_TIME)
                     && this.customers.size() < MAX_CUSTOMERS_THAT_CAN_STAY) {

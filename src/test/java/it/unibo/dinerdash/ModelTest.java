@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,38 +40,23 @@ final class ModelTest {
     }
 
     @Test
-    void testAddDishToView() {
-
-    }
-
-    @Test
     void testAddMaxCustomerThatCanLeave() {
-
+        //TODO DONA
     }
 
     @Test
     void testCanActivatePowerUp() {
-
+        //TODO DONA
     }
 
     @Test
     void testCheckChangePositionLine() {
-
+        //TODO MARCO/FEDE
     }
 
     @Test
     void testCheckFreeTables() {
-
-    }
-
-    @Test
-    void testClear() {
-
-    }
-
-    @Test
-    void testCompleteDishPreparation() {
-
+        //TODO MARCO/FEDE
     }
 
     @Test
@@ -99,8 +85,16 @@ final class ModelTest {
 
     @Test
     void testGameOver() {
+        IntStream.range(0, 10)
+            .forEach(i -> model.customerLeft());
+        assertTrue(model.gameOver());
 
-    }
+        setUp();
+
+        IntStream.range(0, 300)
+            .forEach(i -> model.decrementRemainingTime());
+        assertTrue(model.gameOver());
+    }    
 
     @Test
     void testGetCoins() {
@@ -128,11 +122,6 @@ final class ModelTest {
     }
 
     @Test
-    void testGetDishToPrepare() {
-
-    }
-
-    @Test
     void testGetGameState() {
         assertEquals(GameState.RUNNING, model.getGameState());
         model.setGameState(GameState.ENDED);
@@ -147,7 +136,7 @@ final class ModelTest {
 
     @Test
     void testGetPowerUpsPrices() {
-
+        //TODO DONA
     }
 
     @Test
@@ -172,12 +161,12 @@ final class ModelTest {
 
     @Test
     void testIncreaseCoinsMultiplier() {
-
+        //TODO DONA
     }
 
     @Test
     void testIncreaseGainMultiplier() {
-
+        //TODO DONA
     }
 
     @Test
@@ -194,27 +183,18 @@ final class ModelTest {
 
     @Test
     void testIncreaseWaitressSpeed() {
-
+        //TODO DONA
     }
 
     @Test
     void testPause() {
-
+        model.pause();
+        assertEquals(GameState.PAUSED, model.getGameState());
     }
 
     @Test
     void testReduceDishPreparationTime() {
-
-    }
-
-    @Test
-    void testRemoveDishInView() {
-
-    }
-
-    @Test
-    void testRestart() {
-
+        //TODO DONA
     }
 
     @Test
@@ -222,7 +202,6 @@ final class ModelTest {
         this.model.setTableState(TableState.THINKING, 1);
         this.model.sendOrder(1);
         assertEquals(TableState.WAITING_MEAL, this.model.getTableList().get(0).getState());
-
     }
 
     @Test
@@ -234,7 +213,11 @@ final class ModelTest {
 
     @Test
     void testSetGameState() {
+        model.setGameState(GameState.ENDED);
+        assertEquals(GameState.ENDED, model.getGameState());
 
+        model.setGameState(GameState.PAUSED);
+        assertEquals(GameState.PAUSED, model.getGameState());
     }
 
     @Test
@@ -270,29 +253,29 @@ final class ModelTest {
 
     @Test
     void testSetWaitressTableDestination() {
+        //TODO NO! La Waitress interna ha stato CALLING
         final Waitress waitress = factory.createWaitress(
                 new Pair<Integer, Integer>(100, 100),
                 new Pair<Integer, Integer>(100, 100),
                 Optional.of(model));
-        // Add an order for table 1
         model.setWaitressTableDestination(new Pair<Integer, Integer>(100, 100));
-        // Verify that the table state is set to WAITING_MEAL
         assertEquals(WaitressState.WAITING, waitress.getState());
     }
 
     @Test
     void testStart() {
-
+        assertEquals(GameState.RUNNING, model.getGameState());
     }
 
     @Test
     void testStop() {
-
+        model.stop();
+        assertEquals(GameState.ENDED, model.getGameState());
     }
 
     @Test
     void testTableAssignament() {
-
+        //TODO MARCO/FEDE o ELIMINA
     }
 
     @Test
@@ -310,17 +293,7 @@ final class ModelTest {
     }
 
     @Test
-    void testThereAreDishesToPrepare() {
-
-    }
-
-    @Test
     void testUpdate() {
-
-    }
-
-    @Test
-    void testUpdateDishInView() {
 
     }
 
