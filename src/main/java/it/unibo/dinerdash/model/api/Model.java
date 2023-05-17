@@ -151,8 +151,8 @@ public interface Model {
      * Check if client is the first in line and there is a free table.
      * 
      * @param client client in line looking for a free table
-     * @return true if there is a free table to sit,and
-     *         client is the fist in line waiting
+     * @return true if there is a free table to sit,
+     * and client is the fist in line waiting
      */
     boolean checkFreeTables(Customer client);
 
@@ -166,8 +166,7 @@ public interface Model {
     /**
      * Check if there are free tables to sit down.
      * 
-     * @return true if there is a free table
-     *         false if not.
+     * @return true if there is a free table false if not.
      */
     boolean thereAreAvaibleTables();
 
@@ -182,7 +181,7 @@ public interface Model {
     /**
      * Set new state to a table.
      * 
-     * @param state       is the new state
+     * @param state is the new state
      * @param numberTable is the table number
      */
     void setTableState(TableState state, int numberTable);
@@ -190,11 +189,11 @@ public interface Model {
     /**
      * Set new informations in the waitress.
      * 
-     * @param indexL is the index of the dish/table in its list
-     * @param s      is the type of the entity (dish or table)
-     * @param pos    is the position of the entity
+     * @param indexDishTable is the index of the dish/table in its list
+     * @param entityType is the type of the entity (dish or table)
+     * @param entityPosition is the position of the entity
      */
-    void setWaiterssInfo(int indexDishTable, String entityType, Pair<Integer, Integer> entityPos);
+    void setWaiterssInfo(int indexDishTable, String entityType, Pair<Integer, Integer> entityPosition);
 
     /**
      * Set new coin number.
@@ -233,7 +232,7 @@ public interface Model {
      * Set the number of clients sitted at the table number "numberOfTable".
      * 
      * @param numberOfClienty number of clients
-     * @param numberOfTable   number of the table
+     * @param numberOfTable number of the table
      */
     void setNumberOfClientsAtTable(int numberOfClienty, int numberOfTable);
 
@@ -280,9 +279,9 @@ public interface Model {
     int[] getPowerUpsPrices();
 
     /**
-     * Set max Customer who can leaver before loose a game.
+     * Set max Customer who can leave before lose a game.
      * 
-     * @param number Cax Customer' Number
+     * @param number max customer Number
      */
     void addMaxCustomerThatCanLeave(int number);
 
@@ -290,7 +289,7 @@ public interface Model {
      * It tells the controller to update a dish in the view.
      * 
      * @param index is the dish index in the list
-     * @param dish  is the dish to be updated
+     * @param dish is the dish to be updated
      */
     void updateDishInView(int index, Dish dish);
 

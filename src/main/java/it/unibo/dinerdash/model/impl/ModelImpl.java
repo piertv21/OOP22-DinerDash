@@ -127,7 +127,7 @@ public final class ModelImpl implements Model {
         this.generateTables();
 
         Arrays.stream(POWER_UP_PRICES)
-                .forEach(price -> powerUps.put(price, MAX_POWERUP_PER_TYPE));
+            .forEach(price -> powerUps.put(price, MAX_POWERUP_PER_TYPE));
 
         final var chefPosition = new Pair<>(CHEF_REL_X, CHEF_REL_Y);
         final var chefSize = new Pair<>(CHEF_REL_WIDTH, CHEF_REL_HEIGHT);
@@ -143,18 +143,18 @@ public final class ModelImpl implements Model {
 
     private void generateTables() {
         final var tables = IntStream.range(0, TABLES)
-                .boxed()
-                .map(i -> {
-                    final int remainder = i % (TABLES / 2);
-                    final int x = (int) (TABLE_STARTING_REL_X + remainder * TABLES_HORIZONTAL_PADDING);
-                    final int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
-                    final Pair<Integer, Integer> coordinates = new Pair<>(x, y);
-                    final Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
-                    final var tempTable = this.factory.createTable(coordinates, size, i + 1);
-                    this.controller.ifPresent(c -> c.addTableToView(tempTable));
-                    return tempTable;
-                })
-                .collect(Collectors.toList());
+            .boxed()
+            .map(i -> {
+                final int remainder = i % (TABLES / 2);
+                final int x = (int) (TABLE_STARTING_REL_X + remainder * TABLES_HORIZONTAL_PADDING);
+                final int y = (int) (TABLE_STARTING_REL_Y + (i / (TABLES / 2)) * TABLES_VERTICAL_PADDING);
+                final Pair<Integer, Integer> coordinates = new Pair<>(x, y);
+                final Pair<Integer, Integer> size = new Pair<>(TABLE_REL_WIDTH, TABLE_REL_HEIGHT);
+                final var tempTable = this.factory.createTable(coordinates, size, i + 1);
+                this.controller.ifPresent(c -> c.addTableToView(tempTable));
+                return tempTable;
+            })
+            .collect(Collectors.toList());
         this.tables.addAll(tables);
     }
 
@@ -217,7 +217,7 @@ public final class ModelImpl implements Model {
     @Override
     public boolean gameOver() {
         return this.remainingTime <= 0
-                || this.customersWhoLeft >= this.maxCustomerThatCanLeave;
+            || this.customersWhoLeft >= this.maxCustomerThatCanLeave;
     }
 
     /**
@@ -509,8 +509,7 @@ public final class ModelImpl implements Model {
                     case ORDERING -> this.waitress.takeTableOrder(tables.get(indexDishTable).getPosition());
                     case WANTING_TO_PAY -> this.waitress.collectMoney(tables.get(indexDishTable).getPosition());
                     case WAITING_MEAL -> this.waitress.serveOrder(tables.get(indexDishTable).getPosition());
-                    default -> {
-                    }
+                    default -> { }
                 }
             } else {
                 if (this.waitress.getOrdersNumber() != WAITRESS_MAX_DISHES) {
@@ -535,9 +534,9 @@ public final class ModelImpl implements Model {
     @Override
     public void earnMoneyFromTable() {
         final var coinsEarned = random
-                .nextInt(PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1) + PROFIT_PER_TABLE_MIN;
+            .nextInt(PROFIT_PER_TABLE_MAX - PROFIT_PER_TABLE_MIN + 1) + PROFIT_PER_TABLE_MIN;
         final var coinsEarnedWithBonus = (int) (coinsEarned
-                + (coinsEarned * PROFIT_MULTIPLIER * this.enabledCoinsMultipliers));
+            + (coinsEarned * PROFIT_MULTIPLIER * this.enabledCoinsMultipliers));
         this.setCoins(this.coins + coinsEarnedWithBonus);
     }
 

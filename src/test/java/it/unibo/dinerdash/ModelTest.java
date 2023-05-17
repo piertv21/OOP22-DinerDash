@@ -27,7 +27,6 @@ import it.unibo.dinerdash.utility.impl.Pair;
 
 final class ModelTest {
 
-    private static final int TABLE_NUMBER = 2;
     private static final int CUSTOMER_INSIDE = 5;
     private Model model;
     private static GameEntityFactory factory;
@@ -68,9 +67,9 @@ final class ModelTest {
             this.model.update();
         }
         final Customer firstClientLine = this.model.getCustomersList().stream()
-                .filter(p -> p.getState().equals(CustomerState.LINE))
-                .findFirst()
-                .get();
+            .filter(p -> p.getState().equals(CustomerState.LINE))
+            .findFirst()
+            .get();
         assertFalse(this.model.checkFreeTables(firstClientLine));
     }
 
@@ -103,13 +102,13 @@ final class ModelTest {
     void testGameOver() {
         final var initialTime = 300;
         IntStream.range(0, 10)
-                .forEach(i -> model.customerLeft());
+            .forEach(i -> model.customerLeft());
         assertTrue(model.gameOver());
 
         setUp();
 
         IntStream.range(0, initialTime)
-                .forEach(i -> model.decrementRemainingTime());
+            .forEach(i -> model.decrementRemainingTime());
         assertTrue(model.gameOver());
     }
 
@@ -248,23 +247,25 @@ final class ModelTest {
 
     @Test
     void testSetNumberOfClientsAtTable() {
-        assertEquals(0, this.model.getTableList().get(TABLE_NUMBER).getPeopleSeatedNumber());
-        this.model.setNumberOfClientsAtTable(3, TABLE_NUMBER + 1);
-        assertEquals(3, this.model.getTableList().get(TABLE_NUMBER).getPeopleSeatedNumber());
+        final var tableNumber = 2;
+        assertEquals(0, this.model.getTableList().get(tableNumber).getPeopleSeatedNumber());
+        this.model.setNumberOfClientsAtTable(3, tableNumber + 1);
+        assertEquals(3, this.model.getTableList().get(tableNumber).getPeopleSeatedNumber());
     }
 
     @Test
     void testSetTableState() {
-        assertEquals(TableState.EMPTY, this.model.getTableList().get(TABLE_NUMBER).getState());
-        this.model.setTableState(TableState.ORDERING, TABLE_NUMBER + 1);
-        assertEquals(TableState.ORDERING, this.model.getTableList().get(TABLE_NUMBER).getState());
+        final var tableNumber = 3;
+        assertEquals(TableState.EMPTY, this.model.getTableList().get(tableNumber).getState());
+        this.model.setTableState(TableState.ORDERING, tableNumber + 1);
+        assertEquals(TableState.ORDERING, this.model.getTableList().get(tableNumber).getState());
     }
 
     @Test
     void testSetWaiterssInfo() {
         model.getTableList().get(1).setState(TableState.ORDERING);
         final var waitress = model.getWaitress();
-        model.setWaiterssInfo(1, "table", new Pair<Integer, Integer>(100, 100));
+        model.setWaiterssInfo(1, "table", new Pair<>(100, 100));
         assertEquals(WaitressState.CALLING, waitress.getState());
     }
 
@@ -287,18 +288,19 @@ final class ModelTest {
         final var customer = this.model.getCustomersList().get(0);
         final var tablePosition = customer.getDestination().get();
         final var assignedTable = this.model.getTableList().stream()
-                .filter(table -> table.getPosition().equals(tablePosition))
-                .findFirst()
-                .get();
+            .filter(table -> table.getPosition().equals(tablePosition))
+            .findFirst()
+            .get();
         assertEquals(assignedTable.getPosition(), customer.getDestination().get());
     }
 
     @Test
     void testTakeDishFromPosition() {
         final Table table = factory.createTable(
-                new Pair<Integer, Integer>(100, 100),
-                new Pair<Integer, Integer>(100, 100),
-                1);
+            new Pair<>(100, 100),
+            new Pair<>(100, 100),
+            1
+        );
         assertEquals(Optional.empty(), this.model.takeDishFromPosition(table.getPosition()));
     }
 

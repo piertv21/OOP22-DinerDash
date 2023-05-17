@@ -30,6 +30,10 @@ public class ViewImpl implements View {
     private static final int MIN_WIDTH = 800;
     private static final int MIN_HEIGHT = 600;
 
+    private static final int TWO = 2;
+    private static final int FOUR = 4;
+    private static final int SIX = 6;
+
     private final JFrame mainFrame;
     private final Optional<Controller> controller;
     private final ImageReaderWithCache imageCacher;
@@ -194,19 +198,19 @@ public class ViewImpl implements View {
         final List<String> assets = new ArrayList<>();
 
         assets.addAll(
-            generateAssetPaths("customers/customer%d.png", 1, 4));
+            generateAssetPaths("customers/customer%d.png", 1, FOUR));
         assets.addAll(
-            generateAssetPaths("dishes/dish%d.png", 1, 4));
+            generateAssetPaths("dishes/dish%d.png", 1, FOUR));
         assets.addAll(
-            generateAssetPaths("hearts/heart%d.png", 0, 6));
+            generateAssetPaths("hearts/heart%d.png", 0, SIX));
         assets.addAll(
-            generateAssetPaths("powerups/powerUp%d.png", 1, 4));
+            generateAssetPaths("powerups/powerUp%d.png", 1, FOUR));
         assets.addAll(
-            generateAssetPaths("tables/table%d.png", 0, 4));
+            generateAssetPaths("tables/table%d.png", 0, FOUR));
         assets.addAll(
-            generateAssetPaths("tables/withDish/tableWithDish%d.png", 1, 4));
+            generateAssetPaths("tables/withDish/tableWithDish%d.png", 1, FOUR));
         assets.addAll(
-            generateAssetPaths("waitress/waitress%d.png", 0, 2));
+            generateAssetPaths("waitress/waitress%d.png", 0, TWO));
         assets.add("tables/tableStates/wantToOrder.png");
         assets.add("tables/tableStates/wantToPay.png");
         assets.add("cursors/defaultCursor.png");
