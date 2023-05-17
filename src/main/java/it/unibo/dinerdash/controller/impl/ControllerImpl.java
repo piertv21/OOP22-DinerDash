@@ -246,7 +246,6 @@ public class ControllerImpl implements Controller {
     public void addWaitressToView(final Waitress waitress) {
         this.gameView.addWaitressViewable(waitress.getPosition(), waitress.getSize(), waitress.isActive(),
             waitress.getOrdersNumber());
-
     }
 
     /**

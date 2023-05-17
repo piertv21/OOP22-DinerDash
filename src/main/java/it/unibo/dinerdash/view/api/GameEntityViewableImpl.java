@@ -23,7 +23,7 @@ public class GameEntityViewableImpl extends AbstractGameEntity implements GameEn
      * @param active is the initial active state of the graphic entity
      * @param icon is the icon of the the graphic entity
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Image is required and is not externally modified")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "Image is required")
     public GameEntityViewableImpl(
         final Pair<Integer, Integer> coordinates,
         final Pair<Integer, Integer> size,

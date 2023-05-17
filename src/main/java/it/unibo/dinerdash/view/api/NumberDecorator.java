@@ -7,18 +7,16 @@ package it.unibo.dinerdash.view.api;
 public interface NumberDecorator extends GameEntityViewableDecorator {
 
     /**
-     * Setter for Tables, Customer's and Dishes
-     * Moltiplicity for the view.
+     * Setter for additional number.
      * 
-     * @param number used for molteplicity 
+     * @param number is the number to be set 
      */
     void setNumber(int number);
 
     /**
-     * Getter for Tables, Dishes and Customer's Moltiplicity 
-     * for the view.
+     * Getter for additional number.
      * 
-     * @return GameEntityViewable's molteplicity value
+     * @return the number stored
      */
     int getNumber();
 

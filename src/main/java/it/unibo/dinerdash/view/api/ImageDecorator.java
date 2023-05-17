@@ -11,17 +11,16 @@ import java.awt.Image;
 public interface ImageDecorator extends GameEntityViewableDecorator {
 
     /**
-     * Setter for Image of Table and Customer states.
+     * Setter for Image.
      * 
-     * @param icon  Image of Table and Customer states
+     * @param icon is the Image to be set
      */
     void setState(Optional<Image> icon);
 
     /**
-     * Getter for Image of Table and Customer states,
-     * that return empty() if is not present.
+     * Getter for Image, it returns empty() if is not present.
      * 
-     * @return Image of Table and Customer states
+     * @return the Optional Image
      */
     Optional<Image> getState();
 

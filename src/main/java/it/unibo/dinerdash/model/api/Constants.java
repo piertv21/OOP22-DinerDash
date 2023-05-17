@@ -16,11 +16,6 @@ public final class Constants {
     public static final String ROOT = "it/unibo/dinerdash/";
 
     /**
-     * Game Assets path.
-     */
-    public static final String RESOURCES_PATH = "src/main/resources/";
-
-    /**
      * Game Font.
      */
     public static final String GAME_FONT = "Arial";

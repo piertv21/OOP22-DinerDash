@@ -28,8 +28,8 @@ public class TableImpl extends AbstractGameEntity implements Table {
      * Create a new Table.
      * 
      * @param coordinates starting table's position
-     * @param size        table's image size (height, width)
-     * @param i           table's number for order
+     * @param size table's image size (height, width)
+     * @param i table's number for order
      */
     public TableImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size, final int i) {
         super(coordinates, size);
