@@ -264,19 +264,19 @@ public final class ModelImpl implements Model {
         }
         final var position = new Pair<>(CUSTOMER_START_X, CUSTOMER_START_Y);
         final int customersMolteplicity = random.nextInt(MAX_CUSTOMERS_MULTIPLICITY) + 1;
-        final var tempClient = this.factory.createCustomer(
+        final var newCustomer = this.factory.createCustomer(
                 position,
                 new Pair<>(CUSTOMER_REL_WIDTH, CUSTOMER_REL_HEIGHT),
                 this,
                 customersMolteplicity);
-        this.customers.add(tempClient);
-        this.controller.ifPresent(c -> c.addCustomerToView(tempClient));
+        this.customers.add(newCustomer);
+        this.controller.ifPresent(c -> c.addCustomerToView(newCustomer));
 
         if (thereAreAvaibleTables()) {
-            tableAssignament(tempClient);
+            tableAssignament(newCustomer);
         } else {
-            tempClient.setState(CustomerState.LINE);
-            linePositionAssignament(tempClient);
+            newCustomer.setState(CustomerState.LINE);
+            linePositionAssignament(newCustomer);
         }
     }
 
@@ -313,9 +313,9 @@ public final class ModelImpl implements Model {
 
             this.customers.stream()
                     .filter(c -> !c.getState().equals(CustomerState.ORDERING))
-                    .forEach(client -> {
-                        client.update();
-                        this.controller.ifPresent(c -> c.updateCustomersInView(customers.indexOf(client), client));
+                    .forEach(customer -> {
+                        customer.update();
+                        this.controller.ifPresent(c -> c.updateCustomersInView(customers.indexOf(customer), customer));
                     });
             this.removeAngryCustomers();
             this.checkChangePositionLine();
@@ -333,23 +333,17 @@ public final class ModelImpl implements Model {
 
     private void removeAngryCustomers() {
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.ANGRY))) {
-            final Customer tempCustomerToDelete = this.customers.stream()
+            final Customer customerToDelete = this.customers.stream()
                     .filter(p -> p.getState()
                             .equals(CustomerState.ANGRY))
                     .findFirst()
                     .get();
 
-            final int indexToDelete = this.customers.indexOf(tempCustomerToDelete);
-            this.customers.remove(tempCustomerToDelete);
+            final int indexToDelete = this.customers.indexOf(customerToDelete);
+            this.customers.remove(customerToDelete);
             this.controller.ifPresent(c -> c.removeCustomerInView(indexToDelete));
             this.customerLeft();
-            this.customers.stream()
-                    .filter(p -> p.getState()
-                            .equals(CustomerState.LINE))
-                    .forEach((p) -> {
-                        p.setPosition(
-                                new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
-                    });
+            this.updateLinePosionOfCustomers();
         }
     }
 
@@ -357,16 +351,19 @@ public final class ModelImpl implements Model {
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE))
                 && this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
                         (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y)))) {
+            this.updateLinePosionOfCustomers();
+        }
+    }
 
-            this.customers.stream()
+    private void updateLinePosionOfCustomers() {
+        this.customers.stream()
                     .filter(p -> p.getState()
                             .equals(CustomerState.LINE))
-                    .forEach((p) -> {
-                        p.setPosition(
-                                new Pair<>(p.getPosition().getX(), p.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
+                    .forEach((lineCustomer) -> {
+                        lineCustomer.setPosition(
+                                new Pair<>(lineCustomer.getPosition().getX(), 
+                                    lineCustomer.getPosition().getY() + CUSTOMER_IN_LINE_PADDING));
                     });
-
-        }
     }
 
     /**

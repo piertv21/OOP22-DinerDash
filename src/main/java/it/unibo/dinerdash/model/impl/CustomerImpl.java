@@ -36,14 +36,14 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
      * @param coordinates starting customer's position
      * @param size customer's image size (height, width)
      * @param model reference to modeImpl
-     * @param numCusters customer's moltiplicity 
+     * @param numberOfClients customer's moltiplicity 
      */
     public CustomerImpl(final Pair<Integer, Integer> coordinates, final Pair<Integer, Integer> size,
-            final Optional<Model> model, final int numCusters) {
+            final Optional<Model> model, final int numberOfClients) {
         super(coordinates, size, SPEED);
         this.model = model;
         this.state = CustomerState.WALKING;
-        this.numberClients = numCusters;
+        this.numberClients = numberOfClients;
         this.lastPatienceReduce = Optional.empty();
         this.patience = MAX_PATIECE;
         this.timeBeforeOrder = (int) (Math.random() * (MAX_ORDERING_TIME) + ONE);
