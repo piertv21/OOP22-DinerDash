@@ -433,7 +433,7 @@ public final class ModelImpl implements Model {
      */
     @Override
     public boolean thereAreAvaibleTables() {
-        return this.tables.stream().anyMatch(tab -> tab.getCustomer().isEmpty());
+        return this.tables.stream().anyMatch(table -> table.getCustomer().isEmpty());
     }
 
     /**
@@ -442,7 +442,7 @@ public final class ModelImpl implements Model {
     @Override
     public boolean checkFreeTables(final Customer client) {
         if (this.customers.stream()
-                .filter(p -> p.getState().equals(CustomerState.LINE))
+                .filter(customer -> customer.getState().equals(CustomerState.LINE))
                 .findFirst()
                 .get()
                 .equals(client)) {
