@@ -45,7 +45,7 @@ public class ViewImpl implements View {
     /**
      * Class constructor.
      * 
-     * @param controller
+     * @param controller is the game controller
      */
     public ViewImpl(final Controller controller) {
         this.mainFrame = new JFrame(Constants.GAME_NAME);

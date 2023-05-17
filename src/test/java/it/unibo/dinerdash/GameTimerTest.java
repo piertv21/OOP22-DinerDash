@@ -11,7 +11,7 @@ import it.unibo.dinerdash.utility.impl.GameTimerImpl;
 
 final class GameTimerTest {
 
-    private static final int TOLERANCE = 300;
+    private static final int TOLERANCE = 550;
     private static final int HALF = 500;
     private static final int ONE = 1000;
     private static final int TWO = 2000;

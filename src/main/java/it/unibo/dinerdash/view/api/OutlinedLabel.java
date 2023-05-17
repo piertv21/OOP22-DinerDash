@@ -20,7 +20,10 @@ public class OutlinedLabel extends JLabel {
     private static final int BORDER_THICKNESS = 5;
     private static final int FONT_SIZE = 14;
 
+    // Label Outline color
     private Color outlineColor;
+
+    // Label Outline width
     private int outlineWidth;
 
     /**
@@ -35,24 +38,6 @@ public class OutlinedLabel extends JLabel {
         this.outlineWidth = 2;
         setBorder(BorderFactory.createEmptyBorder(0, BORDER_THICKNESS, 0, BORDER_THICKNESS));
         setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
-    }
-
-    /**
-     * Set the border color.
-     * 
-     * @param color is the border color
-     */
-    public void setOutlineColor(final Color color) {
-        this.outlineColor = color;
-    }
-
-    /**
-     * Set the border width.
-     * 
-     * @param width is the border width
-     */
-    public void setOutlineWidth(final int width) {
-        this.outlineWidth = width;
     }
 
     /**
