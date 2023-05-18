@@ -147,23 +147,11 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
      * {@inheritDoc}
      */
     @Override
-    public void addOrderForWaitress(final Dish dishReady) {
-        orderList.add(dishReady);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public List<Dish> getOrderList() {
         return Collections.unmodifiableList(this.orderList);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean checkRightTable(final int tableNumber) {
+    
+    private boolean checkRightTable(final int tableNumber) {
         return this.orderList.stream().anyMatch(e -> e.getDishNumber() == tableNumber);
     }
 

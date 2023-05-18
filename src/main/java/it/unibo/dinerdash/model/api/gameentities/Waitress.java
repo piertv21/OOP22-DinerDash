@@ -19,7 +19,7 @@ public interface Waitress extends GameEntityMovable {
   /**
    * Set state for waitress.
    * 
-   * @param state
+   * @param state is the new Waitress state
    */
   void setState(WaitressState state);
 
@@ -33,21 +33,21 @@ public interface Waitress extends GameEntityMovable {
   /**
    * Set waitress destination and send order.
    * 
-   * @param position
+   * @param position is the table position
    */
   void takeTableOrder(Pair<Integer, Integer> position);
 
   /**
    * Set waitress destination and send serve order.
    * 
-   * @param position
+   * @param position is the table position
    */
   void serveOrder(Pair<Integer, Integer> position);
 
   /**
    * Set waitress destination and take money.
    * 
-   * @param position
+   * @param position is the table position
    */
   void collectMoney(Pair<Integer, Integer> position);
 
@@ -59,24 +59,11 @@ public interface Waitress extends GameEntityMovable {
   int getOrdersNumber();
 
   /**
-   * @param dishReady
-   */
-  void addOrderForWaitress(Dish dishReady);
-
-  /**
    * Returns the list of orders.
    * 
    * @return The list of orders
    */
   List<Dish> getOrderList();
-
-  /**
-   * Checks if the table number is correct.
-   * 
-   * @param tableNumber The table number to check
-   * @return True if the table number is correct, false otherwise
-   */
-  boolean checkRightTable(int tableNumber);
 
   /**
    * Adjust waitress speed movement.

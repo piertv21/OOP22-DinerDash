@@ -13,21 +13,23 @@ public interface Table extends GameEntity {
   /**
    * Set table state.
    * 
-   * @param tableState
+   * @param tableState is the new Table state
    */
   void setState(TableState tableState);
 
   /**
    * The state of the table.
    * 
-   * @return The state of the table
+   * @return yhe state of the table
    */
   TableState getState();
 
   /**
-   * @param cs
+   * Set reference to a customer in the table.
+   * 
+   * @param customer is the customer at the table
    */
-  void setCustom(Optional<Customer> cs);
+  void setCustom(Optional<Customer> customer);
 
   /**
    * Returns an Optional object containing the customer.

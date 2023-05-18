@@ -1,7 +1,6 @@
 package it.unibo.dinerdash.gameentities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
@@ -9,7 +8,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.dinerdash.model.api.gameentities.Dish;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactory;
 import it.unibo.dinerdash.model.api.gameentities.GameEntityFactoryImpl;
 import it.unibo.dinerdash.model.api.gameentities.Table;
@@ -88,29 +86,6 @@ final class WaitressTest {
         waitress.collectMoney(position);
         assertEquals(position, waitress.getDestination().get());
         assertEquals(WaitressState.TAKING_MONEY, waitress.getState());
-    }
-
-    @Test
-    void testAddOrderForWaitress() {
-        final Dish dish = this.factory.createDish(
-                new Pair<Integer, Integer>(100, 100),
-                new Pair<Integer, Integer>(100, 100),
-                1);
-        waitress.addOrderForWaitress(dish);
-        assertFalse(waitress.getOrderList().isEmpty());
-        assertEquals(1, waitress.getOrdersNumber());
-        assertTrue(waitress.getOrderList().contains(dish));
-    }
-
-    @Test
-    void testCheckRightTable() {
-        final Dish dish = this.factory.createDish(
-                new Pair<Integer, Integer>(100, 100),
-                new Pair<Integer, Integer>(100, 100),
-                1);
-        waitress.addOrderForWaitress(dish);
-        assertTrue(waitress.checkRightTable(1));
-        assertFalse(waitress.checkRightTable(2));
     }
 
     @Test
