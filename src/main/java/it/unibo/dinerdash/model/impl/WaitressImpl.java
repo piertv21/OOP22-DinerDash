@@ -150,7 +150,7 @@ public class WaitressImpl extends AbstractGameEntityMovable implements Waitress 
     public List<Dish> getOrderList() {
         return Collections.unmodifiableList(this.orderList);
     }
-    
+
     private boolean checkRightTable(final int tableNumber) {
         return this.orderList.stream().anyMatch(e -> e.getDishNumber() == tableNumber);
     }

@@ -23,14 +23,10 @@ import it.unibo.dinerdash.view.api.View;
  */
 public class StartView implements GamePanel<JPanel> {
 
-    private final JPanel panel;
-
-    private static final String START = "Start game";
-    private static final String EXIT = "Exit";
-
     private static final int FONT_SIZE = 60;
-    private static final double FONT_SIZE_REL = 0.15;
+    private static final double FONT_SCALE_RATIO = 0.15;
 
+    private final JPanel panel;
     private final JLabel titleLabel;
     private final JButton startButton;
     private final JButton exitButton;
@@ -55,12 +51,12 @@ public class StartView implements GamePanel<JPanel> {
         this.panel.add(titleLabel, gridBagConstraints);
 
         gridBagConstraints.gridy = 1;
-        startButton = new JButton(START);
+        startButton = new JButton("Start game");
         startButton.addActionListener((e) -> mainFrame.showGameView());
         this.panel.add(startButton, gridBagConstraints);
 
         gridBagConstraints.gridy = 2;
-        exitButton = new JButton(EXIT);
+        exitButton = new JButton("Exit");
         exitButton.addActionListener((e) -> mainFrame.showExitDialog());
         this.panel.add(exitButton, gridBagConstraints);
 
@@ -70,7 +66,7 @@ public class StartView implements GamePanel<JPanel> {
                 final int height = panel.getHeight();
                 final int width = panel.getWidth();
 
-                titleLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * FONT_SIZE_REL)));
+                titleLabel.setFont(new Font("Arial", Font.BOLD, (int) (height * FONT_SCALE_RATIO)));
 
                 final int buttonWidth = (int) (width * 0.3);
                 final int buttonHeight = (int) (height * 0.08);

@@ -20,11 +20,15 @@ public class OutlinedLabel extends JLabel {
     private static final int BORDER_THICKNESS = 5;
     private static final int FONT_SIZE = 14;
 
-    // Label Outline color
-    private Color outlineColor;
+    /**
+     * Is the outline label color.
+     */
+    private final Color outlineColor;
 
-    // Label Outline width
-    private int outlineWidth;
+    /**
+     * Is the label width.
+     */
+    private final int outlineWidth;
 
     /**
      * Class constructor.

@@ -28,9 +28,9 @@ import it.unibo.dinerdash.view.api.View;
 public class GameOverView implements GamePanel<JPanel> {
 
     private static final int BIG_FONT_SIZE = 48;
-    private static final double BIG_FONT_SIZE_REL = 0.15;
+    private static final double BIG_FONT_SCALE_RATIO = 0.15;
     private static final int MEDIUM_FONT_SIZE = BIG_FONT_SIZE / 2;
-    private static final double MEDIUM_FONT_SIZE_REL = BIG_FONT_SIZE_REL / 2;
+    private static final double MEDIUM_FONT_SCALE_RATIO = BIG_FONT_SCALE_RATIO / 2;
 
     private final JPanel panel;
     private final JButton playAgainButton;
@@ -92,8 +92,8 @@ public class GameOverView implements GamePanel<JPanel> {
                 final int height = panel.getHeight();
                 final int width = panel.getWidth();
 
-                gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * BIG_FONT_SIZE_REL)));
-                coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, (int) (height * MEDIUM_FONT_SIZE_REL)));
+                gameOverLabel.setFont(new Font(Constants.GAME_FONT, Font.BOLD, (int) (height * BIG_FONT_SCALE_RATIO)));
+                coinLabel.setFont(new Font(Constants.GAME_FONT, Font.PLAIN, (int) (height * MEDIUM_FONT_SCALE_RATIO)));
 
                 final int buttonWidth = (int) (width * 0.6);
                 final int buttonHeight = (int) (height * 0.2);

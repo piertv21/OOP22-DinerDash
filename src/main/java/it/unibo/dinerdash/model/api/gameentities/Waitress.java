@@ -71,10 +71,10 @@ public interface Waitress extends GameEntityMovable {
   void incrementSpeed();
 
   /**
-   * Teaking dish form order.
+   * It takes a dish from the countertop.
    * 
-   * @param dishReady
+   * @param dish is the dish position
    */
-  void goGetDish(Pair<Integer, Integer> dishReady);
+  void goGetDish(Pair<Integer, Integer> dish);
 
 }
