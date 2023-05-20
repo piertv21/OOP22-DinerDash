@@ -64,38 +64,11 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
         this.speed = speed;
     }
 
-    private void moveUp() {
+    private void move(final Direction direction) {
         final var oldPosition = this.getPosition();
         final var newPosition = new Pair<>(
-            oldPosition.getX() + Direction.UP.getX() * this.speed,
-            oldPosition.getY() + Direction.UP.getY() * this.speed
-        );
-        this.setPosition(newPosition);
-    }
-
-    private void moveDown() {
-        final var oldPosition = this.getPosition();
-        final var newPosition = new Pair<>(
-            oldPosition.getX() + Direction.DOWN.getX() * this.speed,
-            oldPosition.getY() + Direction.DOWN.getY() * this.speed
-        );
-        this.setPosition(newPosition);
-    }
-
-    private void moveRight() {
-        final var oldPosition = this.getPosition();
-        final var newPosition = new Pair<>(
-            oldPosition.getX() + Direction.RIGHT.getX() * this.speed,
-            oldPosition.getY() + Direction.RIGHT.getY() * this.speed
-        );
-        this.setPosition(newPosition);
-    }
-
-    private void moveLeft() {
-        final var oldPosition = this.getPosition();
-        final var newPosition = new Pair<>(
-            oldPosition.getX() + Direction.LEFT.getX() * this.speed,
-            oldPosition.getY() + Direction.LEFT.getY() * this.speed
+            oldPosition.getX() + direction.getX() * this.speed,
+            oldPosition.getY() + direction.getY() * this.speed
         );
         this.setPosition(newPosition);
     }
@@ -106,13 +79,13 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
     @Override
     public void handleMovement(final int range) {
         if (getPosition().getX() < this.getDestination().get().getX() - range) {
-            this.moveRight();
+            this.move(Direction.RIGHT);
         } else if (getPosition().getX() > this.getDestination().get().getX() + range) {
-            this.moveLeft();
+            this.move(Direction.LEFT);
         } else if (getPosition().getY() > this.getDestination().get().getY() + range) {
-            this.moveUp();
+            this.move(Direction.UP);
         } else if (getPosition().getY() < this.getDestination().get().getY()) {
-            this.moveDown();
+            this.move(Direction.DOWN);
         }
     }
 

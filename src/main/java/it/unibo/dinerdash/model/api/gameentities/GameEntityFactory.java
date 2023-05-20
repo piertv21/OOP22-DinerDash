@@ -44,7 +44,7 @@ public interface GameEntityFactory {
      * 
      * @return a Table instance
      */
-    Table createTable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int i);
+    Table createTable(Pair<Integer, Integer> coordinates, Pair<Integer, Integer> size, int tableNumber);
 
     /**
      * Create a Waitress instance.

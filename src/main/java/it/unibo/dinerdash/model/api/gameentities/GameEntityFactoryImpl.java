@@ -61,9 +61,9 @@ public class GameEntityFactoryImpl implements GameEntityFactory {
     public Table createTable(
         final Pair<Integer, Integer> coordinates,
         final Pair<Integer, Integer> size,
-        final int i
+        final int tableNumber
     ) {
-        return new TableImpl(coordinates, size, i);
+        return new TableImpl(coordinates, size, tableNumber);
     }
 
     /**

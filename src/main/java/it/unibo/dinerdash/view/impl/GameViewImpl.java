@@ -64,7 +64,6 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
     private static final int INSETS_TOP = 6;
     private static final double FONT_SIZE_REL = 0.04;
     private static final int CURSOR_SIZE = 32;
-
     private static final int CUSTOMER_PATIENCE_REL_POSITION = (int) (Constants.RESTAURANT_WIDTH * -0.01);
     private static final int TABLE_STATE_PATTER = (int) (Constants.RESTAURANT_WIDTH * 0.03);
     private static final int MAX_PATIECE = 7;

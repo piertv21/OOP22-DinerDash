@@ -231,10 +231,10 @@ public interface Model {
     /**
      * Set the number of clients sitted at the table number "numberOfTable".
      * 
-     * @param numberOfClienty number of clients
+     * @param numberOfClient number of clients
      * @param numberOfTable number of the table
      */
-    void setNumberOfClientsAtTable(int numberOfClienty, int numberOfTable);
+    void setNumberOfClientsAtTable(int numberOfClient, int numberOfTable);
 
     /**
      * It tells the controller to add a dish to the view.
