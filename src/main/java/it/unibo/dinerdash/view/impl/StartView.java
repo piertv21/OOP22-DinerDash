@@ -1,7 +1,9 @@
 package it.unibo.dinerdash.view.impl;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -25,6 +27,9 @@ public class StartView implements GamePanel<JPanel> {
 
     private static final int FONT_SIZE = 60;
     private static final double FONT_SCALE_RATIO = 0.15;
+    private static final double IMAGE_WIDTH = 0.16;
+    private static final double IMAGE_HEIGHT = IMAGE_WIDTH / 2;
+    private static final double IMAGE_REL_POS = 0.7;
 
     private final JPanel panel;
     private final JLabel titleLabel;
@@ -37,7 +42,21 @@ public class StartView implements GamePanel<JPanel> {
      * @param mainFrame is the reference to main View
      */
     public StartView(final View mainFrame) {
-        this.panel = new JPanel();
+        this.panel = new JPanel() {
+            @Override
+            public void paintComponent(final Graphics g) {
+                super.paintComponent(g);
+
+                g.setColor(Color.decode("#FFEFDE"));
+                g.fillRect(0, 0, getWidth(), getHeight());
+
+                g.drawImage(mainFrame.getImageCacher().getCachedImage("startBacgkround").getImage(),
+                    (int) (getWidth() * IMAGE_WIDTH), (int) (getHeight() * IMAGE_HEIGHT),
+                    (int) (getWidth() * IMAGE_REL_POS), (int) (getHeight() * IMAGE_REL_POS),
+                    this
+                );
+            }
+        };
 
         this.panel.setLayout(new GridBagLayout());
 

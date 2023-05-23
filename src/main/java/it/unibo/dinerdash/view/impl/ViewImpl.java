@@ -215,6 +215,7 @@ public class ViewImpl implements View {
         assets.add("tables/tableStates/wantToPay.png");
         assets.add("cursors/defaultCursor.png");
         assets.add("cursors/handCursor.png");
+        assets.add("startBacgkround.png");
         assets.add("background.jpg");
         assets.add("chef.gif");
 
