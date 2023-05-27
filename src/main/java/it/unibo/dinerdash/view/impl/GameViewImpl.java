@@ -82,7 +82,7 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
 
     private final List<ImageDecorator> customers;
     private final List<ImageDecorator> tables;
-    private final List<NumberDecorator> dishes;
+    private final List<GameEntityViewable> dishes;
     private NumberDecorator waitress;
     private GameEntityViewable chef;
 
@@ -514,9 +514,7 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
         final int numTable
     ) {
         final var img = this.imageCacher.getCachedImage("dish" + numTable).getImage();
-        final var dish = new NumberDecoratorImpl(
-                new GameEntityViewableImpl(coordinates, size, active, img));
-        dish.setNumber(numTable);
+        final var dish = new GameEntityViewableImpl(coordinates, size, active, img);
         this.dishes.add(dish);
     }
 
