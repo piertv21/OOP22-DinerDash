@@ -92,11 +92,11 @@ final class CustomerTest {
 
     @Test
     void testGetCustomerPatience() {
-        final int exepect = 7;
-        final int got = 6;
+        final int startingPatience = 7;
+        final int newPatience = 6;
         testClient1.setState(CustomerState.LINE);
-        assertEquals(exepect, testClient1.getCustomerPatience());
+        assertEquals(startingPatience, testClient1.getCustomerPatience());
         testClient1.update();
-        assertEquals(got, testClient1.getCustomerPatience());
+        assertEquals(newPatience, testClient1.getCustomerPatience());
     }
 }

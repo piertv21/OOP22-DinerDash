@@ -24,7 +24,7 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
     private static final int HITBOX_SPACE = 4;
     private CustomerState state;
     private final Optional<Model> model;
-    private final int numberClients;
+    private final int numberofClients;
     private long startThinkTime;
     private Optional<Long> lastPatienceReduce;
     private int patience;
@@ -43,7 +43,7 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
         super(coordinates, size, SPEED);
         this.model = model;
         this.state = CustomerState.WALKING;
-        this.numberClients = numberOfClients;
+        this.numberofClients = numberOfClients;
         this.lastPatienceReduce = Optional.empty();
         this.patience = MAX_PATIECE;
         this.timeBeforeOrder = (int) (Math.random() * (MAX_ORDERING_TIME) + ONE);
@@ -55,7 +55,7 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
      */
     @Override
     public int getCustomerCount() {
-        return this.numberClients;
+        return this.numberofClients;
     }
 
     /**
@@ -108,12 +108,12 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
             this.setActive(false); 
             final int sittedTable = this.model.get().getTableNumberfromPosition(this.getPosition());
             this.model.get().setTableState(TableState.THINKING, sittedTable);
-            this.model.get().setNumberOfClientsAtTable(numberClients, sittedTable);
+            this.model.get().setNumberOfClientsAtTable(numberofClients, sittedTable);
         }
     }
 
     private void thinkingAction() {
-        if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(timeBeforeOrder) + this.startThinkTime) {
+        if (System.nanoTime() >= TimeUnit.SECONDS.toNanos(this.timeBeforeOrder) + this.startThinkTime) {
             this.state = CustomerState.ORDERING;
             final int sittedTable = this.model.get().getTableNumberfromPosition(this.getPosition());
             this.model.get().setTableState(TableState.ORDERING, sittedTable);

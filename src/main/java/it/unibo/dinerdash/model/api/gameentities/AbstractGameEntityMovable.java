@@ -80,4 +80,13 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
         }
     }
 
+    private void move(final Direction direction) {
+        final var oldPosition = this.getPosition();
+        final var newPosition = new Pair<>(
+            oldPosition.getX() + direction.getX() * this.speed,
+            oldPosition.getY() + direction.getY() * this.speed
+        );
+        this.setPosition(newPosition);
+    }
+
 }
