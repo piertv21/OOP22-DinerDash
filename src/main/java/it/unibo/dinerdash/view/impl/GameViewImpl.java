@@ -139,8 +139,8 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
                         }
                     });
 
-                customers.stream().filter(cus -> cus.isActive()
-                    && ((NumberDecorator) cus.getDecorated()).getNumber() == MAX_PATIECE)
+                customers.stream().filter(clients -> clients.isActive()
+                    && ((NumberDecorator) clients.getDecorated()).getNumber() == MAX_PATIECE)
                     .forEach(c -> {
                         g.drawImage(c.getIcon(),
                             (int) (c.getPosition().getX() * widthRatio),
@@ -152,10 +152,10 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
 
                 final var streamLineCustomer = customers.stream()
                     .filter(cus -> cus.isActive() && ((NumberDecorator) cus.getDecorated()).getNumber() != MAX_PATIECE);
-                final var list = streamLineCustomer.collect(Collectors.toList());
+                final var listLineCustomers = streamLineCustomer.collect(Collectors.toList());
 
-                Collections.reverse(list);
-                list.forEach(c -> {
+                Collections.reverse(listLineCustomers);
+                listLineCustomers.forEach(c -> {
                     g.drawImage(c.getIcon(),
                         (int) (c.getPosition().getX() * widthRatio),
                         (int) (c.getPosition().getY() * heightRatio),
