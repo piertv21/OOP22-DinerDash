@@ -319,4 +319,11 @@ final class ModelTest {
         assertNotEquals(waitressPosition, model.getWaitress().getPosition());
     }
 
+    @Test
+    void testGetTableNumberfromPosition() {
+        final var tablePosition = model.getTableList().get(0).getPosition();
+        final var tableNumber = 1;
+        assertEquals(tableNumber, model.getTableNumberfromPosition(tablePosition));
+    }
+
 }

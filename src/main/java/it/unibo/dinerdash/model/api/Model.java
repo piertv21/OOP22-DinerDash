@@ -345,4 +345,12 @@ public interface Model {
      */
     Chef getChef();
 
+    /**
+     * Returns the number of the table from a given position.
+     * 
+     * @param position is the table's position
+     * @return Table's number 
+     */
+    int getTableNumberfromPosition(Pair<Integer, Integer> position);
+
 }

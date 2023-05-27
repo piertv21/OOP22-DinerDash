@@ -350,7 +350,7 @@ public final class ModelImpl implements Model {
     private void checkChangePositionLine() {
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE))
                 && this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
-                        (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y)))) {
+                        CUSTOMER_FIRST_LINE_REL_X, CUSTOMER_FIRST_LINE_REL_Y)))) {
             this.updateLinePosionOfCustomers();
         }
     }
@@ -417,14 +417,15 @@ public final class ModelImpl implements Model {
     }
 
     private void linePositionAssignament(final Customer client) {
-        final int inLineCustomers = (int) customers.stream().filter(p -> p.getState().equals(CustomerState.LINE))
-                .count();
+        final int inLineCustomers = (int) customers.stream()
+            .filter(p -> p.getState().equals(CustomerState.LINE))
+            .count();
         if (inLineCustomers != 1) {
-            client.setPosition(new Pair<Integer, Integer>((int) CUSTOMER_FIRST_LINE_REL_X,
+            client.setPosition(new Pair<Integer, Integer>(CUSTOMER_FIRST_LINE_REL_X,
                     (int) (CUSTOMER_FIRST_LINE_REL_Y - ((inLineCustomers - 1) * CUSTOMER_IN_LINE_PADDING))));
         } else {
             client.setPosition(new Pair<Integer, Integer>(
-                    (int) CUSTOMER_FIRST_LINE_REL_X, (int) CUSTOMER_FIRST_LINE_REL_Y));
+                    CUSTOMER_FIRST_LINE_REL_X, CUSTOMER_FIRST_LINE_REL_Y));
         }
     }
 
@@ -433,7 +434,8 @@ public final class ModelImpl implements Model {
      */
     @Override
     public boolean thereAreAvaibleTables() {
-        return this.tables.stream().anyMatch(table -> table.getCustomer().isEmpty());
+        return this.tables.stream()
+        .anyMatch(table -> table.getCustomer().isEmpty());
     }
 
     /**
@@ -722,4 +724,15 @@ public final class ModelImpl implements Model {
         return this.chef;
     }
 
+     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getTableNumberfromPosition(final Pair<Integer, Integer> positon) {
+        return this.tables.stream()
+        .filter(t -> t.getPosition().equals(positon))
+        .findFirst()
+        .get()
+        .getTableNumber();
+    }
 }
