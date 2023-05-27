@@ -728,9 +728,9 @@ public final class ModelImpl implements Model {
      * {@inheritDoc}
      */
     @Override
-    public int getTableNumberfromPosition(final Pair<Integer, Integer> positon) {
+    public int getTableNumberfromPosition(final Pair<Integer, Integer> position) {
         return this.tables.stream()
-        .filter(t -> t.getPosition().equals(positon))
+        .filter(t -> t.getPosition().equals(position))
         .findFirst()
         .get()
         .getTableNumber();
