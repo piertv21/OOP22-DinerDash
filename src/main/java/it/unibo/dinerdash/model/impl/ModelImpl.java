@@ -341,7 +341,7 @@ public final class ModelImpl implements Model {
             this.customers.remove(customerToDelete);
             this.controller.ifPresent(c -> c.removeCustomerInView(indexToDelete));
             this.customerLeft();
-            this.updateLinePosionOfCustomers();
+            this.updateLinePositionOfCustomers();
         }
     }
 
@@ -349,11 +349,11 @@ public final class ModelImpl implements Model {
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE))
                 && this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
                         Constants.CUSTOMER_FIRST_LINE_REL_X, Constants.CUSTOMER_FIRST_LINE_REL_Y)))) {
-            this.updateLinePosionOfCustomers();
+            this.updateLinePositionOfCustomers();
         }
     }
 
-    private void updateLinePosionOfCustomers() {
+    private void updateLinePositionOfCustomers() {
         this.customers.stream()
                     .filter(p -> p.getState()
                             .equals(CustomerState.LINE))

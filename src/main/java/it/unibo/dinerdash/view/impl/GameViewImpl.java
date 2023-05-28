@@ -108,8 +108,8 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
             protected void paintComponent(final Graphics g) {
                 super.paintComponent(g);
 
-                final var heightRatio = mainFrame.getHeightRatio();
-                final var widthRatio = mainFrame.getWidthRatio();
+                final double heightRatio = mainFrame.getHeightRatio();
+                final double widthRatio = mainFrame.getWidthRatio();
 
                 g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
 

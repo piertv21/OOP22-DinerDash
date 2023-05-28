@@ -52,8 +52,8 @@ public class ViewImpl implements View {
 
         this.controller = Optional.of(controller);
         this.imageCacher = new ImageReaderWithCache(Constants.ROOT);
-        this.widthRatio = 0;
-        this.heightRatio = 0;
+        this.widthRatio = 1;
+        this.heightRatio = 1;
         this.gameStarted = false;
         this.mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.mainFrame.addWindowListener(new WindowAdapter() {
