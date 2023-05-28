@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -111,6 +112,15 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
                 final double heightRatio = mainFrame.getHeightRatio();
                 final double widthRatio = mainFrame.getWidthRatio();
 
+                final Consumer<ImageDecorator> printClients = (c) -> { 
+                    g.drawImage(c.getIcon(),
+                    (int) (c.getPosition().getX() * widthRatio),
+                    (int) (c.getPosition().getY() * heightRatio),
+                    (int) (c.getSize().getX() * widthRatio),
+                    (int) (c.getSize().getY() * heightRatio),
+                    this); 
+                };
+
                 g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
 
                 g.drawImage(waitress.getIcon(),
@@ -141,28 +151,16 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
 
                 customers.stream().filter(clients -> clients.isActive()
                     && ((NumberDecorator) clients.getDecorated()).getNumber() == MAX_PATIECE)
-                    .forEach(c -> {
-                        g.drawImage(c.getIcon(),
-                            (int) (c.getPosition().getX() * widthRatio),
-                            (int) (c.getPosition().getY() * heightRatio),
-                            (int) (c.getSize().getX() * widthRatio),
-                            (int) (c.getSize().getY() * heightRatio),
-                        this);
-                    });
+                    .forEach(printClients);
 
                 final var streamLineCustomer = customers.stream()
-                    .filter(cus -> cus.isActive() && ((NumberDecorator) cus.getDecorated()).getNumber() != MAX_PATIECE);
+                    .filter(clients -> clients.isActive() 
+                        && ((NumberDecorator) clients.getDecorated()).getNumber() != MAX_PATIECE);
                 final var listLineCustomers = streamLineCustomer.collect(Collectors.toList());
 
                 Collections.reverse(listLineCustomers);
+                listLineCustomers.forEach(printClients);
                 listLineCustomers.forEach(c -> {
-                    g.drawImage(c.getIcon(),
-                        (int) (c.getPosition().getX() * widthRatio),
-                        (int) (c.getPosition().getY() * heightRatio),
-                        (int) (c.getSize().getX() * widthRatio),
-                        (int) (c.getSize().getY() * heightRatio),
-                    this);
-
                     g.drawImage(c.getState().get(),
                         (int) ((c.getPosition().getX() - CUSTOMER_PATIENCE_REL_POSITION) * widthRatio),
                         (int) ((c.getPosition().getY() + CUSTOMER_PATIENCE_REL_POSITION) * heightRatio),
