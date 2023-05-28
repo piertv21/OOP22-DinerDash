@@ -99,9 +99,7 @@ public final class CustomerImpl extends AbstractGameEntityMovable implements Cus
     private void walkingAction() {
         this.handleMovement(HITBOX_SPACE);
 
-        if (getPosition().getX() >= this.getDestination().get().getX() - HITBOX_SPACE
-                && getPosition().getY() <= this.getDestination().get().getY() + HITBOX_SPACE
-                && getPosition().getY() >= this.getDestination().get().getY() - HITBOX_SPACE) { 
+        if (this.isArrived(HITBOX_SPACE)) { 
             this.startThinkTime = System.nanoTime();
             this.state = CustomerState.THINKING;
             this.setPosition(this.getDestination().get());

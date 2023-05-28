@@ -20,18 +20,18 @@ public final class Constants {
      */
     public static final String GAME_FONT = "Arial";
 
-    /**
-     * Logical restaurant width.
-     */
-    public static final int RESTAURANT_WIDTH = 1280;
+    private Constants() {
+        throw new UnsupportedOperationException("Cannot instantiate utility class");
+    }
 
     /**
      * Logical restaurant height.
      */
     public static final int RESTAURANT_HEIGHT = 720;
 
-    private Constants() {
-        throw new UnsupportedOperationException("Cannot instantiate utility class");
-    }
+    /**
+     * Logical restaurant width.
+     */
+    public static final int RESTAURANT_WIDTH = 1280;
 
 }

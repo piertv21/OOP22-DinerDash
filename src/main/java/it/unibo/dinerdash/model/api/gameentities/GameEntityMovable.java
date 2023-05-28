@@ -45,4 +45,12 @@ public interface GameEntityMovable extends GameEntity {
      */
     void handleMovement(int range);
 
+    /**
+     * Return if the entity is arrived to the destination.
+     * 
+     * @param range space used as buffer space in the destination point
+     * @return true if the entity is arrived, false otherwise
+     */
+    boolean isArrived(int range);
+
 }

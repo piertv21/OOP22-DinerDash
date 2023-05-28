@@ -89,4 +89,15 @@ public class AbstractGameEntityMovable extends AbstractGameEntity implements Gam
         this.setPosition(newPosition);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isArrived(final int range) {
+        return this.getPosition().getX() >= this.getDestination().get().getX() - range
+            && this.getPosition().getX() <= this.getDestination().get().getX() + range
+            && this.getPosition().getY() >= this.getDestination().get().getY() - range
+            && this.getPosition().getY() <= this.getDestination().get().getY() + range;
+    }
+
 }
