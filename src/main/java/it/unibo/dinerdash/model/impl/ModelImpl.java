@@ -57,8 +57,6 @@ public final class ModelImpl implements Model {
     private static final int CUSTOMER_REL_WIDTH = (int) (0.08 * Constants.RESTAURANT_WIDTH);
     private static final int CUSTOMER_REL_HEIGHT = (int) (0.21 * Constants.RESTAURANT_HEIGHT);
     private static final int CUSTOMER_IN_LINE_PADDING = (int) (0.14 * Constants.RESTAURANT_HEIGHT);
-    private static final int CUSTOMER_FIRST_LINE_REL_X = (int) (0.04 * Constants.RESTAURANT_WIDTH);
-    private static final int CUSTOMER_FIRST_LINE_REL_Y = (int) (0.67 * Constants.RESTAURANT_HEIGHT);
     private static final int CUSTOMERS_CREATION_TIME = 7;
     private static final int CUSTOMER_START_X = 0;
     private static final int CUSTOMER_START_Y = (int) (0.46 * Constants.RESTAURANT_HEIGHT);
@@ -350,7 +348,7 @@ public final class ModelImpl implements Model {
     private void checkChangePositionLine() {
         if (this.customers.stream().anyMatch(p -> p.getState().equals(CustomerState.LINE))
                 && this.customers.stream().noneMatch(p -> p.getPosition().equals(new Pair<Integer, Integer>(
-                        CUSTOMER_FIRST_LINE_REL_X, CUSTOMER_FIRST_LINE_REL_Y)))) {
+                        Constants.CUSTOMER_FIRST_LINE_REL_X, Constants.CUSTOMER_FIRST_LINE_REL_Y)))) {
             this.updateLinePosionOfCustomers();
         }
     }
@@ -421,11 +419,11 @@ public final class ModelImpl implements Model {
             .filter(p -> p.getState().equals(CustomerState.LINE))
             .count();
         if (inLineCustomers != 1) {
-            client.setPosition(new Pair<Integer, Integer>(CUSTOMER_FIRST_LINE_REL_X,
-                    (int) (CUSTOMER_FIRST_LINE_REL_Y - ((inLineCustomers - 1) * CUSTOMER_IN_LINE_PADDING))));
+            client.setPosition(new Pair<Integer, Integer>(Constants.CUSTOMER_FIRST_LINE_REL_X,
+                    (int) (Constants.CUSTOMER_FIRST_LINE_REL_Y - ((inLineCustomers - 1) * CUSTOMER_IN_LINE_PADDING))));
         } else {
             client.setPosition(new Pair<Integer, Integer>(
-                    CUSTOMER_FIRST_LINE_REL_X, CUSTOMER_FIRST_LINE_REL_Y));
+                    Constants.CUSTOMER_FIRST_LINE_REL_X, Constants.CUSTOMER_FIRST_LINE_REL_Y));
         }
     }
 
