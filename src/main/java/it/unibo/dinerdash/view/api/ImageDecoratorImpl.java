@@ -26,8 +26,8 @@ public class ImageDecoratorImpl extends AbstractGameEntityViewableDecorator impl
      * {@inheritDoc}
      */
     @Override
-    public void setImage(final Optional<Image> icon) {
-        this.state = icon;
+    public void setImage(final Image icon) {
+        this.state = Optional.ofNullable(icon);
     }
 
     /**

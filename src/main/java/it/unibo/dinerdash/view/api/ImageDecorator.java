@@ -15,7 +15,7 @@ public interface ImageDecorator extends GameEntityViewableDecorator {
      * 
      * @param icon is the Image to be set
      */
-    void setImage(Optional<Image> icon);
+    void setImage(Image icon);
 
     /**
      * Getter for Image, it returns empty() if is not present.

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -437,7 +436,7 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
 
         if (client.getNumber() != patience && patience != -1) {
             final var img = this.imageCacher.getCachedImage("heart" + patience).getImage();
-            this.customers.get(index).setImage(Optional.of(img));
+            this.customers.get(index).setImage(img);
             client.setNumber(patience);
         }
     }
@@ -548,7 +547,7 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
         final var table = new ImageDecoratorImpl(new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active, img)));
         ((NumberDecorator) table.getDecorated()).setNumber(peopleNumer);
-        table.setImage(Optional.empty());
+        table.setImage(null);
         this.tables.add(table);
     }
 
@@ -568,10 +567,10 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
                 tempTable.setIcon(this.imageCacher.getCachedImage("tableWithDish" + peopleNumber).getImage());
             } else {
                 final var imgState = this.imageCacher.getCachedImage(state).getImage();
-                tables.get(index).setImage(Optional.of(imgState));
+                tables.get(index).setImage(imgState);
             }
         } else if (tables.get(index).getImage().isPresent()) {
-            tables.get(index).setImage(Optional.empty());
+            tables.get(index).setImage(null);
         }
 
     }
