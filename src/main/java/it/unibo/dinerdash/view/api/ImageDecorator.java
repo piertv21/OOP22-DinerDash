@@ -15,13 +15,13 @@ public interface ImageDecorator extends GameEntityViewableDecorator {
      * 
      * @param icon is the Image to be set
      */
-    void setState(Optional<Image> icon);
+    void setImage(Optional<Image> icon);
 
     /**
      * Getter for Image, it returns empty() if is not present.
      * 
      * @return the Optional Image
      */
-    Optional<Image> getState();
+    Optional<Image> getImage();
 
 }

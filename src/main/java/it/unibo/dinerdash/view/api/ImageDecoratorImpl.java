@@ -26,7 +26,7 @@ public class ImageDecoratorImpl extends AbstractGameEntityViewableDecorator impl
      * {@inheritDoc}
      */
     @Override
-    public void setState(final Optional<Image> icon) {
+    public void setImage(final Optional<Image> icon) {
         this.state = icon;
     }
 
@@ -34,7 +34,7 @@ public class ImageDecoratorImpl extends AbstractGameEntityViewableDecorator impl
      * {@inheritDoc}
      */
     @Override
-    public Optional<Image> getState() {
+    public Optional<Image> getImage() {
         return this.state;
     }
 

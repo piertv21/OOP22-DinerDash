@@ -139,8 +139,8 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
                             (int) (e.getSize().getY() * heightRatio),
                         this);
 
-                        if (e.getState().isPresent()) {
-                            g.drawImage(e.getState().get(),
+                        if (e.getImage().isPresent()) {
+                            g.drawImage(e.getImage().get(),
                                 (int) ((e.getPosition().getX() + (TABLE_STATE_PATTER * widthRatio)) * widthRatio),
                                 (int) (e.getPosition().getY() * heightRatio),
                                 (int) (TABLE_STATE_IMG_SIZE.getX() * widthRatio),
@@ -161,7 +161,7 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
                 Collections.reverse(listLineCustomers);
                 listLineCustomers.forEach(printClients);
                 listLineCustomers.forEach(c -> {
-                    g.drawImage(c.getState().get(),
+                    g.drawImage(c.getImage().get(),
                         (int) ((c.getPosition().getX() - CUSTOMER_PATIENCE_REL_POSITION) * widthRatio),
                         (int) ((c.getPosition().getY() + CUSTOMER_PATIENCE_REL_POSITION) * heightRatio),
                         (int) (CUSTOMER_PATIENCE_IMG_SIZE.getX() * widthRatio),
@@ -437,7 +437,7 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
 
         if (client.getNumber() != patience && patience != -1) {
             final var img = this.imageCacher.getCachedImage("heart" + patience).getImage();
-            this.customers.get(index).setState(Optional.of(img));
+            this.customers.get(index).setImage(Optional.of(img));
             client.setNumber(patience);
         }
     }
@@ -548,7 +548,7 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
         final var table = new ImageDecoratorImpl(new NumberDecoratorImpl(
                 new GameEntityViewableImpl(coordinates, size, active, img)));
         ((NumberDecorator) table.getDecorated()).setNumber(peopleNumer);
-        table.setState(Optional.empty());
+        table.setImage(Optional.empty());
         this.tables.add(table);
     }
 
@@ -568,10 +568,10 @@ public class GameViewImpl implements GamePanel<JPanel>, GameView {
                 tempTable.setIcon(this.imageCacher.getCachedImage("tableWithDish" + peopleNumber).getImage());
             } else {
                 final var imgState = this.imageCacher.getCachedImage(state).getImage();
-                tables.get(index).setState(Optional.of(imgState));
+                tables.get(index).setImage(Optional.of(imgState));
             }
-        } else if (tables.get(index).getState().isPresent()) {
-            tables.get(index).setState(Optional.empty());
+        } else if (tables.get(index).getImage().isPresent()) {
+            tables.get(index).setImage(Optional.empty());
         }
 
     }
