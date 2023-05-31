@@ -1,6 +1,7 @@
 package it.unibo.dinerdash;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.BeforeAll;
@@ -69,6 +70,17 @@ final class GameTimerTest {
         gameTimer.stopTimer();
 
         assertEquals(value - 2, testValue.get());
+    }
+
+    @Test
+    void testStopTimer() throws InterruptedException {
+        final var value = testValue.get();
+        gameTimer.startTimer();
+
+        Thread.sleep(ONE + TOLERANCE);
+        gameTimer.stopTimer();
+
+        assertNotEquals(value, testValue.get());
     }
 
 }
