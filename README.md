@@ -4,7 +4,7 @@
 
 # **Diner Dash (OOP22-diner-dash) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://en.wikipedia.org/wiki/MIT_License)**
 
-This program recreates a game very similar to the iconic Diner Dash 2004.
+This program recreates a game very similar to the iconic Diner Dash 2003.
 
 **Legal note:** the rights to all assets in this program belong to EA (Electronic Arts). Use permission was requested for the creation of this program, which was granted for educational purposes.
 
